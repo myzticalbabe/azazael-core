@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azazael Dual-Pane Protocol Comparison</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 100%);
+            min-height: 100vh;
+            font-family: 'Courier New', monospace;
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 2px solid #00d5ff;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #00d5ff;
+            font-size: 2.5em;
+            text-shadow: 0 0 20px rgba(0, 213, 255, 0.5);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #a0a0a0;
+            font-size: 1.2em;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #0a0a1a;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 40px rgba(0, 213, 255, 0.2);
+        }
+
+        .panels-wrapper {
+            display: flex;
+            gap: 40px;
+            padding: 30px;
+        }
+
+        .panel {
+            flex: 1;
+            background: linear-gradient(180deg, #151525 0%, #101020 100%);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #2a2a4a;
+        }
+
+        .panel-header {
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .panel-left .panel-header {
+            background: linear-gradient(90deg, #ff4757 0%, #2a1520 100%);
+        }
+
+        .panel-right .panel-header {
+            background: linear-gradient(90deg, #00ff88 0%, #152a20 100%);
+        }
+
+        .panel-title {
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .panel-left .panel-title {
+            color: #ff4757;
+        }
+
+        .panel-right .panel-title {
+            color: #00ff88;
+        }
+
+        .status {
+            font-size: 0.8em;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+
+        .panel-left .status {
+            background: rgba(255, 71, 87, 0.2);
+            color: #ff4757;
+        }
+
+        .panel-right .status {
+            background: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+        }
+
+        .code-area {
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            min-height: 300px;
+        }
+
+        .code-line {
+            margin: 2px 0;
+            opacity: 0;
+            animation: fadeInLine 0.3s ease forwards;
+        }
+
+        @keyframes fadeInLine {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .keyword { color: #646c8c; }
+        .string { color: #ffc857; }
+        .function { color: #a0e0ff; }
+        .comment { color: #00d5ff; }
+        .variable { color: #a0e0ff; }
+        .number { color: #ff88aa; }
+        .error { color: #ff4757; }
+        .success { color: #00ff88; }
+
+        .divider {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0 10px;
+        }
+
+        .divider-line {
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(180deg, #00d5ff 0%, #a500ff 50%, #00ff88 100%);
+            border-radius: 2px;
+            box-shadow: 0 0 15px rgba(0, 213, 255, 0.5);
+        }
+
+        .divider-icon {
+            position: absolute;
+            background: #0a0a1a;
+            padding: 10px;
+            border-radius: 50%;
+            border: 2px solid #00d5ff;
+            z-index: 10;
+        }
+
+        .stats-bar {
+            display: flex;
+            gap: 30px;
+            padding: 20px 30px;
+            background: rgba(0, 0, 0, 0.3);
+            border-top: 1px solid #2a2a4a;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #a500ff;
+        }
+
+        .stat-label {
+            font-size: 0.8em;
+            color: #808080;
+            margin-top: 5px;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #1a1a2e;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00d5ff 0%, #a500ff 100%);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 213, 255, 0.5);
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            padding: 20px;
+        }
+
+        button {
+            padding: 12px 30px;
+            font-size: 1em;
+            font-family: 'Courier New', monospace;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00d5ff 0%, #0066aa 100%);
+            color: #0a0a1a;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 213, 255, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid #00d5ff;
+            color: #00d5ff;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 213, 255, 0.1);
+        }
+
+        .animation-controls {
+            position: absolute;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+        }
+
+        .scene-indicator {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: 1px solid #2a2a4a;
+        }
+
+        .grid-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(rgba(0, 213, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 213, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #606060;
+            font-size: 0.9em;
+        }
+
+        .glow-text {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px rgba(0, 213, 255, 0.5); }
+            to { text-shadow: 0 0 20px rgba(0, 213, 255, 0.8), 0 0 30px rgba(165, 0, 255, 0.4); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="glow-text">Azazael Cluster Protocol Comparison</h1>
+            <p class="subtitle">Automated Resolution Engine v2.0</p>
+        </header>
+
+        <div class="video-container">
+            <div class="grid-overlay"></div>
+
+            <div class="scene-indicator">
+                SCENE: <span id="sceneNum">1</span>/3
+            </div>
+
+            <div class="panels-wrapper">
+                <div class="panel panel-left">
+                    <div class="panel-header">
+                        <span class="panel-title">BEFORE</span>
+                        <span class="status">● ISSUES DETECTED</span>
+                    </div>
+                    <div class="code-area" id="codeLeft">
+                        <div class="code-line"><span class="keyword">import</span> <span class="variable">subprocess</span></div>
+                        <div class="code-line"><span class="variable">path</span> <span class="keyword">=</span> <span class="string">"/old/Azazael/path"</span></div>
+                        <div class="code-line"><span class="error"># ERROR: Path not found</span></div>
+                        <div class="code-line"><span class="keyword">import</span> <span class="variable">sys</span></div>
+                        <div class="code-line"><span class="variable">result</span> <span class="keyword">=</span> <span class="variable">subprocess</span>.<span class="function">run</span>(<span class="variable">path</span>)</div>
+                        <div class="code-line"><span class="error"># ERROR: Import failed</span></div>
+                        <div class="code-line"><span class="variable">conflicts</span> <span class="keyword">=</span> <span class="number">24</span></div>
+                        <div class="code-line"><span class="error"># ERROR: Unresolved</span></div>
+                    </div>
+                </div>
+
+                <div class="divider">
+                    <div class="divider-line"></div>
+                </div>
+
+                <div class="panel panel-right">
+                    <div class="panel-header">
+                        <span class="panel-title">AFTER</span>
+                        <span class="status">● AUTO-FIXED</span>
+                    </div>
+                    <div class="code-area" id="codeRight">
+                        <div class="code-line"><span class="keyword">from</span> <span class="variable">hydra_protocols</span> <span class="keyword">import</span> <span class="variable">HydraProtocols</span></div>
+                        <div class="code-line"><span class="variable">path</span> <span class="keyword">=</span> <span class="variable">ROOT</span> / <span class="string">"Azazael_UNIFIED"</span></div>
+                        <div class="code-line"><span class="success"># Path resolved ✓</span></div>
+                        <div class="code-line"><span class="variable">protocols</span> <span class="keyword">=</span> <span class="variable">HydraProtocols</span>(<span class="variable">path</span>)</div>
+                        <div class="code-line"><span class="variable">result</span> <span class="keyword">=</span> <span class="variable">protocols</span>.<span class="function">fix_spelling</span>()</div>
+                        <div class="code-line"><span class="success"># Conflicts resolved ✓</span></div>
+                        <div class="code-line"><span class="variable">conflicts</span> <span class="keyword">=</span> <span class="number">0</span></div>
+                        <div class="code-line"><span class="success"># 100% Fixed ✓</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <span class="stat-value" id="statConflicts">24</span>
+                    <span class="stat-label">Conflicts</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="statFiles">12</span>
+                    <span class="stat-label">Files</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="statTime">1.2s</span>
+                    <span class="stat-label">Time</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="statScore">98.5%</span>
+                    <span class="stat-label">Score</span>
+                </div>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="btn-primary" onclick="playAnimation()">▶ Play Animation</button>
+            <button class="btn-secondary" onclick="resetAnimation()">↺ Reset</button>
+            <button class="btn-secondary" onclick="exportFrames()">↓ Export Frames</button>
+        </div>
+
+        <footer>
+            <p>Generated by Azazael Cluster Protocol Comparison Video Generator</p>
+            <p>2026-02-12 07:44:42</p>
+        </footer>
+    </div>
+
+    <script>
+        let currentScene = 0;
+        let animationId = null;
+        let progress = 0;
+
+        const scenes = [
+            {
+                codeLeft: [
+                    '<span class="keyword">import</span> <span class="variable">subprocess</span>',
+                    '<span class="variable">path</span> <span class="keyword">=</span> <span class="string">"/old/path"</span>',
+                    '<span class="error"># ERROR: Not found</span>',
+                    '<span class="keyword">import</span> <span class="variable">sys</span>',
+                    '<span class="variable">result</span> <span class="keyword">=</span> <span class="variable">subprocess</span>.<span class="function">run</span>()',
+                    '<span class="error"># ERROR: Failed</span>',
+                    '',
+                    ''
+                ],
+                codeRight: [
+                    '<span class="keyword">from</span> <span class="variable">hydra_protocols</span> <span class="keyword">import</span>',
+                    '<span class="variable">protocols</span> <span class="keyword">=</span> <span class="variable">HydraProtocols</span>()',
+                    '<span class="success"># Resolved ✓</span>',
+                    '<span class="variable">protocols</span>.<span class="function">fix_spelling</span>()',
+                    '<span class="success"># Fixed ✓</span>',
+                    '',
+                    '',
+                    ''
+                ],
+                stats: { conflicts: 24, files: 12, time: '1.2s', score: '98.5%' }
+            },
+            {
+                codeLeft: [
+                    '<span class="variable">conflicts</span> <span class="keyword">=</span> <span class="number">252</span>',
+                    '<span class="error"># CRITICAL: 155 critical</span>',
+                    '<span class="keyword">for</span> <span class="variable">file</span> <span class="keyword">in</span> <span class="variable">files</span>:',
+                    '    <span class="variable">analyze</span>(<span class="variable">file</span>)',
+                    '<span class="error"># ERROR: Timeout</span>',
+                    '',
+                    '',
+                    ''
+                ],
+                codeRight: [
+                    '<span class="variable">conflicts</span> <span class="keyword">=</span> <span class="number">0</span>',
+                    '<span class="success"># All resolved ✓</span>',
+                    '<span class="keyword">for</span> <span class="variable">file</span> <span class="keyword">in</span> <span class="variable">files</span>:',
+                    '    <span class="variable">resolve</span>(<span class="variable">file</span>)',
+                    '<span class="success"># Complete ✓</span>',
+                    '',
+                    '',
+                    ''
+                ],
+                stats: { conflicts: 252, files: 45, time: '2.3s', score: '100%' }
+            },
+            {
+                codeLeft: [
+                    '<span class="variable">health</span> <span class="keyword">=</span> <span class="string">"critical"</span>',
+                    '<span class="variable">score</span> <span class="keyword">=</span> <span class="number">45</span>',
+                    '<span class="error"># Needs fix</span>',
+                    '<span class="variable">run_protocols</span>()',
+                    '<span class="error"># Failed</span>',
+                    '',
+                    '',
+                    ''
+                ],
+                codeRight: [
+                    '<span class="variable">health</span> <span class="keyword">=</span> <span class="string">"optimal"</span>',
+                    '<span class="variable">score</span> <span class="keyword">=</span> <span class="number">98.5</span>',
+                    '<span class="success"># Fixed ✓</span>',
+                    '<span class="variable">run_protocols</span>()',
+                    '<span class="success"># Success ✓</span>',
+                    '',
+                    '',
+                    ''
+                ],
+                stats: { conflicts: 0, files: 0, time: '0.5s', score: '100%' }
+            }
+        ];
+
+        function updateCode(elementId, codeLines) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = '';
+            codeLines.forEach((line, index) => {
+                const div = document.createElement('div');
+                div.className = 'code-line';
+                div.style.animationDelay = (index * 0.1) + 's';
+                div.innerHTML = line;
+                element.appendChild(div);
+            });
+        }
+
+        function updateStats(stats) {
+            animateValue('statConflicts', parseInt(document.getElementById('statConflicts').textContent), stats.conflicts, 1000);
+            animateValue('statFiles', parseInt(document.getElementById('statFiles').textContent), stats.files, 1000);
+            document.getElementById('statTime').textContent = stats.time;
+            document.getElementById('statScore').textContent = stats.score;
+        }
+
+        function animateValue(id, start, end, duration) {
+            const element = document.getElementById(id);
+            const range = end - start;
+            const startTime = performance.now();
+
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const value = Math.floor(start + range * progress);
+                element.textContent = value;
+
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+
+            requestAnimationFrame(update);
+        }
+
+        function playAnimation() {
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+            }
+
+            currentScene = 0;
+            progress = 0;
+
+            function animate(timestamp) {
+                if (!animationId) {
+                    animationId = timestamp;
+                }
+
+                progress += 0.5;
+
+                if (progress >= 100) {
+                    currentScene++;
+                    if (currentScene >= scenes.length) {
+                        currentScene = 0;
+                        progress = 0;
+                    }
+                    progress = 0;
+                }
+
+                const scene = scenes[currentScene];
+                document.getElementById('sceneNum').textContent = currentScene + 1;
+                updateCode('codeLeft', scene.codeLeft);
+                updateCode('codeRight', scene.codeRight);
+                updateStats(scene.stats);
+                document.getElementById('progressBar').style.width = progress + '%';
+
+                animationId = requestAnimationFrame(animate);
+            }
+
+            animationId = requestAnimationFrame(animate);
+        }
+
+        function resetAnimation() {
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+                animationId = null;
+            }
+            progress = 0;
+            currentScene = 0;
+            document.getElementById('progressBar').style.width = '0%';
+            document.getElementById('sceneNum').textContent = '1';
+
+            const scene = scenes[0];
+            updateCode('codeLeft', scene.codeLeft);
+            updateCode('codeRight', scene.codeRight);
+            updateStats(scene.stats);
+        }
+
+        function exportFrames() {
+            alert(`Frame export would generate ${scenes.length} frames as PNG sequence.
+
+To create video:
+1. Install: pip install opencv-python pillow
+2. Run: python generate_video_from_frames.py`);
+        }
+
+        // Auto-play on load
+        window.addEventListener('load', () => {
+            setTimeout(playAnimation, 1000);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+{
+  "version": "2.0.0",
+  "gil_free": false,
+  "fleet_status": {
+    "total_worms": 4,
+    "running": 4,
+    "morphing": 0,
+    "failed": 0,
+    "spawning": 0,
+    "current_mode": "MorphMode.EXPLORATORY",
+    "cpu_percent": 0.0,
+    "memory_percent": 0.0,
+    "total_executions": 0,
+    "total_failures": 0,
+    "uptime_seconds": 2.078346,
+    "message": "Mode: exploratory | Free-threaded: False"
+  },
+  "worms": [
+    {
+      "id": "sys_base",
+      "type": "SystemZ",
+      "state": "running",
+      "priority": 5,
+      "executions": 0,
+      "failures": 0,
+      "morphs": 0,
+      "mode": "idle",
+      "spawn_time": "2026-05-27T21:34:00.708071",
+      "last_active": "2026-05-27T21:34:00.708084"
+    },
+    {
+      "id": "proc_base",
+      "type": "PROCESSZ",
+      "state": "running",
+      "priority": 5,
+      "executions": 0,
+      "failures": 0,
+      "morphs": 0,
+      "mode": "idle",
+      "spawn_time": "2026-05-27T21:34:00.712725",
+      "last_active": "2026-05-27T21:34:00.712730"
+    },
+    {
+      "id": "disk_base",
+      "type": "DISKZ",
+      "state": "running",
+      "priority": 5,
+      "executions": 0,
+      "failures": 0,
+      "morphs": 0,
+      "mode": "idle",
+      "spawn_time": "2026-05-27T21:34:00.723937",
+      "last_active": "2026-05-27T21:34:00.723941"
+    },
+    {
+      "id": "net_base",
+      "type": "NETWORXZ",
+      "state": "running",
+      "priority": 5,
+      "executions": 0,
+      "failures": 0,
+      "morphs": 0,
+      "mode": "idle",
+      "spawn_time": "2026-05-27T21:34:00.740238",
+      "last_active": "2026-05-27T21:34:00.740244"
+    }
+  ],
+  "spawn_history": [
+    {
+      "worm_id": "sys_base",
+      "type": "SystemZ",
+      "priority": 5,
+      "timestamp": "2026-05-27T21:34:00.708122",
+      "state": "running"
+    },
+    {
+      "worm_id": "proc_base",
+      "type": "PROCESSZ",
+      "priority": 5,
+      "timestamp": "2026-05-27T21:34:00.712739",
+      "state": "running"
+    },
+    {
+      "worm_id": "disk_base",
+      "type": "DISKZ",
+      "priority": 5,
+      "timestamp": "2026-05-27T21:34:00.723950",
+      "state": "running"
+    },
+    {
+      "worm_id": "net_base",
+      "type": "NETWORXZ",
+      "priority": 5,
+      "timestamp": "2026-05-27T21:34:00.740253",
+      "state": "running"
+    }
+  ],
+  "morph_history": [],
+  "pattern_memory": {},
+  "health_log": [],
+  "exported_at": "2026-05-27T21:34:02.785820"
+}

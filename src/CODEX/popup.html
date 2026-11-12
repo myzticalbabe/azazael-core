@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azazael Reference Launcher</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0a0a1a 0%, #0d1117 50%, #161b22 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            color: #00ff88;
+        }
+        
+        .container {
+            text-align: center;
+            padding: 40px;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            background: linear-gradient(90deg, #00ff88, #00ffff, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            animation: gradientFlow 5s linear infinite;
+            background-size: 200% auto;
+        }
+        
+        @keyframes gradientFlow {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+        
+        .subtitle {
+            color: #8b949e;
+            font-size: 1.1em;
+            margin-bottom: 40px;
+        }
+        
+        .btn-main {
+            background: linear-gradient(135deg, #00ff88, #00ffff);
+            color: #0a0a1a;
+            border: none;
+            padding: 20px 50px;
+            font-size: 1.3em;
+            font-family: inherit;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 30px rgba(0,255,136,0.4);
+            margin: 10px;
+        }
+        
+        .btn-main:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 50px rgba(0,255,255,0.6);
+        }
+        
+        .btn-secondary {
+            background: rgba(0,0,0,0.4);
+            border: 2px solid #ff00ff;
+            color: #ff00ff;
+            padding: 15px 40px;
+            font-size: 1.1em;
+            font-family: inherit;
+            cursor: pointer;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            margin: 10px;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255,0,255,0.2);
+            transform: scale(1.05);
+        }
+        
+        .features {
+            margin-top: 50px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 800px;
+        }
+        
+        .feature {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(0,255,255,0.2);
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .feature:hover {
+            border-color: rgba(0,255,255,0.6);
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .feature h3 {
+            color: #00ffff;
+            font-size: 1em;
+            margin-bottom: 8px;
+        }
+        
+        .feature p {
+            color: #8b949e;
+            font-size: 0.8em;
+        }
+        
+        .shortcuts {
+            margin-top: 40px;
+            padding: 20px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            font-size: 0.85em;
+        }
+        
+        .shortcuts h3 {
+            color: #ff0088;
+            margin-bottom: 15px;
+        }
+        
+        .shortcut-item {
+            display: inline-block;
+            margin: 5px 15px;
+            color: #c9d1d9;
+        }
+        
+        .shortcut-key {
+            background: rgba(0,255,255,0.2);
+            border: 1px solid rgba(0,255,255,0.4);
+            border-radius: 5px;
+            padding: 2px 8px;
+            margin-right: 8px;
+            color: #00ffff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Azazael Ecosystem</h1>
+        <p class="subtitle">Complete Technical Reference Documentation</p>
+        
+        <div>
+            <button class="btn-main" onclick="openReference()">
+                📖 OPEN REFERENCE
+            </button>
+            <br>
+            <button class="btn-secondary" onclick="openVideo()">
+                🎬 OPEN MATRIX VIDEO
+            </button>
+        </div>
+        
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">🔍</div>
+                <h3>Search</h3>
+                <p>Press / to search any component or feature</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📑</div>
+                <h3>Navigation</h3>
+                <p>Use TOC or arrow keys to navigate</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">❓</div>
+                <h3>FAQ Section</h3>
+                <p>Expandable answers to common questions</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">⚡</div>
+                <h3>Tips & Tricks</h3>
+                <p>Performance optimization guides</p>
+            </div>
+        </div>
+        
+        <div class="shortcuts">
+            <h3>Keyboard Shortcuts</h3>
+            <span class="shortcut-item"><span class="shortcut-key">/</span> Search</span>
+            <span class="shortcut-item"><span class="shortcut-key">↑</span> Next Section</span>
+            <span class="shortcut-item"><span class="shortcut-key">↓</span> Prev Section</span>
+            <span class="shortcut-item"><span class="shortcut-key">Esc</span> Close Search</span>
+        </div>
+    </div>
+    
+    <script>
+        function openReference() {
+            window.open('Azazael_REFERENCE.html', 'AzazaelRef', 'width=1500,height=900,menubar=no,toolbar=no,location=no,status=no,resizable=yes');
+        }
+        
+        function openVideo() {
+            window.open('Azazael_MATRIX_CASCADE.mp4', 'AzazaelVideo', 'width=1280,height=720,menubar=no,toolbar=no,location=no,status=no,resizable=yes');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,478 @@
+{
+  "group": "Improvements",
+  "generated": "2026-02-11T01:39:52.061553",
+  "entries": [
+    {
+      "module": "autoload",
+      "group": "Autoload",
+      "status": "success",
+      "message": "Autoload\n\nModule for ml_platforms functionality.\n\nFunctions:\n\nUsage:\n    >>> import autoload\n    >>>",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 0,
+        "classes": 0
+      }
+    },
+    {
+      "module": "auto_install",
+      "group": "Installation",
+      "status": "success",
+      "message": "Auto Install for ml_platforms\nAutomatically installs missing packages using uv.\n\nUsage:\n    python a",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 3,
+        "classes": 0
+      }
+    },
+    {
+      "module": "changelog",
+      "group": "Core",
+      "status": "success",
+      "message": "Changelog\n\nModule for ml_platforms functionality.\n\nFunctions:\n    - log_change()\n    - log_new_file(",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 9,
+        "classes": 0
+      }
+    },
+    {
+      "module": "config",
+      "group": "Core",
+      "status": "success",
+      "message": "Auto-Discovering Configuration Manager with Live Lexicon Updates\n\nAutomatically discovers all module",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 30,
+        "classes": 3
+      }
+    },
+    {
+      "module": "cross_platform_analysis",
+      "group": "Analysis",
+      "status": "success",
+      "message": "Cross Platform Analysis\n\nModule for ml_platforms functionality.\n\nFunctions:\n    - generate_critique(",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 3,
+        "classes": 0
+      }
+    },
+    {
+      "module": "diagnostics",
+      "group": "Core",
+      "status": "success",
+      "message": "Diagnostics\n\nModule for ml_platforms functionality.\n\nFunctions:\n    - check_platform_status()\n    - ",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 3,
+        "classes": 0
+      }
+    },
+    {
+      "module": "framework_activator",
+      "group": "Core",
+      "status": "success",
+      "message": "Framework Activator\n\nModule for ml_platforms functionality.\n\nFunctions:\n    - interactive_mode()\n   ",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 27,
+        "classes": 5
+      }
+    },
+    {
+      "module": "harness",
+      "group": "Core",
+      "status": "success",
+      "message": "Harness\n\nModule for ml_platforms functionality.\n\nFunctions:\n\nUsage:\n    >>> import harness\n    >>> h",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 9,
+        "classes": 0
+      }
+    },
+    {
+      "module": "health_monitor",
+      "group": "Monitoring",
+      "status": "success",
+      "message": "Health Monitor\n\nModule for ml_platforms functionality.\n\nFunctions:\n    - default_alert_handler()\n   ",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 18,
+        "classes": 4
+      }
+    },
+    {
+      "module": "installation_debug",
+      "group": "Installation",
+      "status": "success",
+      "message": "Installation Debug\n\nModule for ml_platforms functionality.\n\nFunctions:\n    - diagnose_and_fix()\n    ",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 13,
+        "classes": 4
+      }
+    },
+    {
+      "module": "install_improvements",
+      "group": "Installation",
+      "status": "success",
+      "message": "Install Improvements\n\nModule for ml_platforms functionality.\n\nFunctions:\n    - run_pip_install()\n   ",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 2,
+        "classes": 0
+      }
+    },
+    {
+      "module": "install_light",
+      "group": "Installation",
+      "status": "success",
+      "message": "Install Light\n\nModule for ml_platforms functionality.\n\nFunctions:\n    - install()\n    - main()\n\nUsag",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 2,
+        "classes": 0
+      }
+    },
+    {
+      "module": "install_manager",
+      "group": "Installation",
+      "status": "success",
+      "message": "Install Manager\n\nModule for ml_platforms functionality.\n\nFunctions:\n    - main()\n    - pip_install()",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 12,
+        "classes": 4
+      }
+    },
+    {
+      "module": "jax_analysis",
+      "group": "Analysis",
+      "status": "success",
+      "message": "Jax Analysis\n\nModule for ml_platforms functionality.\n\nFunctions:\n    - jax_score()\n    - jax_critiqu",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 4,
+        "classes": 0
+      }
+    },
+    {
+      "module": "launcher",
+      "group": "Core",
+      "status": "success",
+      "message": "Launcher\n\nModule for ml_platforms functionality.\n\nFunctions:\n    - main()\n\nUsage:\n    >>> import lau",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 1,
+        "classes": 0
+      }
+    },
+    {
+      "module": "lm_studio_autoload",
+      "group": "LM Studio",
+      "status": "success",
+      "message": "Lm Studio Autoload\n\nModule for ml_platforms functionality.\n\nFunctions:\n\nUsage:\n    >>> import lm_stu",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 1,
+        "classes": 0
+      }
+    },
+    {
+      "module": "lm_studio_client",
+      "group": "LM Studio",
+      "status": "success",
+      "message": "LM Studio Local LLM Integration\n\nModule for connecting Azazael to local LLMs via LM Studio or Ollama",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 11,
+        "classes": 4
+      }
+    },
+    {
+      "module": "lm_studio_integration",
+      "group": "Integration",
+      "status": "success",
+      "message": "LM Studio Integration - Local Only\nAccess ML platforms directly - no OpenAI, no internet needed.\n\nUs",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 5,
+        "classes": 0
+      }
+    },
+    {
+      "module": "lm_studio_server",
+      "group": "LM Studio",
+      "status": "success",
+      "message": "Lm Studio Server\n\nModule for ml_platforms functionality.\n\nFunctions:\n    - list_platforms()\n    - co",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 8,
+        "classes": 0
+      }
+    },
+    {
+      "module": "openinterpreter_startup",
+      "group": "Core",
+      "status": "success",
+      "message": "Openinterpreter Startup\n\nModule for ml_platforms functionality.\n\nFunctions:\n    - load_ml_platforms(",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 1,
+        "classes": 0
+      }
+    },
+    {
+      "module": "PERMANENT_LOAD",
+      "group": "Autoload",
+      "status": "success",
+      "message": "Permanent Load\n\nModule for ml_platforms functionality.\n\nFunctions:\n    - debug_all_errors()\n    - ex",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 2,
+        "classes": 0
+      }
+    },
+    {
+      "module": "run_qanalysis",
+      "group": "Analysis",
+      "status": "success",
+      "message": "Run Qanalysis\n\nModule for ml_platforms functionality.\n\nFunctions:\n\nUsage:\n    >>> import run_qanalys",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 0,
+        "classes": 0
+      }
+    },
+    {
+      "module": "run_qanalysis_full",
+      "group": "Analysis",
+      "status": "success",
+      "message": "Run Qanalysis Full\n\nModule for ml_platforms functionality.\n\nFunctions:\n    - run_full_iteration()\n\nU",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 1,
+        "classes": 0
+      }
+    },
+    {
+      "module": "run_qanalysis_multi",
+      "group": "Analysis",
+      "status": "success",
+      "message": "Run Qanalysis Multi\n\nModule for ml_platforms functionality.\n\nFunctions:\n    - load_frameworks()\n    ",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 2,
+        "classes": 0
+      }
+    },
+    {
+      "module": "unified_analysis",
+      "group": "Analysis",
+      "status": "success",
+      "message": "Unified Analysis\n\nModule for ml_platforms functionality.\n\nFunctions:\n    - register_framework()\n    ",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 13,
+        "classes": 0
+      }
+    },
+    {
+      "module": "universal_converter",
+      "group": "Conversion",
+      "status": "success",
+      "message": "Universal Converter\n\nModule for ml_platforms functionality.\n\nFunctions:\n    - debug_conversion()\n   ",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 37,
+        "classes": 12
+      }
+    },
+    {
+      "module": "verify_moe",
+      "group": "Q-Learning",
+      "status": "success",
+      "message": "Verify Moe\n\nModule for ml_platforms functionality.\n\nFunctions:\n    - verify_system()\n    - run_deep_",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 13,
+        "classes": 2
+      }
+    },
+    {
+      "module": "__init__",
+      "group": "Core",
+      "status": "success",
+      "message": "Azazael ML Platform Harness\nUnified interface for ML development with LM Studio.",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 5,
+        "classes": 0
+      }
+    },
+    {
+      "module": "deep_learning_qlearning",
+      "group": "Q-Learning",
+      "status": "success",
+      "message": "Deep Learning Q-Learning Table Module\n\nQ-Learning system optimized for deep learning framework selec",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 28,
+        "classes": 7
+      }
+    },
+    {
+      "module": "enhanced_qlearning",
+      "group": "Q-Learning",
+      "status": "success",
+      "message": "Enhanced Q-Learning Module\n\nAdvanced Q-Learning features:\n1. Multi-Agent Q-Learning - Coordinate mul",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 41,
+        "classes": 7
+      }
+    },
+    {
+      "module": "metrics_tracker",
+      "group": "Improvements",
+      "status": "success",
+      "message": "Quantitative Metrics Tracker for Azazael\n\nMeasures processing times, success rates, performance benc",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 19,
+        "classes": 5
+      }
+    },
+    {
+      "module": "mlflow_integration",
+      "group": "Integration",
+      "status": "success",
+      "message": "Mlflow Integration\n\nModule for improvements functionality.\n\nFunctions:\n    - log_params()\n    - log_",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 14,
+        "classes": 2
+      }
+    },
+    {
+      "module": "ml_integration",
+      "group": "Integration",
+      "status": "success",
+      "message": "Azazael ML Integration System\nGroups frameworks and platforms for successive computation.\n\nStructure",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 9,
+        "classes": 7
+      }
+    },
+    {
+      "module": "onnx_integration",
+      "group": "Integration",
+      "status": "success",
+      "message": "Onnx Integration\n\nModule for improvements functionality.\n\nFunctions:\n    - export_to_onnx()\n    - lo",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 8,
+        "classes": 2
+      }
+    },
+    {
+      "module": "qlearning_table",
+      "group": "Q-Learning",
+      "status": "success",
+      "message": "Qlearning Table\n\nModule for improvements functionality.\n\nFunctions:\n    - benchmark_framework()\n    ",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 51,
+        "classes": 11
+      }
+    },
+    {
+      "module": "qualitative_improvements",
+      "group": "Improvements",
+      "status": "success",
+      "message": "Azazael Qualitative Improvements\nAdvanced ML enhancements for better predictions and user experience",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 19,
+        "classes": 6
+      }
+    },
+    {
+      "module": "ray_integration",
+      "group": "Integration",
+      "status": "success",
+      "message": "Ray Integration\n\nModule for improvements functionality.\n\nFunctions:\n    - parallel_map()\n    - distr",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 17,
+        "classes": 3
+      }
+    },
+    {
+      "module": "strategic_intelligence",
+      "group": "Improvements",
+      "status": "success",
+      "message": "Azazael Strategic Intelligence System\nML-powered improvements for intelligent ML development.\n\nFeatu",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 16,
+        "classes": 5
+      }
+    },
+    {
+      "module": "tensor_utils",
+      "group": "Improvements",
+      "status": "success",
+      "message": "Tensor Utils\n\nModule for improvements functionality.\n\nFunctions:\n    - to_tensor()\n    - from_tensor",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 8,
+        "classes": 1
+      }
+    },
+    {
+      "module": "vectorize_utils",
+      "group": "Improvements",
+      "status": "success",
+      "message": "Vectorize Utils\n\nModule for improvements functionality.\n\nFunctions:\n    - vmap()\n    - jit()\n    - g",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 9,
+        "classes": 1
+      }
+    },
+    {
+      "module": "weakness_testing",
+      "group": "Improvements",
+      "status": "success",
+      "message": "Azazael Comprehensive Weakness Testing & Hardening\nSystematically tests ML operations to find and fi",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 31,
+        "classes": 4
+      }
+    },
+    {
+      "module": "__init__",
+      "group": "Improvements",
+      "status": "success",
+      "message": "  Init  \n\nModule for improvements functionality.\n\nFunctions:\n\nUsage:\n    >>> import __init__\n    >>>",
+      "timestamp": "2026-02-11T01:39:52.061553",
+      "metrics": {
+        "functions": 0,
+        "classes": 0
+      }
+    }
+  ],
+  "summary": {
+    "Total Modules": 42,
+    "Core": 8,
+    "Q-Learning": 4,
+    "Integration": 5,
+    "Monitoring": 1,
+    "LM Studio": 3,
+    "Analysis": 6,
+    "Conversion": 1
+  }
+}

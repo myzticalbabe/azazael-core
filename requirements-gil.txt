@@ -1,0 +1,59 @@
+# ---------------------------------------------------------------------------
+# Azazael GIL-sidecar requirements          added 2026-09-30
+# ---------------------------------------------------------------------------
+# These are the frameworks that publish NO cp314t (free-threaded) wheel, so
+# they cannot run on the Ubuntu pillar's primary interpreter
+# (/usr/local/python314t, CPython 3.14.7 free-threading). They install into the
+# GIL sidecar instead — a same-version GIL build (cpython-314):
+#
+#     interpreter : /usr/local/python3147-gil/bin/python3.14
+#     entry point : /usr/local/bin/python3.14-gil
+#     venv        : /root/venv-314-gil
+#
+# Resolution logic lives in src/CORE/python_env.py; see also
+# /root/PYTHON_CONSOLIDATION_2026-09-30.md.
+#
+# On the Docker image (python:3.14-slim-bookworm is the standard GIL build)
+# these install directly into the container interpreter. To rebuild the WSL
+# sidecar:  bash scripts/rebuild_gil_sidecar.sh
+#
+# NOTE: onnxruntime, xgboost, lightgbm and scikit-learn DO have cp314t wheels
+# and are already covered by requirements_314_full.txt on the primary. They are
+# deliberately NOT repeated here.
+# ---------------------------------------------------------------------------
+
+# keystone: orjson has no cp314t wheel and gates langchain + chromadb
+orjson==3.12.0
+
+# dataframe / vector store / distributed
+polars==1.44.2
+chromadb==1.5.9
+ray==2.58.0
+
+# LLM stack (the stale 0.0.27 cannot be upgraded without orjson)
+langchain==1.3.2
+langchain-core==1.4.0
+langchain-community==0.4.2
+
+# NLP
+spacy==3.8.16
+
+# needs tensorflow at import, therefore sidecar-only
+tf2onnx==1.17.0
+
+# fine-tuning stack, grouped with the sidecar because it expects a GIL stack
+# (transformers + tensorflow/keras) and shares the prebuilt environment
+accelerate==1.15.0
+datasets==5.0.1
+peft==0.21.1
+trl==1.14.1
+sentencepiece==0.2.2
+einops==0.8.2
+safetensors==0.7.0
+
+# NOT installable from PyPI on Python 3.14 (any ABI): verified tensorflow,
+# tensorflow-cpu and tf-nightly all resolve to "no matching distribution".
+# The WSL sidecar reuses a local 2.22.0-dev build via a .pth into
+# /usr/local/lib/python3.14/site-packages; the container takes vendored wheels
+# (docker/Dockerfile.ubuntu ARG TENSORFLOW_WHEELS).
+#   tensorflow==2.22.0-dev20260530

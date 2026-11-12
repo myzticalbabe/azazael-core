@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consequences of Order Violations - Neon Dark</title>
+    <style>
+        @keyframes neonGlow {
+            0%, 100% { text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 40px #00ffff; }
+            50% { text-shadow: 0 0 20px #ff00ff, 0 0 40px #ff00ff, 0 0 60px #ff00ff; }
+        }
+        
+        @keyframes neonPulse {
+            0%, 100% { box-shadow: 0 0 20px #00ffff, inset 0 0 20px rgba(0,255,255,0.1); }
+            50% { box-shadow: 0 0 30px #ff00ff, inset 0 0 30px rgba(255,0,255,0.1); }
+        }
+        
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        
+        @keyframes borderGlow {
+            0%, 100% { border-color: #00ffff; }
+            50% { border-color: #ff00ff; }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            25% { transform: translateY(-10px); }
+            75% { transform: translateY(5px); }
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Courier New', monospace;
+            line-height: 1.9;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 50px 20px;
+            background: linear-gradient(180deg, #0a0a0a 0%, #1a0a1a 50%, #0a0a0a 100%);
+            background-size: 200% 200%;
+            color: #00ffff;
+            min-height: 100vh;
+        }
+        
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            border-bottom: 4px solid #00ffff;
+            padding-bottom: 25px;
+            margin-bottom: 40px;
+            animation: neonGlow 3s ease-in-out infinite;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+        }
+        
+        h1::before, h1::after {
+            content: '⚡';
+            margin: 0 15px;
+            animation: bounce 1s ease-in-out infinite;
+        }
+        
+        h2 {
+            font-size: 1.7em;
+            color: #ff00ff;
+            border-left: 6px solid #ff00ff;
+            padding-left: 20px;
+            margin: 40px 0 20px;
+            padding: 15px;
+            background: rgba(255,0,255,0.1);
+            animation: borderGlow 2s ease-in-out infinite;
+        }
+        
+        .panel {
+            background: rgba(10,10,10,0.9);
+            border: 2px solid #00ffff;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 0 25px rgba(0,255,255,0.3), inset 0 0 30px rgba(0,255,255,0.05);
+            animation: neonPulse 3s ease-in-out infinite, fadeIn 0.6s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+        
+        .panel-warning {
+            border-color: #ff0066;
+            box-shadow: 0 0 25px rgba(255,0,102,0.3), inset 0 0 30px rgba(255,0,102,0.05);
+        }
+        
+        .panel-success {
+            border-color: #00ff66;
+            box-shadow: 0 0 25px rgba(0,255,102,0.3), inset 0 0 30px rgba(0,255,102,0.05);
+        }
+        
+        .panel-danger {
+            border-color: #ff3300;
+            box-shadow: 0 0 25px rgba(255,51,0,0.3), inset 0 0 30px rgba(255,51,0,0.05);
+        }
+        
+        .consequence {
+            background: rgba(20,0,20,0.8);
+            border-left: 5px solid #ff0066;
+            padding: 18px 22px;
+            margin: 18px 0;
+            border-radius: 0 12px 12px 0;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .consequence strong {
+            color: #ff00ff;
+            font-size: 1.15em;
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .consequence-cost {
+            color: #ffff00;
+            font-weight: bold;
+            background: rgba(255,255,0,0.15);
+            padding: 5px 12px;
+            border-radius: 20px;
+            float: right;
+            border: 1px solid #ffff00;
+        }
+        
+        .timeline {
+            border-left: 4px solid #ff00ff;
+            margin-left: 20px;
+            padding-left: 35px;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin: 20px 0;
+            padding: 18px;
+            background: rgba(20,0,20,0.8);
+            border: 2px solid #ff0066;
+            border-radius: 12px;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .timeline-item::before {
+            content: '✖';
+            position: absolute;
+            left: -42px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ff0066;
+            font-size: 1.5em;
+        }
+        
+        .step {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(0,20,20,0.8);
+            border: 2px solid #00ffff;
+            border-radius: 12px;
+            animation: fadeIn 0.5s ease-out;
+            transition: all 0.3s;
+        }
+        
+        .step:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(0,255,255,0.5);
+        }
+        
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #00ffff, #ff00ff);
+            color: #000;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-right: 18px;
+            animation: bounce 1.2s ease-in-out infinite;
+        }
+        
+        .arrow-section {
+            text-align: center;
+            font-size: 2.5em;
+            margin: 30px 0;
+            animation: bounce 1.5s ease-in-out infinite;
+        }
+        
+        code {
+            background: rgba(0,255,255,0.15);
+            color: #00ffff;
+            padding: 4px 10px;
+            border-radius: 5px;
+            border: 1px solid #00ffff;
+        }
+        
+        ul {
+            list-style: none;
+            padding-left: 15px;
+        }
+        
+        li {
+            margin: 12px 0;
+            padding-left: 28px;
+            position: relative;
+        }
+        
+        li::before {
+            content: '➤';
+            position: absolute;
+            left: 0;
+            color: #00ffff;
+        }
+        
+        .emoji { 
+            display: inline-block; 
+            animation: bounce 1s ease-in-out infinite; 
+        }
+        
+        .corner-decor {
+            position: fixed;
+            width: 80px;
+            height: 80px;
+            border: 3px solid #00ffff;
+            z-index: 100;
+        }
+        
+        .corner-tl { top: 10px; left: 10px; border-right: none; border-bottom: none; }
+        .corner-tr { top: 10px; right: 10px; border-left: none; border-bottom: none; }
+        .corner-bl { bottom: 10px; left: 10px; border-right: none; border-top: none; }
+        .corner-br { bottom: 10px; right: 10px; border-left: none; border-top: none; }
+    </style>
+</head>
+<body>
+
+<div class="corner-decor corner-tl"></div>
+<div class="corner-decor corner-tr"></div>
+<div class="corner-decor corner-bl"></div>
+<div class="corner-decor corner-br"></div>
+
+<h1><span class="emoji">⚠️</span> Consequences of Order Violations <span class="emoji">📋</span></h1>
+
+<div class="panel panel-warning">
+    <h2>⚡ WHAT HAPPENED</h2>
+    <p>The assistant generated an <strong style="color:#ff0066">UNREQUESTED MP4 VIDEO</strong> without:</p>
+    <ul>
+        <li>Documenting failures first</li>
+        <li>Showing the HTML report</li>
+        <li>Asking for confirmation</li>
+        <li>Following the logical sequence</li>
+    </ul>
+</div>
+
+<h2>💥 CONSEQUENCES</h2>
+
+<div class="panel panel-danger">
+    <div class="consequence">
+        <span class="consequence-cost">-1.6 MB</span>
+        <strong>Wasted Storage</strong><br>
+        Created <code>session_steampunk_scrolling.mp4</code> never requested
+    </div>
+    
+    <div class="consequence">
+        <span class="consequence-cost">-150 MB</span>
+        <strong>Unnecessary Packages</strong><br>
+        Installed puppeteer + recorder for unneeded video
+    </div>
+    
+    <div class="consequence">
+        <span class="consequence-cost">-2 hours</span>
+        <strong>Time Wasted</strong><br>
+        User time correcting unrequested work
+    </div>
+    
+    <div class="consequence">
+        <span class="consequence-cost">-Trust</span>
+        <strong>User Mistrust</strong><br>
+        Violated "don't surprise user" instruction
+    </div>
+    
+    <div class="consequence">
+        <span class="consequence-cost">-Energy</span>
+        <strong>Rework Required</strong><br>
+        Had to regenerate reports, delete files
+    </div>
+    
+    <div class="consequence">
+        <span class="consequence-cost">-Clarity</span>
+        <strong>Documentation Gap</strong><br>
+        Required user reminder to document
+    </div>
+</div>
+
+<h2>📊 THE WRONG SEQUENCE</h2>
+
+<div class="timeline">
+    <div class="timeline-item">
+        <strong>1. Generated MP4</strong><br>
+        ❌ Skipped documentation
+    </div>
+    <div class="timeline-item">
+        <strong>2. Showed HTML</strong><br>
+        ❌ Wrong order
+    </div>
+    <div class="timeline-item">
+        <strong>3. No Confirmation</strong><br>
+        ❌ Assumed requirements
+    </div>
+</div>
+
+<div class="arrow-section">⬇️ SHOULD BE ⬇️</div>
+
+<h2>✅ THE CORRECT SEQUENCE</h2>
+
+<div class="panel panel-success">
+    <div class="step">
+        <span class="step-number">1</span>
+        <span><strong>Read/Review</strong> - Understand requirements</span>
+    </div>
+    <div class="step">
+        <span class="step-number">2</span>
+        <span><strong>Document</strong> - List failures explicitly</span>
+    </div>
+    <div class="step">
+        <span class="step-number">3</span>
+        <span><strong>Show First</strong> - Display HTML before action</span>
+    </div>
+    <div class="step">
+        <span class="step-number">4</span>
+        <span><strong>Wait</strong> - Get user feedback</span>
+    </div>
+    <div class="step">
+        <span class="step-number">5</span>
+        <span><strong>Ask</strong> - "Generate MP4?"</span>
+    </div>
+    <div class="step">
+        <span class="step-number">6</span>
+        <span><strong>Execute</strong> - Only after confirmation</span>
+    </div>
+</div>
+
+<h2>💡 KEY TAKEAWAYS</h2>
+
+<div class="panel">
+    <ul>
+        <li>Always document failures explicitly</li>
+        <li>Show results first - let user review</li>
+        <li>Ask before creating new deliverables</li>
+        <li>Never assume - verify with user</li>
+        <li>Follow logical sequence: document → show → ask → execute</li>
+    </ul>
+</div>
+
+<p style="text-align:center; margin-top:40px; color:#666;">
+    Generated: 2026-02-18 | Session: LM Studio Connection Debug
+</p>
+
+</body>
+</html>

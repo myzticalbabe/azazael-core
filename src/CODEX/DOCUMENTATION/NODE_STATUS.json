@@ -1,0 +1,63 @@
+{
+  "timestamp": "2026-02-13T04:07:31.591892",
+  "ml_frameworks": {
+    "tensorflow": [
+      "OK",
+      "2.20.0"
+    ],
+    "torch": [
+      "OK",
+      "2.10.0+cpu"
+    ],
+    "sklearn": [
+      "OK",
+      "1.8.0"
+    ],
+    "numpy": [
+      "OK",
+      "2.4.2"
+    ],
+    "pandas": [
+      "OK",
+      "2.3.3"
+    ],
+    "keras": [
+      "OK",
+      "3.13.2"
+    ],
+    "scipy": [
+      "OK",
+      "1.17.0"
+    ]
+  },
+  "deficiencies_found": {
+    "bom_files": [],
+    "syntax_errors": [
+      "C:\\Users\\clint\\Desktop\\Azazael_UNIFIED\\.venv\\Lib\\site-packages\\joblib\\test\\test_func_inspect_special_encoding.py",
+      "C:\\Users\\clint\\Desktop\\Azazael_UNIFIED\\.venv\\Scripts\\huey_consumer.py",
+      "C:\\Users\\clint\\Desktop\\Azazael_UNIFIED\\CODEX\\VIDEOS\\create_reference_video.py",
+      "C:\\Users\\clint\\Desktop\\Azazael_UNIFIED\\CODEX\\VIDEOS\\create_scrolling_video.py",
+      "C:\\Users\\clint\\Desktop\\Azazael_UNIFIED\\CODEX\\VIDEOS\\make_video.py",
+      "C:\\Users\\clint\\Desktop\\Azazael_UNIFIED\\CODEX\\VIDEOS\\make_video_docs.py",
+      "C:\\Users\\clint\\Desktop\\Azazael_UNIFIED\\CODEX\\VIDEOS\\make_video_quad.py",
+      "C:\\Users\\clint\\Desktop\\Azazael_UNIFIED\\CODEX\\VIDEOS\\make_video_v2.py",
+      "C:\\Users\\clint\\Desktop\\Azazael_UNIFIED\\CODEX\\VIDEOS\\make_video_v3.py",
+      "C:\\Users\\clint\\Desktop\\Azazael_UNIFIED\\CODEX\\VIDEOS\\make_video_vibrant.py",
+      "C:\\Users\\clint\\Desktop\\Azazael_UNIFIED\\CODEX\\VIDEOS\\make_video_zipper.py",
+      "C:\\Users\\clint\\Desktop\\Azazael_UNIFIED\\HYDRA\\ml_platforms\\harness.py",
+      "C:\\Users\\clint\\Desktop\\Azazael_UNIFIED\\HYDRA\\ml_platforms\\PERMANENT_LOAD.py",
+      "C:\\Users\\clint\\Desktop\\Azazael_UNIFIED\\ORCHESTRATION\\ECOSYSTEM_OPTIMIZER.py",
+      "C:\\Users\\clint\\Desktop\\Azazael_UNIFIED\\ORCHESTRATION\\ml_platforms\\autoload.py",
+      "C:\\Users\\clint\\Desktop\\Azazael_UNIFIED\\ORCHESTRATION\\ml_platforms\\harness.py",
+      "C:\\Users\\clint\\Desktop\\Azazael_UNIFIED\\ORCHESTRATION\\ml_platforms\\lm_studio_autoload.py",
+      "C:\\Users\\clint\\Desktop\\Azazael_UNIFIED\\ORCHESTRATION\\ml_platforms\\openinterpreter_startup.py",
+      "C:\\Users\\clint\\Desktop\\Azazael_UNIFIED\\ORCHESTRATION\\ml_platforms\\PERMANENT_LOAD.py",
+      "C:\\Users\\clint\\Desktop\\Azazael_UNIFIED\\ORCHESTRATION\\ml_platforms\\run_qanalysis.py",
+      "C:\\Users\\clint\\Desktop\\Azazael_UNIFIED\\ORCHESTRATION\\ml_platforms\\run_qanalysis_full.py",
+      "C:\\Users\\clint\\Desktop\\Azazael_UNIFIED\\ORCHESTRATION\\ml_platforms\\run_qanalysis_multi.py",
+      "C:\\Users\\clint\\Desktop\\Azazael_UNIFIED\\ORCHESTRATION\\ml_platforms\\verify_moe.py"
+    ],
+    "import_errors": [],
+    "missing_imports": []
+  }
+}

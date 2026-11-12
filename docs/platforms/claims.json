@@ -1,0 +1,116 @@
+{
+  "schema": "platform-claims/1",
+  "note": "Every claim in docs/platforms that names a command, a path, a value or a status is listed here with the thing that settles it. tools/platform_claims.py re-runs them; a page may not assert what this file cannot reproduce. scope=repo means the claim must hold in any clone; scope=host means it describes THIS box and is expected to differ elsewhere (reported, never fatal).",
+  "claims": [
+    {
+      "id": "hooks-path-set",
+      "doc": "docs/platforms/windows.md",
+      "claim": "the tracked commit gate is enabled by core.hooksPath=.githooks",
+      "kind": "command",
+      "scope": "host",
+      "run": ["git", "config", "core.hooksPath"],
+      "expect": ".githooks",
+      "verified_at": "2026-11-01"
+    },
+    {
+      "id": "gate-registry-prints-its-count",
+      "doc": "docs/platforms/windows.md",
+      "claim": "preflight_all.py --list prints the gate table and its count, so the page can cite the command instead of a number",
+      "kind": "command",
+      "scope": "repo",
+      "run": ["tools/preflight_all.py", "--list"],
+      "expect": "gates:",
+      "verified_at": "2026-11-01"
+    },
+    {
+      "id": "reference-torch-is-cpu-only",
+      "doc": "docs/platforms/intel-ultra-9-evo.md",
+      "claim": "the production interpreter (py315t) holds a CPU-only torch build, so torch.xpu.is_available() is False there",
+      "kind": "command",
+      "scope": "host",
+      "run": ["-c", "import torch;print(torch.__version__, torch.xpu.is_available())"],
+      "expect": "+cpu",
+      "verified_at": "2026-11-01"
+    },
+    {
+      "id": "arc-box-has-no-nvidia-device",
+      "doc": "docs/platforms/cuda.md",
+      "claim": "the reference box has no reachable NVIDIA device, which is why the CUDA page is expectations rather than readings",
+      "kind": "command",
+      "scope": "host",
+      "run": ["-c", "import torch;print('cuda_available', torch.cuda.is_available())"],
+      "expect": "cuda_available False",
+      "verified_at": "2026-11-01"
+    },
+    {
+      "id": "no-accelerate-resolver-module",
+      "doc": "docs/platforms/macos.md",
+      "claim": "there is no src/CORE/accelerate resolver; the ranking lives in tools/box_profile.py",
+      "kind": "absent",
+      "scope": "repo",
+      "path": ["src/CORE/accelerate.py", "src/CORE/accelerate"],
+      "verified_at": "2026-11-01"
+    },
+    {
+      "id": "box-profile-reports-ranked-accelerators",
+      "doc": "docs/platforms/BOX_PROMPTS.md",
+      "claim": "box_profile.py --json reports accelerators[] and preferred_accelerator, which is the ranking port #3 is told to consume",
+      "kind": "command",
+      "scope": "repo",
+      "run": ["tools/box_profile.py", "--json"],
+      "expect": "preferred_accelerator",
+      "verified_at": "2026-11-01"
+    },
+    {
+      "id": "profile-step-is-measurable",
+      "doc": "docs/platforms/README.md",
+      "claim": "Step 0's profile is the input to every later step, and it reports the interpreter it was taken under",
+      "kind": "command",
+      "scope": "repo",
+      "run": ["tools/box_profile.py", "--json"],
+      "expect": "free_threaded",
+      "verified_at": "2026-11-01"
+    },
+    {
+      "id": "psyche-fit-refuses-with-exit-2",
+      "doc": "docs/platforms/macos.md",
+      "claim": "psyche_fit_pams.py exits 2 and says it refuses to fit, because no construct-bearing signal exists yet",
+      "kind": "command",
+      "scope": "repo",
+      "run": ["tools/psyche_fit_pams.py"],
+      "expect": "refusing to fit",
+      "expect_exit": 2,
+      "verified_at": "2026-11-01"
+    },
+    {
+      "id": "android-suite-exists",
+      "doc": "docs/platforms/android.md",
+      "claim": "the four psyche test files the phone page tells you to run all exist",
+      "kind": "path",
+      "scope": "repo",
+      "path": [
+        "tests/test_psyche_affect.py",
+        "tests/test_psyche_network.py",
+        "tests/test_psyche_rt_agent.py",
+        "tests/test_psyche_rt_channel.py"
+      ],
+      "verified_at": "2026-11-01"
+    },
+    {
+      "id": "android-accel-unknown-not-unavailable",
+      "doc": "docs/platforms/android.md",
+      "claim": "on android-aarch64 torch has no wheel, so every accelerator row must read unknown rather than unavailable",
+      "kind": "refused",
+      "scope": "host",
+      "refused_because": "requires an Android/Termux host; no such device is attached to this box, and a desktop profile cannot stand in for one"
+    },
+    {
+      "id": "macos-mps-readings",
+      "doc": "docs/platforms/macos.md",
+      "claim": "mps rows, METAL Cycles device and the unified-memory note are documented expectations",
+      "kind": "refused",
+      "scope": "host",
+      "refused_because": "requires Apple hardware; no Apple machine is attached, and platform.machine() on this box is AMD64"
+    }
+  ]
+}

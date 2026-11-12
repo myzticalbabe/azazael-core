@@ -1,0 +1,644 @@
+================================================================================
+AZAZAEL MIGRATION PLAN: Desktop -> C:\Azazael
+================================================================================
+Purpose: Move Azazael ecosystem from Desktop to dedicated C:\Azazael directory
+Type: PLANNING DOCUMENT - NO EXECUTION
+Created: 2026-02-13
+For: Next Assistant Implementation
+================================================================================
+
+TABLE OF CONTENTS:
+1. CURRENT STATE ANALYSIS
+2. PROPOSED NEW STRUCTURE
+3. FILE PATH MODIFICATIONS
+4. MIGRATION STEPS
+5. PATH UPDATES REQUIRED
+6. TESTING PLAN
+7. ROLLBACK STRATEGY
+8. TIMELINE ESTIMATE
+
+================================================================================
+1. CURRENT STATE ANALYSIS
+================================================================================
+
+CURRENT LOCATION:
+  Source: C:\Users\clint\Desktop\Azazael_UNIFIED
+  Size: ~XXX MB (estimate)
+  Files: ~XXX Python files, scripts, docs
+
+CURRENT DIRECTORY STRUCTURE:
+  Azazael_UNIFIED/
+  ├── .venv/                      (virtual environment)
+  ├── CORE/
+  │   ├── WORMS/
+  │   └── ...
+  ├── CODEX/
+  │   ├── CORE/
+  │   ├── POPUPS/
+  │   ├── TESTING/
+  │   └── VIDEOS/
+  ├── HYDRA/
+  │   ├── ml_platforms/
+  │   └── ...
+  ├── META/
+  ├── ORCHESTRATION/
+  ├── UTILITIES/
+  │   ├── Loggers/
+  │   └── ...
+  ├── SCRIPTS/
+  ├── DOCS/
+  ├── OUTPUT/
+  ├── config/
+  ├── reports/
+  ├── CLUSTERS/
+  ├── SHORTCUTS/
+  ├── bootstrap.py
+  ├── azazael_cli.py
+  ├── STRUCTURE.py
+  └── ... (various root files)
+
+DEPENDENCIES TO UPDATE:
+  1. Python imports (sys.path modifications)
+  2. Registry entries (if any)
+  3. VS Code settings (.vscode/settings.json)
+  4. Environment variables (.env)
+  5. Shortcut targets
+  6. Any hardcoded paths in scripts
+
+AFFECTED MODULES:
+  - bootstrap.py (sys.path setup)
+  - azazael_cli.py (root path references)
+  - All WORMS modules (import paths)
+  - All CODEX modules (HYDRA ml_platforms imports)
+  - All UTILITY modules (cross-references)
+
+================================================================================
+2. PROPOSED NEW STRUCTURE
+================================================================================
+
+TARGET LOCATION:
+  C:\Azazael\
+
+NEW DIRECTORY STRUCTURE:
+  C:\
+  └── Azazael/
+      ├── .venv/                      (virtual environment - preserved)
+      ├── CORE/
+      │   ├── WORMS/
+      │   │   ├── __init__.py
+      │   │   ├── OMNI_WORM.py
+      │   │   ├── WORMZ.py
+      │   │   ├── SYSTEMZ.py
+      │   │   ├── ERROR_SCAN_WORM.py
+      │   │   ├── MORPHING_WORM_V2.py
+      │   │   ├── CLUSTER_INSPECTOR.py
+      │   │   ├── DIAGNOSTIC_WORM.py
+      │   │   ├── HEALING_WORM.py
+      │   │   ├── WORM_FLEET.py
+      │   │   └── CONCURRENCY.py
+      │   ├── PYTHON_MANAGER.py
+      │   ├── STRESS_TEST.py
+      │   └── LOCAL_DEV.py
+      │
+      ├── CODEX/
+      │   ├── CORE/
+      │   │   ├── azazael_pygame.py
+      │   │   ├── AUTO_DOC_GENERATOR.py
+      │   │   ├── ANIMATION_PROTOCOLS.py
+      │   │   ├── CHANGELOG_GENERATOR.py
+      │   │   ├── ECOSYSTEM_HEALTH_CHECK.py
+      │   │   ├── enrichment_display.py
+      │   │   ├── FILE_MANIFEST_GENERATOR.py
+      │   │   ├── HORUS_INTEGRATION.py
+      │   │   ├── matrix_animation.py
+      │   │   └── QL_FILE_OPTIMIZER.py
+      │   ├── POPUPS/
+      │   │   ├── POPUP_ALL_11.py
+      │   │   ├── POPUP_BUGFREE.py
+      │   │   ├── POPUP_CLICKABLE.py
+      │   │   ├── POPUP_DETAILED.py
+      │   │   ├── POPUP_DISPLAY.py
+      │   │   ├── POPUP_IMMERSIVE.py
+      │   │   ├── POPUP_RICH.py
+      │   │   ├── POPUP_SIMPLE.py
+      │   │   └── POPUP_WORKING.py
+      │   ├── TESTING/
+      │   │   ├── conftest.py
+      │   │   ├── INTEGRATION/
+      │   │   │   ├── __init__.py
+      │   │   │   └── test_ecosystem_integration.py
+      │   │   ├── PERFORMANCE/
+      │   │   │   ├── __init__.py
+      │   │   │   └── test_performance.py
+      │   │   ├── UNIT/
+      │   │   │   ├── __init__.py
+      │   │   │   ├── test_hydra.py
+      │   │   │   ├── test_metaworms.py
+      │   │   │   └── test_wormz.py
+      │   │   └── test_llm_vs_kilo.py
+      │   ├── DOCUMENTATION/
+      │   │   └── __init__.py
+      │   ├── VIDEOS/
+      │   │   ├── create_azazael_educational_video.py
+      │   │   ├── create_dual_pane_popup.py
+      │   │   ├── create_dual_pane_video.py
+      │   │   ├── create_reference_video.py
+      │   │   ├── create_scrolling_video.py
+      │   │   ├── create_video.py
+      │   │   ├── generate_matrix_video.py
+      │   │   ├── generate_video.py
+      │   │   ├── generate_video_v2.py
+      │   │   └── make_video.py
+      │   └── comprehensive/
+      │       ├── COMPLETE_SYSTEMS_ANALYSIS.py
+      │       ├── FULL_ECOSYSTEM_ANALYSIS.py
+      │       ├── GENERATE_ALL_11.py
+      │       ├── GENERATE_HTML.py
+      │       ├── GENERATE_RICH_HTML.py
+      │       └── TWITLER_ANALYSIS.py
+      │
+      ├── HYDRA/
+      │   ├── ml_platforms/
+      │   │   ├── __init__.py
+      │   │   └── ... (existing modules)
+      │   ├── state/
+      │   ├── datasets.json
+      │   ├── models.json
+      │   ├── meta_worm_analysis.json
+      │   ├── test_results.json
+      │   ├── 10min_test_results.json
+      │   └── ... (existing files)
+      │
+      ├── META/
+      │   ├── output/
+      │   │   ├── changez.json
+      │   │   ├── changez_enriched.json
+      │   │   ├── deadz.json
+      │   │   ├── deadz_enriched.json
+      │   │   ├── dependz.json
+      │   │   └── ... (existing outputs)
+      │   └── ... (existing modules)
+      │
+      ├── ORCHESTRATION/
+      │   ├── ml_platforms/
+      │   │   ├── improvements/
+      │   │   ├── scripts/
+      │   │   └── TEST/
+      │   ├── changelog.py
+      │   └── ... (existing modules)
+      │
+      ├── UTILITIES/
+      │   ├── AzazaelDynamicLogger.py
+      │   ├── Loggers/
+      │   │   ├── __init__.py
+      │   │   └── AzazaelDynamicLogger.py
+      │   ├── BIBL/
+      │   ├── KLINK/
+      │   ├── PERSEPHONE/
+      │   ├── POINDEXTER/
+      │   ├── TARBABY/
+      │   ├── TERENCE/
+      │   ├── metadata/
+      │   └── output/
+      │
+      ├── SCRIPTS/
+      │   ├── bootstrap.py
+      │   ├── migrate.py
+      │   └── test_fusion.py
+      │
+      ├── DOCS/
+      │   └── ... (existing documentation)
+      │
+      ├── OUTPUT/
+      │   └── ... (existing outputs)
+      │
+      ├── config/
+      │   ├── ecosystem_config.yaml
+      │   └── azazael_env.reg
+      │
+      ├── reports/
+      │   └── ... (existing reports)
+      │
+      ├── CLUSTERS/
+      │   └── ... (existing cluster files)
+      │
+      ├── SHORTCUTS/
+      │   └── ... (existing shortcuts)
+      │
+      ├── TOOLKIT/                    (NEW - consolidated launcher tools)
+      │   ├── KNOWLEDGE_BASE.txt
+      │   ├── SYSTEM_LOG.txt
+      │   ├── TRANSPARENCY_MANIFESTO.txt
+      │   ├── INSTALLATION_LOG.txt
+      │   ├── QL_ANALYSIS_REPORT.txt
+      │   ├── FRAMEWORK_LOG.json
+      │   ├── COMPREHENSIVE_FIX.py
+      │   ├── environment_manager.py
+      │   ├── QL_ANALYSIS.py
+      │   ├── REAL_FRAMEWORK_TEST.py
+      │   ├── azazael_toolkit.py
+      │   ├── LAUNCHER.bat
+      │   └── COPY_FILES.bat
+      │
+      ├── bootstrap.py
+      ├── azazael_cli.py
+      ├── azazael_launcher.py
+      ├── azazael_run.py
+      ├── environment_manager.py
+      ├── COMPREHENSIVE_FIX.py
+      ├── QL_ANALYSIS.py
+      ├── REAL_FRAMEWORK_TEST.py
+      ├── STRUCTURE.py
+      ├── NODE.py
+      ├── kilo-local.py
+      ├── PYTHON_INVENTORY.json
+      ├── STRESS_TEST_REPORT.json
+      ├── WORM_FLEET_REPORT.json
+      ├── CLUSTER_INSPECTION_REPORT.json
+      ├── ERROR_SCAN_REPORT.json
+      ├── .hash_manifest.txt
+      ├── .env
+      ├── .gitignore
+      ├── pyproject.toml              (NEW - for pyright/mypy)
+      ├── pyrightconfig.json         (NEW - LSP configuration)
+      ├── README.md
+      ├── LICENSE
+      └── MIGRATION_LOG.txt          (THIS FILE - for future reference)
+
+================================================================================
+3. FILE PATH MODIFICATIONS
+================================================================================
+
+The following files MUST be modified to update paths:
+
+CRITICAL PATHS TO UPDATE:
+
+File: bootstrap.py
+  Old: Path(__file__).parent
+  New: Path(__file__).parent  (may still work if same structure)
+  Issue: HYDRA_ML path may need update
+  Current: HYDRA_ML = ROOT / "HYDRA" / "ml_platforms"
+  New:   HYDRA_ML = ROOT / "HYDRA" / "ml_platforms"  (should work)
+
+File: azazael_cli.py
+  Old: Path(__file__).parent
+  New: Path(__file__).parent
+  Issue: sys.path.insert for HYDRA ml_platforms
+  Current: sys.path.insert(0, str(Path(__file__).parent / "HYDRA" / "ml_platforms"))
+  New:   sys.path.insert(0, str(Path(__file__).parent / "HYDRA" / "ml_platforms"))
+
+File: environment_manager.py
+  Old: Path.home() / "Desktop" / "Azazael_UNIFIED"
+  New: Path("C:/Azazael") or Path(__file__).parent.parent
+  Issue: Hardcoded Desktop path
+
+File: AzazaelDynamicLogger.py
+  Old: Path(__file__).parent / "logs"
+  New: Path(__file__).parent / "logs" (relative - should work)
+
+File: .env (if exists)
+  Old: PYTHONPATH=C:\Users\clint\Desktop\Azazael_UNIFIED\...
+  New: PYTHONPATH=C:\Azazael\...
+
+File: .vscode/settings.json
+  Old: "python.defaultInterpreterPath": ".../.venv/Scripts/python.exe"
+  New: Same (if .venv moves with project)
+
+File: registry backup (azazael_env.reg)
+  Old: PATH contains Desktop references
+  New: Remove Desktop references
+
+PATH UPDATES IN PYTHON FILES:
+  Pattern 1: "C:\\Users\\clint\\Desktop\\Azazael_UNIFIED"
+  Pattern 2: ~/Desktop/Azazael_UNIFIED
+  Pattern 3: sys.path with Desktop references
+
+AFFECTED DIRECTORIES:
+  All files importing from:
+    - CORE/
+    - HYDRA/ml_platforms/
+    - UTILITIES/
+    - CODEX/
+
+================================================================================
+4. MIGRATION STEPS
+================================================================================
+
+PHASE 1: PRE-MIGRATION (Safety First)
+--------------------------------------
+Step 1.1: BACKUP CURRENT STATE
+  - Create backup of entire Azazael_UNIFIED directory
+  - Location: C:\Users\clint\Desktop\Azazael_UNIFIED_BACKUP_{timestamp}
+  - Command: xcopy /E /I "C:\Users\clint\Desktop\Azazael_UNIFIED" "C:\Backup\Azazael_UNIFIED"
+
+Step 1.2: CREATE BACKUP REGISTRY
+  - Export current registry settings (if any)
+  - Command: reg export HKEY_CURRENT_USER\Environment\Azazael C:\Backup\azazael_env_backup.reg
+
+Step 1.3: DOCUMENT CURRENT STATE
+  - Run: python COMPREHENSIVE_FIX.py > PRE_MIGRATION_STATUS.txt
+  - Capture list of all Python files: find . -name "*.py" > file_list.txt
+  - Screenshot any open GUIs
+
+Step 1.4: CLOSE ALL PROCESSES
+  - Ensure no Azazael Python processes running
+  - Task Manager: End any python.exe processes related to Azazael
+
+PHASE 2: CREATE NEW STRUCTURE
+------------------------------
+Step 2.1: CREATE C:\Azazael DIRECTORY
+  - Command: mkdir C:\Azazael
+
+Step 2.2: CREATE DIRECTORY STRUCTURE
+  - Create all directories listed in Section 2
+  - Include empty __init__.py files
+
+Step 2.3: CREATE NEW CONFIGURATION FILES
+  - Create .env with correct paths
+  - Create .vscode/settings.json
+  - Create pyproject.toml
+  - Create pyrightconfig.json
+
+PHASE 3: COPY FILES
+--------------------
+Step 3.1: COPY .venv (Preserve Virtual Environment)
+  - Copy entire .venv directory
+  - Command: xcopy /E /I "C:\Users\clint\Desktop\Azazael_UNIFIED\.venv" "C:\Azazael\.venv"
+
+Step 3.2: COPY CORE DIRECTORY
+  - Command: xcopy /E /I "C:\Users\clint\Desktop\Azazael_UNIFIED\CORE" "C:\Azazael\CORE"
+
+Step 3.3: COPY HYDRA DIRECTORY
+  - Command: xcopy /E /I "C:\Users\clint\Desktop\Azazael_UNIFIED\HYDRA" "C:\Azazael\HYDRA"
+
+Step 3.4: COPY OTHER DIRECTORIES
+  - CODEX, META, ORCHESTRATION, UTILITIES, SCRIPTS, DOCS, OUTPUT, config, reports, CLUSTERS, SHORTCUTS
+
+Step 3.5: COPY ROOT FILES
+  - bootstrap.py, azazael_cli.py, STRUCTURE.py, NODE.py, kilo-local.py, etc.
+
+Step 3.6: COPY TOOLKIT
+  - Move or copy AZAZAEL_TOOLKIT from Desktop to C:\Azazael\TOOLKIT
+  - Update shortcuts
+
+PHASE 4: UPDATE PATHS
+---------------------
+Step 4.1: UPDATE bootstrap.py
+  - Change any hardcoded paths
+  - Verify HYDRA_ML path
+
+Step 4.2: UPDATE azazael_cli.py
+  - Change sys.path references
+
+Step 4.3: UPDATE environment_manager.py
+  - Change Path.home() references to Path("C:/Azazael")
+
+Step 4.4: UPDATE .env FILE
+  - Change PYTHONPATH from Desktop to C:\Azazael
+
+Step 4.5: UPDATE VS CODE SETTINGS
+  - Change python.defaultInterpreterPath if needed
+  - Update python.envFile
+
+Step 4.6: UPDATE ALL IMPORTS
+  - Search for "Desktop\\Azazael_UNIFIED" and replace
+  - Search for "C:\\Users\\clint\\Desktop" and replace
+
+PHASE 5: UPDATE SHORTCUTS
+-------------------------
+Step 5.1: UPDATE DESKTOP SHORTCUTS
+  - Change target from Desktop\Azazael_UNIFIED to C:\Azazael
+  - Update Start In directory
+
+Step 5.2: CREATE NEW SHORTCUTS
+  - C:\Azazael\bootstrap.py.lnk
+  - C:\Azazael\azazael_launcher.py.lnk
+  - C:\Azazael\TOOLKIT\LAUNCHER.bat.lnk
+
+Step 5.3: REMOVE OLD SHORTCUTS
+  - Delete Desktop shortcuts pointing to old location
+  - Or update them to point to new location
+
+PHASE 6: TESTING
+----------------
+Step 6.1: BASIC TEST
+  - Run: python bootstrap.py
+  - Verify no import errors
+
+Step 6.2: MODULE TEST
+  - Run: python -c "import CORE.WORMS.WORMZ; print('OK')"
+
+Step 6.3: LOGGER TEST
+  - Run: python -c "from UTILITIES.AzazaelDynamicLogger import logger; logger.info('Test')"
+
+Step 6.4: GUI TEST (if applicable)
+  - Run any GUI scripts
+
+Step 6.5: CROSS-PLATFORM TEST
+  - Run: python azazael_launcher.py status
+
+Step 6.6: VERIFY LOGGING
+  - Check C:\Azazael\logs\ directory for entries
+
+PHASE 7: CLEANUP
+-----------------
+Step 7.1: VERIFY OLD DIRECTORY
+  - Ensure old directory is backed up but not in use
+  - Do NOT delete yet - keep for 7 days
+
+Step 7.2: UPDATE REGISTRY (if applicable)
+  - Update PATH environment variable if needed
+  - Point PYTHONPATH to new location
+
+Step 7.3: CREATE MIGRATION REPORT
+  - Document any issues encountered
+  - Save to C:\Azazael\MIGRATION_REPORT.txt
+
+================================================================================
+5. PATH UPDATES REQUIRED
+================================================================================
+
+REGULAR EXPRESSIONS FOR SEARCH/REPLACE:
+
+Search Pattern 1 (Python hardcoded paths):
+  C:\\Users\\clint\\Desktop\\Azazael_UNIFIED
+  Replace With:
+  C:\\Azazael
+
+Search Pattern 2 (Forward slash):
+  /c/Users/clint/Desktop/Azazael_UNIFIED
+  Replace With:
+  /c/Azazael
+
+Search Pattern 3 (Shell expansion):
+  ~/Desktop/Azazael_UNIFIED
+  Replace With:
+  ~/Azazael (or C:/Azazael)
+
+Search Pattern 4 (Registry backup):
+  HKEY_CURRENT_USER\\Environment.*Desktop.*Azazael
+  Replace With:
+  HKEY_CURRENT_USER\\Environment.*C:\\Azazael
+
+FILES TO INSPECT FOR PATHS:
+  bootstrap.py
+  azazael_cli.py
+  environment_manager.py
+  .env
+  .vscode/settings.json
+  *.ps1 (PowerShell scripts)
+  *.bat (batch files)
+  registry backups (*.reg)
+
+EXPECTED PATH CHANGES:
+  Old: C:\Users\clint\Desktop\Azazael_UNIFIED\.venv\Scripts\python.exe
+  New: C:\Azazael\.venv\Scripts\python.exe
+
+  Old: C:\Users\clint\Desktop\Azazael_UNIFIED\UTILITIES
+  New: C:\Azazael\UTILITIES
+
+  Old: PYTHONPATH=...Desktop\Azazael_UNIFIED\...
+  New: PYTHONPATH=...C:\Azazael\...
+
+================================================================================
+6. TESTING PLAN
+================================================================================
+
+TEST CATEGORY 1: Basic Functionality
+------------------------------------
+Test 1.1: Python Interpreta
+  Command: C:\Azazael\.venv\Scripts\python.exe --version
+  Expected: Python 3.x.x
+  Pass: Yes/No
+
+Test 1.2: Bootstrap
+  Command: cd C:\Azazael && python bootstrap.py
+  Expected: "Azazael bootstrap complete"
+  Pass: Yes/No
+
+Test 1.3: CLI Import
+  Command: python -c "import azazael_cli; print('OK')"
+  Expected: No errors
+  Pass: Yes/No
+
+TEST CATEGORY 2: Module Imports
+-------------------------------
+Test 2.1: CORE.WORMS
+  Command: python -c "from CORE.WORMS import WORMZ; print('OK')"
+  Expected: No import errors
+  Pass: Yes/No
+
+Test 2.2: HYDRA.ml_platforms
+  Command: python -c "import HYDRA.hydra_launcher; print('OK')"
+  Expected: No import errors
+  Pass: Yes/No
+
+Test 2.3: UTILITIES
+  Command: python -c "from UTILITIES.AzazaelDynamicLogger import logger; print('OK')"
+  Expected: No import errors
+  Pass: Yes/No
+
+TEST CATEGORY 3: Logging
+------------------------
+Test 3.1: Logger Creation
+  Command: python -c "from UTILITIES.AzazaelDynamicLogger import logger; logger.info('Test')"
+  Expected: Console output with [+] timestamp
+  Pass: Yes/No
+
+Test 3.2: File Persistence
+  Command: Check C:\Azazael\logs\azazael_dynamic.log
+  Expected: Log entry exists
+  Pass: Yes/No
+
+TEST CATEGORY 4: GUI Applications
+-----------------------------------
+Test 4.1: tkinter Available
+  Command: python -c "import tkinter; print('OK')"
+  Expected: No errors
+  Pass: Yes/No
+
+Test 4.2: Self-Improving GUI
+  Command: python SelfImprovingGUI.py
+  Expected: GUI opens (if display available)
+  Pass: Yes/No
+
+TEST CATEGORY 5: Shortcuts
+----------------------------
+Test 5.1: Shortcut Targets
+  Check: All .lnk files point to C:\Azazael
+  Expected: No Desktop references
+  Pass: Yes/No
+
+TEST CATEGORY 6: Environment Variables
+----------------------------------------
+Test 6.1: PYTHONPATH
+  Command: echo %PYTHONPATH%
+  Expected: C:\Azazael references
+  Pass: Yes/No
+
+================================================================================
+7. ROLLBACK STRATEGY
+================================================================================
+
+IF MIGRATION FAILS:
+--------------------
+Step 1: Stop all Azazael processes
+  Command: taskkill /F /IM python.exe
+
+Step 2: Restore registry (if modified)
+  Command: reg import C:\Backup\azazael_env_backup.reg
+
+Step 3: Restore shortcuts
+  - Delete new shortcuts
+  - Restore from backup or recreate
+
+Step 4: Use old directory
+  - Continue using C:\Users\clint\Desktop\Azazael_UNIFIED
+  - Investigate failure before retry
+
+Step 5: Restore from backup (nuclear option)
+  Command: xcopy /E /I "C:\Backup\Azazael_UNIFIED" "C:\Users\clint\Desktop\Azazael_UNIFIED"
+
+BACKUP LOCATIONS:
+  Primary: C:\Backup\Azazael_UNIFIED_{timestamp}
+  Registry: C:\Backup\azazael_env_backup.reg
+  File List: PRE_MIGRATION_FILE_LIST.txt
+
+================================================================================
+8. TIMELINE ESTIMATE
+================================================================================
+
+PHASE                    | TIME ESTIMATE
+-------------------------|---------------
+Phase 1: Pre-migration   | 10 minutes
+Phase 2: Create Struct  | 5 minutes
+Phase 3: Copy Files     | 15-30 minutes (depends on size)
+Phase 4: Update Paths   | 30-60 minutes (manual review needed)
+Phase 5: Update Shortcuts| 10 minutes
+Phase 6: Testing         | 15 minutes
+Phase 7: Cleanup         | 5 minutes
+-------------------------|---------------
+TOTAL ESTIMATED          | 90-135 minutes (1.5-2.25 hours)
+
+Note: Phase 4 (Update Paths) is the most time-consuming as it requires
+manual review of each file to ensure all paths are correctly updated.
+
+================================================================================
+END OF MIGRATION PLAN
+================================================================================
+
+THIS IS A PLANNING DOCUMENT ONLY.
+DO NOT EXECUTE WITHOUT HUMAN APPROVAL.
+
+To Execute:
+1. Review this plan
+2. Human approves
+3. Run phases sequentially
+4. Document any deviations
+
+For Next Assistant:
+- Read this file first
+- Verify all paths before modification
+- Document any issues encountered
+- Update this log with actual migration results
+================================================================================

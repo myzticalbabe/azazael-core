@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Azazael Ultimate Selector</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --cyan: #00f5ff;
+  --purple: #bf00ff;
+  --pink: #ff00aa;
+  --green: #00ff88;
+  --gold: #ffdd00;
+  --red: #ff4757;
+  --bg: #040412;
+  --card: #0a0a22;
+}
+
+body {
+  font-family: 'Segoe UI', Consolas, monospace;
+  background: var(--bg);
+  color: #e0e0e0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(0,245,255,0.03) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(191,0,255,0.03) 0%, transparent 60%);
+}
+
+/* ─── Hero ─── */
+.hero {
+  text-align: center;
+  margin-bottom: 50px;
+}
+.hero h1 {
+  font-size: clamp(2em, 5vw, 3.5em);
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--cyan), var(--purple), var(--pink), var(--gold));
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 5s ease infinite;
+}
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.hero .badge {
+  display: inline-block;
+  padding: 6px 18px;
+  border: 1px solid rgba(0,245,255,0.3);
+  border-radius: 20px;
+  font-size: 0.8em;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-top: 12px;
+}
+
+/* ─── Search ─── */
+.search-wrap {
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 30px;
+}
+.search-input {
+  width: 100%;
+  padding: 14px 24px;
+  font-size: 1em;
+  font-family: Consolas, monospace;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 30px;
+  color: #fff;
+  transition: all 0.3s ease;
+  outline: none;
+}
+.search-input:focus {
+  border-color: var(--cyan);
+  box-shadow: 0 0 30px rgba(0,245,255,0.1);
+}
+.search-input::placeholder { color: #555; }
+
+/* ─── Category Tabs ─── */
+.cat-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+.cat-tab {
+  padding: 8px 20px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: transparent;
+  color: #888;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.8em;
+  font-family: Consolas, monospace;
+  transition: all 0.3s ease;
+}
+.cat-tab:hover, .cat-tab.active {
+  border-color: var(--cyan);
+  color: var(--cyan);
+  background: rgba(0,245,255,0.06);
+}
+
+/* ─── Grid ─── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  max-width: 1200px;
+  width: 100%;
+}
+
+/* ─── Cards ─── */
+.card {
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px;
+  padding: 24px;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--card-accent, var(--cyan)), transparent);
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+}
+.card:hover::before { transform: scaleX(1); }
+.card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255,255,255,0.15);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+}
+
+.card-icon {
+  font-size: 2.2em;
+  margin-bottom: 12px;
+}
+.card h3 {
+  font-size: 1.1em;
+  margin-bottom: 6px;
+  color: var(--card-accent, var(--cyan));
+}
+.card p {
+  font-size: 0.82em;
+  color: #888;
+  line-height: 1.5;
+}
+.card .tag {
+  display: inline-block;
+  padding: 3px 10px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 10px;
+  font-size: 0.7em;
+  margin-top: 10px;
+  color: #aaa;
+}
+
+/* ─── Status Bar ─── */
+.status-bar {
+  margin-top: 40px;
+  padding: 16px 30px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 30px;
+  display: flex;
+  gap: 30px;
+  font-size: 0.8em;
+  color: #888;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.status-dot {
+  display: inline-block;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+.status-dot.green { background: var(--green); box-shadow: 0 0 8px var(--green); }
+.status-dot.cyan { background: var(--cyan); box-shadow: 0 0 8px var(--cyan); }
+
+/* ─── Hidden ─── */
+.hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Azazael Ultimate Selector</h1>
+  <p class="badge">Unified Launch Control</p>
+</div>
+
+<div class="search-wrap">
+  <input type="text" class="search-input" id="searchInput"
+         placeholder="🔍 Search templates, tools, videos…" oninput="filterCards()">
+</div>
+
+<div class="cat-tabs">
+  <button class="cat-tab active" onclick="setCategory('all', this)">All</button>
+  <button class="cat-tab" onclick="setCategory('visualization', this)">Visualization</button>
+  <button class="cat-tab" onclick="setCategory('analysis', this)">Analysis</button>
+  <button class="cat-tab" onclick="setCategory('animation', this)">Animation</button>
+  <button class="cat-tab" onclick="setCategory('video', this)">Video Gen</button>
+  <button class="cat-tab" onclick="setCategory('tool', this)">Tools & CLI</button>
+  <button class="cat-tab" onclick="setCategory('reference', this)">Reference</button>
+</div>
+
+<div class="grid" id="cardGrid">
+  <!-- Visualization -->
+  <a href="STRUCTURE_VISUALIZER.html" class="card" data-category="visualization" data-keywords="force graph ecosystem nodes structure visualizer">
+    <div class="card-icon">🕸️</div>
+    <h3 style="--card-accent:var(--cyan)">Structure Visualizer</h3>
+    <p>Interactive force-directed graph of 34 ecosystem nodes with 5 layouts and synaptic pulses</p>
+    <span class="tag">Force Graph</span><span class="tag">Canvas</span>
+  </a>
+
+  <a href="MERMAID_GRAPHS.html" class="card" data-category="visualization" data-keywords="mermaid diagram flowchart architecture uml sequence class gantt">
+    <div class="card-icon">📐</div>
+    <h3 style="--card-accent:var(--purple)">Mermaid Graphs</h3>
+    <p>10 diagram types: architecture, flow, sequence, class, ER, state, gantt, mindmap</p>
+    <span class="tag">Mermaid.js</span><span class="tag">UML</span>
+  </a>
+
+  <!-- Analysis -->
+  <a href="ANALYSIS_REPORT.html" class="card" data-category="analysis" data-keywords="analysis report ecosystem health metrics">
+    <div class="card-icon">📊</div>
+    <h3 style="--card-accent:var(--green)">Analysis Report</h3>
+    <p>Comprehensive ecosystem analysis with health metrics and system diagnostics</p>
+    <span class="tag">Report</span><span class="tag">Metrics</span>
+  </a>
+
+  <a href="ANALYSIS_REPORT_V2.html" class="card" data-category="analysis" data-keywords="analysis v2 enhanced detailed report">
+    <div class="card-icon">📈</div>
+    <h3 style="--card-accent:var(--gold)">Analysis Report V2</h3>
+    <p>Enhanced analysis with deeper metrics, trend lines, and comparative views</p>
+    <span class="tag">Enhanced</span><span class="tag">Trends</span>
+  </a>
+
+  <a href="ANALYSIS_REPORT_DIVERSE.html" class="card" data-category="analysis" data-keywords="diverse analysis multi system report">
+    <div class="card-icon">🎯</div>
+    <h3 style="--card-accent:var(--red)">Diverse Analysis</h3>
+    <p>Multi-system comparative analysis across all 11 core systems</p>
+    <span class="tag">Comparative</span><span class="tag">Multi-System</span>
+  </a>
+
+  <!-- Animation -->
+  <a href="ANIMATION_SHOWCASE.html" class="card" data-category="animation" data-keywords="animation showcase gallery 54 protocols css">
+    <div class="card-icon">✨</div>
+    <h3 style="--card-accent:var(--cyan)">Animation Showcase</h3>
+    <p>54 animation protocols across 12 categories with live preview demos</p>
+    <span class="tag">54 Protocols</span><span class="tag">CSS</span>
+  </a>
+
+  <a href="CINEMATIC_SCROLL.html" class="card" data-category="animation" data-keywords="cinematic scroll parallax typewriter particles immersive">
+    <div class="card-icon">🎬</div>
+    <h3 style="--card-accent:var(--pink)">Cinematic Scroll</h3>
+    <p>Parallax layers, particle trails, typewriter overlays, and cinematic chapters</p>
+    <span class="tag">Parallax</span><span class="tag">Immersive</span>
+  </a>
+
+  <a href="SCROLL_VIDEO_GENERATOR.html" class="card" data-category="video" data-keywords="scroll video generator recording getDisplayMedia canvas mp4 webm wmv">
+    <div class="card-icon">🎥</div>
+    <h3 style="--card-accent:var(--purple)">Scroll Video Generator</h3>
+    <p>Record scrolling pages as MP4/WebM video via getDisplayMedia with HUD overlay</p>
+    <span class="tag">Recording</span><span class="tag">Export</span>
+  </a>
+
+  <!-- Immersive -->
+  <a href="IMMERSIVE_AZAAZEL.html" class="card" data-category="visualization" data-keywords="immersive full screen 3d experience">
+    <div class="card-icon">🌌</div>
+    <h3 style="--card-accent:var(--cyan)">Immersive Azazael</h3>
+    <p>Full-screen 3D immersive ecosystem experience with spatial navigation</p>
+    <span class="tag">3D</span><span class="tag">Immersive</span>
+  </a>
+
+  <a href="IMMERSIVE_V2.html" class="card" data-category="visualization" data-keywords="immersive v2 enhanced 3d">
+    <div class="card-icon">🚀</div>
+    <h3 style="--card-accent:var(--pink)">Immersive V2</h3>
+    <p>Next-gen immersive viewer with enhanced rendering and controls</p>
+    <span class="tag">V2</span><span class="tag">Enhanced</span>
+  </a>
+
+  <!-- Mermaid Templates -->
+  <a href="../../templates/mermaid/worm_hierarchy.html" class="card" data-category="visualization" data-keywords="worm hierarchy tier architecture flowchart 4-tier">
+    <div class="card-icon">🪱</div>
+    <h3 style="--card-accent:var(--cyan)">Worm Hierarchy</h3>
+    <p>4-tier worm architecture flowchart: Core → Clusters → Meta → Coordination</p>
+    <span class="tag">Flowchart</span><span class="tag">4 Tiers</span>
+  </a>
+
+  <a href="../../templates/mermaid/worm_lifecycle.html" class="card" data-category="visualization" data-keywords="worm lifecycle state machine circuit breaker health transitions">
+    <div class="card-icon">🔄</div>
+    <h3 style="--card-accent:var(--green)">Worm Lifecycle</h3>
+    <p>8-state machine: Init → Scan → Process → Report → Error → Recover → DeadLetter → Term</p>
+    <span class="tag">State Diagram</span><span class="tag">Circuit Breaker</span>
+  </a>
+
+  <a href="../../templates/mermaid/class_architecture.html" class="card" data-category="visualization" data-keywords="class architecture uml inheritance composition oop">
+    <div class="card-icon">🏗️</div>
+    <h3 style="--card-accent:var(--purple)">Class Architecture</h3>
+    <p>UML class diagram: BaseWorm, InferenceStudio, CircuitBreaker, EmotionEngine</p>
+    <span class="tag">Class Diagram</span><span class="tag">OOP</span>
+  </a>
+
+  <a href="../../templates/mermaid/coordination_architecture.html" class="card" data-category="visualization" data-keywords="coordination architecture C4 context system interactions">
+    <div class="card-icon">🎛️</div>
+    <h3 style="--card-accent:var(--pink)">Coordination Architecture</h3>
+    <p>C4 context diagram: API Layer, Core Runtime, Worm Ecosystem, Storage, Output</p>
+    <span class="tag">C4 Context</span><span class="tag">System</span>
+  </a>
+
+  <a href="../../templates/mermaid/data_relationships.html" class="card" data-category="visualization" data-keywords="data relationships ER entity diagram registry execution">
+    <div class="card-icon">🗄️</div>
+    <h3 style="--card-accent:var(--cyan)">Data Relationships</h3>
+    <p>ER diagram: 7 entities with PK/FK — Worm Registry, Circuit Breaker, Dead Letter</p>
+    <span class="tag">ER Diagram</span><span class="tag">PK/FK</span>
+  </a>
+
+  <a href="../../templates/mermaid/ecosystem_mindmap.html" class="card" data-category="visualization" data-keywords="ecosystem mindmap hierarchical complete map components">
+    <div class="card-icon">🧠</div>
+    <h3 style="--card-accent:var(--gold)">Ecosystem Mindmap</h3>
+    <p>Complete hierarchical map: all worms, clusters, metaworms, coordination, GUI, production</p>
+    <span class="tag">Mindmap</span><span class="tag">Complete</span>
+  </a>
+
+  <a href="../../templates/mermaid/inference_pipeline.html" class="card" data-category="visualization" data-keywords="inference pipeline sequence ollama model load">
+    <div class="card-icon">⚡</div>
+    <h3 style="--card-accent:var(--purple)">Inference Pipeline</h3>
+    <p>Sequence diagram: User → Studio → Detector → Ollama → Model → Circuit Breaker</p>
+    <span class="tag">Sequence</span><span class="tag">Ollama</span>
+  </a>
+
+  <a href="../../templates/mermaid/module_distribution.html" class="card" data-category="analysis" data-keywords="module distribution pie chart tier function tests build">
+    <div class="card-icon">🥧</div>
+    <h3 style="--card-accent:var(--green)">Module Distribution</h3>
+    <p>4 pie charts: by tier, by function, test results (19 tests), build output (38 .exe)</p>
+    <span class="tag">Pie Charts</span><span class="tag">Analytics</span>
+  </a>
+
+  <a href="../../templates/mermaid/dev_timeline.html" class="card" data-category="visualization" data-keywords="development timeline gantt phase 1-6 feb jun 2026">
+    <div class="card-icon">📅</div>
+    <h3 style="--card-accent:var(--cyan)">Development Timeline</h3>
+    <p>Gantt chart: 6 development phases (Feb-Jun 2026), 18 milestones, active/complete tracking</p>
+    <span class="tag">Gantt</span><span class="tag">6 Phases</span>
+  </a>
+
+  <a href="../../templates/mermaid/version_history.html" class="card" data-category="visualization" data-keywords="version history git graph branch architecture release">
+    <div class="card-icon">🌿</div>
+    <h3 style="--card-accent:var(--pink)">Version History</h3>
+    <p>Git graph: 5 feature branches, 1 release branch, v1.0.0 tagged — full branch architecture</p>
+    <span class="tag">Git Graph</span><span class="tag">Branches</span>
+  </a>
+
+  <!-- Reference -->
+  <a href="Azazael_REFERENCE.html" class="card" data-category="reference" data-keywords="reference documentation full guide">
+    <div class="card-icon">📚</div>
+    <h3 style="--card-accent:var(--gold)">Azazael Reference</h3>
+    <p>Complete documentation and API reference for all Azazael components</p>
+    <span class="tag">Docs</span><span class="tag">API</span>
+  </a>
+
+  <a href="Azazael_DUAL_PANE.html" class="card" data-category="reference" data-keywords="dual pane split view comparison reference">
+    <div class="card-icon">🪟</div>
+    <h3 style="--card-accent:var(--green)">Dual Pane View</h3>
+    <p>Side-by-side comparison and reference with synchronized scroll</p>
+    <span class="tag">Split</span><span class="tag">Compare</span>
+  </a>
+
+  <!-- Comprehensive -->
+  <a href="comprehensive/ALL_11_SYSTEMS_RICH.html" class="card" data-category="analysis" data-keywords="all 11 systems comprehensive rich detail">
+    <div class="card-icon">🏛️</div>
+    <h3 style="--card-accent:var(--purple)">All 11 Systems</h3>
+    <p>Detailed view of all 11 core Azazael systems with rich metadata</p>
+    <span class="tag">Complete</span><span class="tag">11 Systems</span>
+  </a>
+
+  <a href="comprehensive/COMPLETE_SYSTEMS_RICH.html" class="card" data-category="analysis" data-keywords="complete systems rich full ecosystem">
+    <div class="card-icon">🗺️</div>
+    <h3 style="--card-accent:var(--cyan)">Complete Systems</h3>
+    <p>Full ecosystem map with all interconnections and dependencies</p>
+    <span class="tag">Ecosystem</span><span class="tag">Full Map</span>
+  </a>
+
+  <a href="comprehensive/FULL_ECOSYSTEM_ANALYSIS.html" class="card" data-category="analysis" data-keywords="full ecosystem analysis comprehensive">
+    <div class="card-icon">🔬</div>
+    <h3 style="--card-accent:var(--pink)">Full Ecosystem Analysis</h3>
+    <p>Exhaustive analysis of the entire ecosystem with drill-down capability</p>
+    <span class="tag">Drill-Down</span><span class="tag">Exhaustive</span>
+  </a>
+
+  <!-- Tools -->
+  <a href="#" class="card" data-category="tool" data-keywords="klink cli command link status"
+     onclick="alert('Run: python scripts/klink.py status\n\nOpens in terminal. Use KLINK for CLI operations.')">
+    <div class="card-icon">🔗</div>
+    <h3 style="--card-accent:var(--cyan)">KLINK CLI</h3>
+    <p>Unified CLI with 25 commands: status, build, test, deploy, monitor</p>
+    <span class="tag">CLI</span><span class="tag">25 Commands</span>
+  </a>
+
+  <a href="https://github.com" class="card" target="_blank" data-category="tool" data-keywords="BIBL crawler search index terminology">
+    <div class="card-icon">📖</div>
+    <h3 style="--card-accent:var(--gold)">BIBL Crawler</h3>
+    <p>10,416 indexed terms across 69 files. Search, export, analyze.</p>
+    <span class="tag">Search</span><span class="tag">10K+ Terms</span>
+  </a>
+</div>
+
+<div class="status-bar">
+  <span><span class="status-dot green"></span> 247 Python Modules</span>
+  <span><span class="status-dot cyan"></span> 31 HTML Templates</span>
+  <span> 54 Animation Protocols</span>
+  <span> 25 CLI Commands</span>
+  <span> 7 Architecture Tiers</span>
+  <span> 11 Core Systems</span>
+  <span> Rust 1.95 + Go 1.26</span>
+</div>
+
+<script>
+let currentCategory = 'all';
+
+function setCategory(cat, btn) {
+  currentCategory = cat;
+  document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  filterCards();
+}
+
+function filterCards() {
+  const query = document.getElementById('searchInput').value.toLowerCase();
+  const cards = document.querySelectorAll('#cardGrid .card');
+
+  cards.forEach(card => {
+    const cat = card.dataset.category;
+    const keywords = (card.dataset.keywords || '').toLowerCase();
+    const text = (card.textContent || '').toLowerCase();
+
+    const matchesCat = currentCategory === 'all' || cat === currentCategory;
+    const matchesSearch = !query || keywords.includes(query) || text.includes(query);
+
+    card.classList.toggle('hidden', !(matchesCat && matchesSearch));
+  });
+}
+
+// Keyboard shortcut: / focuses search
+document.addEventListener('keydown', (e) => {
+  if (e.key === '/' && document.activeElement !== document.getElementById('searchInput')) {
+    e.preventDefault();
+    document.getElementById('searchInput').focus();
+  }
+  if (e.key === 'Escape') {
+    document.getElementById('searchInput').blur();
+    document.getElementById('searchInput').value = '';
+    filterCards();
+  }
+});
+</script>
+</body>
+</html>

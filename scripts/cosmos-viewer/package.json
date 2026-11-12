@@ -1,0 +1,18 @@
+{
+  "name": "cosmos-viewer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@cosmograph/cosmos": "^3.4.1",
+    "esbuild": "^0.28.2",
+    "pako": "^3.0.1"
+  }
+}

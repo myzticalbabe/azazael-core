@@ -1,0 +1,57 @@
+{
+  "name": "Azazael ML Models",
+  "version": "1.0.0",
+  "description": "Machine learning model specifications for Azazael ecosystem",
+  "models": {
+    "HYDRA": {
+      "type": "clustering",
+      "algorithm": "hierarchical",
+      "parameters": {
+        "n_clusters": 6,
+        "linkage": "ward",
+        "metric": "euclidean"
+      },
+      "stages": ["discovery", "analysis", "optimization", "validation", "deployment", "feedback"]
+    },
+    "HYDRAMETA": {
+      "type": "optimization",
+      "algorithm": "bayesian",
+      "parameters": {
+        "n_trials": 100,
+        "timeout": 600,
+        "pruner": "MedianPruner"
+      },
+      "metrics": ["accuracy", "loss", "f1_score"]
+    },
+    "TERENCE": {
+      "type": "error_resolution",
+      "algorithm": "pattern_matching",
+      "patterns": 26,
+      "fix_strategies": ["retry", "fallback", "cascade", "circuit_breaker"]
+    },
+    "SYSTEMZ": {
+      "type": "system_monitoring",
+      "metrics": ["cpu", "memory", "disk", "network"],
+      "interval": 1.0
+    },
+    "CLUSTERWORMS": {
+      "type": "distributed_coordination",
+      "algorithms": ["leader_election", "consensus", "gossip"],
+      "topologies": ["mesh", "star", "ring"]
+    }
+  },
+  "training": {
+    "epochs": 100,
+    "batch_size": 32,
+    "validation_split": 0.2,
+    "early_stopping": {
+      "patience": 10,
+      "monitor": "val_loss"
+    }
+  },
+  "inference": {
+    "batch_size": 64,
+    "max_sequence_length": 512,
+    "dtype": "float32"
+  }
+}

@@ -1,0 +1,36 @@
+# Correct graphify.analyze.god_nodes: exclude document / injected-concept hubs.
+# Without this, a backlog document with per-line file detail outranks every
+# real code abstraction in the ranking.
+#
+# Target: C:\Azazael\.venvs\py315t\Lib\site-packages\graphify\analyze.py
+# Apply with: patch -p1 < this-file   (from the graphify package root)
+#
+--- a/analyze.py
++++ b/analyze.py
+@@ -109,6 +109,17 @@
+     return label in _JSON_NOISE_LABELS
+ 
+ 
++def _is_doc_or_injected_hub(G, node_id: str) -> bool:
++    """Document / injected-concept nodes that outrank real code when ranked by degree."""
++    attrs = G.nodes[node_id]
++    if str(attrs.get("file_type") or "").lower() in {"document", "concept", "rationale"}:
++        return True
++    label = str(attrs.get("label") or "")
++    if label.lower() in _BUILTIN_NOISE_LABELS:
++        return True
++    return len(label.rstrip("()")) <= 2
++
++
+ def god_nodes(G: nx.Graph, top_n: int = 10,
+               exclude_hubs_percentile: float | None = None) -> list[dict]:
+     """Return the top_n most-connected real entities - the core abstractions.
+@@ -135,6 +146,8 @@
+         if hub_threshold is not None and deg > hub_threshold:
+             continue
+         if _is_file_node(G, node_id) or _is_concept_node(G, node_id) or _is_json_key_node(G, node_id):
++            continue
++        if _is_doc_or_injected_hub(G, node_id):
+             continue
+         if G.nodes[node_id].get("label", "") in _BUILTIN_NOISE_LABELS:
+             continue

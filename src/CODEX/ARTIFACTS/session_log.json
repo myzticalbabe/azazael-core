@@ -1,0 +1,185 @@
+{
+  "session_id": "2026-06-03-buffy",
+  "session_date": "2026-06-03T05:48:38.847821+00:00",
+  "total_actions": 9,
+  "recorded_to_pams": false,
+  "actions": [
+    {
+      "event_type": "session.action.record",
+      "data": {
+        "action": "find_panel_screenshots",
+        "detail": "Located 75 CAIN panel screenshots at Documents/WORKING.HTML.AZAZAEL/SESSION_TEMPLATE/screenshots/",
+        "count": 75,
+        "source": "CAIN Accountability System",
+        "files": [
+          "panel_1.png",
+          "panel_10.png",
+          "panel_25.png",
+          "panel_50.png",
+          "panel_75.png"
+        ]
+      },
+      "source": "buffy-session",
+      "severity": "info",
+      "tags": [
+        "CAIN",
+        "panels",
+        "OCR"
+      ]
+    },
+    {
+      "event_type": "session.action.record",
+      "data": {
+        "action": "ocr_extract_results",
+        "detail": "Extracted text from all 75 panel screenshots via Tesseract OCR",
+        "output": "azazael/src/CODEX/ARTIFACTS/panel_dataset.json",
+        "lines": 1489,
+        "findings": [
+          "7 deadly sins mapped",
+          "DSM-5 patterns identified",
+          "85% AI responsibility",
+          "600% scope deviation"
+        ]
+      },
+      "source": "buffy-session",
+      "severity": "info",
+      "tags": [
+        "OCR",
+        "CAIN",
+        "dataset"
+      ]
+    },
+    {
+      "event_type": "session.action.create",
+      "data": {
+        "action": "create_native_intelligence_artifact",
+        "detail": "Created Native Intelligence Artifact for Python 3.14t with curative psychological recommendations",
+        "output": "azazael/src/CODEX/ARTIFACTS/native_intelligence_3_14t.html",
+        "lines": 995,
+        "components": "15 curative actions, 7 archetypes, 3 thread pools, 4 regulatory frameworks"
+      },
+      "source": "buffy-session",
+      "severity": "info",
+      "tags": [
+        "artifact",
+        "3.14t",
+        "curative"
+      ]
+    },
+    {
+      "event_type": "session.action.create",
+      "data": {
+        "action": "add_curative_pool_to_spawner",
+        "detail": "Added CurativePool class to MetaWormSpawner.py with 3 concurrent evaluation pools",
+        "output": "azazael/src/META/MetaWormSpawner.py",
+        "components": "ScopeValidator, NecessityJudge, EmotionDetector, AuditWriter, MemoryBusPublisher, MetricsCollector, ArchetypeRouter, CalibrationUpdater, CostMeter"
+      },
+      "source": "buffy-session",
+      "severity": "info",
+      "tags": [
+        "MetaWormSpawner",
+        "3.14t",
+        "concurrency"
+      ]
+    },
+    {
+      "event_type": "session.action.modify",
+      "data": {
+        "action": "wire_curative_gate_in_run_fleet",
+        "detail": "Wired CurativePool as governance gate in MetaWormSpawner.run_fleet() \u2014 evaluates each worm before execution, blocks scope/necessity/frustration violations",
+        "file": "azazael/src/META/MetaWormSpawner.py",
+        "pattern": "lazy-init + graceful fallback + agent archetype registration"
+      },
+      "source": "buffy-session",
+      "severity": "info",
+      "tags": [
+        "MetaWormSpawner",
+        "governance",
+        "gate"
+      ]
+    },
+    {
+      "event_type": "session.action.fix",
+      "data": {
+        "action": "fix_thread_data_race",
+        "detail": "Fixed data race in evaluate_action \u2014 Pool 1 (Validation) must complete before Pool 2/3 start due to data dependency",
+        "file": "azazael/src/META/MetaWormSpawner.py",
+        "before": "t1.start(); t2.start(); t3.start() \u2014 all concurrent, Pool 2/3 read stale defaults",
+        "after": "t1.start(); t1.join(); then t2.start(); t3.start() \u2014 ordered with Pool 2/3 concurrent"
+      },
+      "source": "buffy-session",
+      "severity": "critical",
+      "tags": [
+        "concurrency",
+        "data-race",
+        "fix"
+      ]
+    },
+    {
+      "event_type": "session.action.create",
+      "data": {
+        "action": "create_artifact_index",
+        "detail": "Updated SESSION_TEMPLATE/INDEX.md with ARTIFACTS section and created ARTIFACTS/INDEX.md",
+        "files": [
+          "azazael/src/CODEX/ARTIFACTS/INDEX.md",
+          "azazael/src/CODEX/SESSION_TEMPLATE/INDEX.md"
+        ]
+      },
+      "source": "buffy-session",
+      "severity": "info",
+      "tags": [
+        "documentation",
+        "INDEX"
+      ]
+    },
+    {
+      "event_type": "session.action.sync",
+      "data": {
+        "action": "sync_to_g_drive",
+        "detail": "Synced all new artifacts to G:/AZAZAEL/AZAZAEL_ROOT/",
+        "files": [
+          "src/CODEX/ARTIFACTS/INDEX.md",
+          "src/CODEX/ARTIFACTS/native_intelligence_3_14t.html",
+          "src/CODEX/ARTIFACTS/panel_dataset.json",
+          "src/META/MetaWormSpawner.py",
+          "src/CODEX/SESSION_TEMPLATE/INDEX.md"
+        ]
+      },
+      "source": "buffy-session",
+      "severity": "info",
+      "tags": [
+        "sync",
+        "G-drive"
+      ]
+    },
+    {
+      "event_type": "session.action.complete",
+      "data": {
+        "action": "session_complete",
+        "detail": "All 3 followups implemented: CurativePool wired into run_fleet, threaded evaluate_action with correct ordering, G: drive sync",
+        "total_actions_recorded": 8,
+        "lessons_appended": 6,
+        "files_modified": [
+          "MetaWormSpawner.py",
+          "LESSONS_MASTER.md",
+          "SESSION_TEMPLATE/INDEX.md",
+          "ARTIFACTS/native_intelligence_3_14t.html",
+          "ARTIFACTS/panel_dataset.json",
+          "ARTIFACTS/INDEX.md"
+        ]
+      },
+      "source": "buffy-session",
+      "severity": "info",
+      "tags": [
+        "session",
+        "complete"
+      ]
+    }
+  ],
+  "lessons": "LESSONS_MASTER.md #13-#18",
+  "artifacts": [
+    "native_intelligence_3_14t.html",
+    "panel_dataset.json",
+    "INDEX.md"
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "timestamp": "2026-02-13",
+  "superseded_note": "Dated snapshot of 2026-02-13, kept for provenance. Production is C:/Azazael/.venvs/py315t/Scripts/python.exe (3.15t). Python 3.14t was retired and archived 2026-10-19; C:/Azazael/.venvs/py314m is the only sanctioned 3.14 runtime.",
+  "total": 18,
+  "by_category": {
+    "SYSTEM": [
+      {
+        "path": "C:/Python314/python.exe",
+        "version": "3.14.3"
+      },
+      {
+        "path": "C:/Program Files/Python311/python.exe",
+        "version": "3.11.9"
+      },
+      {
+        "path": "C:/ProgramData/chocolatey/bin/python3.14.exe",
+        "version": "3.14.3"
+      },
+      {
+        "path": "C:/Program Files/DeepFaceLab/_internal/python-3.6.8/python.exe",
+        "version": "3.6.8"
+      }
+    ],
+    "ANACONDA": [
+      {
+        "path": "C:/Users/clint/anaconda3/python.exe",
+        "version": "3.13.9"
+      },
+      {
+        "path": "C:/Users/clint/anaconda3/envs/df-env/python.exe",
+        "version": "3.10.19"
+      }
+    ],
+    "DEEPFACELAB": [
+      {
+        "path": "C:/Users/clint/Downloads/DeepFaceLab/DeepFaceLab_DirectX12/_internal/python-3.6.8/python.exe",
+        "version": "3.6.8"
+      }
+    ],
+    "AZAEAZEL": [
+      {
+        "path": "C:/Users/clint/Desktop/Azazael_UNIFIED/.venv/Scripts/python.exe",
+        "version": "3.11.14"
+      },
+      {
+        "path": "C:/Users/clint/Desktop/Azazael_UNIFIED/CODEX/.venv/Scripts/python.exe",
+        "version": "3.11.14"
+      },
+      {
+        "path": "C:/Users/clint/Desktop/Azazael_BACKUP_20260212_060745/CODEX/.venv/Scripts/python.exe",
+        "version": "3.11.14"
+      }
+    ],
+    "UV": [
+      {
+        "path": "C:/Users/clint/.local/bin/python3.11.exe",
+        "version": "3.11.14"
+      },
+      {
+        "path": "C:/Users/clint/AppData/Roaming/uv/python/cpython-3.11.14-windows-x86_64-none/python.exe",
+        "version": "3.11.14"
+      },
+      {
+        "path": "C:/Users/clint/AppData/Roaming/uv/python/cpython-3.11-windows-x86_64-none/python.exe",
+        "version": "3.11.14"
+      },
+      {
+        "path": "C:/Users/clint/AppData/Roaming/uv/python/.temp/.tmpraG7Kw/python/python.exe",
+        "version": "3.11.8"
+      },
+      {
+        "path": "C:/Users/clint/restored_venv/Scripts/python.exe",
+        "version": "3.13.9"
+      }
+    ],
+    "AI_PLAYGROUND": [
+      {
+        "path": "C:/Users/clint/AppData/Local/Programs/AI Playground/resources/OpenVINO/ovms/python/python.exe",
+        "version": "3.12.10"
+      }
+    ],
+    "LM_STUDIO": [
+      {
+        "path": "C:/Users/clint/.lmstudio/extensions/backends/vendor/_amphibian/app-harmony-win-x86@7/Scripts/python.exe",
+        "version": "3.11.9"
+      },
+      {
+        "path": "C:/Users/clint/.lmstudio/extensions/backends/vendor/_amphibian/cpython3.11-win-x86@6/python.exe",
+        "version": "3.11.9"
+      }
+    ]
+  },
+  "by_version": {
+    "3.14": 2,
+    "3.11": 10,
+    "3.6": 2,
+    "3.13": 2,
+    "3.10": 1,
+    "3.12": 1
+  }
+}

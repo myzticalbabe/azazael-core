@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LM Studio + LiteLLM Session Flow</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { width: 100vw; min-height: 100vh; background: linear-gradient(180deg, #0a0a1a 0%, #1a1a2e 100%); font-family: 'Courier New', monospace; overflow: auto; }
+        .container { width: 100%; padding: 20px; }
+        h1 { text-align: center; color: #4ecdc4; font-size: 20px; margin: 10px 0; text-transform: uppercase; letter-spacing: 3px; }
+        h2 { text-align: center; color: #ff6b6b; font-size: 16px; margin: 15px 0 10px 0; border-bottom: 2px solid #ff6b6b; padding-bottom: 5px; }
+        .section { background: rgba(255,255,255,0.05); border-radius: 15px; padding: 15px; margin: 10px auto; max-width: 95%; }
+        .section ol { color: #ccc; font-size: 12px; line-height: 1.8; padding-left: 30px; column-count: 3; column-gap: 30px; }
+        .section li { margin-bottom: 4px; }
+        .section li::marker { color: #4ecdc4; font-weight: bold; }
+        .failures { background: rgba(255,100,100,0.1); border: 2px dashed #ff6b6b; }
+        .failures ul { color: #ffaaaa; column-count: 2; }
+        .web-canvas { width: 100%; min-height: 80vh; position: relative; margin: 15px 0; }
+        svg.connections { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+        line.derive { stroke: rgba(78, 205, 196, 0.6); stroke-width: 2; }
+        line.parent { stroke: rgba(255, 107, 107, 0.5); stroke-width: 2; stroke-dasharray: 5,5; }
+        .bubble { position: absolute; display: flex; align-items: center; justify-content: center; text-align: center; border-radius: 50%; font-size: 8px; font-weight: bold; color: #000; box-shadow: 0 4px 16px rgba(0,0,0,0.5); border: 2px solid #fff; padding: 3px; z-index: 2; cursor: pointer; transition: transform 0.2s; }
+        .bubble:hover { transform: scale(1.4); z-index: 10; }
+        .bubble .tooltip { display: none; position: absolute; bottom: -45px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.95); color: #4ecdc4; padding: 8px; border-radius: 6px; font-size: 9px; white-space: nowrap; z-index: 100; min-width: 180px; text-align: left; border: 1px solid #4ecdc4; }
+        .bubble:hover .tooltip { display: block; }
+        .lvl0 { background: linear-gradient(135deg, #2d3436, #000); color: #fff; border-color: #ff6b6b; }
+        .lvl1 { background: linear-gradient(135deg, #6c5ce7, #4834d4); color: #fff; border-color: #a29bfe; }
+        .lvl2 { background: linear-gradient(135deg, #00b894, #00a085); color: #fff; border-color: #55efc4; }
+        .lvl3 { background: linear-gradient(135deg, #fdcb6e, #f39c12); border-color: #ffeaa7; }
+        .lvl4 { background: linear-gradient(135deg, #e17055, #d63031); color: #fff; border-color: #fab1a0; }
+        .lvl5 { background: linear-gradient(135deg, #fd79a8, #e84393); color: #fff; border-color: #fd79a8; }
+        .lvl6 { background: linear-gradient(135deg, #74b9ff, #0984e3); color: #fff; border-color: #74b9ff; }
+        .legend { position: fixed; top: 10px; right: 10px; background: rgba(0,0,0,0.8); padding: 10px; border-radius: 8px; font-size: 9px; z-index: 1000; }
+        .legend-item { display: flex; align-items: center; margin: 3px 0; }
+        .legend-dot { width: 10px; height: 10px; border-radius: 50%; margin-right: 5px; }
+    </style>
+</head>
+<body>
+    <div class="legend">
+        <div style="color:#fff;margin-bottom:5px;font-weight:bold;">PHASES:</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#6c5ce7"></div>1: Investigate</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#feca57"></div>2: Hosts Fix</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#48dbfb"></div>3: Connection</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#1dd1a1"></div>4: LiteLLM</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#5f27cd"></div>5: API Key</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#ff9ff3"></div>6: LM Studio</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#54a0ff"></div>7: Azazael</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#5cd85c"></div>8: Final</div>
+    </div>
+    <div class="container">
+        <h1>LM Studio + LiteLLM Session Flow</h1>
+        
+        <h2>ORDER OF OPERATIONS (33 Steps)</h2>
+        <div class="section">
+            <ol>
+                <li>1: netstat -ano | findstr 1234</li>
+                <li>2: ping -n 1 localhost</li>
+                <li>3: curl 127.0.0.1:1234/v1/models</li>
+                <li>4: curl localhost:1234/v1/models</li>
+                <li>5: Read C:\Windows\System32\drivers\etc\hosts</li>
+                <li>6: Found localhost commented (#)</li>
+                <li>7: Edit hosts - EPERM denied</li>
+                <li>8: Create C:\Users\clint\fix_hosts.ps1</li>
+                <li>9: PowerShell -Verb RunAs admin</li>
+                <li>10: Set-Content hosts file</li>
+                <li>11: 127.0.0.1 -> localhost</li>
+                <li>12: ::1 -> localhost</li>
+                <li>13: Delete fix_hosts.ps1</li>
+                <li>14: Python requests.get :1234</li>
+                <li>15: HTTP 200 OK</li>
+                <li>16: pip uninstall lite-llm -y</li>
+                <li>17: pip uninstall litellm -y</li>
+                <li>18: pip install litellm</li>
+                <li>19: setx OPENAI_API_KEY sk-dummy</li>
+                <li>20: setx KEY sk-lm-8iZKmzXN...</li>
+                <li>21: Registry HKCU\Environment</li>
+                <li>22: taskkill LM Studio.exe /F</li>
+                <li>23: Start-Process LM Studio.exe</li>
+                <li>24: Load llama-3.2-1b-instruct</li>
+                <li>25: Server localhost:1234/v1</li>
+                <li>26: grep PATH Azazael</li>
+                <li>27: PYTHONPATH=Azazael_UNIFIED</li>
+                <li>28: setx PYTHONPATH ""</li>
+                <li>29: Remove from registry</li>
+                <li>30: os.environ[KEY] = sk-lm...</li>
+                <li>31: litellm.completion call</li>
+                <li>32: model openai/llama-3.2-1b</li>
+                <li>33: Response: Hello! I'm Qwen</li>
+            </ol>
+        </div>
+
+        <h2>DOCUMENTED FAILURES (12 Issues)</h2>
+        <div class="section failures">
+            <ul>
+                <li>EPERM: hosts file edit denied</li>
+                <li>LiteLLM needed API key</li>
+                <li>Env var caching - needed restart</li>
+                <li>Unicode encoding error</li>
+                <li>Azazael PYTHONPATH conflict</li>
+                <li>Mermaid: squares not circles</li>
+                <li>Mermaid: syntax errors</li>
+                <li>Mermaid: narrow column</li>
+                <li>Mermaid: linear not web</li>
+                <li>Mermaid: no sub-bubble details</li>
+                <li>Mermaid: useMaxWidth limit</li>
+                <li>Solution: HTML/CSS web</li>
+            </ul>
+        </div>
+
+        <h2>INTERCONNECTED WEB (8 Phases)</h2>
+        <div class="web-canvas">
+            <svg class="connections">
+                <line class="derive" x1="15%" y1="5%" x2="30%" y2="5%"/>
+                <line class="derive" x1="30%" y1="5%" x2="45%" y2="5%"/>
+                <line class="derive" x1="45%" y1="5%" x2="60%" y2="5%"/>
+                <line class="derive" x1="60%" y1="5%" x2="75%" y2="5%"/>
+                <line class="derive" x1="75%" y1="5%" x2="90%" y2="5%"/>
+                <line class="derive" x1="15%" y1="5%" x2="15%" y2="15%"/>
+                <line class="derive" x1="90%" y1="5%" x2="90%" y2="15%"/>
+                <line class="derive" x1="15%" y1="15%" x2="30%" y2="15%"/>
+                <line class="derive" x1="30%" y1="15%" x2="45%" y2="15%"/>
+                <line class="derive" x1="45%" y1="15%" x2="60%" y2="15%"/>
+                <line class="derive" x1="60%" y1="15%" x2="75%" y2="15%"/>
+                <line class="derive" x1="75%" y1="15%" x2="90%" y2="15%"/>
+            </svg>
+
+            <!-- Phase 1: Investigate -->
+            <div class="bubble lvl1" style="width:70px;height:70px;left:10%;top:3%;">1<br/>INVESTIGATE<div class="tooltip">1-6: Diagnose localhost connection<br/>netstat, ping, curl, hosts file</div></div>
+            <div class="bubble lvl1" style="width:55px;height:55px;left:10%;top:13%;">netstat<div class="tooltip">netstat -ano findstr 1234</div></div>
+            <div class="bubble lvl1" style="width:55px;height:55px;left:20%;top:13%;">ping<div class="tooltip">ping -n 1 localhost</div></div>
+            <div class="bubble lvl1" style="width:55px;height:55px;left:30%;top:13%;">curl<div class="tooltip">curl localhost:1234</div></div>
+            <div class="bubble lvl1" style="width:55px;height:55px;left:40%;top:13%;">hosts<div class="tooltip">Read C:\Windows\...hosts</div></div>
+
+            <!-- Phase 2: Hosts Fix -->
+            <div class="bubble lvl2" style="width:70px;height:70px;left:28%;top:3%;">2<br/>HOSTS FIX<div class="tooltip">7-13: Fix hosts file<br/>PowerShell admin, uncomment localhost</div></div>
+            <div class="bubble lvl2" style="width:55px;height:55px;left:28%;top:13%;">EPERM<div class="tooltip">Permission denied</div></div>
+            <div class="bubble lvl2" style="width:55px;height:55px;left:38%;top:13%;">PS Admin<div class="tooltip">-Verb RunAs</div></div>
+            <div class="bubble lvl2" style="width:55px;height:55px;left:48%;top:13%;">127.0.0.1<div class="tooltip">Added to hosts</div></div>
+
+            <!-- Phase 3: Connection -->
+            <div class="bubble lvl3" style="width:70px;height:70px;left:46%;top:3%;">3<br/>CONNECTION<div class="tooltip">14-15: Verify LM Studio connection<br/>Python requests, HTTP 200</div></div>
+            <div class="bubble lvl3" style="width:55px;height:55px;left:58%;top:13%;">Python<div class="tooltip">requests.get</div></div>
+            <div class="bubble lvl3" style="width:55px;height:55px;left=68%;top:13%;">HTTP 200<div class="tooltip">Connection OK</div></div>
+
+            <!-- Phase 4: LiteLLM -->
+            <div class="bubble lvl4" style="width:70px;height:70px;left:64%;top:3%;">4<br/>LITELLM<div class="tooltip">16-18: Install LiteLLM<br/>pip uninstall/install</div></div>
+            <div class="bubble lvl4" style="width:55px;height:55px;left:72%;top:13%;">pip uninstall<div class="tooltip">lite-llm, litellm</div></div>
+            <div class="bubble lvl4" style="width:55px;height:55px;left:82%;top:13%;">pip install<div class="tooltip">litellm</div></div>
+
+            <!-- Phase 5: API Key -->
+            <div class="bubble lvl5" style="width:70px;height:70px;left:82%;top:3%;">5<br/>API KEY<div class="tooltip">19-21: Set LM Studio API key<br/>setx, registry</div></div>
+            <div class="bubble lvl5" style="width:55px;height:55px;left:90%;top:13%;">setx<div class="tooltip">OPENAI_API_KEY</div></div>
+        </div>
+    </div>
+</body>
+</html>

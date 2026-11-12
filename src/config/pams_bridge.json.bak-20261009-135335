@@ -1,0 +1,87 @@
+{
+  "description": "PAMS Bridge Configuration — Maps all Azazael projects to pams-server memory",
+  "version": "1.0.0",
+  "created": "2026-05-27",
+  "pams_server": {
+    "url": "http://127.0.0.1:21434",
+    "port": 21434,
+    "wrapper_script": "C:/temp/start_pams.py",
+    "db_directory": "C:/Users/clint/AppData/Local/Programs/Python/Python314/Lib/site-packages/memory_data",
+    "databases": {
+      "conversations": "conversations.db",
+      "ai_memories": "ai_memories.db",
+      "mcp_tool_calls": "mcp_tool_calls.db",
+      "schedule": "schedule.db",
+      "vscode_project": "vscode_project.db"
+    }
+  },
+  "project_mappings": {
+    "azazael": {
+      "root": "C:/Users/clint/azazael",
+      "memory_types": ["worm_executions", "morph_events", "debug_diagnostics", "bibl_updates"],
+      "recording": {
+        "conversations_db": true,
+        "ai_memories_db": false,
+        "recording_active": true
+      }
+    },
+    "llama_server": {
+      "root": "C:/Users/clint/Desktop/Llama Server",
+      "models_dir": "C:/Users/clint/llama-server/models",
+      "memory_types": ["inference_sessions", "model_selections", "prompt_history"],
+      "recording": {
+        "conversations_db": false,
+        "recording_active": false
+      }
+    },
+    "open_interpreter": {
+      "root": "C:/Users/clint/Desktop/Llama Server/launch_interpreter.py",
+      "memory_types": ["code_executions", "tool_calls"],
+      "recording": {
+        "mcp_tool_calls_db": true,
+        "recording_active": false
+      }
+    },
+    "codebuff": {
+      "memory_types": ["debug_sessions", "file_edits", "code_reviews"],
+      "recording": {
+        "conversations_db": true,
+        "ai_memories_db": true,
+        "recording_active": true
+      }
+    }
+  },
+  "memory_types": {
+    "worm_executions": {
+      "table": "sessions",
+      "fields": ["session_id", "start_timestamp", "context"],
+      "description": "WORMZ and MetaWormSpawner execution logs"
+    },
+    "morph_events": {
+      "table": "memory_conversation_links",
+      "description": "Mode transitions and worm morphing events"
+    },
+    "debug_diagnostics": {
+      "table": "sessions",
+      "description": "DebugZ diagnostic reports"
+    },
+    "bibl_updates": {
+      "table": "memory_processing_queue",
+      "description": "BIBL lexicon update events"
+    },
+    "inference_sessions": {
+      "table": "conversations",
+      "description": "llama-server inference sessions"
+    },
+    "code_executions": {
+      "table": "mcp_tool_calls",
+      "description": "Open Interpreter code executions"
+    }
+  },
+  "recording_rules": {
+    "auto_record": ["worm_executions", "morph_events", "debug_diagnostics"],
+    "manual_record": ["inference_sessions", "code_executions"],
+    "prune_after_days": 90,
+    "max_session_context_chars": 50000
+  }
+}

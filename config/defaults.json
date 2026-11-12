@@ -1,0 +1,126 @@
+{
+  "version": 1,
+  "runtime": {
+    "interpreter": "py316t",
+    "gil_sidecar": true,
+    "freethreaded_required": true,
+    "venv_path": "C:/Azazael/.venvs/py316t",
+    "python_exe": "C:/Azazael/.venvs/py316t/Scripts/python.exe"
+  },
+  "mcp_stack": {
+    "daemon_port": 8765,
+    "floor_port": 8766,
+    "floor_enabled": true,
+    "floor_upstream_wait_s": 30,
+    "floor_origin": "logon",
+    "floor_auth_mode": "inject",
+    "lanes_route_through_floor": true
+  },
+  "memory": {
+    "primary": "pmb",
+    "pmb_workspace": "personal",
+    "pmb_recall_floor": 0.7,
+    "pmb_recall_min_best": 0.89,
+    "engram_project": "azazael",
+    "engram_all_projects": true,
+    "pams_enabled": true,
+    "pams_user_id": "clint",
+    "pams_model_id": "mcp-client"
+  },
+  "evolution": {
+    "mode": "live",
+    "population_size": 6,
+    "generations": 3,
+    "convergence_eps": 0.005,
+    "convergence_window": 3,
+    "lillith_enabled": true,
+    "lillith_warmup_gens": 3,
+    "lillith_stall_eps": 0.001,
+    "adversary_saturation": true,
+    "dream_hit_target": 0.97,
+    "inheritance_mode": "persist",
+    "parser_autopatch": false
+  },
+  "gates": {
+    "mcp_startup": "blocking",
+    "evidence_gate": "blocking",
+    "hyper_edge": "advisory",
+    "commit_hook": "blocking",
+    "settings_shadow": "advisory",
+    "reading_audit": "advisory",
+    "head_audit": "advisory",
+    "leg_ledger": "advisory"
+  },
+  "coordination": {
+    "board_enabled": true,
+    "valid_lanes": [
+      "kilo",
+      "freebuff",
+      "opencode"
+    ],
+    "claim_lease_seconds": 1800,
+    "max_claim_limit": 10,
+    "push_hook_enabled": true,
+    "dispatch_non_reasoning": true
+  },
+  "ast_audit": true,
+  "golden_arrow": {
+    "enabled": true,
+    "strict": false,
+    "timeout_s": 360,
+    "workers": 6
+  },
+  "deep_dive": {
+    "enabled": true,
+    "forensics": true,
+    "web_search": true,
+    "web_timeout_s": 20,
+    "max_queries": 3
+  },
+  "fallback": {
+    "on_error": "record-and-continue",
+    "record": "logs/deep_dive.json"
+  },
+  "preflight": {
+    "disk_floor_gb": 2.0
+  },
+  "retention": {
+    "composite_eviction": false
+  },
+  "hyper_edge": {
+    "reading_audit": true,
+    "settings_shadow": true,
+    "leg_ledger": true,
+    "head_audit": true,
+    "truncation": true,
+    "ctypes_restype": true,
+    "claim_agreement": true,
+    "agreement_floor": 0.955,
+    "agreement_rung_floor": 1.0,
+    "kernel": true,
+    "kernel_timeout_s": 180,
+    "strict": false,
+    "leg_timeout_s": 300
+  },
+  "reading_audit": {
+    "min_coverage": 0.0
+  },
+  "head_audit": {
+    "max_state_age_days": 0
+  },
+  "settings_shadow": {
+    "readers": [
+      "read_default",
+      "setting",
+      "get_default"
+    ]
+  },
+  "arena": {
+    "endpoint": "http://127.0.0.1:8081",
+    "quote_chars": 320,
+    "max_tokens": 300,
+    "workers": 6,
+    "quorum": 0.66,
+    "timeout_s": 120
+  }
+}

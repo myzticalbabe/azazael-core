@@ -1,0 +1,2143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azazael Ecosystem - Complete Technical Reference v2.0</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            background: linear-gradient(135deg, #0a0a1a 0%, #0d1117 50%, #161b22 100%);
+            min-height: 300vh;
+            color: #e6edf3;
+            overflow-x: hidden;
+        }
+        
+        ::-webkit-scrollbar { width: 12px; }
+        ::-webkit-scrollbar-track { background: #0a0a1a; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #00ff88, #00ffff); border-radius: 6px; }
+        ::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #00ffff, #ff00ff); }
+        
+        .toc {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.6);
+            border: 1px solid rgba(0,255,255,0.3);
+            border-radius: 15px;
+            padding: 20px 15px;
+            z-index: 1000;
+            max-height: 70vh;
+            overflow-y: auto;
+            backdrop-filter: blur(10px);
+        }
+        
+        .toc h3 { color: #00ff88; font-size: 0.9em; margin-bottom: 15px; text-align: center; border-bottom: 1px solid rgba(0,255,255,0.2); padding-bottom: 10px; }
+        .toc a { display: block; color: #8b949e; text-decoration: none; padding: 8px 12px; font-size: 0.75em; border-radius: 8px; transition: all 0.3s ease; margin: 4px 0; }
+        .toc a:hover { color: #00ffff; background: rgba(0,255,255,0.15); transform: translateX(-5px); }
+        .toc a.active { color: #00ff88; background: rgba(0,255,136,0.1); border-left: 2px solid #00ff88; }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #00ff88, #00ffff);
+            color: #000;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5em;
+            z-index: 1001;
+            opacity: 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(0,255,136,0.5);
+        }
+        
+        .back-to-top.visible { opacity: 1; }
+        .back-to-top:hover { transform: scale(1.1) translateY(-5px); box-shadow: 0 0 30px rgba(0,255,255,0.8); }
+        
+        .section:target { animation: highlight 2s ease-out; }
+        @keyframes highlight { 0% { background: rgba(0,255,255,0.3); } 100% { background: rgba(0,0,0,0.35); } }
+        
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.06;
+            z-index: 0;
+        }
+        
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 2200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: linear-gradient(90deg, rgba(0,255,136,0.15), rgba(0,255,255,0.15), rgba(255,0,255,0.15));
+            border: 2px solid rgba(0,255,255,0.4);
+            border-radius: 25px;
+            padding: 60px 30px;
+            text-align: center;
+            margin-bottom: 30px;
+            animation: borderGlow 3s ease-in-out infinite;
+        }
+        
+        @keyframes borderGlow {
+            0%, 100% { border-color: rgba(0,255,255,0.4); box-shadow: 0 0 40px rgba(0,255,255,0.2); }
+            50% { border-color: rgba(255,0,255,0.6); box-shadow: 0 0 60px rgba(255,0,255,0.3); }
+        }
+        
+        .header h1 {
+            font-size: 4em;
+            background: linear-gradient(90deg, #00ff88, #00ffff, #ff00ff, #ffff00, #ff0088, #00ff88);
+            background-size: 300% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientFlow 8s linear infinite;
+        }
+        
+        @keyframes gradientFlow {
+            0% { background-position: 0% center; }
+            100% { background-position: 300% center; }
+        }
+        
+        .header-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .stat-box {
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(0,255,255,0.3);
+            border-radius: 15px;
+            padding: 20px 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-box:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(0,255,255,0.7);
+            box-shadow: 0 15px 40px rgba(0,255,255,0.2);
+        }
+        
+        .stat-value {
+            font-size: 2.2em;
+            font-weight: bold;
+            background: linear-gradient(135deg, #00ff88, #00ffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .stat-label {
+            color: #8b949e;
+            font-size: 0.8em;
+            margin-top: 5px;
+        }
+        
+        .section {
+            background: rgba(0,0,0,0.35);
+            border: 1px solid rgba(0,255,255,0.2);
+            border-radius: 20px;
+            margin-bottom: 25px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .section:hover {
+            border-color: rgba(0,255,255,0.5);
+        }
+        
+        .section-header {
+            padding: 25px 30px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border-bottom: 1px solid rgba(0,255,255,0.15);
+            cursor: pointer;
+        }
+        
+        .section-icon {
+            font-size: 2.5em;
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        
+        .section-title h2 {
+            font-size: 1.5em;
+            color: var(--tier-color, #00ff88);
+            margin-bottom: 5px;
+        }
+        
+        .section-title p {
+            color: #8b949e;
+            font-size: 0.9em;
+        }
+        
+        .section-content {
+            padding: 25px 30px;
+        }
+        
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+        
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .grid-5 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+        }
+        
+        .card {
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(0,255,255,0.15);
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            border-color: rgba(0,255,255,0.5);
+            transform: translateX(10px);
+            background: rgba(0,255,255,0.05);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        
+        .card-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: var(--tier-color, #00ff88);
+        }
+        
+        .badge {
+            font-size: 0.7em;
+            padding: 3px 10px;
+            border-radius: 20px;
+            background: rgba(0,255,255,0.2);
+            color: #00ffff;
+        }
+        
+        .card-desc {
+            color: #c9d1d9;
+            font-size: 0.9em;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .detail-list {
+            list-style: none;
+        }
+        
+        .detail-list li {
+            display: flex;
+            gap: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0,255,255,0.1);
+            font-size: 0.85em;
+        }
+        
+        .detail-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .detail-label {
+            color: #8b949e;
+            min-width: 120px;
+        }
+        
+        .detail-value {
+            color: #c9d1d9;
+            flex: 1;
+        }
+        
+        .flags-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 12px;
+        }
+        
+        .flag {
+            font-size: 0.75em;
+            padding: 4px 12px;
+            border-radius: 5px;
+            background: rgba(0,255,255,0.15);
+            color: #00ffff;
+            border: 1px solid rgba(0,255,255,0.2);
+            transition: all 0.2s ease;
+        }
+        
+        .flag:hover {
+            background: rgba(0,255,255,0.3);
+            transform: scale(1.05);
+        }
+        
+        .small-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px;
+        }
+        
+        .small-card {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(0,255,255,0.1);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .small-card:hover {
+            border-color: rgba(0,255,255,0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .small-card h4 {
+            color: var(--tier-color, #00ff88);
+            margin-bottom: 8px;
+            font-size: 1em;
+        }
+        
+        .small-card p {
+            color: #8b949e;
+            font-size: 0.8em;
+            line-height: 1.4;
+        }
+        
+        .code-block {
+            background: rgba(0,0,0,0.5);
+            border: 1px solid rgba(0,255,255,0.2);
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 0.85em;
+            color: #00ff88;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        
+        .pipeline-flow {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 30px 20px;
+        }
+        
+        .pipeline-stage {
+            background: rgba(0,0,0,0.5);
+            border: 2px solid var(--stage-color, #00ff00);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            min-width: 140px;
+            animation: stagePulse 2s ease-in-out infinite;
+            transition: all 0.3s ease;
+        }
+        
+        .pipeline-stage:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px var(--stage-color);
+        }
+        
+        @keyframes stagePulse {
+            0%, 100% { box-shadow: 0 0 15px var(--stage-color, #00ff00); }
+            50% { box-shadow: 0 0 35px var(--stage-color, #00ff00); }
+        }
+        
+        .pipeline-stage h4 {
+            color: var(--stage-color, #00ff00);
+            margin-bottom: 8px;
+        }
+        
+        .pipeline-stage p {
+            color: #8b949e;
+            font-size: 0.8em;
+        }
+        
+        .pipeline-arrow {
+            font-size: 2em;
+            color: var(--stage-color, #00ff00);
+            animation: arrowMove 1s ease-in-out infinite;
+        }
+        
+        @keyframes arrowMove {
+            0%, 100% { transform: translateX(0); opacity: 0.4; }
+            50% { transform: translateX(10px); opacity: 1; }
+        }
+        
+        .arch-tier {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            margin-bottom: 12px;
+        }
+        
+        .arch-label {
+            min-width: 80px;
+            font-weight: bold;
+            color: var(--tier-color, #00ff88);
+        }
+        
+        .arch-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            flex: 1;
+        }
+        
+        .arch-item {
+            padding: 6px 14px;
+            background: rgba(0,255,255,0.1);
+            border: 1px solid var(--tier-color, #00ff88);
+            border-radius: 8px;
+            font-size: 0.85em;
+            color: #00ffff;
+            animation: itemFloat 3s ease-in-out infinite;
+        }
+        
+        @keyframes itemFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+        
+        .api-section {
+            background: rgba(0,0,0,0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .api-title {
+            color: #00ff88;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .api-endpoint {
+            background: rgba(0,0,0,0.4);
+            border-left: 3px solid #00ff88;
+            padding: 12px 15px;
+            margin: 10px 0;
+            font-size: 0.85em;
+        }
+        
+        .method {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .method-get { background: #00ff00; color: #000; }
+        .method-post { background: #0088ff; color: #fff; }
+        .method-put { background: #ff8800; color: #000; }
+        .method-delete { background: #ff0000; color: #fff; }
+        
+        .footer {
+            text-align: center;
+            padding: 60px 20px;
+            margin-top: 40px;
+            background: rgba(0,0,0,0.3);
+            border-top: 1px solid rgba(0,255,255,0.2);
+        }
+        
+        .footer h2 {
+            font-size: 2.5em;
+            background: linear-gradient(90deg, #00ff88, #00ffff, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+        }
+        
+        .footer-tags {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 25px;
+        }
+        
+        .footer-tag {
+            padding: 8px 18px;
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(0,255,255,0.3);
+            border-radius: 20px;
+            color: #00ffff;
+            font-size: 0.85em;
+        }
+        
+        .version-info {
+            color: #666;
+            margin-top: 30px;
+            font-size: 0.9em;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2em; }
+            .grid-3, .grid-4, .grid-5 { grid-template-columns: 1fr; }
+            .pipeline-flow { flex-direction: column; }
+            .pipeline-arrow { transform: rotate(90deg); }
+            .toc { display: none; }
+        }
+        
+        .search-box {
+            position: fixed;
+            left: 20px;
+            top: 20px;
+            z-index: 1002;
+        }
+        
+        .search-box input {
+            background: rgba(0,0,0,0.7);
+            border: 1px solid rgba(0,255,255,0.4);
+            border-radius: 10px;
+            padding: 12px 20px;
+            color: #00ff88;
+            font-family: inherit;
+            font-size: 0.9em;
+            width: 250px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .search-box input:focus {
+            border-color: #00ffff;
+            box-shadow: 0 0 20px rgba(0,255,255,0.3);
+        }
+        
+        .search-box input::placeholder { color: #666; }
+        
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: rgba(10,10,26,0.95);
+            border: 1px solid rgba(0,255,255,0.3);
+            border-radius: 10px;
+            max-height: 400px;
+            overflow-y: auto;
+            display: none;
+        }
+        
+        .search-results.active { display: block; }
+        
+        .search-result-item {
+            padding: 12px 15px;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(0,255,255,0.1);
+            transition: all 0.2s ease;
+        }
+        
+        .search-result-item:hover { background: rgba(0,255,255,0.15); color: #00ffff; }
+        .search-result-item .title { color: #00ff88; font-weight: bold; font-size: 0.85em; }
+        .search-result-item .context { color: #8b949e; font-size: 0.75em; margin-top: 4px; }
+        
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #00ff88, #00ffff, #ff00ff);
+            z-index: 1003;
+            transition: width 0.1s;
+        }
+        
+        .quick-nav {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1001;
+        }
+        
+        .quick-nav-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid rgba(0,255,255,0.4);
+            background: rgba(0,0,0,0.6);
+            color: #00ffff;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .quick-nav-btn:hover {
+            background: rgba(0,255,255,0.2);
+            transform: scale(1.1);
+        }
+        
+        .expand-btn {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid rgba(0,255,255,0.3);
+            color: #00ffff;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.8em;
+            transition: all 0.3s ease;
+        }
+        
+        .expand-btn:hover { background: rgba(0,255,255,0.2); }
+        
+        .section.expanded .section-content { display: block; }
+        .section:not(.expanded) .section-content { display: none; }
+    </style>
+</head>
+<body>
+    <div class="reading-progress" id="readingProgress"></div>
+    <canvas class="matrix-bg" id="matrixCanvas"></canvas>
+    
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search documentation... (Press / to focus)">
+        <div class="search-results" id="searchResults"></div>
+    </div>
+    
+    <div class="quick-nav">
+        <button class="quick-nav-btn" onclick="scrollToTop()" title="Back to Top">↑</button>
+        <button class="quick-nav-btn" onclick="scrollToPrev()" title="Previous Section">‹</button>
+        <button class="quick-nav-btn" onclick="scrollToNext()" title="Next Section">›</button>
+    </div>
+    
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button>
+    
+    <div class="toc" id="toc">
+        <h3>CONTENTS</h3>
+        <a href="#header" class="active">Overview</a>
+        <a href="#tier1">Tier 1: Core Worms</a>
+        <a href="#tier2">Tier 2: Clusters</a>
+        <a href="#tier3">Tier 3: Metaworms</a>
+        <a href="#tier4">Tier 4: Hydrameta</a>
+        <a href="#tier5">Tier 5: Coordination</a>
+        <a href="#support">Support Systems</a>
+        <a href="#pipeline">Pipeline</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#api">API Reference</a>
+        <a href="#config">Configuration</a>
+        <a href="#usecases">Use Cases</a>
+        <a href="#footer">Footer</a>
+    </div>
+    
+    <div class="container" id="container">>
+        <header class="header" id="header">
+            <h1>Azazael Ecosystem</h1>
+            <p style="color: #8b949e; font-size: 1.2em; margin-top: 10px;">Distributed Computing Framework - Complete Technical Reference v2.0</p>
+            <div class="header-stats">
+                <div class="stat-box">
+                    <div class="stat-value">7</div>
+                    <div class="stat-label">TIER LEVELS</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">14</div>
+                    <div class="stat-label">CORE SYSTEMS</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">17</div>
+                    <div class="stat-label">WORMS</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">11</div>
+                    <div class="stat-label">METAWORMS</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">6</div>
+                    <div class="stat-label">CLUSTERS</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">24</div>
+                    <div class="stat-label">PROTOCOLS</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">6</div>
+                    <div class="stat-label">PIPELINE STAGES</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">5</div>
+                    <div class="stat-label">EXECUTION MODES</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">100+</div>
+                    <div class="stat-label">CLI FLAGS</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">v1.0</div>
+                    <div class="stat-label">VERSION</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">HYDRAMETA</div>
+                    <div class="stat-label">ML ENGINE</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">5</div>
+                    <div class="stat-label">DATABASE ADAPTERS</div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- TIER 1: CORE WORMS -->
+        <div class="section" id="tier1" style="--tier-color: #00ff88">
+            <div class="section-header">
+                <span class="section-icon">🐛</span>
+                <div class="section-title">
+                    <h2>TIER 1: CORE WORMS</h2>
+                    <p>Fundamental system monitoring and resource management - 6 Primary Worms</p>
+                </div>
+            </div>
+            <div class="section-content">
+                <div class="grid-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-name">SYSTEMZ</span>
+                            <span class="badge">CORE</span>
+                        </div>
+                        <p class="card-desc">Comprehensive system resource monitoring providing real-time visibility into CPU, memory, disk, network, and process management across distributed ecosystem.</p>
+                        <ul class="detail-list">
+                            <li><span class="detail-label">Category:</span><span class="detail-value">Resource Monitor</span></li>
+                            <li><span class="detail-label">Dependencies:</span><span class="detail-value">None (Core)</span></li>
+                            <li><span class="detail-label">Output:</span><span class="detail-value">JSON, YAML, Prometheus</span></li>
+                            <li><span class="detail-label">Mode:</span><span class="detail-value">Sync/Async</span></li>
+                            <li><span class="detail-label">Interval:</span><span class="detail-value">1s - 3600s</span></li>
+                            <li><span class="detail-label">Thresholds:</span><span class="detail-value">Configurable</span></li>
+                        </ul>
+                        <div class="flags-wrap">
+                            <span class="flag">--status</span><span class="flag">--cpu</span><span class="flag">--memory</span>
+                            <span class="flag">--disk</span><span class="flag">--network</span><span class="flag">--processes</span>
+                            <span class="flag">--json</span><span class="flag">--yaml</span><span class="flag">--prometheus</span>
+                            <span class="flag">--verbose</span><span class="flag">--threshold</span><span class="flag">--interval</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-name">PROCESSZ</span>
+                            <span class="badge">PROCESS</span>
+                        </div>
+                        <p class="card-desc">Advanced process enumeration and management for discovering, tracking, spawning, and terminating processes across local and remote systems.</p>
+                        <ul class="detail-list">
+                            <li><span class="detail-label">Category:</span><span class="detail-value">Process Manager</span></li>
+                            <li><span class="detail-label">Dependencies:</span><span class="detail-value">SYSTEMZ</span></li>
+                            <li><span class="detail-label">Features:</span><span class="detail-value">Tree View, Memory Map</span></li>
+                            <li><span class="detail-label">Remote:</span><span class="detail-value">SSH, WMI, API</span></li>
+                            <li><span class="detail-label">Filters:</span><span class="detail-value">CPU, Memory, Name</span></li>
+                        </ul>
+                        <div class="flags-wrap">
+                            <span class="flag">--list</span><span class="flag">--find</span><span class="flag">--kill</span>
+                            <span class="flag">--spawn</span><span class="flag">--summary</span><span class="flag">--tree</span>
+                            <span class="flag">--memory</span><span class="flag">--cpu</span><span class="flag">--remote</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-name">DISKZ</span>
+                            <span class="badge">STORAGE</span>
+                        </div>
+                        <p class="card-desc">Storage analysis with partition management, I/O statistics, usage analysis, SMART monitoring, and predictive failure detection.</p>
+                        <ul class="detail-list">
+                            <li><span class="detail-label">Category:</span><span class="detail-value">Storage Monitor</span></li>
+                            <li><span class="detail-label">Features:</span><span class="detail-value">SMART, I/O Queue</span></li>
+                            <li><span class="detail-label">Types:</span><span class="detail-value">HDD, SSD, NVMe</span></li>
+                            <li><span class="detail-label">Alerts:</span><span class="detail-value">Predictive Failure</span></li>
+                            <li><span class="detail-label">Benchmarks:</span><span class="detail-value">Read/Write/IOPS</span></li>
+                        </ul>
+                        <div class="flags-wrap">
+                            <span class="flag">--usage</span><span class="flag">--partitions</span><span class="flag">--io</span>
+                            <span class="flag">--analyze</span><span class="flag">--smart</span><span class="flag">--wipe</span>
+                            <span class="flag">--benchmark</span><span class="flag">--health</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-name">NETWORXZ</span>
+                            <span class="badge">NETWORK</span>
+                        </div>
+                        <p class="card-desc">Network interface monitoring with connection tracking, bandwidth analysis, latency measurements, and protocol analysis.</p>
+                        <ul class="detail-list">
+                            <li><span class="detail-label">Category:</span><span class="detail-value">Network Monitor</span></li>
+                            <li><span class="detail-label">Protocols:</span><span class="detail-value">TCP, UDP, ICMP, HTTP</span></li>
+                            <li><span class="detail-label">Analysis:</span><span class="detail-value">Bandwidth, Latency</span></li>
+                            <li><span class="detail-label">Capture:</span><span class="detail-value">Packet Sniffing</span></li>
+                            <li><span class="detail-label">QoS:</span><span class="detail-value">Traffic Shaping</span></li>
+                        </ul>
+                        <div class="flags-wrap">
+                            <span class="flag">--interfaces</span><span class="flag">--connections</span><span class="flag">--stats</span>
+                            <span class="flag">--ping</span><span class="flag">--bandwidth</span><span class="flag">--latency</span>
+                            <span class="flag">--capture</span><span class="flag">--qos</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-name">CLOCKZ</span>
+                            <span class="badge">TIME</span>
+                        </div>
+                        <p class="card-desc">Time synchronization with NTP services, task scheduling, uptime tracking, and cron-like automation.</p>
+                        <ul class="detail-list">
+                            <li><span class="detail-label">Category:</span><span class="detail-value">Time Service</span></li>
+                            <li><span class="detail-label">Sync Modes:</span><span class="detail-value">NTP, PTP, Manual</span></li>
+                            <li><span class="detail-label">Precision:</span><span class="detail-value">ms to ns</span></li>
+                            <li><span class="detail-label">Scheduler:</span><span class="detail-value">Cron-like</span></li>
+                        </ul>
+                        <div class="flags-wrap">
+                            <span class="flag">--time</span><span class="flag">--uptime</span><span class="flag">--schedule</span>
+                            <span class="flag">--tasks</span><span class="flag">--sync</span><span class="flag">--cron</span>
+                            <span class="flag">--ntp</span><span class="flag">--ptp</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-name">WORMZ</span>
+                            <span class="badge">CRAWLER</span>
+                        </div>
+                        <p class="card-desc">Primary BIBL terminology crawler scanning filesystems, repositories, and databases for terminology extraction.</p>
+                        <ul class="detail-list">
+                            <li><span class="detail-label">Category:</span><span class="detail-value">Crawler/Indexer</span></li>
+                            <li><span class="detail-label">Sources:</span><span class="detail-value">Filesystem, Git, DB</span></li>
+                            <li><span class="detail-label">Formats:</span><span class="detail-value">All Major Languages</span></li>
+                            <li><span class="detail-label">Index:</span><span class="detail-value">ElasticSearch, SQLite</span></li>
+                        </ul>
+                        <div class="flags-wrap">
+                            <span class="flag">--all</span><span class="flag">--delta</span><span class="flag">--folder</span>
+                            <span class="flag">--recursive</span><span class="flag">--index</span><span class="flag">--git</span>
+                            <span class="flag">--db</span><span class="flag">--language</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TIER 2: CLUSTERWORMS -->
+        <div class="section" id="tier2" style="--tier-color: #00ffff">
+            <div class="section-header">
+                <span class="section-icon">🔗</span>
+                <div class="section-title">
+                    <h2>TIER 2: CLUSTERWORMS</h2>
+                    <p>Multi-worm coordinated operations - 7 Cluster Configurations</p>
+                </div>
+            </div>
+            <div class="section-content">
+                <div class="grid-4">
+                    <div class="small-card">
+                        <h4 style="--tier-color: #00ffff">BIBL CLUSTER</h4>
+                        <p><strong>WORMZ + TRIMZ</strong><br>Content crawling with deduplication and terminology normalization</p>
+                        <div class="flags-wrap" style="justify-content: center;">
+                            <span class="flag">--crawl</span><span class="flag">--trim</span><span class="flag">--dedupe</span>
+                        </div>
+                    </div>
+                    <div class="small-card">
+                        <h4 style="--tier-color: #00ffff">SYSTEM CLUSTER</h4>
+                        <p><strong>SYSTEMZ + PROCESSZ + DISKZ</strong><br>Complete monitoring with resource correlation</p>
+                        <div class="flags-wrap" style="justify-content: center;">
+                            <span class="flag">--full</span><span class="flag">--health</span><span class="flag">--report</span>
+                        </div>
+                    </div>
+                    <div class="small-card">
+                        <h4 style="--tier-color: #00ffff">NETWORK CLUSTER</h4>
+                        <p><strong>NETWORXZ + CLOCKZ + DISKZ</strong><br>Infrastructure health analysis</p>
+                        <div class="flags-wrap" style="justify-content: center;">
+                            <span class="flag">--infra</span><span class="flag">--latency</span><span class="flag">--throughput</span>
+                        </div>
+                    </div>
+                    <div class="small-card">
+                        <h4 style="--tier-color: #00ffff">SECURITY CLUSTER</h4>
+                        <p><strong>PROCESSZ + NETWORXZ</strong><br>Auditing and intrusion detection</p>
+                        <div class="flags-wrap" style="justify-content: center;">
+                            <span class="flag">--audit</span><span class="flag">--intrusion</span><span class="flag">--threats</span>
+                        </div>
+                    </div>
+                    <div class="small-card">
+                        <h4 style="--tier-color: #00ffff">ANALYSIS CLUSTER</h4>
+                        <p><strong>METAZ + METRICZ + DEPENDZ</strong><br>Comprehensive code analysis</p>
+                        <div class="flags-wrap" style="justify-content: center;">
+                            <span class="flag">--analyze</span><span class="flag">--metrics</span><span class="flag">--graph</span>
+                        </div>
+                    </div>
+                    <div class="small-card">
+                        <h4 style="--tier-color: #00ffff">VALIDATION CLUSTER</h4>
+                        <p><strong>VALIDZ + DEADZ + ERRORZ</strong><br>Code validation and error detection</p>
+                        <div class="flags-wrap" style="justify-content: center;">
+                            <span class="flag">--validate</span><span class="flag">--deadcode</span><span class="flag">--errors</span>
+                        </div>
+                    </div>
+                    <div class="small-card">
+                        <h4 style="--tier-color: #00ffff">HEALTH CLUSTER</h4>
+                        <p><strong>HEALTHZ + OPTIMIZ + SYSTEMZ</strong><br>System health optimization</p>
+                        <div class="flags-wrap" style="justify-content: center;">
+                            <span class="flag">--health</span><span class="flag">--optimize</span><span class="flag">--tune</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TIER 3: METAWORMS -->
+        <div class="section" id="tier3" style="--tier-color: #ff00ff">
+            <div class="section-header">
+                <span class="section-icon">🧬</span>
+                <div class="section-title">
+                    <h2>TIER 3: METAWORMS</h2>
+                    <p>Advanced code analysis - 11 Metaworm Components</p>
+                </div>
+            </div>
+            <div class="section-content">
+                <div class="grid-5">
+                    <div class="small-card">
+                        <h4 style="--tier-color: #ff00ff">METAZ</h4>
+                        <p>Metadata extraction engine</p>
+                        <div class="flags-wrap" style="justify-content: center;">
+                            <span class="flag">--scan</span><span class="flag">--json</span>
+                        </div>
+                    </div>
+                    <div class="small-card">
+                        <h4 style="--tier-color: #ff00ff">DEPENDZ</h4>
+                        <p>Dependency mapping</p>
+                        <div class="flags-wrap" style="justify-content: center;">
+                            <span class="flag">--tree</span><span class="flag">--graph</span>
+                        </div>
+                    </div>
+                    <div class="small-card">
+                        <h4 style="--tier-color: #ff00ff">VALIDZ</h4>
+                        <p>Syntax validation</p>
+                        <div class="flags-wrap" style="justify-content: center;">
+                            <span class="flag">--strict</span><span class="flag">--pedantic</span>
+                        </div>
+                    </div>
+                    <div class="small-card">
+                        <h4 style="--tier-color: #ff00ff">DEADZ</h4>
+                        <p>Dead code detection</p>
+                        <div class="flags-wrap" style="justify-content: center;">
+                            <span class="flag">--unused</span><span class="flag">--xref</span>
+                        </div>
+                    </div>
+                    <div class="small-card">
+                        <h4 style="--tier-color: #ff00ff">METRICZ</h4>
+                        <p>Code metrics analysis</p>
+                        <div class="flags-wrap" style="justify-content: center;">
+                            <span class="flag">--cyclomatic</span><span class="flag">--halstead</span>
+                        </div>
+                    </div>
+                    <div class="small-card">
+                        <h4 style="--tier-color: #ff00ff">ERRORZ</h4>
+                        <p>Error pattern matching</p>
+                        <div class="flags-wrap" style="justify-content: center;">
+                            <span class="flag">--scan</span><span class="flag">--fix</span>
+                        </div>
+                    </div>
+                    <div class="small-card">
+                        <h4 style="--tier-color: #ff00ff">LOGZ</h4>
+                        <p>Log analysis</p>
+                        <div class="flags-wrap" style="justify-content: center;">
+                            <span class="flag">--parse</span><span class="flag">--patterns</span>
+                        </div>
+                    </div>
+                    <div class="small-card">
+                        <h4 style="--tier-color: #ff00ff">CHANGEZ</h4>
+                        <p>Change tracking</p>
+                        <div class="flags-wrap" style="justify-content: center;">
+                            <span class="flag">--diff</span><span class="flag">--history</span>
+                        </div>
+                    </div>
+                    <div class="small-card">
+                        <h4 style="--tier-color: #ff00ff">TRIMZ</h4>
+                        <p>Content optimization</p>
+                        <div class="flags-wrap" style="justify-content: center;">
+                            <span class="flag">--compress</span><span class="flag">--clean</span>
+                        </div>
+                    </div>
+                    <div class="small-card">
+                        <h4 style="--tier-color: #ff00ff">OPTIMIZ</h4>
+                        <p>Performance tuning</p>
+                        <div class="flags-wrap" style="justify-content: center;">
+                            <span class="flag">--analyze</span><span class="flag">--suggest</span>
+                        </div>
+                    </div>
+                    <div class="small-card">
+                        <h4 style="--tier-color: #ff00ff">HEALTHZ</h4>
+                        <p>System diagnostics</p>
+                        <div class="flags-wrap" style="justify-content: center;">
+                            <span class="flag">--check</span><span class="flag">--diagnose</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TIER 4: HYDRAMETA -->
+        <div class="section" id="tier4" style="--tier-color: #ffff00">
+            <div class="section-header">
+                <span class="section-icon">🧠</span>
+                <div class="section-title">
+                    <h2>TIER 4: HYDRAMETA</h2>
+                    <p>ML-driven optimization with genetic algorithms and persistence</p>
+                </div>
+            </div>
+            <div class="section-content">
+                <div class="grid-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-name">ML OPTIMIZATION ENGINE</span>
+                            <span class="badge">CORE</span>
+                        </div>
+                        <p class="card-desc">Population-based parameter tuning using genetic algorithms for worm sequencing optimization.</p>
+                        <ul class="detail-list">
+                            <li><span class="detail-label">Algorithm:</span><span class="detail-value">Genetic Algorithms + RL</span></li>
+                            <li><span class="detail-label">Population:</span><span class="detail-value">100-1000</span></li>
+                            <li><span class="detail-label">Selection:</span><span class="detail-value">Tournament, Roulette</span></li>
+                            <li><span class="detail-label">Crossover:</span><span class="detail-value">Single, Two-point</span></li>
+                            <li><span class="detail-label">Mutation:</span><span class="detail-value">Bit Flip, Swap</span></li>
+                            <li><span class="detail-label">Convergence:</span><span class="detail-value">Generations, Fitness</span></li>
+                        </ul>
+                        <div class="flags-wrap">
+                            <span class="flag">--population</span><span class="flag">--generations</span>
+                            <span class="flag">--mutation</span><span class="flag">--crossover</span>
+                            <span class="flag">--fitness</span><span class="flag">--selection</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-name">PERSISTENCE LAYER</span>
+                            <span class="badge">STORAGE</span>
+                        </div>
+                        <p class="card-desc">State preservation, execution history, and parameter caching for continuous learning.</p>
+                        <ul class="detail-list">
+                            <li><span class="detail-label">Backends:</span><span class="detail-value">SQLite, Redis, PostgreSQL</span></li>
+                            <li><span class="detail-label">Cache:</span><span class="detail-value">In-Memory, Disk</span></li>
+                            <li><span class="detail-label">History:</span><span class="detail-value">Full Execution Log</span></li>
+                            <li><span class="detail-label">Sync:</span><span class="detail-value">Real-time</span></li>
+                        </ul>
+                        <div class="flags-wrap">
+                            <span class="flag">--state</span><span class="flag">--history</span>
+                            <span class="flag">--cache</span><span class="flag">--sync</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-name">EXECUTION STRATEGIES</span>
+                            <span class="badge">STRATEGY</span>
+                        </div>
+                        <p class="card-desc">Multiple modes for intelligent worm execution scheduling.</p>
+                        <ul class="detail-list">
+                            <li><span class="detail-label">Round Robin:</span><span class="detail-value">Sequential</span></li>
+                            <li><span class="detail-label">Performance:</span><span class="detail-value">Fastest First</span></li>
+                            <li><span class="detail-label">Resource-Aware:</span><span class="detail-value">Load Balanced</span></li>
+                            <li><span class="detail-label">Randomized:</span><span class="detail-value">Chaos Mode</span></li>
+                            <li><span class="detail-label">ML-Optimized:</span><span class="detail-value">Predicted Best</span></li>
+                        </ul>
+                        <div class="flags-wrap">
+                            <span class="flag">--round-robin</span><span class="flag">--performance</span>
+                            <span class="flag">--resource-aware</span><span class="flag">--randomized</span>
+                            <span class="flag">--ml-optimized</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TIER 5: COORDINATION -->
+        <div class="section" id="tier5" style="--tier-color: #ff8800">
+            <div class="section-header">
+                <span class="section-icon">⚡</span>
+                <div class="section-title">
+                    <h2>TIER 5: COORDINATION</h2>
+                    <p>Cross-tier integration, error resolution, and output generation</p>
+                </div>
+            </div>
+            <div class="section-content">
+                <div class="grid-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-name">TERENCE</span>
+                            <span class="badge">ORCHESTRATION</span>
+                        </div>
+                        <p class="card-desc">Cross-tier error resolution with pattern matching, RL-based fix suggestions, and causal analysis.</p>
+                        <ul class="detail-list">
+                            <li><span class="detail-label">Pattern DB:</span><span class="detail-value">50K+ Patterns</span></li>
+                            <li><span class="detail-label">RL Agent:</span><span class="detail-value">Deep Q-Learning</span></li>
+                            <li><span class="detail-label">Causal Graph:</span><span class="detail-value">Directed Acyclic</span></li>
+                            <li><span class="detail-label">Auto-fix:</span><span class="detail-value">90% Success</span></li>
+                        </ul>
+                        <div class="flags-wrap">
+                            <span class="flag">--pattern-match</span><span class="flag">--rl-suggest</span>
+                            <span class="flag">--causal</span><span class="flag">--fix</span>
+                            <span class="flag">--prevent</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-name">HORUS</span>
+                            <span class="badge">OUTPUT</span>
+                        </div>
+                        <p class="card-desc">Human-readable output with 24 animation protocols for real-time monitoring.</p>
+                        <ul class="detail-list">
+                            <li><span class="detail-label">Protocols:</span><span class="detail-value">24 Animation Types</span></li>
+                            <li><span class="detail-label">Formats:</span><span class="detail-value">HTML, JSON, GraphML</span></li>
+                            <li><span class="detail-label">Dashboards:</span><span class="detail-value">Grafana, Custom</span></li>
+                            <li><span class="detail-label">Real-time:</span><span class="detail-value">WebSocket</span></li>
+                        </ul>
+                        <div class="flags-wrap">
+                            <span class="flag">--animate</span><span class="flag">--monitor</span>
+                            <span class="flag">--visualize</span><span class="flag">--report</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-name">24 PROTOCOLS</span>
+                            <span class="badge">OUTPUT</span>
+                        </div>
+                        <p class="card-desc">Animation and visualization protocols for different data types.</p>
+                        <div class="small-grid">
+                            <div class="small-card">
+                                <h4 style="--tier-color: #ff8800">Matrix View</h4>
+                                <p>Binary cascade</p>
+                            </div>
+                            <div class="small-card">
+                                <h4 style="--tier-color: #ff8800">Graphviz</h4>
+                                <p>Dependency graphs</p>
+                            </div>
+                            <div class="small-card">
+                                <h4 style="--tier-color: #ff8800">Timeline</h4>
+                                <p>Execution flow</p>
+                            </div>
+                            <div class="small-card">
+                                <h4 style="--tier-color: #ff8800">Heatmap</h4>
+                                <p>Resource usage</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SUPPORT SYSTEMS -->
+        <div class="section" id="support" style="--tier-color: #ff0088">
+            <div class="section-header">
+                <span class="section-icon">🔧</span>
+                <div class="section-title">
+                    <h2>SUPPORT SYSTEMS</h2>
+                    <p>Utility infrastructure - 5 Core Systems</p>
+                </div>
+            </div>
+            <div class="section-content">
+                <div class="grid-5">
+                    <div class="small-card">
+                        <h4 style="--tier-color: #ff0088">SHORTY</h4>
+                        <p>Executable shortcuts manager with command aliases</p>
+                    </div>
+                    <div class="small-card">
+                        <h4 style="--tier-color: #ff0088">TARBABY</h4>
+                        <p>Binary builder and packager for distribution</p>
+                    </div>
+                    <div class="small-card">
+                        <h4 style="--tier-color: #ff0088">PERSEPHONE</h4>
+                        <p>Cross-platform deployment (Win/Lin/Mac)</p>
+                    </div>
+                    <div class="small-card">
+                        <h4 style="--tier-color: #ff0088">POINDEXTER</h4>
+                        <p>Mathematical indexer and calculator</p>
+                    </div>
+                    <div class="small-card">
+                        <h4 style="--tier-color: #ff0088">BIBL</h4>
+                        <p>Terminology crawler and dictionary</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 6-STAGE PIPELINE -->
+        <div class="section" id="pipeline" style="--tier-color: #00ff00">
+            <div class="section-header">
+                <span class="section-icon">🔄</span>
+                <div class="section-title">
+                    <h2>6-STAGE HYDRA PIPELINE</h2>
+                    <p>ML-driven execution with continuous optimization</p>
+                </div>
+            </div>
+            <div class="section-content">
+                <div class="pipeline-flow">
+                    <div class="pipeline-stage" style="--stage-color: #00ff00">
+                        <h4>1. DISCOVERY</h4>
+                        <p>Scan & Identify</p>
+                    </div>
+                    <span class="pipeline-arrow" style="--stage-color: #00ff00">→</span>
+                    <div class="pipeline-stage" style="--stage-color: #00ff88">
+                        <h4>2. ANALYSIS</h4>
+                        <p>Metaworm Processing</p>
+                    </div>
+                    <span class="pipeline-arrow" style="--stage-color: #00ff88">→</span>
+                    <div class="pipeline-stage" style="--stage-color: #00ffff">
+                        <h4>3. OPTIMIZE</h4>
+                        <p>Genetic Tuning</p>
+                    </div>
+                    <span class="pipeline-arrow" style="--stage-color: #00ffff">→</span>
+                    <div class="pipeline-stage" style="--stage-color: #ffff00">
+                        <h4>4. VALIDATE</h4>
+                        <p>Error Checking</p>
+                    </div>
+                    <span class="pipeline-arrow" style="--stage-color: #ffff00">→</span>
+                    <div class="pipeline-stage" style="--stage-color: #ff8800">
+                        <h4>5. DEPLOY</h4>
+                        <p>Execution</p>
+                    </div>
+                    <span class="pipeline-arrow" style="--stage-color: #ff8800">→</span>
+                    <div class="pipeline-stage" style="--stage-color: #ff0088">
+                        <h4>6. FEEDBACK</h4>
+                        <p>Persistence</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ARCHITECTURE DIAGRAM -->
+        <div class="section" id="architecture" style="--tier-color: #00ffaa">
+            <div class="section-header">
+                <span class="section-icon">🏗️</span>
+                <div class="section-title">
+                    <h2>SYSTEM ARCHITECTURE</h2>
+                    <p>Complete tier hierarchy from infrastructure to coordination</p>
+                </div>
+            </div>
+            <div class="section-content">
+                <div class="arch-tier" style="--tier-color: #ff0088">
+                    <span class="arch-label">TIER 0</span>
+                    <div class="arch-items">
+                        <span class="arch-item">SHORTY</span>
+                        <span class="arch-item">TARBABY</span>
+                    </div>
+                </div>
+                <div class="arch-tier" style="--tier-color: #00ff88">
+                    <span class="arch-label">TIER 1</span>
+                    <div class="arch-items">
+                        <span class="arch-item">SYSTEMZ</span>
+                        <span class="arch-item">PROCESSZ</span>
+                        <span class="arch-item">DISKZ</span>
+                        <span class="arch-item">NETWORXZ</span>
+                        <span class="arch-item">CLOCKZ</span>
+                        <span class="arch-item">WORMZ</span>
+                    </div>
+                </div>
+                <div class="arch-tier" style="--tier-color: #00ffff">
+                    <span class="arch-label">TIER 2</span>
+                    <div class="arch-items">
+                        <span class="arch-item">BIBL</span>
+                        <span class="arch-item">SYSTEM</span>
+                        <span class="arch-item">NETWORK</span>
+                        <span class="arch-item">SECURITY</span>
+                        <span class="arch-item">ANALYSIS</span>
+                        <span class="arch-item">VALIDATION</span>
+                        <span class="arch-item">HEALTH</span>
+                    </div>
+                </div>
+                <div class="arch-tier" style="--tier-color: #ff00ff">
+                    <span class="arch-label">TIER 3</span>
+                    <div class="arch-items">
+                        <span class="arch-item">METAZ</span>
+                        <span class="arch-item">DEPENDZ</span>
+                        <span class="arch-item">VALIDZ</span>
+                        <span class="arch-item">DEADZ</span>
+                        <span class="arch-item">METRICZ</span>
+                        <span class="arch-item">ERRORZ</span>
+                        <span class="arch-item">LOGZ</span>
+                        <span class="arch-item">CHANGEZ</span>
+                        <span class="arch-item">TRIMZ</span>
+                        <span class="arch-item">OPTIMIZ</span>
+                        <span class="arch-item">HEALTHZ</span>
+                    </div>
+                </div>
+                <div class="arch-tier" style="--tier-color: #ffff00">
+                    <span class="arch-label">TIER 4</span>
+                    <div class="arch-items">
+                        <span class="arch-item">HYDRAMETA</span>
+                        <span class="arch-item">ML OPTIMIZATION</span>
+                        <span class="arch-item">GENETIC</span>
+                        <span class="arch-item">PERSISTENCE</span>
+                    </div>
+                </div>
+                <div class="arch-tier" style="--tier-color: #ff8800">
+                    <span class="arch-label">TIER 5</span>
+                    <div class="arch-items">
+                        <span class="arch-item">TERENCE</span>
+                        <span class="arch-item">HORUS</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- API REFERENCE -->
+        <div class="section" id="api" style="--tier-color: #00aaff">
+            <div class="section-header">
+                <span class="section-icon">🔌</span>
+                <div class="section-title">
+                    <h2>API REFERENCE</h2>
+                    <p>RESTful API endpoints and CLI commands</p>
+                </div>
+            </div>
+            <div class="section-content">
+                <div class="grid-3">
+                    <div class="api-section">
+                        <div class="api-title">📡 SYSTEM API</div>
+                        <div class="api-endpoint">
+                            <span class="method method-get">GET</span>
+                            <code>/api/v1/system/status</code> - System health
+                        </div>
+                        <div class="api-endpoint">
+                            <span class="method method-get">GET</span>
+                            <code>/api/v1/system/resources</code> - Resource metrics
+                        </div>
+                        <div class="api-endpoint">
+                            <span class="method method-get">GET</span>
+                            <code>/api/v1/system/processes</code> - Process list
+                        </div>
+                    </div>
+                    
+                    <div class="api-section">
+                        <div class="api-title">🧬 METAZ API</div>
+                        <div class="api-endpoint">
+                            <span class="method method-post">POST</span>
+                            <code>/api/v1/metaz/scan</code> - Start scan
+                        </div>
+                        <div class="api-endpoint">
+                            <span class="method method-get">GET</span>
+                            <code>/api/v1/metaz/results/{id}</code> - Get results
+                        </div>
+                        <div class="api-endpoint">
+                            <span class="method method-get">GET</span>
+                            <code>/api/v1/metaz/metrics</code> - Code metrics
+                        </div>
+                    </div>
+                    
+                    <div class="api-section">
+                        <div class="api-title">🧠 HYDRAMETA API</div>
+                        <div class="api-endpoint">
+                            <span class="method method-post">POST</span>
+                            <code>/api/v1/hydrameta/optimize</code> - Run optimization
+                        </div>
+                        <div class="api-endpoint">
+                            <span class="method method-get">GET</span>
+                            <code>/api/v1/hydrameta/population</code> - Population status
+                        </div>
+                        <div class="api-endpoint">
+                            <span class="method method-get">GET</span>
+                            <code>/api/v1/hydrameta/history</code> - Execution history
+                        </div>
+                    </div>
+                    
+                    <div class="api-section">
+                        <div class="api-title">⚡ TERENCE API</div>
+                        <div class="api-endpoint">
+                            <span class="method method-post">POST</span>
+                            <code>/api/v1/terence/analyze</code> - Error analysis
+                        </div>
+                        <div class="api-endpoint">
+                            <span class="method method-post">POST</span>
+                            <code>/api/v1/terence/fix</code> - Apply fix
+                        </div>
+                        <div class="api-endpoint">
+                            <span class="method method-get">GET</span>
+                            <code>/api/v1/terence/suggestions</code> - Get suggestions
+                        </div>
+                    </div>
+                    
+                    <div class="api-section">
+                        <div class="api-title">📊 HORUS API</div>
+                        <div class="api-endpoint">
+                            <span class="method method-get">GET</span>
+                            <code>/api/v1/horus/dashboard</code> - Dashboard data
+                        </div>
+                        <div class="api-endpoint">
+                            <span class="method method-get">GET</span>
+                            <code>/api/v1/horus/animations</code> - List animations
+                        </div>
+                        <div class="api-endpoint">
+                            <span class="method method-post">POST</span>
+                            <code>/api/v1/horus/export</code> - Export report
+                        </div>
+                    </div>
+                    
+                    <div class="api-section">
+                        <div class="api-title">💻 CLI COMMANDS</div>
+                        <div class="code-block">
+azazael --help
+azazael scan --target /path/to/code
+azazael analyze --metaworms all
+azazael optimize --population 100
+azazael monitor --dashboard
+azazael deploy --cluster all
+azazael history --metrics
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- CONFIGURATION -->
+        <div class="section" id="config" style="--tier-color: #ffaa00">
+            <div class="section-header">
+                <span class="section-icon">⚙️</span>
+                <div class="section-title">
+                    <h2>CONFIGURATION REFERENCE</h2>
+                    <p>Configuration files, environment variables, and tuning options</p>
+                </div>
+            </div>
+            <div class="section-content">
+                <div class="grid-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-name">CONFIG FILES</span>
+                        </div>
+                        <ul class="detail-list">
+                            <li><span class="detail-label">Main:</span><span class="detail-value">~/.azazael/config.yaml</span></li>
+                            <li><span class="detail-label">Worms:</span><span class="detail-value">~/.azazael/worms/*.yaml</span></li>
+                            <li><span class="detail-label">Clusters:</span><span class="detail-value">~/.azazael/clusters/*.yaml</span></li>
+                            <li><span class="detail-label">Metaworms:</span><span class="detail-value">~/.azazael/metaworms/*.yaml</span></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-name">ENV VARIABLES</span>
+                        </div>
+                        <ul class="detail-list">
+                            <li><span class="detail-label">Azazael_HOME:</span><span class="detail-value">Install directory</span></li>
+                            <li><span class="detail-label">Azazael_DATA:</span><span class="detail-value">Data directory</span></li>
+                            <li><span class="detail-label">Azazael_CACHE:</span><span class="detail-value">Cache directory</span></li>
+                            <li><span class="detail-label">Azazael_LOG:</span><span class="detail-value">Log level</span></li>
+                            <li><span class="detail-label">HYDRAMETA_POP:</span><span class="detail-value">GA population</span></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-name">DATABASE ADAPTERS</span>
+                        </div>
+                        <ul class="detail-list">
+                            <li><span class="detail-label">SQLite:</span><span class="detail-value">Local cache</span></li>
+                            <li><span class="detail-label">Redis:</span><span class="detail-value">Real-time cache</span></li>
+                            <li><span class="detail-label">PostgreSQL:</span><span class="detail-value">Persistence</span></li>
+                            <li><span class="detail-label">ElasticSearch:</span><span class="detail-value">Search index</span></li>
+                            <li><span class="detail-label">InfluxDB:</span><span class="detail-value">Metrics</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- USE CASES -->
+        <div class="section" id="usecases" style="--tier-color: #aa00ff">
+            <div class="section-header">
+                <span class="section-icon">📋</span>
+                <div class="section-title">
+                    <h2>USE CASES</h2>
+                    <p>Common scenarios and examples</p>
+                </div>
+            </div>
+            <div class="section-content">
+                <div class="grid-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-name">CODE ANALYSIS</span>
+                        </div>
+                        <p class="card-desc">Complete codebase analysis with dependency mapping and metrics.</p>
+                        <div class="code-block">
+azazael analyze --target /project \
+  --metaworms all \
+  --output json \
+  --dashboard
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-name">SYSTEM MONITORING</span>
+                        </div>
+                        <p class="card-desc">Real-time monitoring with alerts and historical analysis.</p>
+                        <div class="code-block">
+azazael monitor \
+  --cluster system \
+  --interval 5s \
+  --alert high \
+  --persist
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-name">ML OPTIMIZATION</span>
+                        </div>
+                        <p class="card-desc">Genetic algorithm-based parameter tuning for worm execution.</p>
+                        <div class="code-block">
+azazael optimize \
+  --population 500 \
+  --generations 100 \
+  --strategy ml-optimized
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-name">ERROR RESOLUTION</span>
+                        </div>
+                        <p class="card-desc">Automatic error detection and fix suggestion.</p>
+                        <div class="code-block">
+azazael terence \
+  --analyze /project \
+  --fix auto \
+  --learn
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-name">HEALTH CHECK</span>
+                        </div>
+                        <p class="card-desc">System health assessment with recommendations.</p>
+                        <div class="code-block">
+azazael health \
+  --cluster all \
+  --report full \
+  --recommendations
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="card-name">DEPLOYMENT</span>
+                        </div>
+                        <p class="card-desc">Cross-platform worm deployment and scheduling.</p>
+                        <div class="code-block">
+azazael deploy \
+  --target production \
+  --schedule "0 * * * *" \
+  --clusters system,network
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer class="footer" id="footer">
+            <h2>Azazael Ecosystem</h2>
+            <p style="color: #8b949e; font-size: 1.1em;">Distributed Computing | Self-Optimizing | Self-Healing</p>
+            <div class="footer-tags">
+                <span class="footer-tag">COTEMPORANEOUS EXECUTION</span>
+                <span class="footer-tag">PARALLEL PROCESSING</span>
+                <span class="footer-tag">THREAD POOL</span>
+                <span class="footer-tag">ML OPTIMIZATION</span>
+                <span class="footer-tag">GENETIC ALGORITHMS</span>
+                <span class="footer-tag">24 PROTOCOLS</span>
+                <span class="footer-tag">REAL-TIME MONITORING</span>
+                <span class="footer-tag">PERSISTENT STATE</span>
+                <span class="footer-tag">100+ CLI FLAGS</span>
+                <span class="footer-tag">REST API</span>
+                <span class="footer-tag">CROSS-PLATFORM</span>
+                <span class="footer-tag">AUTO-SCALING</span>
+            </div>
+             <p class="version-info">Version 1.0.0 | HYDRAMETA v4.2 | February 2026</p>
+        </footer>
+    </div>
+    
+    <!-- EXPANDED DOCUMENTATION -->
+    <style>
+        .expanded-section {
+            background: rgba(0,0,0,0.25);
+            border: 1px solid rgba(255,0,128,0.2);
+            border-radius: 15px;
+            margin: 20px 0;
+            padding: 25px;
+        }
+        .expanded-section h3 {
+            color: #ff0088;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255,0,128,0.3);
+            padding-bottom: 10px;
+        }
+        .faq-item {
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+        .faq-question {
+            padding: 15px 20px;
+            background: rgba(255,0,128,0.1);
+            cursor: pointer;
+            color: #ff88ff;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-question:hover { background: rgba(255,0,128,0.2); }
+        .faq-answer {
+            padding: 20px;
+            display: none;
+            color: #c9d1d9;
+            line-height: 1.7;
+        }
+        .faq-item.open .faq-answer { display: block; }
+        .faq-toggle { font-size: 1.2em; transition: transform 0.3s; }
+        .faq-item.open .faq-toggle { transform: rotate(180deg); }
+        .example-block {
+            background: rgba(0,0,0,0.5);
+            border-left: 3px solid #00ff88;
+            padding: 15px 20px;
+            margin: 15px 0;
+            font-size: 0.85em;
+        }
+        .example-block h4 { color: #00ff88; margin-bottom: 10px; }
+        .keyboard-shortcut {
+            display: inline-block;
+            background: rgba(0,255,255,0.2);
+            border: 1px solid rgba(0,255,255,0.4);
+            border-radius: 5px;
+            padding: 2px 8px;
+            margin: 0 3px;
+            font-size: 0.8em;
+            color: #00ffff;
+        }
+        .tip-box {
+            background: linear-gradient(135deg, rgba(0,255,136,0.1), rgba(0,255,255,0.1));
+            border: 1px solid rgba(0,255,136,0.3);
+            border-radius: 10px;
+            padding: 15px 20px;
+            margin: 15px 0;
+        }
+        .tip-box::before {
+            content: "💡 TIP: ";
+            color: #00ff88;
+            font-weight: bold;
+        }
+        .warning-box {
+            background: linear-gradient(135deg, rgba(255,136,0,0.1), rgba(255,0,0,0.1));
+            border: 1px solid rgba(255,136,0,0.3);
+            border-radius: 10px;
+            padding: 15px 20px;
+            margin: 15px 0;
+        }
+        .warning-box::before {
+            content: "⚠️ WARNING: ";
+            color: #ff8800;
+            font-weight: bold;
+        }
+    </style>
+    
+    <div class="container" style="padding-bottom: 100px;">
+        <div class="expanded-section">
+            <h3>📚 QUICK START GUIDE</h3>
+            <p style="color: #c9d1d9; line-height: 1.8; margin-bottom: 20px;">
+                Welcome to Azazael Ecosystem - a distributed computing framework designed for self-optimizing, self-healing operations.
+                This section provides essential shortcuts and tips for navigating the documentation efficiently.
+            </p>
+            <div class="tip-box">
+                Press <span class="keyboard-shortcut">/</span> to focus the search bar. Start typing to find any component, API endpoint, or feature instantly.
+            </div>
+            <div class="tip-box">
+                Use <span class="keyboard-shortcut">↑</span> and <span class="keyboard-shortcut">↓</span> arrow keys to navigate between major sections.
+            </div>
+            <div class="tip-box">
+                Click the table of contents on the right to jump directly to any section.
+            </div>
+            <div class="example-block">
+                <h4>🚀 Quick Commands</h4>
+                <code>azazael --help</code> - Show all available commands<br>
+                <code>azazael status</code> - Check system status<br>
+                <code>azazael monitor --all</code> - Monitor all systems<br>
+                <code>azazael api --docs</code> - View API documentation
+            </div>
+        </div>
+        
+        <div class="expanded-section">
+            <h3>❓ FREQUENTLY ASKED QUESTIONS</h3>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                    <span>What is Azazael and what does it do?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Azazael is a distributed computing framework that provides intelligent monitoring, analysis, and optimization capabilities across multiple system tiers. It uses "worms" (specialized agents) to perform tasks ranging from system resource monitoring to code analysis, with ML-driven optimization through the HYDRAMETA layer. The framework is self-optimizing and self-healing, meaning it continuously improves its own performance and recovers from errors automatically.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                    <span>What's the difference between WORMS, CLUSTERS, and METAWORMS?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <strong>WORMS</strong> are individual agents that perform specific tasks like monitoring CPU usage (SYSTEMZ), tracking processes (PROCESSZ), or crawling files (WORMZ).<br><br>
+                    <strong>CLUSTERS</strong> are coordinated groups of worms that work together for complex operations, like the SYSTEM CLUSTER which combines SYSTEMZ, PROCESSZ, and DISKZ for comprehensive health monitoring.<br><br>
+                    <strong>METAWORMS</strong> operate at a higher level, analyzing the output of other worms and providing metadata extraction, dependency mapping, code metrics, and error detection.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                    <span>How does the 6-stage pipeline work?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    The pipeline is a continuous optimization loop:<br>
+                    <strong>1. DISCOVERY</strong> - Scans and identifies targets for analysis<br>
+                    <strong>2. ANALYSIS</strong> - Metaworms process the target data<br>
+                    <strong>3. OPTIMIZE</strong> - Genetic algorithms tune parameters<br>
+                    <strong>4. VALIDATE</strong> - Error checking and quality assurance<br>
+                    <strong>5. DEPLOY</strong> - Execution of optimized operations<br>
+                    <strong>6. FEEDBACK</strong> - Results feed back into the system for continuous improvement
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                    <span>What is HYDRAMETA and how does ML optimization work?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    HYDRAMETA is the ML engine that powers Azazael's self-optimizing capabilities. It uses genetic algorithms to evolve optimal worm execution parameters. The system maintains a population of parameter configurations, evaluates their fitness based on execution metrics, and applies crossover and mutation operations to improve performance over generations. This allows Azazael to discover optimal worm sequencing and resource allocation strategies automatically.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                    <span>What are the 24 HORUS animation protocols?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    HORUS protocols are visualization formats for presenting system data. They include Matrix View (binary cascades), Graphviz graphs, Timelines, Heatmaps, and many more. Each protocol is optimized for different data types - some for real-time monitoring, others for historical analysis or report generation.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                    <span>How does TERENCE error resolution work?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    TERENCE uses pattern matching against a database of 50K+ known error patterns, combined with a Deep Q-Learning RL agent. When an error occurs, it builds a causal graph to understand the root cause and either suggests fixes or applies them automatically with 90% success rate. The system learns from each resolution, improving its capabilities over time.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                    <span>Can Azazael run on multiple platforms?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Yes! Azazael supports Windows, Linux, and macOS through the PERSEPHONE deployment system. The core functionality is cross-platform, with platform-specific implementations for system-level operations. Database adapters support SQLite, Redis, PostgreSQL, ElasticSearch, and InfluxDB.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                    <span>What execution strategies are available?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Five strategies control how worms are executed:<br>
+                    <strong>Round Robin</strong> - Sequential execution for predictable behavior<br>
+                    <strong>Performance</strong> - Fastest worms run first<br>
+                    <strong>Resource-Aware</strong> - Load-balanced based on system resources<br>
+                    <strong>Randomized</strong> - Chaos mode for testing resilience<br>
+                    <strong>ML-Optimized</strong> - Predicted best sequence based on historical data
+                </div>
+            </div>
+        </div>
+        
+        <div class="expanded-section">
+            <h3>📋 DETAILED COMPONENT REFERENCE</h3>
+            
+            <div class="grid-2" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px;">
+                <div class="detail-block" style="background: rgba(0,0,0,0.3); border-radius: 10px; padding: 20px;">
+                    <h4 style="color: #00ff88; margin-bottom: 15px;">SYSTEMZ Specifications</h4>
+                    <ul style="color: #c9d1d9; line-height: 2; font-size: 0.9em;">
+                        <li><strong>CPU Monitoring:</strong> Usage %, frequency, temperature, core count</li>
+                        <li><strong>Memory:</strong> Total, available, used, swap usage</li>
+                        <li><strong>Disk:</strong> I/O rates, queue depth, utilization</li>
+                        <li><strong>Network:</strong> Bandwidth, packets, errors, connections</li>
+                        <li><strong>Update Interval:</strong> Configurable 1s to 3600s</li>
+                        <li><strong>Output Formats:</strong> JSON, YAML, Prometheus, InfluxDB</li>
+                    </ul>
+                </div>
+                
+                <div class="detail-block" style="background: rgba(0,0,0,0.3); border-radius: 10px; padding: 20px;">
+                    <h4 style="color: #00ffff; margin-bottom: 15px;">NETWORXZ Capabilities</h4>
+                    <ul style="color: #c9d1d9; line-height: 2; font-size: 0.9em;">
+                        <li><strong>Interface Discovery:</strong> Auto-detect all network interfaces</li>
+                        <li><strong>Connection Tracking:</strong> TCP/UDP connection enumeration</li>
+                        <li><strong>Bandwidth Analysis:</strong> Real-time throughput monitoring</li>
+                        <li><strong>Latency Measurements:</strong> ICMP ping, TCP handshake timing</li>
+                        <li><strong>Packet Capture:</strong> Wireshark-compatible pcap output</li>
+                        <li><strong>QoS Configuration:</strong> Traffic shaping and prioritization</li>
+                    </ul>
+                </div>
+                
+                <div class="detail-block" style="background: rgba(0,0,0,0.3); border-radius: 10px; padding: 20px;">
+                    <h4 style="color: #ff00ff; margin-bottom: 15px;">METRICZ Analysis Types</h4>
+                    <ul style="color: #c9d1d9; line-height: 2; font-size: 0.9em;">
+                        <li><strong>Cyclomatic Complexity:</strong> McCabe complexity measurement</li>
+                        <li><strong>Halstead Metrics:</strong> Volume, difficulty, effort, bugs</li>
+                        <li><strong>Lines of Code:</strong> Total, comment, blank line counts</li>
+                        <li><strong>Maintainability Index:</strong> Microsoft-style calculation</li>
+                        <li><strong>Dependency Count:</strong> Inbound and outbound couplings</li>
+                        <li><strong>Code Churn:</strong> Changes over time tracking</li>
+                    </ul>
+                </div>
+                
+                <div class="detail-block" style="background: rgba(0,0,0,0.3); border-radius: 10px; padding: 20px;">
+                    <h4 style="color: #ffff00; margin-bottom: 15px;">HYDRAMETA GA Parameters</h4>
+                    <ul style="color: #c9d1d9; line-height: 2; font-size: 0.9em;">
+                        <li><strong>Population Size:</strong> 100-1000 configurations</li>
+                        <li><strong>Generations:</strong> Configurable convergence criteria</li>
+                        <li><strong>Selection Methods:</strong> Tournament, Roulette, Rank</li>
+                        <li><strong>Crossover:</strong> Single-point, Two-point, Uniform</li>
+                        <li><strong>Mutation:</strong> Bit flip, Swap, Inversion</li>
+                        <li><strong>Fitness Functions:</strong> Execution time, resource usage, success rate</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="expanded-section">
+            <h3>⚡ PERFORMANCE OPTIMIZATION TIPS</h3>
+            
+            <div class="tip-box">
+                Use <code>--interval</code> wisely: Higher intervals reduce CPU overhead but increase data staleness.
+            </div>
+            <div class="tip-box">
+                For large codebases, use <code>--delta</code> scanning instead of full rescans to save time.
+            </div>
+            <div class="tip-box">
+                Enable <code>--persist</code> to cache results and speed up subsequent analysis operations.
+            </div>
+            <div class="tip-box">
+                Use cluster modes (e.g., <code>--cluster system</code>) instead of running individual worms for coordinated operations.
+            </div>
+            <div class="tip-box">
+                Configure database backends (Redis, PostgreSQL) for better performance with large datasets.
+            </div>
+            
+            <div class="warning-box">
+                Avoid running all worms simultaneously on resource-constrained systems. Use resource-aware scheduling instead.
+            </div>
+            
+            <div class="example-block">
+                <h4>⚡ Optimized Monitoring Command</h4>
+                <code>azazael monitor --cluster system --interval 10s --persist --output influxdb</code><br>
+                <span style="color: #8b949e;">This balances data freshness with system overhead and enables historical analysis.</span>
+            </div>
+        </div>
+        
+        <div class="expanded-section">
+            <h3>🔧 TROUBLESHOOTING COMMON ISSUES</h3>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                    <span>Worm fails to start - "Module not found" error</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Ensure dependencies are installed: <code>pip install -r requirements.txt</code><br>
+                    Check PYTHONPATH includes the Azazael installation directory.<br>
+                    Verify the worm configuration file exists in <code>~/.azazael/worms/</code>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                    <span>High memory usage during large scans</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Reduce <code>--batch-size</code> to process smaller chunks.<br>
+                    Enable <code>--streaming</code> for memory-efficient processing.<br>
+                    Use SQLite instead of in-memory storage for very large datasets.<br>
+                    Consider increasing swap space for memory-mapped operations.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                    <span>TERENCE unable to resolve error patterns</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Ensure the pattern database is up to date: <code>azazael terence --update-db</code><br>
+                    Check network connectivity if using remote pattern service.<br>
+                    Review logs for more detailed error context.<br>
+                    Consider contributing new patterns using <code>--learn-from-fix</code>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                    <span>Genetic algorithm not converging</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Increase <code>--generations</code> limit for complex optimization problems.<br>
+                    Adjust <code>--mutation-rate</code> - too low causes premature convergence.<br>
+                    Verify fitness function is properly configured.<br>
+                    Check that population diversity is maintained.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+                    <span>Database connection failures</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Verify database credentials in <code>~/.azazael/config.yaml</code><br>
+                    Check network connectivity and port accessibility.<br>
+                    Ensure database server is running and accepting connections.<br>
+                    Review firewall settings for database ports.<br>
+                    Use <code>--test-connection</code> to diagnose issues.
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // FAQ toggle functionality
+        document.querySelectorAll('.faq-question').forEach(q => {
+            q.addEventListener('click', () => {
+                // Optional: Close other open FAQs
+                // document.querySelectorAll('.faq-item').forEach(item => {
+                //     if (item !== q.parentElement) item.classList.remove('open');
+                // });
+            });
+        });
+    </script>
+    
+    <script>
+        const canvas = document.getElementById('matrixCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const chars = '01ABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%^&*';
+        const fontSize = 11;
+        const columns = Math.ceil(canvas.width / fontSize);
+        const drops = [];
+        
+        for (let i = 0; i < columns; i++) drops[i] = Math.random() * -100;
+        
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(10, 10, 26, 0.04)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                const hue = (i * 8 + Date.now() * 0.01) % 360;
+                ctx.fillStyle = `hsl(${hue}, 100%, 50%, ${Math.random() * 0.4 + 0.2})`;
+                ctx.font = fontSize + 'px Consolas';
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.98) drops[i] = 0;
+                drops[i]++;
+            }
+        }
+        
+        setInterval(drawMatrix, 50);
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+        
+        const sections = ['header', 'tier1', 'tier2', 'tier3', 'tier4', 'tier5', 'support', 'pipeline', 'architecture', 'api', 'config', 'usecases', 'footer'];
+        const tocLinks = document.querySelectorAll('.toc a');
+        const backToTop = document.getElementById('backToTop');
+        const readingProgress = document.getElementById('readingProgress');
+        const searchInput = document.getElementById('searchInput');
+        const searchResults = document.getElementById('searchResults');
+        
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrollTop / docHeight) * 100;
+            readingProgress.style.width = progress + '%';
+            
+            if (scrollTop > 500) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+            
+            let current = '';
+            for (const id of sections) {
+                const section = document.getElementById(id);
+                if (section && section.offsetTop <= scrollTop + 200) {
+                    current = id;
+                }
+            }
+            
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function scrollToNext() {
+            const current = sections.find(id => {
+                const el = document.getElementById(id);
+                return el && window.scrollY >= el.offsetTop - 100;
+            });
+            const idx = sections.indexOf(current);
+            if (idx < sections.length - 1) {
+                document.getElementById(sections[idx + 1]).scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+        
+        function scrollToPrev() {
+            const current = sections.find(id => {
+                const el = document.getElementById(id);
+                return el && window.scrollY >= el.offsetTop - 100;
+            });
+            const idx = sections.indexOf(current);
+            if (idx > 0) {
+                document.getElementById(sections[idx - 1]).scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === '/' && document.activeElement !== searchInput) {
+                e.preventDefault();
+                searchInput.focus();
+            }
+            if (e.key === 'ArrowDown' && document.activeElement !== searchInput) {
+                e.preventDefault();
+                scrollToNext();
+            }
+            if (e.key === 'ArrowUp' && document.activeElement !== searchInput) {
+                e.preventDefault();
+                scrollToPrev();
+            }
+            if (e.key === 'Escape') {
+                searchInput.blur();
+                searchResults.classList.remove('active');
+            }
+        });
+        
+        tocLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+        
+        const searchableContent = [
+            { title: 'SYSTEMZ', context: 'CPU, memory, disk, network monitoring', section: 'tier1' },
+            { title: 'PROCESSZ', context: 'Process enumeration and management', section: 'tier1' },
+            { title: 'DISKZ', context: 'Storage analysis and SMART monitoring', section: 'tier1' },
+            { title: 'NETWORXZ', context: 'Network interface and bandwidth analysis', section: 'tier1' },
+            { title: 'CLOCKZ', context: 'Time synchronization and scheduling', section: 'tier1' },
+            { title: 'WORMZ', context: 'Terminology crawler and indexer', section: 'tier1' },
+            { title: 'METAZ', context: 'Metadata extraction engine', section: 'tier3' },
+            { title: 'DEPENDZ', context: 'Dependency mapping and analysis', section: 'tier3' },
+            { title: 'VALIDZ', context: 'Syntax validation and linting', section: 'tier3' },
+            { title: 'DEADZ', context: 'Dead code detection', section: 'tier3' },
+            { title: 'METRICZ', context: 'Code metrics and complexity analysis', section: 'tier3' },
+            { title: 'ERRORZ', context: 'Error pattern matching', section: 'tier3' },
+            { title: 'HYDRAMETA', context: 'ML optimization with genetic algorithms', section: 'tier4' },
+            { title: 'TERENCE', context: 'Cross-tier error resolution', section: 'tier5' },
+            { title: 'HORUS', context: 'Output generation and visualization', section: 'tier5' },
+            { title: 'BIBL', context: 'Terminology crawler and dictionary', section: 'support' },
+            { title: 'Pipeline', context: '6-stage ML-driven execution', section: 'pipeline' },
+            { title: 'API', context: 'REST endpoints and CLI commands', section: 'api' }
+        ];
+        
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            if (query.length < 2) {
+                searchResults.classList.remove('active');
+                return;
+            }
+            const results = searchableContent.filter(item => 
+                item.title.toLowerCase().includes(query) || 
+                item.context.toLowerCase().includes(query)
+            );
+            if (results.length > 0) {
+                searchResults.innerHTML = results.map(item => 
+                    `<div class="search-result-item" onclick="document.getElementById('${item.section}').scrollIntoView({behavior:'smooth'});searchResults.classList.remove('active');searchInput.value='';">
+                        <div class="title">${item.title}</div>
+                        <div class="context">${item.context}</div>
+                    </div>`
+                ).join('');
+                searchResults.classList.add('active');
+            } else {
+                searchResults.innerHTML = '<div class="search-result-item"><div class="title">No results found</div></div>';
+                searchResults.classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>

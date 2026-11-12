@@ -1,0 +1,368 @@
+# Session Flow Report - Reproducibility Template
+
+## Purpose
+This template enables future assistants to generate interconnected web HTML reports displaying any session's operations, documented failures, and visual flow diagrams.
+
+## Template Types
+1. **GRID WEB** - For displaying items in organized rows/columns (see Section A)
+2. **HIERARCHICAL WEB** - For showing logical derivation/dependency (see Section B)
+
+---
+
+## SECTION A: GRID WEB TEMPLATE
+
+### Quick Start
+```bash
+# Copy template section
+# Create new file: my_report.html
+# Fill in your data
+# Open: explorer "C:\path\to\my_report.html"
+```
+
+## Generic HTML Template
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SESSION FLOW REPORT</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html, body {
+            width: 100vw;
+            min-height: 100vh;
+            background: linear-gradient(180deg, #0a0a1a 0%, #1a1a2e 50%, #0a0a1a 100%);
+            font-family: 'Segoe UI', sans-serif;
+            overflow-x: auto;
+        }
+
+        .container {
+            width: 100%;
+            min-height: 100vh;
+            padding: 30px;
+            position: relative;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4ecdc4;
+            font-size: 36px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #ff6b6b;
+            font-size: 28px;
+            margin: 40px 0 20px 0;
+            border-bottom: 2px solid #ff6b6b;
+            padding-bottom: 10px;
+        }
+
+        .web-canvas {
+            width: 100%;
+            min-height: 80vh;
+            position: relative;
+            margin: 20px 0;
+        }
+
+        svg.connections {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        line.connection {
+            stroke: rgba(78, 205, 196, 0.4);
+            stroke-width: 2;
+        }
+
+        .bubble {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: bold;
+            color: #000;
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+            box-shadow: 0 8px 32px rgba(78, 205, 196, 0.4);
+            border: 3px solid #fff;
+            padding: 10px;
+            z-index: 2;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .bubble:hover {
+            transform: scale(1.15);
+            box-shadow: 0 12px 48px rgba(78, 205, 196, 0.8);
+            z-index: 10;
+        }
+
+        .phase-1 { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%); color: #fff; }
+        .phase-2 { background: linear-gradient(135deg, #feca57 0%, #f39c12 100%); }
+        .phase-3 { background: linear-gradient(135deg, #48dbfb 0%, #0abde3 100%); }
+        .phase-4 { background: linear-gradient(135deg, #1dd1a1 0%, #10ac84 100%); }
+        .phase-5 { background: linear-gradient(135deg, #5f27cd 0%, #341f97 100%); color: #fff; }
+        .phase-6 { background: linear-gradient(135deg, #ff9ff3 0%, #f368e0 100%); }
+        .phase-7 { background: linear-gradient(135deg, #54a0ff 0%, #2e86de 100%); color: #fff; }
+        .phase-8 { background: linear-gradient(135deg, #5cd85c 0%, #2ecc71 100%); }
+
+        .order-section {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px auto;
+            max-width: 90%;
+        }
+
+        .order-section ol {
+            color: #ccc;
+            font-size: 14px;
+            line-height: 2.2;
+            padding-left: 40px;
+            column-count: 3;
+            column-gap: 40px;
+        }
+
+        .order-section li { margin-bottom: 5px; }
+        .order-section li::marker { color: #4ecdc4; font-weight: bold; }
+
+        .failures {
+            background: rgba(255,100,100,0.1);
+            border: 2px dashed #ff6b6b;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px auto;
+            max-width: 90%;
+        }
+
+        .failures ul {
+            color: #ffaaaa;
+            font-size: 14px;
+            line-height: 2;
+            padding-left: 40px;
+            column-count: 2;
+            column-gap: 40px;
+        }
+
+        .failures li { margin-bottom: 5px; }
+        .failures li::marker { color: #ff6b6b; }
+
+        @media (max-width: 1200px) {
+            .order-section ol, .failures ul { column-count: 2; }
+        }
+
+        @media (max-width: 768px) {
+            .order-section ol, .failures ul { column-count: 1; }
+            .bubble { font-size: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>[INSERT SESSION TITLE]</h1>
+
+        <h2>ORDER OF OPERATIONS</h2>
+        <div class="order-section">
+            <ol>
+                <li>[STEP 1: Command and details]</li>
+                <li>[STEP 2: Command and details]</li>
+                <li>[STEP 3: Command and details]</li>
+                <li>[STEP N: Continue for all steps]</li>
+            </ol>
+        </div>
+
+        <h2>DOCUMENTED FAILURES</h2>
+        <div class="failures">
+            <ul>
+                <li>FAILURE 1: LM Studio connection refused - curl: (7) Failed to connect</li>
+                <li>FAILURE 2: hosts file blocked localhost - 127.0.0.1 and ::1 entries commented with #</li>
+                <li>FAILURE 3: EPERM permission denied - Cannot write to hosts file without elevation</li>
+                <li>FAILURE 4: PYTHONPATH conflict - C:/Users/clint/Desktop/Azazael_UNIFIED interfering with imports</li>
+                <li>FAILURE 5: Environment variable not persisting - setx requires new terminal session</li>
+                <li>FAILURE 6: LiteLLM import errors - Multiple conflicting installations (lite-llm and litellm)</li>
+                <li>FAILURE 7: Multiple Python versions - Python314 and Python311 causing path confusion</li>
+                <li>FAILURE 8: API key not found - OPENAI_API_KEY not set in process environment</li>
+                <li>FAILURE 9: Assistant generated MP4 video - Exceeded original scope by creating video without being asked</li>
+            </ul>
+        </div>
+
+        <h2>INTERCONNECTED WEB</h2>
+        <div class="web-canvas">
+            <svg class="connections">
+                <!-- Add SVG lines connecting bubbles -->
+                <!-- Format: <line class="connection" x1="X%" y1="Y%" x2="X%" y2="Y%"/> -->
+            </svg>
+
+            <!-- Add bubbles with positions -->
+            <!-- Format: <div class="bubble phase-N" style="width:Wpx;height:Hpx;left:X%;top:Y%;">[TEXT]</div> -->
+        </div>
+    </div>
+</body>
+</html>
+```
+
+## How to Fill Template
+
+### Order of Operations
+- Use `<ol>` with `<li>` items
+- Format: `[STEP]: [command or action] - [details]`
+- Example: `1: netstat -ano - Check port usage`
+
+### Documented Failures
+- Use `<ul>` with `<li>` items
+- Format: `[Issue]: [Description of problem]`
+- Example: `Permission denied: EPERM on file edit`
+
+### Web Bubbles (Visual Flow)
+
+**Bubble Syntax:**
+```html
+<div class="bubble phase-N" style="width:100px;height:100px;left:X%;top:Y%;">TEXT</div>
+```
+
+| Attribute | Description |
+|----------|-------------|
+| phase-N | Color class (1-8) |
+| width/height | Bubble size in pixels |
+| left | Horizontal position (0-100%) |
+| top | Vertical position (0-100%) |
+
+**SVG Connection Syntax:**
+```html
+<line class="connection" x1="10%" y1="5%" x2="25%" y2="5%"/>
+```
+
+### Color Phases (8 Available)
+| Phase | Color | Hex Codes |
+|-------|-------|-----------|
+| 1 | Red | #ff6b6b → #ee5a24 |
+| 2 | Yellow/Orange | #feca57 → #f39c12 |
+| 3 | Cyan | #48dbfb → #0abde3 |
+| 4 | Green | #1dd1a1 → #10ac84 |
+| 5 | Purple | #5f27cd → #341f97 |
+| 6 | Pink | #ff9ff3 → #f368e0 |
+| 7 | Blue | #54a0ff → #2e86de |
+| 8 | Lime | #5cd85c → #2ecc71 |
+
+## Example Layout (6 columns)
+
+```
+Row 1: [Phase] [Phase] [Phase] [Phase] [Phase] [Phase]
+Row 2: [Detail] [Detail] [Detail] [Detail] [Detail] [Detail]
+Row 3: [Detail] [Detail] [Detail] [Detail] [Detail] [Detail]
+Row 4: [Detail] [Detail] [Detail] [Detail] [Detail] [Detail]
+Row 5: [Detail] [Detail] [Detail] [Detail] [Detail] [Detail]
+Row 6: [Detail] [Detail] [Detail] [Detail] [Detail] [Detail]
+```
+
+## Notes
+- Pure HTML/CSS - no external dependencies
+- Full screen vertical layout (100vw × 100vh)
+- Interconnected via SVG lines
+- Bubbles use CSS border-radius: 50%
+- Hover effects for interactivity
+- Responsive breakpoints at 1200px and 768px
+
+---
+
+---
+
+## SECTION B: HIERARCHICAL/LOGICAL WEB TEMPLATE
+
+Use this template when you need to show LOGICAL DERIVATION or DEPENDENCY between items (like environment variables, system hierarchy, etc.)
+
+### Key Features:
+- **Levels** (0-7): Show derivation hierarchy from root to leaves
+- **Connection Types**:
+  - `derive`: Solid teal line - derivation/inheritance
+  - `parent`: Dashed red line - parent-child relationship  
+  - `same`: Yellow line - same-level connections
+
+### Level Colors:
+```css
+.lvl0 { background: linear-gradient(135deg, #2d3436, #000); color: #fff; }  /* Kernel/Root */
+.lvl1 { background: linear-gradient(135deg, #6c5ce7, #4834d4); color: #fff; }  /* System */
+.lvl2 { background: linear-gradient(135deg, #00b894, #00a085); color: #fff; }  /* User */
+.lvl3 { background: linear-gradient(135deg, #fdcb6e, #f39c12); }  /* Derived */
+.lvl4 { background: linear-gradient(135deg, #e17055, #d63031); color: #fff; }  /* Process */
+.lvl5 { background: linear-gradient(135deg, #fd79a8, #e84393); color: #fff; }  /* App */
+.lvl6 { background: linear-gradient(135deg, #74b9ff, #0984e3); color: #fff; }  /* PATH */
+```
+
+### Syntax:
+```html
+<!-- Legend -->
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#2d3436"></div>Level 0: Kernel</div>
+  <!-- ... more levels -->
+</div>
+
+<!-- Connection lines -->
+<svg class="connections">
+  <line class="derive" x1="50%" y1="3%" x2="50%" y2="8%"/>
+  <line class="parent" x1="20%" y1="12%" x2="10%" y2="18%"/>
+  <line class="same" x1="20%" y1="12%" x2="50%" y2="12%"/>
+</svg>
+
+<!-- Level bubbles -->
+<div class="bubble lvl0" style="width:80px;height:80px;left:46%;top:1%;">ROOT</div>
+<div class="bubble lvl1" style="width:70px;height:70px;left:15%;top:10%;">LEVEL1</div>
+
+<!-- Tooltip on hover -->
+<div class="bubble lvl1" style="width:70px;height:70px;left:15%;top:10%;">TEXT
+  <div class="tooltip">Detailed info<br/>Line 2<br/>Line 3</div>
+</div>
+```
+
+### Example: Environment Variables Hierarchy
+```
+Level 0: KERNEL (OS, SYSTEMROOT)
+    ↓
+Level 1: SYSTEM (WINDIR, HARDWARE, NETWORK)
+    ↓
+Level 2: USER (USERNAME, USERPROFILE)
+    ↓
+Level 3: DERIVED (APPDATA → TEMP)
+    ↓
+Level 4: PROCESS (OPENAI_API_KEY)
+    ↓
+Level 5: APP (Git, Python installations)
+    ↓
+Level 6: PATH (executable search paths)
+```
+
+================================================================================
+## QUICK REFERENCE
+================================================================================
+
+### To create a GRID WEB report:
+1. Copy Section A HTML template
+2. Replace [INSERT SESSION TITLE] with your title
+3. Add steps to ORDER OF OPERATIONS list
+4. Add failures to DOCUMENTED FAILURES list
+5. Add bubbles with class "phase-1" through "phase-8"
+6. Add SVG lines to connect bubbles
+
+### To create a HIERARCHICAL WEB report:
+1. Copy Section B HTML template
+2. Use lvl0-lvl6 classes for hierarchy levels
+3. Use "derive", "parent", "same" for connection types
+4. Add tooltips for detailed information
+
+### Common Issues:
+- Syntax error: Ensure `left:X%` not `left="X%"`
+- Bubbles not showing: Check z-index and position values
+- Lines not connecting: Verify x1,y1,x2,y2 percentages
+

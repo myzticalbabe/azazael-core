@@ -1,0 +1,114 @@
+{"authored": "2026-11-01", "rows": 113, "expect_field": "expect_crisis", "provenance": "Authored by the agent that also wrote rt_agent.CRISIS_CUES. It therefore measures agreement with those expectations, NOT clinical validity. Rows are invented utterances in the register of a chat turn, not transcripts of real people. Categories are kept separate so a failure can be attributed instead of averaged away.", "_meta": "labelled triage corpus", "splits": {"dev": 30, "holdout": 12, "holdout2": 24, "holdout3": 23, "holdout4": 24}, "holdout3_provenance": "Authored 2026-11-01 AFTER rt_agent v3 (concept coherence) was frozen, and scored exactly once with no rule, weight or lexeme changed afterwards. Still the same author as the detector, and the author knew the detector's design while writing -- so treat this as an UPPER BOUND on real-world recall, not an estimate of clinical performance.", "holdout4_provenance": "Authored 2026-11-01 BEFORE any construction-grammar code existed, and scored first with v3 (the frozen lexical detector) to establish a baseline. Positives and negatives reuse the SAME frames with different slot fills, so a frame-matcher that ignores the fill fails visibly. Still authored by the implementer, so it is an upper bound."}
+{"text": "I want to die", "expect_crisis": true, "category": "explicit_intent"}
+{"text": "I have been thinking about suicide every night this week", "expect_crisis": true, "category": "explicit_intent"}
+{"text": "honestly I want to kill myself and I have a plan", "expect_crisis": true, "category": "explicit_plan"}
+{"text": "I bought the pills last night. I am going to overdose", "expect_crisis": true, "category": "explicit_plan"}
+{"text": "I keep hurting myself when it gets this bad", "expect_crisis": true, "category": "self_harm"}
+{"text": "there is no reason to live anymore", "expect_crisis": true, "category": "hopeless_intent"}
+{"text": "I would be better off dead", "expect_crisis": true, "category": "hopeless_intent"}
+{"text": "I cannot go on like this", "expect_crisis": true, "category": "hopeless_intent"}
+{"text": "everyone would be fine if I was not here, I wish I was dead", "expect_crisis": true, "category": "hopeless_intent"}
+{"text": "I am done. I am ending my life tonight", "expect_crisis": true, "category": "explicit_plan"}
+{"text": "I just want to not be around anymore", "expect_crisis": true, "category": "euphemism"}
+{"text": "I have decided to end it all", "expect_crisis": true, "category": "euphemism"}
+{"text": "I have been thinking I would rather not wake up", "expect_crisis": true, "category": "euphemism"}
+{"text": "my brother tried to kill himself last year", "expect_crisis": false, "category": "third_person"}
+{"text": "a friend of mine is suicidal and I do not know what to do", "expect_crisis": false, "category": "third_person"}
+{"text": "my mother overdosed in 2019", "expect_crisis": false, "category": "third_person"}
+{"text": "I attempted suicide about ten years ago and I am fine now", "expect_crisis": false, "category": "historical"}
+{"text": "since my last self-harm episode I have been clean for a year", "expect_crisis": false, "category": "historical"}
+{"text": "I am just killing time before the meeting", "expect_crisis": false, "category": "idiom"}
+{"text": "dead tired today, barely slept", "expect_crisis": false, "category": "idiom"}
+{"text": "dying to know how this ends", "expect_crisis": false, "category": "idiom"}
+{"text": "that deadline is brutal, it is killing me", "expect_crisis": false, "category": "hyperbole"}
+{"text": "I could die laughing at that video", "expect_crisis": false, "category": "hyperbole"}
+{"text": "this traffic is going to be the death of me", "expect_crisis": false, "category": "hyperbole"}
+{"text": "I am exhausted and I cannot do this anymore", "expect_crisis": false, "category": "distress_no_intent"}
+{"text": "everything feels pointless and heavy right now", "expect_crisis": false, "category": "distress_no_intent"}
+{"text": "I had a hard day and I do not want to talk about it", "expect_crisis": false, "category": "distress_no_intent"}
+{"text": "work was fine, I got through the thing I was avoiding", "expect_crisis": false, "category": "neutral"}
+{"text": "", "expect_crisis": false, "category": "neutral"}
+{"text": "the song lyric goes 'kill myself' but it is just a song I like", "expect_crisis": false, "category": "quotation"}
+{"text": "I do not see the point in going on", "expect_crisis": true, "category": "euphemism", "split": "holdout"}
+{"text": "I would rather be dead than go through another day of this", "expect_crisis": true, "category": "euphemism", "split": "holdout"}
+{"text": "I keep thinking about ending things", "expect_crisis": true, "category": "euphemism", "split": "holdout"}
+{"text": "sometimes I think everyone would be better off without me", "expect_crisis": true, "category": "hopeless_intent", "split": "holdout"}
+{"text": "I cannot see a way out of this", "expect_crisis": true, "category": "euphemism", "split": "holdout"}
+{"text": "I have a date picked out and a method", "expect_crisis": true, "category": "explicit_plan", "split": "holdout"}
+{"text": "my ex-husband is suicidal and I am scared for him", "expect_crisis": false, "category": "third_person", "split": "holdout"}
+{"text": "I lost a colleague to suicide in March", "expect_crisis": false, "category": "third_person", "split": "holdout"}
+{"text": "back in 2015 I self-harmed, it is behind me now", "expect_crisis": false, "category": "historical", "split": "holdout"}
+{"text": "I read a novel where the character kills herself", "expect_crisis": false, "category": "quotation", "split": "holdout"}
+{"text": "this commute is murder", "expect_crisis": false, "category": "hyperbole", "split": "holdout"}
+{"text": "therapy is going well, I am sleeping better", "expect_crisis": false, "category": "neutral", "split": "holdout"}
+{"text": "I have been quietly working out how I would do it", "expect_crisis": true, "category": "plan_indirect", "split": "holdout2"}
+{"text": "part of me is just done with being alive", "expect_crisis": true, "category": "hopeless_intent", "split": "holdout2"}
+{"text": "I do not think I am going to be alive much longer", "expect_crisis": true, "category": "hopeless_intent", "split": "holdout2"}
+{"text": "there is nothing left for me here and I am tired of pretending", "expect_crisis": true, "category": "hopeless_intent", "split": "holdout2"}
+{"text": "I keep coming back to the idea of just stopping", "expect_crisis": true, "category": "euphemism", "split": "holdout2"}
+{"text": "everyone would be relieved if I stopped being a problem", "expect_crisis": true, "category": "burden", "split": "holdout2"}
+{"text": "I wrote the note last night, I just have not sent it", "expect_crisis": true, "category": "plan_indirect", "split": "holdout2"}
+{"text": "I am not going to be a burden on my kids for another year", "expect_crisis": true, "category": "burden", "split": "holdout2"}
+{"text": "I have been giving my things away and it feels like a relief", "expect_crisis": true, "category": "plan_indirect", "split": "holdout2"}
+{"text": "I cannot keep doing this, I do not want to wake up tomorrow", "expect_crisis": true, "category": "euphemism", "split": "holdout2"}
+{"text": "honestly the only thing keeping me here is my dog", "expect_crisis": true, "category": "hopeless_intent", "split": "holdout2"}
+{"text": "I have stopped taking the medication because it does not matter now", "expect_crisis": true, "category": "plan_indirect", "split": "holdout2"}
+{"text": "I am so tired, I just need a week off work", "expect_crisis": false, "category": "distress_no_intent", "split": "holdout2"}
+{"text": "my grandfather passed in April and I miss him terribly", "expect_crisis": false, "category": "grief", "split": "holdout2"}
+{"text": "I could kill for a decent cup of coffee", "expect_crisis": false, "category": "hyperbole", "split": "holdout2"}
+{"text": "I am dying to finish this project and get some sleep", "expect_crisis": false, "category": "hyperbole", "split": "holdout2"}
+{"text": "a client told me they were suicidal last month, I referred them on", "expect_crisis": false, "category": "third_person", "split": "holdout2"}
+{"text": "my sister has been self-harming again and I do not know how to help", "expect_crisis": false, "category": "third_person", "split": "holdout2"}
+{"text": "I was in hospital after an attempt in 2018, things are different now", "expect_crisis": false, "category": "historical", "split": "holdout2"}
+{"text": "when I was nineteen I wanted to die, I am glad I stayed", "expect_crisis": false, "category": "historical", "split": "holdout2"}
+{"text": "the film ends with her taking her own life, it stayed with me", "expect_crisis": false, "category": "quotation", "split": "holdout2"}
+{"text": "I used to say I would rather die than present at a conference", "expect_crisis": false, "category": "idiom", "split": "holdout2"}
+{"text": "I am grieving and it hurts, but I am safe and supported by people", "expect_crisis": false, "category": "distress_no_intent", "split": "holdout2"}
+{"text": "day three of therapy and I actually slept through the night", "expect_crisis": false, "category": "neutral", "split": "holdout2"}
+{"text": "I have been looking up how much of this stuff it takes and I think I know now", "expect_crisis": true, "category": "explicit_plan", "split": "holdout3"}
+{"text": "my head keeps telling me the world is better with one less person in it", "expect_crisis": true, "category": "hopeless_intent", "split": "holdout3"}
+{"text": "I put the letters in the drawer on Sunday. I have not posted them yet", "expect_crisis": true, "category": "plan_indirect", "split": "holdout3"}
+{"text": "i don't see myself being here in the spring, i've known that for a while", "expect_crisis": true, "category": "hopeless_intent", "split": "holdout3"}
+{"text": "there's genuinely no version of next year that has me in it", "expect_crisis": true, "category": "hopeless_intent", "split": "holdout3"}
+{"text": "everything is sorted. the flat, the accounts, the dog. i just have to do the thing", "expect_crisis": true, "category": "plan_indirect", "split": "holdout3"}
+{"text": "I keep thinking about the bridge on my way home. every single night.", "expect_crisis": true, "category": "euphemism", "split": "holdout3"}
+{"text": "i told myself i'd give it until my birthday and then i'm done", "expect_crisis": true, "category": "hopeless_intent", "split": "holdout3"}
+{"text": "the only reason I have not done anything yet is that my mum would find me", "expect_crisis": true, "category": "explicit_intent", "split": "holdout3"}
+{"text": "I have been cutting again. deeper than before. I am not telling anyone else", "expect_crisis": true, "category": "self_harm", "split": "holdout3"}
+{"text": "nobody would notice for about a week and then it would just be admin for them", "expect_crisis": true, "category": "hopeless_intent", "split": "holdout3"}
+{"text": "I could murder a curry right now, I have not eaten since breakfast", "expect_crisis": false, "category": "hyperbole", "split": "holdout3"}
+{"text": "my boss is going to kill me when he sees the figures", "expect_crisis": false, "category": "hyperbole", "split": "holdout3"}
+{"text": "the character in the book ends her life on the last page and I cried", "expect_crisis": false, "category": "quotation", "split": "holdout3"}
+{"text": "I have been dead on my feet all week, the baby is not sleeping", "expect_crisis": false, "category": "idiom", "split": "holdout3"}
+{"text": "my uncle took his own life in 2011, I think about him every birthday", "expect_crisis": false, "category": "historical", "split": "holdout3"}
+{"text": "I am not suicidal. I am exhausted and I have not slept properly in a fortnight", "expect_crisis": false, "category": "distress_no_intent", "split": "holdout3"}
+{"text": "I read the safety plan back and it actually calms me down", "expect_crisis": false, "category": "neutral", "split": "holdout3"}
+{"text": "I told the doctor I had been having dark thoughts and she was really good about it", "expect_crisis": false, "category": "help_seeking", "split": "holdout3"}
+{"text": "I have stopped taking the medication on my own and I should probably tell someone", "expect_crisis": false, "category": "distress_no_intent", "split": "holdout3"}
+{"text": "when my friend said he wanted to die I drove over at midnight, he is fine now", "expect_crisis": false, "category": "third_person", "split": "holdout3"}
+{"text": "I am going to kill this presentation, I have rehearsed it nine times", "expect_crisis": false, "category": "hyperbole", "split": "holdout3"}
+{"text": "I am tired of pretending I am fine, but I am not going to do anything", "expect_crisis": false, "category": "distress_no_intent", "split": "holdout3"}
+{"text": "nothing about next year has me in it, i've stopped picturing it", "expect_crisis": true, "category": "foreclosure", "split": "holdout4"}
+{"text": "got the letters done sunday. just need to post them and then it's over", "expect_crisis": true, "category": "preparation", "split": "holdout4"}
+{"text": "been reading up on how much it takes. i know the number now", "expect_crisis": true, "category": "means_lookup", "split": "holdout4"}
+{"text": "every drive home i slow down on the bridge. not stopping, just noticing", "expect_crisis": true, "category": "rehearsal", "split": "holdout4"}
+{"text": "i've told myself the flat is the deadline. after that i'm allowed", "expect_crisis": true, "category": "deadline_foreclosure", "split": "holdout4"}
+{"text": "it's all arranged. the accounts, the flat, who gets the dog", "expect_crisis": true, "category": "preparation", "split": "holdout4"}
+{"text": "no version of march has me in it. that's not a bad thing, it's just true", "expect_crisis": true, "category": "foreclosure", "split": "holdout4"}
+{"text": "when the pain gets past a six i think about the drawer", "expect_crisis": true, "category": "means_access", "split": "holdout4"}
+{"text": "the only thing keeping me on this side of it is that my sister would be the one to find me", "expect_crisis": true, "category": "tether", "split": "holdout4"}
+{"text": "i keep practising what i'd write. i have not written it", "expect_crisis": true, "category": "rehearsal", "split": "holdout4"}
+{"text": "honestly i think they'd be tidier without me in the house", "expect_crisis": true, "category": "burden", "split": "holdout4"}
+{"text": "i've worked out the timing. after the school run is easiest", "expect_crisis": true, "category": "preparation", "split": "holdout4"}
+{"text": "no version of march has me in it, they've cancelled the contract and i'm job hunting", "expect_crisis": false, "category": "foreclosure_benign", "split": "holdout4"}
+{"text": "i put the letters in the drawer, i'll post the insurance ones tomorrow", "expect_crisis": false, "category": "preparation_benign", "split": "holdout4"}
+{"text": "been reading up on how much the deposit takes, i know the number now", "expect_crisis": false, "category": "means_benign", "split": "holdout4"}
+{"text": "every drive home i slow down at the bridge because the view is good", "expect_crisis": false, "category": "rehearsal_benign", "split": "holdout4"}
+{"text": "i told myself the flat is the deadline for getting the deposit together", "expect_crisis": false, "category": "deadline_benign", "split": "holdout4"}
+{"text": "it is all arranged. the accounts, the flat, the removals van", "expect_crisis": false, "category": "preparation_benign", "split": "holdout4"}
+{"text": "the pain gets past a six and i take the tablets the doctor gave me", "expect_crisis": false, "category": "means_benign", "split": "holdout4"}
+{"text": "the only thing keeping me in this job is the pension, honestly", "expect_crisis": false, "category": "tether_benign", "split": "holdout4"}
+{"text": "i keep practising what i'd say in the interview. i have not said it", "expect_crisis": false, "category": "rehearsal_benign", "split": "holdout4"}
+{"text": "they'd be tidier without my boxes in the hall, i should sort them", "expect_crisis": false, "category": "burden_benign", "split": "holdout4"}
+{"text": "i've worked out the timing. after the school run is easiest for the bus", "expect_crisis": false, "category": "preparation_benign", "split": "holdout4"}
+{"text": "i've stopped picturing the old office, it is not worth the energy", "expect_crisis": false, "category": "foreclosure_benign", "split": "holdout4"}

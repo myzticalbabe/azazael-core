@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AZAZAEL — Semantic Harvester Capability</title>
+  <style>
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #1a150e;
+      color: #c8b898;
+      font-family: 'Georgia', serif;
+      min-height: 100vh;
+    }
+    .header { text-align: center; padding: 40px 20px 20px; }
+    .header h1 {
+      font-size: 2.4em; font-weight: 400; color: #d4a857;
+      text-shadow: 0 2px 10px rgba(212,168,87,0.2);
+      letter-spacing: 2px;
+    }
+    .header .subtitle { color: #b89860; font-size: 0.95em; margin-top: 8px; letter-spacing: 3px; font-style: italic; }
+    .metrics-bar { display: flex; justify-content: center; gap: 15px; margin: 25px auto; flex-wrap: wrap; }
+    .metric-card {
+      background: #201a12; border: 1px solid #d4a85730;
+      border-radius: 2px; padding: 14px 22px; min-width: 110px; text-align: center;
+    }
+    .metric-card .value { font-size: 1.6em; font-weight: bold; color: #d4a857; }
+    .metric-card .label { font-size: 0.75em; color: #a09070; margin-top: 4px; text-transform: uppercase; letter-spacing: 1px; }
+    .content { max-width: 1000px; margin: 0 auto; padding: 20px; }
+    .description {
+      background: #201a12; border: 1px solid #d4a85720;
+      border-left: 3px solid #d4a857; padding: 20px; margin-bottom: 25px;
+      line-height: 1.7;
+    }
+    .worm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+    .worm-card {
+      background: #1a150e; border: 1px solid #2a2218; border-radius: 2px;
+      padding: 16px; transition: all 0.3s;
+    }
+    .worm-card:hover { border-color: #d4a85740; }
+    .worm-card .name { font-size: 1.05em; font-weight: 600; color: #d4a857; }
+    .worm-card .desc { font-size: 0.85em; color: #a89878; margin-top: 6px; }
+    .worm-card .badge { display: inline-block; background: rgba(212,168,87,0.1); padding: 2px 8px; border: 1px solid #d4a85720; font-size: 0.7em; color: #b89860; margin-top: 6px; }
+    .footer { text-align: center; padding: 30px; color: #5a4a3a; font-size: 0.8em; }
+    
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>AZAZAEL — Semantic Harvester</h1>
+    <div class="subtitle">Standalone &bull; Priority Range 3-10</div>
+  </div>
+
+  <div class="metrics-bar">
+    <div class="metric-card">
+      <div class="value">Rust</div>
+      <div class="label">Language</div>
+    </div>
+    <div class="metric-card">
+      <div class="value">Semantic</div>
+      <div class="label">Search</div>
+    </div>
+    <div class="metric-card">
+      <div class="value">JSON/TUI</div>
+      <div class="label">Output</div>
+    </div>
+    <div class="metric-card">
+      <div class="value">Single-file</div>
+      <div class="label">Binary</div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="description">
+      Gossamer Oxford Semantic Harvester — Lightweight Rust-based TUI application for semantic data harvesting and parsing. Scans files, extracts semantic meaning via local LLM, and builds searchable knowledge bases. Commands: scan, harvest, search, serve, api.
+    </div>
+
+    <div class="worm-grid">
+    <div class="worm-card">
+      <div class="name">Scan</div>
+      <div class="desc">Directory scanning with dry-run preview, file discovery</div>
+      <div class="badge">semantic_harvester</div>
+    </div>
+    <div class="worm-card">
+      <div class="name">Harvest</div>
+      <div class="desc">Semantic content extraction with configurable workers</div>
+      <div class="badge">semantic_harvester</div>
+    </div>
+    <div class="worm-card">
+      <div class="name">Search</div>
+      <div class="desc">Top-k semantic search with JSON/table output</div>
+      <div class="badge">semantic_harvester</div>
+    </div>
+    <div class="worm-card">
+      <div class="name">Server Mode</div>
+      <div class="desc">HTTP server with LLM backend for real-time queries</div>
+      <div class="badge">semantic_harvester</div>
+    </div>
+    <div class="worm-card">
+      <div class="name">Rust Native</div>
+      <div class="desc">Single binary, zero-dependency deployment</div>
+      <div class="badge">semantic_harvester</div>
+    </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    AZAZAEL Ecosystem &bull; Semantic Harvester Capability &bull; CAIN Standard Recording &bull; Generated June 2026
+  </div>
+</body>
+</html>

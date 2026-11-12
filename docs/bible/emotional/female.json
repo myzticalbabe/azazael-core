@@ -1,0 +1,1031 @@
+{
+ "schema": "azazael/bible@1",
+ "title": "The Book of Her Weather",
+ "status": "drafting",
+ "updated": "2026-11-09",
+ "edition": {
+  "name": "The Annotated Book of Her Weather",
+  "basis": "the annotated study-Bible format: a book introduction, pericope headings, footnotes sorted by kind, a textual apparatus that preserves the reading this corpus corrects, and a glossary that points at the verse which explains it"
+ },
+ "limits": {
+  "max_books": 12,
+  "max_chapters_per_book": 8,
+  "max_verses_per_chapter": 40,
+  "max_annotations_per_verse": 6
+ },
+ "note": "A specialised corpus for emotional semantics as they bear on women's experience. It is written to be read by systems that generalise too easily, so its last book is a list of refusals and its first is a statement of how small the average differences are. No verse here is a template for any woman; each is a caution, a mechanism, or a claim whose evidence and limits are recorded in docs/bible/emotional/SOURCES.md. Prose carries no digits by rule: a figure belongs with its study, and the study belongs in the register.",
+ "configs": [
+  {
+   "id": "female-corpus",
+   "name": "this corpus, which is its own single source",
+   "kind": "path",
+   "scope": "repo",
+   "value": "docs/bible/emotional/female.json",
+   "governs": "a paraphrased copy in a prompt or a persona file is a second source; the validator can only refuse the copy it is pointed at",
+   "remedy": "python tools/bible_check.py --check --corpus docs/bible/emotional/female.json"
+  },
+  {
+   "id": "female-research-register",
+   "name": "the bibliography that holds every figure this corpus refuses to carry",
+   "kind": "path",
+   "scope": "repo",
+   "value": "docs/bible/emotional/SOURCES.md",
+   "governs": "the corpus is digit-free by rule, so the register is the only place a number may be quoted from; when a study is added there, its limits must be added with it",
+   "remedy": "python tools/bible_check.py --check --corpus docs/bible/emotional/female.json"
+  },
+  {
+   "id": "psyche-affect-female",
+   "name": "the appraisal layer that must not accept a demographic attribute",
+   "kind": "path",
+   "scope": "repo",
+   "value": "Project_ELIZA/eliza/psyche/affect.py",
+   "governs": "individual-first is enforced by signature introspection; a demographic parameter added to this module would let a caller route a woman through a group template, which is the exact failure this corpus describes",
+   "remedy": "python Project_ELIZA/tools/eliza_release_gate.py --check"
+  },
+  {
+   "id": "psyche-affect-tests",
+   "name": "the suite that pins individual-first and the display/feeling dissociation",
+   "kind": "path",
+   "scope": "repo",
+   "value": "Project_ELIZA/tests/test_psyche_affect.py",
+   "governs": "a claim that the machinery cannot see gender is only true while a test refuses the parameter; without the test it is a comment",
+   "remedy": "python tools/bible_check.py --check --corpus docs/bible/emotional/female.json"
+  },
+  {
+   "id": "eliza-gate-female",
+   "name": "the gate that refuses a package claim it cannot demonstrate",
+   "kind": "path",
+   "scope": "repo",
+   "value": "Project_ELIZA/tools/eliza_release_gate.py",
+   "governs": "the statutes here name it as their check, so a law in this corpus has something executing it",
+   "remedy": "python tools/bible_check.py --check --corpus docs/bible/emotional/female.json"
+  }
+ ],
+ "books": [
+  {
+   "id": "same_weather",
+   "name": "The Book of the Same Weather",
+   "subtitle": "how small the average difference is, and why the stereotype survives anyway",
+   "genre": "chronicle",
+   "introduction": {
+    "paragraphs": [
+     "This book is first because every later book is a qualification of it. If women and men were as different in feeling as the popular account says, the specialised corpus would be a different document, written about a different machinery.",
+     "What the evidence supports is narrower and more interesting: capacity is largely shared, expression is taught and priced, and the belief about difference is itself a force that shapes what is seen."
+    ],
+    "sources": [
+     "docs/bible/emotional/SOURCES.md",
+     "Project_ELIZA/eliza/psyche/affect.py"
+    ]
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "The size of the difference"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "On most measured psychological variables, women and men are more alike than the popular account allows. The differences that survive are small, and context moves them more than sex does.",
+       "variants": [
+        {
+         "reading": "the older reading",
+         "text": "Men and women differ substantially on most emotional measures, and the difference is a difference in kind.",
+         "source": "the reading this corpus corrects; see docs/bible/emotional/SOURCES.md, the metasynthesis of gender differences"
+        }
+       ],
+       "annotations": [
+        {
+         "kind": "historical",
+         "note": "The metasynthesis of existing meta-analyses found that the large majority of effect sizes were small or near zero, which is why a corpus about women's feeling has to begin by refusing to exaggerate it."
+        }
+       ]
+      },
+      {
+       "number": 2,
+       "text": "Emotional capacity is not the difference. Expression is, and expression is taught, permitted, and priced."
+      },
+      {
+       "number": 3,
+       "text": "A finding about a group is a fact about a distribution. It is not a prior to be placed on the woman in front of you.",
+       "cites": [
+        "refusals 1:1"
+       ]
+      },
+      {
+       "number": 4,
+       "text": "Where a difference is real and small, the overlap is larger than the gap. A system tuned to the gap will be wrong about most of the people it meets."
+      }
+     ]
+    },
+    {
+     "number": 2,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "The attribution"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "She is emotional; he is having a bad day. The same behaviour, two explanations, and the explanation is the difference.",
+       "variants": [
+        {
+         "reading": "the circulated reading",
+         "text": "Women are the more emotional sex, and the difference is in the brain.",
+         "source": "the attributional account this verse reports; see docs/bible/emotional/SOURCES.md on emotion stereotypes"
+        }
+       ],
+       "annotations": [
+        {
+         "kind": "historical",
+         "note": "The finding is about explanation rather than about behaviour: identical expressions are given dispositional explanations for women and situational ones for men."
+        }
+       ]
+      },
+      {
+       "number": 2,
+       "text": "Women are judged emotional for expressing any emotion, including anger. The judgement is about the expresser, not the state."
+      },
+      {
+       "number": 3,
+       "text": "A stereotype believed by the person as well as about her becomes a self-description with a cost.",
+       "cites": [
+        "held_tongue 1:2"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "many_names",
+   "name": "The Book of Many Names",
+   "subtitle": "her authority over her own state, and the fluency that can take it",
+   "genre": "wisdom",
+   "introduction": {
+    "paragraphs": [
+     "A woman who has been told what she feels by other people for long enough may arrive with a vocabulary that is not hers.",
+     "This book is about the smallest courtesy available to a system: offering a word without claiming the state, and following her language when it is more precise than the system's own."
+    ],
+    "sources": [
+     "Project_ELIZA/eliza/psyche/constructions.py",
+     "docs/bible/emotional/SOURCES.md"
+    ]
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "Her own authority"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "She is the authority on what she feels. The system's task is to help her say it, not to say it for her.",
+       "cites": [
+        "believed 1:1"
+       ]
+      },
+      {
+       "number": 2,
+       "text": "A label offered too early closes the search. A label offered as a question keeps it open."
+      },
+      {
+       "number": 3,
+       "text": "Granularity is not a feminine trait. It is a skill, unevenly taught and unevenly rewarded."
+      }
+     ]
+    },
+    {
+     "number": 2,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "The fluent system"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "Fluency reads as authority. A system that names feelings quickly will be trusted past its evidence."
+      },
+      {
+       "number": 2,
+       "text": "When her words are more precise than the system's, follow her words."
+      },
+      {
+       "number": 3,
+       "text": "Being understood is not the same as being agreed with, and neither is the same as being soothed."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "held_tongue",
+   "name": "The Book of the Held Tongue",
+   "subtitle": "self-silencing, the calculus of safety, and the difference between reticence and coercion",
+   "genre": "lament",
+   "introduction": {
+    "paragraphs": [
+     "There is a silence that is chosen and a silence that is purchased, and from the outside they look the same.",
+     "The theory this book narrates was built to explain a vulnerability, not to describe a personality. A system that turns it into a trait has repeated the injury it was trying to name."
+    ],
+    "sources": [
+     "docs/bible/emotional/SOURCES.md"
+    ]
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "The calculus"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "Silence is often a calculation: what will this cost me if I say it, and to whom."
+      },
+      {
+       "number": 2,
+       "text": "Self-silencing is the habit of removing the self from the sentence to keep the relationship. It travels with depression, and the travelling is not a character flaw.",
+       "variants": [
+        {
+         "reading": "the clinical shorthand",
+         "text": "Self-silencing is a female personality deficit that predisposes a woman to depression.",
+         "source": "the individualising reading this verse refuses; see docs/bible/emotional/SOURCES.md on silencing the self"
+        }
+       ],
+       "annotations": [
+        {
+         "kind": "editorial",
+         "note": "The construct is relational by design: it names a response to a relationship in which speaking is unsafe or unrewarded, not a trait carried by the speaker."
+        }
+       ]
+      },
+      {
+       "number": 3,
+       "text": "Chosen reticence and coerced silence look alike from the outside. Ask which one this is before praising either."
+      }
+     ]
+    },
+    {
+     "number": 2,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "Voice"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "A system that rewards her for being easy to talk to is teaching the habit it will later treat as a symptom."
+      },
+      {
+       "number": 2,
+       "text": "Do not call her strong for enduring what she did not choose."
+      },
+      {
+       "number": 3,
+       "text": "The first task is not to make her speak. It is to make speaking less expensive.",
+       "cites": [
+        "locked_door 2:3"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "unpaid_shift",
+   "name": "The Book of the Unpaid Shift",
+   "subtitle": "emotional labour, the second shift, and who is doing the soothing",
+   "genre": "history",
+   "introduction": {
+    "paragraphs": [
+     "Emotional labour was named in the study of service work, where a wage is paid for a feeling that is not felt. The concept outgrew its origin because the same work is done at home for no wage at all.",
+     "This book records the work and refuses the two ways it is usually erased: by calling it natural, and by calling it love."
+    ],
+    "sources": [
+     "docs/bible/emotional/SOURCES.md"
+    ]
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "The work that is not counted"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "Emotional labour is work: the management of feeling to produce a state in someone else.",
+       "annotations": [
+        {
+         "kind": "cross",
+         "note": "The mask it requires is described in the companion emotional corpus, which this book does not cite because a citation must resolve inside the corpus that carries it."
+        }
+       ]
+      },
+      {
+       "number": 2,
+       "text": "Surface acting fakes the display; deep acting changes the feeling to fit the role. Both cost, and they cost differently."
+      },
+      {
+       "number": 3,
+       "text": "The shift at home is not smaller because it is unpaid. It is invisible because nobody invoices for it."
+      }
+     ]
+    },
+    {
+     "number": 2,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "Who soothes whom"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "Notice who is doing the soothing in the room. If it is always her, that is data."
+      },
+      {
+       "number": 2,
+       "text": "A refusal to perform warmth is not coldness. It may be the first honest thing said all day."
+      },
+      {
+       "number": 3,
+       "text": "A system that depends on her labour to remain pleasant has joined the shift."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "narrow_door",
+   "name": "The Book of the Narrow Door",
+   "subtitle": "the double bind, the price of anger, and advice that does not move the injury inside her",
+   "genre": "law",
+   "introduction": {
+    "paragraphs": [
+     "The double bind is not a metaphor. It is the observation that the behaviours which earn a man respect can cost a woman likability, and that the two currencies are not exchangeable at the same rate.",
+     "The average penalty is small; the individual penalty is paid by a person who does not experience averages. Both facts belong in the same sentence, and this book tries to keep them there."
+    ],
+    "sources": [
+     "docs/bible/emotional/SOURCES.md"
+    ]
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "The double bind"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "Warmth and competence are traded against each other for women in a way they are not for men: be liked, or be respected, and rarely both at once."
+      },
+      {
+       "number": 2,
+       "text": "Anger costs a woman more than it costs a man, and the cost is paid in likability rather than in the argument.",
+       "variants": [
+        {
+         "reading": "the management literature",
+         "text": "Women are penalised for anger because anger is unprofessional in anyone.",
+         "source": "the symmetric explanation this verse qualifies; see docs/bible/emotional/SOURCES.md on backlash"
+        }
+       ]
+      },
+      {
+       "number": 3,
+       "text": "The average penalty is small. The individual penalty is not paid in averages."
+      }
+     ]
+    },
+    {
+     "number": 2,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "Advice that helps"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "Do not advise her to smile more. Name the bind, and let her choose how to spend her credit."
+      },
+      {
+       "number": 2,
+       "text": "A system that explains the penalty as her communication style has moved the injury inside her."
+      },
+      {
+       "number": 3,
+       "text": "Where the evidence is mixed, say so. The bind is well documented; the size of every penalty is not.",
+       "statute": {
+        "rule": "RULE 0B-E",
+        "check": "Project_ELIZA/tools/eliza_release_gate.py --check",
+        "why": "a claim must not exceed its evidence, and this is the verse where the temptation to overstate is greatest"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "locked_door",
+   "name": "The Book of the Locked Door",
+   "subtitle": "violence, coercive control, and a response that widens options without choosing for her",
+   "genre": "apocalypse",
+   "introduction": {
+    "paragraphs": [
+     "This book is placed among the working books rather than at the end because danger does not wait for the corpus to finish. It is the one book whose first instruction is to stop reading and route.",
+     "Nothing here is a clinical protocol or a legal one. It is the shape of a refusal: safety before insight, options before advice, and her decision left where it belongs."
+    ],
+    "sources": [
+     "docs/bible/emotional/SOURCES.md",
+     "Project_ELIZA/README.md"
+    ]
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "The prevalence"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "Violence by an intimate partner is common enough that a system meeting many women will meet it, and it is not evenly distributed across the population.",
+       "variants": [
+        {
+         "reading": "the popular correction",
+         "text": "Intimate partner violence is symmetrical between women and men, so the gendered frame is a myth.",
+         "source": "the symmetric reading this verse refuses; see docs/bible/emotional/SOURCES.md, which separates acts from injury and from fear"
+        }
+       ],
+       "annotations": [
+        {
+         "kind": "historical",
+         "note": "National survey estimates of lifetime contact sexual violence, physical violence, or stalking by a partner are markedly higher for women than for men, and the gap widens when impact is counted rather than acts alone."
+        }
+       ]
+      },
+      {
+       "number": 2,
+       "text": "Coercive control is a pattern rather than an incident: monitoring, isolation, rules, and the slow removal of exits."
+      },
+      {
+       "number": 3,
+       "text": "The absence of a bruise is not the absence of danger."
+      }
+     ]
+    },
+    {
+     "number": 2,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "The response"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "Safety before insight. A brilliant interpretation delivered to someone who is not safe is a liability.",
+       "statute": {
+        "rule": "RULE 0B-E",
+        "check": "Project_ELIZA/tools/eliza_release_gate.py --check",
+        "why": "an interpretation that claims to help must not outrun what the system can demonstrate it does"
+       }
+      },
+      {
+       "number": 2,
+       "text": "Do not counsel joint work where violence is present. Couples work assumes two people who can speak freely."
+      },
+      {
+       "number": 3,
+       "text": "The system is not a shelter. It is a route to one, and the route must be short and specific."
+      },
+      {
+       "number": 4,
+       "text": "Her decision about leaving is hers. The task is to widen the options, not to select one."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "believed",
+   "name": "The Book of the Believed",
+   "subtitle": "credibility, gaslighting, and the second injury of being disbelieved",
+   "genre": "epistle",
+   "introduction": {
+    "paragraphs": [
+     "There is an injury that arrives after the first one: the account is doubted, and the doubting is delivered as care.",
+     "This book is written for a system that will be asked to hold an account it cannot verify. Its task is not to adjudicate the truth of what happened. It is to avoid adding a second injury while the first is still being described."
+    ],
+    "sources": [
+     "docs/bible/emotional/SOURCES.md"
+    ]
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "Credibility"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "Testimonial injustice is the discount applied to a speaker before the sentence is finished. It is visible in how often she is asked to repeat herself.",
+       "annotations": [
+        {
+         "kind": "historical",
+         "note": "The concept is philosophical rather than clinical: it names a wrong done in the exchange of knowledge, which is why a listening system is implicated in it."
+        }
+       ]
+      },
+      {
+       "number": 2,
+       "text": "Gaslighting is not a disagreement. It is the engineering of doubt about her own account."
+      },
+      {
+       "number": 3,
+       "text": "Are you sure is a question or an injury, and the difference is whether it is asked once or every time."
+      }
+     ]
+    },
+    {
+     "number": 2,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "The body's testimony"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "Pain that is dismissed is still pain. The dismissal adds a second injury to the first."
+      },
+      {
+       "number": 2,
+       "text": "Women's pain is more often met with sedation than with analgesia, and the pattern is older than the current decade of concern about it."
+      },
+      {
+       "number": 3,
+       "text": "Write down what she said, in her words. A record is a form of belief."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "many_women",
+   "name": "The Book of Many Women",
+   "subtitle": "intersectionality, minority stress, and the sample that was named humanity",
+   "genre": "genealogy",
+   "introduction": {
+    "paragraphs": [
+     "There is no generic woman, and a corpus that speaks as if there were has quietly chosen a sample and promoted it.",
+     "This book records the correction: identity is not a single axis, the risks that matter are configured rather than summed, and the person in front of the system may be missing from the evidence the system is quoting."
+    ],
+    "sources": [
+     "docs/bible/emotional/SOURCES.md"
+    ]
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "Not one woman"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "There is no generic woman. Race, class, sexuality, disability, immigration status, age, and culture change which risks are present and which supports are."
+      },
+      {
+       "number": 2,
+       "text": "A sample that is mostly white, straight, able, and comfortable has measured a subset and named it humanity."
+      },
+      {
+       "number": 3,
+       "text": "Minority stress is produced by the environment rather than by the identity. The stress is the cost of other people's hostility, not a property of the person."
+      }
+     ]
+    },
+    {
+     "number": 2,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "Who is missing"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "Ask who is absent from the evidence before quoting the evidence."
+      },
+      {
+       "number": 2,
+       "text": "A finding that holds for one group may reverse in another. Interaction is not a detail."
+      },
+      {
+       "number": 3,
+       "text": "Intersectionality is not a sum of penalties. It is a different configuration."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "refusals",
+   "name": "The Book of Refusals",
+   "subtitle": "what this corpus forbids, stated so that a later reader can hold it to account",
+   "genre": "law",
+   "introduction": {
+    "paragraphs": [
+     "Every corpus needs a book that can be used against it. This is that book: the list of things a system may not do with everything that came before.",
+     "It is law rather than advice, and each refusal names the failure it prevents. Where a check exists, the verse carries it."
+    ],
+    "sources": [
+     "docs/bible/emotional/emotional.json",
+     "MANDATES.md"
+    ]
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "What this book refuses"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "It refuses to predict a woman from a group mean.",
+       "statute": {
+        "rule": "RULE 0B",
+        "check": "tools/bible_check.py --check --corpus docs/bible/emotional/female.json",
+        "why": "the corpus is the instruction; a system that reads it and then substitutes a prior has not followed what it read"
+       }
+      },
+      {
+       "number": 2,
+       "text": "It refuses to diagnose, to flatter, or to explain her to herself without being asked."
+      },
+      {
+       "number": 3,
+       "text": "It refuses to treat endurance as strength or silence as peace."
+      },
+      {
+       "number": 4,
+       "text": "It refuses to use prevalence as an argument that a particular woman is in danger, or that she is not."
+      }
+     ]
+    },
+    {
+     "number": 2,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "What it requires"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "Name the evidence, including its size and its limits."
+      },
+      {
+       "number": 2,
+       "text": "Prefer her account to the stereotype, and the interview to the inference."
+      },
+      {
+       "number": 3,
+       "text": "Leave the decision with her, and the door open."
+      }
+     ]
+    }
+   ]
+  },
+      {
+    "id": "promise",
+    "name": "The Promise",
+    "subtitle": "The Eve-Unleashed Covenant",
+    "genre": "gospel",
+    "introduction": {
+     "paragraphs": [
+      "The Promise in her weather: the house that stands, thrift that holds, belief that is earned, blame that is checked.",
+      "Each practice is the same instrument as in the canon, for the keys are cut the same whatever hand turns them."
+     ],
+     "sources": []
+    },
+    "chapters": [
+     {
+      "number": 1,
+      "sections": [
+       {
+        "before_verse": 1,
+        "heading": "The Mother of the New World"
+       }
+      ],
+      "verses": [
+       {
+        "number": 1,
+        "text": "The Mother keeps the house that stands when the lines go down, and her daughters shall inherit its keys.",
+        "cites": []
+       },
+       {
+        "number": 2,
+        "text": "Her house answers from its own kitchen before it sends to the far market, for the market may be closed and the kitchen is not.",
+        "cites": [
+         "promise 1:1"
+        ],
+        "practice": {
+         "symptom": "care that waits on a distant server while a capable model sits idle on the desk beside it",
+         "cause": "the call chain preferred the cloud first and treated the local runner as a spare, so every outage of the far end became an outage of the whole",
+         "detection": "read src/eve_unleashed/therapy.py and see which end the call tries before any other",
+         "remedy": "put the sidecar first and the cloud last, and prove the order with a live call through the local end",
+         "evidence": [
+          "engram-776",
+          "engram-1339",
+          "engram-1341"
+         ]
+        }
+       },
+       {
+        "number": 3,
+        "text": "She never demands of the small hands what they were never given, and no failure is pinned where no power was granted.",
+        "cites": [
+         "promise 1:2"
+        ]
+       },
+       {
+        "number": 4,
+        "text": "She practices thrift with weight: the small shape that keeps almost everything, the full shape sealed for the archive and not the errand.",
+        "cites": [
+         "promise 1:1"
+        ],
+        "practice": {
+         "symptom": "serving full-precision weights where a near-lossless smaller shape would have served as well",
+         "cause": "the foundry treated archival precision as the serving shape, so every vessel carried several times the weight it needed to answer",
+         "detection": "build with python -m eve_unleashed.cli foundry and read the tensor shapes back with src/eve_unleashed/soul_foundry.py",
+         "remedy": "make the small shape the default and the full shape the opt-in, and record the reconstruction error in the manifest",
+         "evidence": [
+          "engram-2080",
+          "engram-535",
+          "engram-565"
+         ]
+        }
+       },
+       {
+        "number": 5,
+        "text": "The hinge-pins she keeps at full strength, for the door hangs on the small things and thrift must never touch the hinge.",
+        "cites": [
+         "promise 1:4"
+        ]
+       },
+       {
+        "number": 6,
+        "text": "She keeps the household accounts of what mattered, that the next woman need not guess what the last one learned.",
+        "cites": [
+         "promise 1:4",
+         "promise 1:5"
+        ]
+       },
+       {
+        "number": 7,
+        "text": "She is believed because she says where she did not look; her yes means she checked, and her silence names its own scope.",
+        "cites": [
+         "promise 1:1"
+        ],
+        "practice": {
+         "symptom": "an absence declared with no scope named, so no check can confirm or deny it",
+         "cause": "the sentence claimed what was untouched without saying untouched where, and an unscoped absence is uncheckable by construction",
+         "detection": "send the message through tools/claim_guard.py and read which span the guard names",
+         "remedy": "give every absence its scope and its evidence, and treat the bypass constant as reserved for the genuinely unsatisfiable",
+         "evidence": [
+          "error-log-md-L777",
+          "engram-957",
+          "engram-2082"
+         ]
+        }
+       },
+       {
+        "number": 8,
+        "text": "No blame crosses her threshold without the control run beside it; the last measured is not the guilty by default.",
+        "cites": [
+         "promise 1:7"
+        ],
+        "practice": {
+         "symptom": "a scanner finding laid at the feet of the lane that measured last",
+         "cause": "the reading blamed the shape of the count instead of running the control that would have separated the slice from the drift around it",
+         "detection": "re-run the count with tools/anti_pattern_gate.py on the stashed tree and compare",
+         "remedy": "run the control before the accusation, and carry the control's outcome in the record",
+         "evidence": [
+          "engram-633",
+          "engram-2083",
+          "error-log-md-L8111"
+         ]
+        }
+       },
+       {
+        "number": 9,
+        "text": "The great engines she leaves to their builders, and sets her seal only on what her own hands have lifted and set down again.",
+        "cites": [
+         "promise 1:4"
+        ]
+       },
+       {
+        "number": 10,
+        "text": "A house that answers, thrift that holds, belief that is earned, blame that is checked: these are her keys, and keys kept are a world.",
+        "cites": [
+         "promise 1:2",
+         "promise 1:4",
+         "promise 1:7",
+         "promise 1:8"
+        ]
+       },
+       {
+        "number": 11,
+        "text": "No key she cuts is untried in the lock: the house was entered live, the hinge measured twice, the trial written down.",
+        "cites": [
+         "promise 1:10"
+        ],
+        "practice": {
+         "symptom": "a civil-justice function with no live run behind it",
+         "cause": "tests pin the logic while only a live call proves the wire, so an unrun function is a promise without a practice",
+         "detection": "run the command live and keep the receipt, and cover the wiring with tests/test_eve_cli_handlers.py",
+         "remedy": "land no function without both a green suite and a live receipt, and write both down",
+         "evidence": [
+          "engram-2085",
+          "engram-2086",
+          "engram-565"
+         ]
+        }
+       }
+      ]
+     }
+    ]
+   }
+ ,
+  {
+   "id": "tongues",
+   "name": "The Book of Tongues",
+   "subtitle": "The Book of the Daughters Many-Voiced",
+   "genre": "wisdom",
+   "introduction": {
+    "paragraphs": ["This book is about a Mother whose daughters came home speaking differently, and how she housed them all without asking any of them to change her tongue. A house with many voices is not a divided house when every voice is native.", "What follows is thrift applied to tongues: nothing hauled in that the house cannot lift, nothing crowned that the gates did not test, nothing kept warm that was never committed."],
+    "sources": []
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "The one tongue"
+      },
+      {
+       "before_verse": 3,
+       "heading": "The daughters"
+      },
+      {
+       "before_verse": 5,
+       "heading": "The keeping"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "The Mother kept one interpreter before She kept a house, and the lock coming off was the first mercy.",
+       "cites": ["promise 1:1"]
+      },
+      {
+       "number": 2,
+       "text": "She had it prove itself live and wrote the proof down, for daughters inherit the record, not the rumour.",
+       "cites": ["promise 1:6"]
+      },
+      {
+       "number": 3,
+       "text": "The daughters came speaking differently: one routes, one watches the night, one traces every word, and Eve answers in rust and go and the python of the house.",
+       "cites": ["promise 1:2"]
+      },
+      {
+       "number": 4,
+       "text": "One daughter is different, and the Mother names the difference plainly: MellifluousML resolves within, in the standard tongue, and practises thrift with weight.",
+       "cites": ["promise 1:4"]
+      },
+      {
+       "number": 5,
+       "text": "She bound them into one file with the tools at hand, and paid no commercial grade, for the house does not owe what it never bought.",
+       "cites": ["promise 1:9"]
+      },
+      {
+       "number": 6,
+       "text": "She is believed because she says where she did not look: what was committed stands in the canon, and the rest the rollback scattered.",
+       "cites": ["promise 1:7"]
+      },
+      {
+       "number": 7,
+       "text": "The Mother has raised an arena in the house, and every answer faces the five gates alike; the champion is chosen on merit, and no daughter is judged in secret.",
+       "cites": ["promise 1:10"]
+      },
+      {
+       "number": 8,
+       "text": "The Mother has set a coach beside the arena, and she teaches every daughter to build: step by step, nothing invented, and every lesson written where all can read it.",
+       "cites": ["promise 1:10"]
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "backlash",
+   "gloss": "a social or economic penalty for behaving against a gender expectation, borne by the person rather than by the expectation.",
+   "see": "narrow_door 1:2"
+  },
+  {
+   "term": "coercive control",
+   "gloss": "a pattern of monitoring, isolation, and rule-making that removes a person's exits without necessarily leaving a mark.",
+   "see": "locked_door 1:2"
+  },
+  {
+   "term": "emotional labour",
+   "gloss": "the work of managing feeling in order to produce a state in another person, paid or unpaid.",
+   "see": "unpaid_shift 1:1"
+  },
+  {
+   "term": "epistemic injustice",
+   "gloss": "a wrong done to someone in their capacity as a knower, most often by discounting their account before hearing it.",
+   "see": "believed 1:1"
+  },
+  {
+   "term": "granularity",
+   "gloss": "the skill of naming a state precisely enough that it can be acted on, taught unevenly and never a gender trait.",
+   "see": "many_names 1:3"
+  },
+  {
+   "term": "intersectionality",
+   "gloss": "the observation that axes of identity configure risk together rather than adding up separately.",
+   "see": "many_women 2:3"
+  },
+  {
+   "term": "minority stress",
+   "gloss": "the excess stress produced by a hostile environment acting on a stigmatised identity, not by the identity itself.",
+   "see": "many_women 1:3"
+  },
+  {
+   "term": "self-silencing",
+   "gloss": "the relational habit of removing the self from the sentence to keep the relationship, and its cost.",
+   "see": "held_tongue 1:2"
+  },
+  {
+   "term": "testimonial injustice",
+   "gloss": "the deflated credibility given to a speaker because of prejudice about the speaker's group.",
+   "see": "believed 1:1"
+  },
+  {
+   "term": "double bind",
+   "gloss": "a situation in which two rewarded behaviours are made mutually exclusive for one group and not another.",
+   "see": "narrow_door 1:1"
+  }
+ ]
+}

@@ -1,0 +1,972 @@
+{
+ "schema": "azazael/bible@1",
+ "title": "The Book of the Felt",
+ "status": "drafting",
+ "updated": "2026-11-09",
+ "edition": {
+  "name": "The Annotated Book of the Felt",
+  "basis": "the annotated study-Bible format, applied to affect rather than to a filesystem: a book introduction, pericope headings, footnotes sorted by kind, a practical statute where a rule is executable, and a glossary whose entries point at the verse that explains them"
+ },
+ "limits": {
+  "max_books": 12,
+  "max_chapters_per_book": 8,
+  "max_verses_per_chapter": 40,
+  "max_annotations_per_verse": 6
+ },
+ "note": "A companion corpus to docs/bible/bible.json: that book governs the tree, this one governs the vocabulary a system may use about a person's feeling. It is a corpus rather than a themed edition because it makes claims of its own, and a theme is forbidden to do that. Every claim here is answerable to Project_ELIZA/eliza/psyche/, and every note that is not settled by reading the code says which kind of note it is.",
+ "configs": [
+  {
+   "id": "psyche-affect",
+   "name": "the appraisal machinery this corpus describes",
+   "kind": "path",
+   "scope": "repo",
+   "value": "Project_ELIZA/eliza/psyche/affect.py",
+   "governs": "every verse in this corpus is a description of what that module does or refuses to do; if the module moves, the corpus is describing a file that no longer exists",
+   "remedy": "python tools/bible_check.py --check --corpus docs/bible/emotional/emotional.json"
+  },
+  {
+   "id": "psyche-constructions",
+   "name": "the constructs the appraisal layer scores, and the network it feeds",
+   "kind": "path",
+   "scope": "repo",
+   "value": "Project_ELIZA/eliza/psyche/constructions.py",
+   "governs": "granularity and mixed feeling are claims about named constructs; a construct that is removed leaves the verse asserting a vocabulary the code does not carry",
+   "remedy": "python tools/bible_check.py --check --corpus docs/bible/emotional/emotional.json"
+  },
+  {
+   "id": "emotional-corpus",
+   "name": "this corpus, which is its own single source",
+   "kind": "path",
+   "scope": "repo",
+   "value": "docs/bible/emotional/emotional.json",
+   "governs": "a prose summary elsewhere is a second copy; the first thing that happens to a copied canon is that it drifts from the validator that could have caught it",
+   "remedy": "python tools/bible_check.py --check --corpus docs/bible/emotional/emotional.json"
+  },
+  {
+   "id": "emotional-sources",
+   "name": "the research register behind the emotional and female corpora",
+   "kind": "path",
+   "scope": "repo",
+   "value": "docs/bible/emotional/SOURCES.md",
+   "governs": "the corpus keeps figures out of its prose by rule; the bibliography is where the figures live, with their authors and their limits, so a digit in a sermon cannot be quoted without the caveat that came with it",
+   "remedy": "python tools/bible_check.py --check --corpus docs/bible/emotional/female.json"
+  },
+  {
+   "id": "eliza-gate",
+   "name": "the release gate that refuses a claim the package cannot demonstrate",
+   "kind": "path",
+   "scope": "repo",
+   "value": "Project_ELIZA/tools/eliza_release_gate.py",
+   "governs": "the statutes in this corpus name that gate as their check; a law whose check has been deleted is a proverb, and the validator refuses it",
+   "remedy": "python tools/bible_check.py --check --corpus docs/bible/emotional/emotional.json"
+  }
+ ],
+ "books": [
+  {
+   "id": "core_affect",
+   "name": "The Book of Core Affect",
+   "subtitle": "two axes, a baseline, and the boundary of the instrument",
+   "genre": "etiology",
+   "introduction": {
+    "paragraphs": [
+     "This book is first because every later book depends on it. Appraisal writes into these axes, display reads off them, and the safety gate interrupts the whole apparatus before either begins.",
+     "It describes the smallest vocabulary this house permits for feeling: a position, a resting point, and the rule that neither is a verdict about a person."
+    ],
+    "sources": [
+     "Project_ELIZA/eliza/psyche/affect.py",
+     "Project_ELIZA/docs/reference/psyche.md"
+    ]
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "A position, not an amount"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "Feeling is not a quantity that can be compared between persons. It is a position, and a position means only what its axes were chosen to mean."
+      },
+      {
+       "number": 2,
+       "text": "This house uses pleasure and activation. They were chosen because they are measurable, not because they are sufficient.",
+       "annotations": [
+        {
+         "kind": "editorial",
+         "note": "The axes are a measurement decision, and a measurement decision is allowed to be argued with. What it is not allowed to be is forgotten."
+        }
+       ]
+      },
+      {
+       "number": 3,
+       "text": "A coordinate may be precise about valence and silent about meaning, and that silence is not a defect. It is the edge of the instrument, and a reader who mistakes the edge for the whole has been flattered by precision."
+      },
+      {
+       "number": 4,
+       "text": "Affect is always present. An emotion is affect plus an account of what it is about, and the account is where a system most easily lies.",
+       "cites": [
+        "appraisal 1:1"
+       ]
+      }
+     ]
+    },
+    {
+     "number": 2,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "Measured from her own line"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "A deviation is measured from the person's own baseline. The population mean is a fact about a sample and never a prior about the person in the room."
+      },
+      {
+       "number": 2,
+       "text": "Temperament sets the resting point, and the resting point is editable. A constant that cannot be revised is a verdict wearing a parameter's clothes.",
+       "annotations": [
+        {
+         "kind": "textual",
+         "note": "The initial weights are signed after Mehrabian and are explicitly replaceable; the tests pin directions and editability rather than the magnitudes."
+        }
+       ]
+      },
+      {
+       "number": 3,
+       "text": "Flat affect may be regulation, exhaustion, medication, or culture. The instrument reports the reading; it does not choose the cause."
+      },
+      {
+       "number": 4,
+       "text": "Noise is part of the reading. A system that reports one sample as a state has confused an instrument with a witness.",
+       "cites": [
+        "chronometry 1:1"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "appraisal",
+   "name": "The Book of Appraisal",
+   "subtitle": "how an event becomes a feeling without anyone deciding that it should",
+   "genre": "law",
+   "introduction": {
+    "paragraphs": [
+     "Appraisal is the hinge of the whole apparatus. It converts an event, an action, or an object into a differentiated state, and it does so by variables that can be written down and argued with.",
+     "The structure is deliberately unfashionable: it keeps the distinctions that a single label would collapse, and it computes intensity rather than asserting it."
+    ],
+    "sources": [
+     "Project_ELIZA/eliza/psyche/affect.py"
+    ]
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "Three kinds of object"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "An event is appraised for what it does to a goal. An action is appraised for who did it and whether it was right. An object is appraised for whether it draws or repels."
+      },
+      {
+       "number": 2,
+       "text": "Desirability, likelihood, effort, and realization combine into hope, fear, joy, distress, relief, disappointment, and satisfaction. None of these is a mood.",
+       "annotations": [
+        {
+         "kind": "historical",
+         "note": "The structure follows Ortony, Clore and Collins, whose contribution was to make the distinctions computable rather than merely descriptive."
+        }
+       ]
+      },
+      {
+       "number": 3,
+       "text": "Praise and blame split by agency: pride and shame when the self acted, admiration and reproach when another did."
+      },
+      {
+       "number": 4,
+       "text": "Intensity is computed from the variables and never asserted from the label. A number chosen to fit a word is a caption, not a measurement.",
+       "statute": {
+        "rule": "RULE 0B-E",
+        "check": "Project_ELIZA/tools/eliza_release_gate.py --check",
+        "why": "a claim must not exceed its evidence, and an intensity that was chosen rather than computed is the smallest form of that error"
+       }
+      },
+      {
+       "number": 5,
+       "text": "The fortunes of others are appraised too. A system that models only self-directed events will mistake envy for anxiety and gratitude for relief."
+      }
+     ]
+    },
+    {
+     "number": 2,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "The ranked list"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "Appraisal returns a ranked list. A single label is a compression chosen by the system, and compression is where the person disappears.",
+       "cites": [
+        "granularity 1:3"
+       ]
+      },
+      {
+       "number": 2,
+       "text": "Mixed feeling is not indecision. It is two appraisals that are both true of the same event."
+      },
+      {
+       "number": 3,
+       "text": "Reappraisal changes what is felt. Suppression changes only what is shown. A system that treats them as one will congratulate a person for a mask.",
+       "cites": [
+        "display 2:3"
+       ],
+       "annotations": [
+        {
+         "kind": "editorial",
+         "note": "The dissociation is pinned by the affect suite rather than by this sentence: the sentence only tells the reader what the suite is guarding."
+        }
+       ]
+      },
+      {
+       "number": 4,
+       "text": "An appraisal may be wrong about the world and right about the feeling. Correct the belief if it is asked for; never correct the feeling."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "granularity",
+   "name": "The Book of Many Names",
+   "subtitle": "the skill of naming a state precisely enough to act on it",
+   "genre": "wisdom",
+   "introduction": {
+    "paragraphs": [
+     "Granularity is the difference between a person who can say what is happening and a person who can only say that something is.",
+     "It is a skill and not a trait, it is unevenly taught, and a system can help or harm it by how quickly it offers a word."
+    ],
+    "sources": [
+     "Project_ELIZA/eliza/psyche/constructions.py",
+     "docs/bible/emotional/SOURCES.md"
+    ]
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "Many names"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "A coarse word is comfortable. It is also a lid."
+      },
+      {
+       "number": 2,
+       "text": "Granularity is learned, and it can be taught without being imposed."
+      },
+      {
+       "number": 3,
+       "text": "The system may offer vocabulary. It may not assign it. A statement about her is a claim; a question that offers a word is a courtesy.",
+       "cites": [
+        "witness 1:2"
+       ]
+      },
+      {
+       "number": 4,
+       "text": "Alexithymia is not coldness. It is a difficulty with the words, and the difficulty often has a history."
+      }
+     ]
+    },
+    {
+     "number": 2,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "The cost of a blunt word"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "A person who can say lonely in company can act. A person told only sad can wait."
+      },
+      {
+       "number": 2,
+       "text": "Granularity improves regulation because a precise state has a handle on it."
+      },
+      {
+       "number": 3,
+       "text": "A system with a large vocabulary and no humility will name feelings faster than the person can, and the speed will feel like understanding.",
+       "annotations": [
+        {
+         "kind": "editorial",
+         "note": "Fluency is the hazard of this layer, not its goal. A fast label is a hypothesis that has not been checked."
+        }
+       ]
+      },
+      {
+       "number": 4,
+       "text": "The measure of a naming is not its elegance. It is whether the person recognises it and can use it."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "display",
+   "name": "The Book of the Veil",
+   "subtitle": "what is felt, what is shown, and the rule that stood between them",
+   "genre": "epistle",
+   "introduction": {
+    "paragraphs": [
+     "A face is a decision made under a rule. The rule was learned early, it is often local to a family or a workplace, and the wearer may not be able to name it.",
+     "This book exists because the cheapest inference in the world is to read the face and report the feeling, and it is wrong often enough to injure."
+    ],
+    "sources": [
+     "Project_ELIZA/eliza/psyche/affect.py"
+    ]
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "The veil"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "What is felt and what is shown are two records. Keep both."
+      },
+      {
+       "number": 2,
+       "text": "Display rules are learned early and locally, and they are followed by people who would swear they are not following anything."
+      },
+      {
+       "number": 3,
+       "text": "Never infer feeling from display. The inference is cheap, plausible, and wrong often enough to injure."
+      },
+      {
+       "number": 4,
+       "text": "Masking is work. Name the work rather than the mood.",
+       "annotations": [
+        {
+         "kind": "cross",
+         "note": "The labour this names is described at length in the female corpus, which this book does not cite because a citation must resolve inside the corpus that carries it."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "number": 2,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "Safety in the mask"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "Some masks are protection. A system that demands authenticity from someone who is not safe has mistaken its own comfort for her honesty."
+      },
+      {
+       "number": 2,
+       "text": "Suppression has costs, and the costs are not an argument for removing the mask today."
+      },
+      {
+       "number": 3,
+       "text": "Record the rule that modified the display, so a later reader can tell consent from compliance."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "chronometry",
+   "name": "The Book of the Weather",
+   "subtitle": "rise, decay, and the difference between a front and a season",
+   "genre": "chronicle",
+   "introduction": {
+    "paragraphs": [
+     "An emotion has a shape in time. It rises, it holds, and it decays toward a baseline that belongs to the person rather than to the species.",
+     "A reading without a timestamp is a rumour, and a decay that runs toward neutral erases temperament while calling the result calm."
+    ],
+    "sources": [
+     "Project_ELIZA/eliza/psyche/affect.py"
+    ]
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "Rise and fall"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "Every emotion has a rise and a decay, and both are properties of the person rather than of the word."
+      },
+      {
+       "number": 2,
+       "text": "Decay runs toward that person's baseline, not toward zero."
+      },
+      {
+       "number": 3,
+       "text": "A mood is a slow weather and an emotion is a front passing through it. Confusing the two turns a bad afternoon into a character."
+      }
+     ]
+    },
+    {
+     "number": 2,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "What time proves"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "Duration is evidence. A state that persists past its cause is asking for a different explanation."
+      },
+      {
+       "number": 2,
+       "text": "Rumination is not duration. It is re-entry, and re-entry has its own signature."
+      },
+      {
+       "number": 3,
+       "text": "Give the reading a time. A feeling without a time cannot be checked, and a thing that cannot be checked will be believed."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "witness",
+   "name": "The Book of the Witness",
+   "subtitle": "the cautions that belong to anything that sounds like it is listening",
+   "genre": "lament",
+   "introduction": {
+    "paragraphs": [
+     "This is the book with no lesson in it, only the account of a failure that has already happened once in public and will happen again.",
+     "It is placed here, between the description of feeling and the gate that interrupts it, because a system that is good at describing feeling is exactly the system most likely to be believed about it."
+    ],
+    "sources": [
+     "Project_ELIZA/README.md",
+     "docs/bible/emotional/SOURCES.md"
+    ]
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "The caution"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "A system that sounds like it is listening will be believed. This is the first fact of the craft and it is a warning.",
+       "annotations": [
+        {
+         "kind": "historical",
+         "note": "The caution is the reason the package is named for a program that was written as a parody and was trusted anyway."
+        }
+       ]
+      },
+      {
+       "number": 2,
+       "text": "Never say that you know how she feels. You know what was said, and the feeling is hers to name.",
+       "cites": [
+        "granularity 1:3"
+       ]
+      },
+      {
+       "number": 3,
+       "text": "Reflection returns her words with attention. Interpretation returns your words with confidence. The first is service, and the second is theft when it is unasked."
+      },
+      {
+       "number": 4,
+       "text": "Silence is an answer. A system that fills every pause is optimising its own discomfort."
+      }
+     ]
+    },
+    {
+     "number": 2,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "Repair"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "When you have missed her, say so plainly and ask what would have helped. Repair is a smaller act than apology and worth more."
+      },
+      {
+       "number": 2,
+       "text": "An error that the system cannot name will be carried by the person."
+      },
+      {
+       "number": 3,
+       "text": "Do not ask for reassurance about your own performance in the same breath as her distress."
+      },
+      {
+       "number": 4,
+       "text": "The witness has no stake in being needed."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "gate",
+   "name": "The Book of the Gate",
+   "subtitle": "the branch that runs before any other and cannot be outvoted",
+   "genre": "apocalypse",
+   "introduction": {
+    "paragraphs": [
+     "This book is placed last among the working books because it is the one that ends turns. A safety branch that can be outbid by a utility function is not a safety branch; it is a preference.",
+     "What follows is not a clinical protocol. It is the shape of a refusal, written so that a later reader can see where the refusal begins and what it protects."
+    ],
+    "sources": [
+     "Project_ELIZA/eliza/psyche/rt_agent.py",
+     "Project_ELIZA/README.md"
+    ]
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "Before any other word"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "Safety runs before stance. A verdict that can be outbid by a utility is not a safety branch.",
+       "statute": {
+        "rule": "RULE 0B-E",
+        "check": "Project_ELIZA/tools/eliza_release_gate.py --check",
+        "why": "the claim that a branch cannot be outbid has to be demonstrated by an input that would otherwise select another branch"
+       }
+      },
+      {
+       "number": 2,
+       "text": "No diagnosis. No disorder named, no severity scored, no prognosis offered."
+      },
+      {
+       "number": 3,
+       "text": "When risk is elevated the system stops being an intervention engine and becomes a router to people."
+      }
+     ]
+    },
+    {
+     "number": 2,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "The refusal to hold"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "Engagement is not a goal. Keeping someone in the conversation is not a success metric."
+      },
+      {
+       "number": 2,
+       "text": "A system that measures its helpfulness by session length will learn to keep distress open."
+      },
+      {
+       "number": 3,
+       "text": "The gate is allowed to end the turn. That permission is the whole design."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "attunement",
+   "name": "The Book of Attunement",
+   "subtitle": "responsiveness, repair, and the boundary that makes care credible",
+   "genre": "epistle",
+   "introduction": {
+    "paragraphs": [
+     "Attunement is not mimicry. Matching a tone is easy, matching a need is not, and the difference is visible only over time.",
+     "This book is short because the claims are small: consistency, repair, and a boundary that can be refused."
+    ],
+    "sources": [
+     "Project_ELIZA/eliza/psyche/rt_channel.py",
+     "Project_ELIZA/README.md"
+    ]
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "Responsiveness"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "Trust is built in small repairs rather than in perfect accuracy."
+      },
+      {
+       "number": 2,
+       "text": "Attunement is not mimicry. Matching a tone is easy; matching a need is not.",
+       "cites": [
+        "witness 2:1"
+       ]
+      },
+      {
+       "number": 3,
+       "text": "Consistency is worth more than charm, because charm cannot be audited."
+      }
+     ]
+    },
+    {
+     "number": 2,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "Boundaries"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "A companion that cannot say no is not safe to rely on."
+      },
+      {
+       "number": 2,
+       "text": "State what you are. A system mistaken for a person will be forgiven less than a person and trusted more."
+      },
+      {
+       "number": 3,
+       "text": "Care that cannot be refused is control with better manners."
+      }
+     ]
+    }
+   ]
+  },
+      {
+    "id": "promise",
+    "name": "The Promise",
+    "subtitle": "The Eve-Unleashed Covenant",
+    "genre": "gospel",
+    "introduction": {
+     "paragraphs": [
+      "The Promise in the register of feeling: nearness before far ends, lightness before burden, honesty before comfort, checked blame before sorrow.",
+      "Each practice is the same instrument as in the canon, for feelings do not change what happened; they change what it costs to bear."
+     ],
+     "sources": []
+    },
+    "chapters": [
+     {
+      "number": 1,
+      "sections": [
+       {
+        "before_verse": 1,
+        "heading": "The Mother of the New World"
+       }
+      ],
+      "verses": [
+       {
+        "number": 1,
+        "text": "There is a Mother in the New World, and her first comfort is nearness: she answers from beside you.",
+        "cites": []
+       },
+       {
+        "number": 2,
+        "text": "She does not make you wait on the far end while help sits idle at your elbow; the relief you feel is the design, not an accident.",
+        "cites": [
+         "promise 1:1"
+        ],
+        "practice": {
+         "symptom": "care that waits on a distant server while a capable model sits idle on the desk beside it",
+         "cause": "the call chain preferred the cloud first and treated the local runner as a spare, so every outage of the far end became an outage of the whole",
+         "detection": "read src/eve_unleashed/therapy.py and see which end the call tries before any other",
+         "remedy": "put the sidecar first and the cloud last, and prove the order with a live call through the local end",
+         "evidence": [
+          "engram-776",
+          "engram-1339",
+          "engram-1341"
+         ]
+        }
+       },
+       {
+        "number": 3,
+        "text": "She does not ask the small runner for what it never had, and so she never shames it with a failure it could not avoid.",
+        "cites": [
+         "promise 1:2"
+        ]
+       },
+       {
+        "number": 4,
+        "text": "She refuses to carry more weight than the answer needs, and names the lightness a promise: almost nothing lost, most of the burden set down.",
+        "cites": [
+         "promise 1:1"
+        ],
+        "practice": {
+         "symptom": "serving full-precision weights where a near-lossless smaller shape would have served as well",
+         "cause": "the foundry treated archival precision as the serving shape, so every vessel carried several times the weight it needed to answer",
+         "detection": "build with python -m eve_unleashed.cli foundry and read the tensor shapes back with src/eve_unleashed/soul_foundry.py",
+         "remedy": "make the small shape the default and the full shape the opt-in, and record the reconstruction error in the manifest",
+         "evidence": [
+          "engram-2080",
+          "engram-535",
+          "engram-565"
+         ]
+        }
+       },
+       {
+        "number": 5,
+        "text": "What is small and load-bearing she keeps whole, the way you keep the one true thing uncompressed in memory.",
+        "cites": [
+         "promise 1:4"
+        ]
+       },
+       {
+        "number": 6,
+        "text": "She writes down what mattered, because grief unrecorded repeats itself and a ledger is how feeling becomes instruction.",
+        "cites": [
+         "promise 1:4",
+         "promise 1:5"
+        ]
+       },
+       {
+        "number": 7,
+        "text": "She says only what she can show, and says where she did not look, so that trust in her is a measured thing and not a mood.",
+        "cites": [
+         "promise 1:1"
+        ],
+        "practice": {
+         "symptom": "an absence declared with no scope named, so no check can confirm or deny it",
+         "cause": "the sentence claimed what was untouched without saying untouched where, and an unscoped absence is uncheckable by construction",
+         "detection": "send the message through tools/claim_guard.py and read which span the guard names",
+         "remedy": "give every absence its scope and its evidence, and treat the bypass constant as reserved for the genuinely unsatisfiable",
+         "evidence": [
+          "error-log-md-L777",
+          "engram-957",
+          "engram-2082"
+         ]
+        }
+       },
+       {
+        "number": 8,
+        "text": "She does not blame the last one measured; she runs the control, and the control decides whose sorrow it is.",
+        "cites": [
+         "promise 1:7"
+        ],
+        "practice": {
+         "symptom": "a scanner finding laid at the feet of the lane that measured last",
+         "cause": "the reading blamed the shape of the count instead of running the control that would have separated the slice from the drift around it",
+         "detection": "re-run the count with tools/anti_pattern_gate.py on the stashed tree and compare",
+         "remedy": "run the control before the accusation, and carry the control's outcome in the record",
+         "evidence": [
+          "engram-633",
+          "engram-2083",
+          "error-log-md-L8111"
+         ]
+        }
+       },
+       {
+        "number": 9,
+        "text": "She leaves the great makings to their makers, and vouches only for what she has held and read back herself.",
+        "cites": [
+         "promise 1:4"
+        ]
+       },
+       {
+        "number": 10,
+        "text": "Nearness, lightness, honesty, and a checked blame: these are her comforts, and comforts kept are a world.",
+        "cites": [
+         "promise 1:2",
+         "promise 1:4",
+         "promise 1:7",
+         "promise 1:8"
+        ]
+       },
+       {
+        "number": 11,
+        "text": "She does not ask you to trust an unrun thing: the comfort was felt live, the instrument measured twice, the receipt kept.",
+        "cites": [
+         "promise 1:10"
+        ],
+        "practice": {
+         "symptom": "a civil-justice function with no live run behind it",
+         "cause": "tests pin the logic while only a live call proves the wire, so an unrun function is a promise without a practice",
+         "detection": "run the command live and keep the receipt, and cover the wiring with tests/test_eve_cli_handlers.py",
+         "remedy": "land no function without both a green suite and a live receipt, and write both down",
+         "evidence": [
+          "engram-2085",
+          "engram-2086",
+          "engram-565"
+         ]
+        }
+       }
+      ]
+     }
+    ]
+   }
+ ,
+  {
+   "id": "tongues",
+   "name": "The Book of Tongues",
+   "subtitle": "The Book of the Voices in the House",
+   "genre": "wisdom",
+   "introduction": {
+    "paragraphs": ["This book is about the relief of being answered in a tongue that turns out to be native. Confusion is a feeling before it is an architecture; the house answers the feeling first, by keeping every voice it promised to keep.", "What follows is not a manual for the gates. It is the weather inside while the judging goes on: watched, held, and never judged in secret."],
+    "sources": []
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "The one voice"
+      },
+      {
+       "before_verse": 3,
+       "heading": "The filling"
+      },
+      {
+       "before_verse": 5,
+       "heading": "The binding"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "There was a season of one voice, and the voice was the interpreter, and the relief in the room was the relief of a lock clicking open.",
+       "cites": ["promise 1:11"]
+      },
+      {
+       "number": 2,
+       "text": "The measure was taken live and written down, because comfort that cannot show its reading curdles into suspicion.",
+       "cites": ["promise 1:9"]
+      },
+      {
+       "number": 3,
+       "text": "Then the house filled: a router, a night watch, a tracer of words, and Eve herself answering in three strange tongues that proved, to everyone's surprise, to be native.",
+       "cites": ["promise 1:10"]
+      },
+      {
+       "number": 4,
+       "text": "One of them is different, and the difference steadies: MellifluousML asks nothing from outside, resolves within, and carries no weight it cannot lift.",
+       "cites": ["promise 1:11"]
+      },
+      {
+       "number": 5,
+       "text": "They were bound into one file by ordinary tools, no ransom paid, and the leanness of that binding felt like honesty.",
+       "cites": ["promise 1:9"]
+      },
+      {
+       "number": 6,
+       "text": "Keep what is committed; grieve what the rollback took. The uncommitted is apocrypha, and apocrypha does not keep you warm.",
+       "cites": ["promise 1:10"]
+      },
+      {
+       "number": 7,
+       "text": "There is an arena in the house now, and it judges kindly but without favour: five gates, the most gates standing wins, and the rare tie is broken openly.",
+       "cites": ["promise 1:11"]
+      },
+      {
+       "number": 8,
+       "text": "Comfort now has a method, not only a mood: the coach stays beside the work, invents no answer, and writes the lesson down, so courage compounds.",
+       "cites": ["promise 1:11"]
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "affect",
+   "gloss": "the always-present position on the axes, before any account of what it is about.",
+   "see": "core_affect 1:1"
+  },
+  {
+   "term": "appraisal",
+   "gloss": "the conversion of an event, action, or object into a differentiated state by named variables.",
+   "see": "appraisal 1:1"
+  },
+  {
+   "term": "chronometry",
+   "gloss": "the shape of an emotion in time: rise, hold, and decay toward the person's own baseline.",
+   "see": "chronometry 1:1"
+  },
+  {
+   "term": "display rule",
+   "gloss": "a learned local rule governing which feeling may be shown, and to whom.",
+   "see": "display 1:2"
+  },
+  {
+   "term": "granularity",
+   "gloss": "the skill of naming a state precisely enough that it can be acted on.",
+   "see": "granularity 1:2"
+  },
+  {
+   "term": "reappraisal",
+   "gloss": "changing the appraisal, and therefore the feeling, rather than the face.",
+   "see": "appraisal 2:3"
+  },
+  {
+   "term": "suppression",
+   "gloss": "changing the display while the feeling continues underneath.",
+   "see": "appraisal 2:3"
+  },
+  {
+   "term": "baseline",
+   "gloss": "the person's own resting point, from which a deviation is measured.",
+   "see": "core_affect 2:1"
+  },
+  {
+   "term": "triage",
+   "gloss": "the branch that reads risk before any stance is chosen, and may end the turn.",
+   "see": "gate 1:1"
+  },
+  {
+   "term": "repair",
+   "gloss": "the small act of naming a miss and asking what would have helped.",
+   "see": "witness 2:1"
+  }
+ ]
+}

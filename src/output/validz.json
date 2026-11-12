@@ -1,0 +1,16 @@
+{
+  "name": "VALIDZ",
+  "success": false,
+  "files_processed": 74,
+  "items_found": 73,
+  "duration_ms": 961.275577545166,
+  "output": {
+    "valid": 73,
+    "errors": [
+      "C:\\Users\\clint\\Desktop\\PERSEPHONE\\lib\\sync_manager.py:289 - '(' was never closed"
+    ]
+  },
+  "errors": [
+    "C:\\Users\\clint\\Desktop\\PERSEPHONE\\lib\\sync_manager.py:289 - '(' was never closed"
+  ]
+}

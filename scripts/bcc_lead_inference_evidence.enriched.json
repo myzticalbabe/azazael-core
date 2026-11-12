@@ -1,0 +1,121 @@
+[
+ {
+  "id": "LEAD-08",
+  "class": "RESOLVED",
+  "title": "Name-consistency watchdog CLEAN: 61 name-bearing strings across SNA v3 labels/centrality/communities, record-linkage clusters, person_edges, and the temporal KG all use corpus-attested given names (Joseph Plageman Jr / John Robinson / Christine Axford / Missy Orlando / …). No 'Christopher Plageman'-class corruption remains in any machine layer.",
+  "basis": [
+   "bcc_network_sna_results_v3.json",
+   "bcc_record_linkage.json",
+   "bcc_person_edges.json",
+   "bcc_graphiti_temporal.json",
+   "BCC_KUZU_TEMPORAL_evidence.json"
+  ],
+  "gap_refs": [],
+  "action": "No action. Re-run after any regeneration of the SNA, linkage, person-edge, or KG layers to keep the machine layers honest.",
+  "integrity_note": "Name-consistency check across machine artifacts vs the human corpus's canonical given names.",
+  "status": "RESOLVED",
+  "corroboration_layers": [],
+  "records_action": "",
+  "verification_method": "cross_layer_pass",
+  "evidence_strength": 0.7,
+  "created": "2026-10-27",
+  "updated": "2026-10-27",
+  "triage_priority": 3
+ },
+ {
+  "id": "LEAD-09",
+  "class": "STRENGTHENS-EXISTING",
+  "status": "OPEN",
+  "title": "PA Superior Court 898 MDA 2017 affirms BCC victory; retraction remedy affirmed",
+  "basis": [
+   "research/bcc_analysis/fwa_opinion_text.txt",
+   "research/bcc_analysis/fwa_opinion_courtlistener.html"
+  ],
+  "gap_refs": [
+   "63"
+  ],
+  "action": "Use court opinion as primary evidence for gap #63; cross-reference with trial court record (15-14644)",
+  "integrity_note": "Official PA Courts PDF + CourtListener cross-reference; opinion is non-precedential but binding on parties",
+  "corroboration_layers": [
+   "pa_courts_pdf",
+   "courtlistener_html",
+   "docket_15_14644"
+  ],
+  "records_action": "Request trial transcript (15-14644) for full factual record",
+  "verification_method": "cross_layer_pass",
+  "evidence_strength": 0.95,
+  "created": "2026-10-27",
+  "updated": "2026-10-27",
+  "triage_priority": 5
+ },
+ {
+  "id": "LEAD-10",
+  "class": "STRENGTHENS-EXISTING",
+  "status": "OPEN",
+  "title": "HUD CoC grants ($204,870) to BCC not visible in FY2024 990 revenue breakdown",
+  "basis": [
+   "research/bcc_analysis/govtribe_grants.json"
+  ],
+  "gap_refs": [
+   "65"
+  ],
+  "action": "Cross-reference HUD grants with BCC FY2024 990 Part VIII revenue (13.9M total); determine if reported as program service revenue or contributions",
+  "integrity_note": "GovTribe data from USAspending.gov; UEI VC1XNFDJTV33 matches BCC EIN 23-2043478",
+  "corroboration_layers": [
+   "govtribe_usa_spending",
+   "bcc_990_fy2024"
+  ],
+  "records_action": "Request BCC audited financials (gap #31) for grant revenue classification",
+  "verification_method": "cross_layer_pass",
+  "evidence_strength": 0.9,
+  "created": "2026-10-27",
+  "updated": "2026-10-27",
+  "triage_priority": 5
+ },
+ {
+  "id": "LEAD-11",
+  "class": "NEW",
+  "status": "OPEN",
+  "title": "Mobile Medication Program pilot for high-risk SMI patients — patient safety protocol unverified",
+  "basis": [
+   "research/bcc_analysis/BCC_Annual_Report_24-25.pdf (extracted text)"
+  ],
+  "gap_refs": [
+   "66"
+  ],
+  "action": "Request Mobile Medication Program protocol, staffing ratios, and adverse event reporting from BCC",
+  "integrity_note": "Annual Report mentions pilot for 'high-risk patients with serious mental illness' but no public protocol; patient safety implications significant",
+  "corroboration_layers": [
+   "bcc_annual_report_2025"
+  ],
+  "records_action": "Request program protocol, staffing plan, adverse event log from BCC",
+  "verification_method": "manual_review",
+  "evidence_strength": 0.7,
+  "created": "2026-10-27",
+  "updated": "2026-10-27",
+  "triage_priority": 5
+ },
+ {
+  "id": "LEAD-12",
+  "class": "STRENGTHENS-EXISTING",
+  "status": "OPEN",
+  "title": "BCC NextGen EHR implementation March 2025 — data migration and continuity risks",
+  "basis": [
+   "research/bcc_analysis/BCC_Annual_Report_24-25.pdf (extracted text)"
+  ],
+  "gap_refs": [
+   "64"
+  ],
+  "action": "Request NextGen implementation plan, data migration validation report, and downtime contingency plan",
+  "integrity_note": "Annual Report states March 2, 2025 go-live; Mock Go Live Jan 22, 2025; patient data migration is critical risk",
+  "corroboration_layers": [
+   "bcc_annual_report_2025"
+  ],
+  "records_action": "Request NextGen implementation plan and data migration validation report",
+  "verification_method": "manual_review",
+  "evidence_strength": 0.75,
+  "created": "2026-10-27",
+  "updated": "2026-10-27",
+  "triage_priority": 5
+ }
+]

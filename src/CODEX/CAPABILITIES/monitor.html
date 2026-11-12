@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AZAZAEL — Monitoring Capability</title>
+  <style>
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0a0a12;
+      color: #e0e0ff;
+      font-family: 'Courier New', monospace;
+      min-height: 100vh;
+      position: relative;
+    }
+    body::after {
+      content: '';
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,255,0.02) 2px, rgba(0,255,255,0.02) 4px);
+      pointer-events: none; z-index: 0;
+    }
+    .header { text-align: center; padding: 40px 20px 20px; position: relative; z-index: 1; }
+    .header h1 {
+      font-size: 2.5em; font-weight: 700;
+      color: #00ffff; text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 40px #00ffff80;
+      animation: neonPulse 2s ease-in-out infinite;
+    }
+    @keyframes neonPulse { 0%,100% { text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff; } 50% { text-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff, 0 0 60px #00ffff80; } }
+    .header .subtitle { color: #ff00ff; font-size: 1em; margin-top: 8px; letter-spacing: 4px; text-transform: uppercase; text-shadow: 0 0 10px #ff00ff80; }
+    .metrics-bar { display: flex; justify-content: center; gap: 15px; margin: 25px auto; flex-wrap: wrap; position: relative; z-index: 1; }
+    .metric-card {
+      background: #0a0a12; border: 1px solid #00ffff; border-radius: 8px;
+      padding: 12px 20px; min-width: 110px; text-align: center;
+      box-shadow: 0 0 10px rgba(0,255,255,0.1);
+    }
+    .metric-card .value { font-size: 1.6em; font-weight: bold; color: #00ffff; }
+    .metric-card .label { font-size: 0.75em; color: #ff00ff; margin-top: 4px; text-transform: uppercase; letter-spacing: 1px; }
+    .content { max-width: 1000px; margin: 0 auto; padding: 20px; position: relative; z-index: 1; }
+    .description {
+      background: rgba(0,255,255,0.05); border: 1px solid #00ffff40;
+      border-radius: 8px; padding: 20px; margin-bottom: 25px; line-height: 1.7;
+      color: #c0c0e0;
+    }
+    .worm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+    .worm-card {
+      background: #0d0d1a; border: 1px solid #ff00ff40; border-radius: 6px;
+      padding: 16px; transition: all 0.3s; position: relative;
+    }
+    .worm-card:hover { border-color: #00ffff; box-shadow: 0 0 15px rgba(0,255,255,0.2); }
+    .worm-card .name { font-size: 1.05em; font-weight: 600; color: #00ffff; }
+    .worm-card .desc { font-size: 0.85em; color: #a0a0c0; margin-top: 6px; }
+    .worm-card .badge {
+      display: inline-block; background: rgba(255,0,255,0.15); padding: 2px 8px;
+      border-radius: 8px; font-size: 0.7em; color: #ff00ff; margin-top: 6px;
+      border: 1px solid rgba(255,0,255,0.3);
+    }
+    .footer { text-align: center; padding: 30px; color: #404060; font-size: 0.8em; position: relative; z-index: 1; }
+    
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>AZAZAEL — Monitoring</h1>
+    <div class="subtitle">6 Worms &bull; Priority Range 3-10</div>
+  </div>
+
+  <div class="metrics-bar">
+    <div class="metric-card">
+      <div class="value">15-60s</div>
+      <div class="label">Poll Rate</div>
+    </div>
+    <div class="metric-card">
+      <div class="value">Unlimited</div>
+      <div class="label">Nodes</div>
+    </div>
+    <div class="metric-card">
+      <div class="value">Real-time</div>
+      <div class="label">Alerts</div>
+    </div>
+    <div class="metric-card">
+      <div class="value">99.9%</div>
+      <div class="label">Uptime</div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="description">
+      SystemZ, PROCESSZ, NETWORXZ — Real-time system monitoring, process management, and network diagnostics across all AZAZAEL nodes. Priority 5-8, 15-60s polling intervals.
+    </div>
+
+    <div class="worm-grid">
+    <div class="worm-card">
+      <div class="name">SystemZ</div>
+      <div class="desc">p=8, 15s — Core system monitoring, resource telemetry</div>
+      <div class="badge">monitor</div>
+    </div>
+    <div class="worm-card">
+      <div class="name">PROCESSZ</div>
+      <div class="desc">p=7, 15s — Process manager with lifecycle tracking</div>
+      <div class="badge">monitor</div>
+    </div>
+    <div class="worm-card">
+      <div class="name">NETWORXZ</div>
+      <div class="desc">p=7, 15s — Network monitoring, bandwidth analysis</div>
+      <div class="badge">monitor</div>
+    </div>
+    <div class="worm-card">
+      <div class="name">MonitorWorm</div>
+      <div class="desc">p=6, 30s — General monitoring infrastructure</div>
+      <div class="badge">monitor</div>
+    </div>
+    <div class="worm-card">
+      <div class="name">MonitorWormV2</div>
+      <div class="desc">p=6, 30s — Enhanced monitoring (v2.0.0)</div>
+      <div class="badge">monitor</div>
+    </div>
+    <div class="worm-card">
+      <div class="name">WatchDogZ</div>
+      <div class="desc">p=5, 60s — Watchdog timer, health checks</div>
+      <div class="badge">monitor</div>
+    </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    AZAZAEL Ecosystem &bull; Monitoring Capability &bull; CAIN Standard Recording &bull; Generated June 2026
+  </div>
+</body>
+</html>

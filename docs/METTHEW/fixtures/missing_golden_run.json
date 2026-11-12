@@ -1,0 +1,20 @@
+{
+  "id": "fixture-missing-golden@sha256:0000000000000000000000000000000000000000000000000000000000000000",
+  "version": "1.0.0",
+  "genre": "arena",
+  "files": [
+    { "path": "main.py", "sha256": "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2", "role": "code", "size_bytes": 1024 },
+    { "path": "assets/sprite.png", "sha256": "f6e5d4c3b2a1f6e5d4c3b2a1f6e5d4c3b2a1f6e5d4c3b2a1f6e5d4c3b2a1f6e5", "role": "asset", "size_bytes": 2048 }
+  ],
+  "entrypoint": "main.py",
+  "loader": "wasm3-det",
+  "hubs": [],
+  "budget": { "payload_bytes_max": 2097152, "tick_budget_ms": { "p50": 0.7, "p99": 31.6, "scene": "arena" } },
+  "licence": "MIT",
+  "author_pubkey": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+  "execution_model": "resident_host",
+  "env_allowlist": [],
+  "tick_budget": { "p50_ms": 0.7, "p99_ms": 31.6, "scene": "arena" },
+  "competitive": false,
+  "provenance": []
+}

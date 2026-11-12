@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LM Studio Connection Debug Session</title>
+    <style>
+        @keyframes runeGlow { 0%, 100% { text-shadow: 0 0 10px #9b59b6, 0 0 25px #8e44ad, 0 0 40px #e056fd; filter: brightness(1); } 50% { text-shadow: 0 0 20px #e056fd, 0 0 40px #9b59b6, 0 0 60px #c792ea; filter: brightness(1.4); } }
+        @keyframes float { 0%, 100% { transform: translateY(0) rotate(0deg); } 25% { transform: translateY(-12px) rotate(3deg); } 75% { transform: translateY(-8px) rotate(-3deg); } }
+        @keyframes fadeIn { 0% { opacity: 0; transform: translateY(40px); } 100% { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0%, 100% { box-shadow: 0 0 25px rgba(155,89,182,0.6), 0 0 50px rgba(224,86,253,0.4); } 50% { box-shadow: 0 0 40px rgba(155,89,182,0.9), 0 0 80px rgba(224,86,253,0.7), 0 0 120px rgba(199,146,234,0.4); } }
+        @keyframes rotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes sparkle { 0%, 100% { opacity: 0.4; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.4); } }
+        @keyframes smoke { 0% { opacity: 0; transform: translateY(0) scale(0.5); } 30% { opacity: 0.5; } 70% { opacity: 0.3; } 100% { opacity: 0; transform: translateY(-80px) scale(1.8); } }
+        @keyframes colorShift { 0% { border-color: #9b59b6; } 50% { border-color: #e056fd; } 100% { border-color: #9b59b6; } }
+        @keyframes rainbowMystical { 0% { background: linear-gradient(90deg, #9b59b6, #8e44ad, #c792ea); } 50% { background: linear-gradient(90deg, #e056fd, #9b59b6, #c792ea); } 100% { background: linear-gradient(90deg, #9b59b6, #8e44ad, #c792ea); } }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Cinzel', 'Times New Roman', serif; line-height: 1.9; max-width: 900px; margin: 0 auto; padding: 40px 20px;
+            background: radial-gradient(ellipse at 20% 10%, rgba(138,43,226,0.5) 0%, transparent 40%),
+                        radial-gradient(ellipse at 80% 20%, rgba(199,146,234,0.4) 0%, transparent 40%),
+                        radial-gradient(ellipse at 40% 60%, rgba(155,89,182,0.35) 0%, transparent 40%),
+                        radial-gradient(ellipse at 70% 90%, rgba(224,86,253,0.3) 0%, transparent 40%),
+                        linear-gradient(180deg, #0f0a1a 0%, #1a0a2e 50%, #0a0a15 100%);
+            color: #d4b3ff; min-height: 100vh; }
+        
+        .smoke { position: fixed; width: 120px; height: 120px; background: radial-gradient(circle, rgba(155,89,182,0.5), transparent 70%);
+            border-radius: 50%; animation: smoke 6s ease-out infinite; filter: blur(25px); z-index: 0; }
+        .smoke-1 { top: 5%; left: 8%; animation-delay: 0s; }
+        .smoke-2 { top: 40%; right: 10%; animation-delay: 2s; }
+        .smoke-3 { bottom: 15%; left: 25%; animation-delay: 4s; }
+        .smoke-4 { top: 60%; left: 5%; animation-delay: 1s; }
+        
+        .sparkle { position: fixed; width: 10px; height: 10px; background: #e056fd; border-radius: 50%; animation: sparkle 1.2s ease-in-out infinite; z-index: 1; }
+        .sparkle-1 { top: 15%; left: 20%; animation-delay: 0s; } .sparkle-2 { top: 30%; right: 25%; animation-delay: 0.3s; }
+        .sparkle-3 { top: 50%; left: 35%; animation-delay: 0.6s; } .sparkle-4 { top: 70%; right: 15%; animation-delay: 0.9s; }
+        .sparkle-5 { top: 85%; left: 25%; animation-delay: 1.2s; } .sparkle-6 { top: 25%; left: 60%; animation-delay: 1.5s; }
+        
+        .rune-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; opacity: 0.2; animation: rotate 30s linear infinite;
+            background: repeating-radial-gradient(circle at 50% 50%, transparent 0%, rgba(155,89,182,0.1) 10%, transparent 20%); }
+        
+        h1 { text-align: center; font-size: 2.5em; border-bottom: 5px solid; border-image: linear-gradient(90deg, #9b59b6, #e056fd, #c792ea, #9b59b6) 1;
+            padding: 25px 30px; margin-bottom: 40px; animation: runeGlow 2s ease-in-out infinite; text-transform: uppercase; letter-spacing: 6px;
+            background: linear-gradient(90deg, #9b59b6, #e056fd, #c792ea); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(155,89,182,0.8); }
+        
+        h1::before { content: '✧'; margin-right: 20px; animation: float 1.5s infinite; font-size: 1.2em; }
+        h1::after { content: '✧'; margin-left: 20px; animation: float 1.5s infinite 0.5s; font-size: 1.2em; }
+        
+        h2 { font-size: 1.7em; color: #e056fd; margin: 45px 0 20px; padding: 18px 25px; border-left: 6px solid;
+            background: linear-gradient(90deg, rgba(155,89,182,0.5), rgba(224,86,253,0.3), transparent); border-radius: 0 12px 12px 0;
+            animation: runeGlow 2.5s infinite, colorShift 4s linear infinite; text-shadow: 0 0 15px rgba(224,86,253,0.8);
+            display: flex; align-items: center; gap: 15px; }
+        
+        h2::before { content: attr(data-icon); font-size: 1.3em; animation: float 1.2s infinite; margin-right: 10px; }
+        
+        .panel { background: rgba(25,15,40,0.92); border: 3px solid; border-image: linear-gradient(135deg, #9b59b6, #e056fd, #c792ea, #9b59b6) 1;
+            border-radius: 18px; padding: 28px; margin: 22px 0;
+            box-shadow: 0 0 50px rgba(155,89,182,0.6), inset 0 0 50px rgba(155,89,182,0.15); animation: pulse 2s infinite, fadeIn 0.6s;
+            position: relative; overflow: hidden; }
+        
+        .panel::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(224,86,253,0.15), transparent, rgba(155,89,182,0.15), transparent);
+            animation: rotate 12s linear infinite; }
+        
+        .panel-warning { border-color: #ff79c6; animation: colorShift 3s infinite; }
+        .panel-success { border-color: #50fa7b; animation: colorShift 4s infinite; }
+        .panel-danger { border-color: #ff5555; animation: colorShift 2.5s infinite; }
+        
+        .consequence { background: rgba(35,20,55,0.95); border-left: 6px solid #e056fd; padding: 20px 25px; margin: 18px 0;
+            border-radius: 0 14px 14px 0; display: flex; align-items: center; gap: 18px; animation: fadeIn 0.5s;
+            border: 2px solid rgba(224,86,253,0.4); }
+        
+        .consequence-icon { font-size: 1.8em; animation: float 1.5s infinite; min-width: 50px; text-align: center; }
+        
+        .badge { display: inline-flex; padding: 8px 16px; border-radius: 22px; font-size: 0.8em; font-weight: bold; text-transform: uppercase;
+            letter-spacing: 1px; animation: pulse 1.5s infinite, runeGlow 2s infinite; }
+        .badge-cost { background: linear-gradient(90deg, #9b59b6, #e056fd); color: #fff; border: 2px solid #c792ea; box-shadow: 0 0 20px rgba(155,89,182,0.8); }
+        .badge-time { background: linear-gradient(90deg, #f1c40f, #f39c12); color: #1a0a2e; border: 2px solid #f39c12; }
+        .badge-trust { background: linear-gradient(90deg, #e056fd, #9b59b6); color: #fff; border: 2px solid #c792ea; }
+        
+        .result-indicator { display: inline-flex; padding: 10px 16px; border-radius: 10px; font-weight: bold; font-size: 0.9em;
+            animation: runeGlow 1.5s infinite, pulse 2s infinite; gap: 8px; }
+        .result-negative { background: rgba(255,85,85,0.3); border: 2px solid #ff5555; color: #ff79c6; }
+        .result-warning { background: rgba(241,196,15,0.3); border: 2px solid #f1c40f; color: #f1c40f; }
+        
+        .timeline { border-left: 5px solid; border-image: linear-gradient(180deg, #9b59b6, #e056fd, #c792ea) 1;
+            margin-left: 20px; padding-left: 35px; position: relative; }
+        
+        .timeline-item { position: relative; margin: 20px 0; padding: 18px; background: rgba(30,18,50,0.95); border: 2px solid rgba(155,89,182,0.5);
+            border-radius: 14px; animation: fadeIn 0.5s, pulse 3s infinite; }
+        
+        .timeline-icon { font-size: 1.4em; margin-right: 10px; animation: float 1.2s infinite; }
+        
+        .step { display: flex; align-items: center; margin: 18px 0; padding: 18px 22px; background: rgba(30,18,50,0.92);
+            border: 2px solid #9b59b6; border-radius: 14px; animation: fadeIn 0.5s, pulse 2.5s infinite; position: relative; }
+        
+        .step-icon { font-size: 1.3em; margin-right: 12px; animation: float 1s infinite; }
+        
+        .step-number { min-width: 48px; height: 48px; background: linear-gradient(135deg, #9b59b6, #e056fd, #c792ea);
+            color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;
+            font-size: 1.3em; margin-right: 20px; animation: pulse 1.5s infinite, runeGlow 1.5s infinite;
+            border: 3px solid #c792ea; box-shadow: 0 0 25px rgba(155,89,182,0.8), 0 0 50px rgba(224,86,253,0.4); }
+        
+        code { background: rgba(155,89,182,0.25); color: #e056fd; padding: 4px 10px; border-radius: 6px; border: 1px solid #9b59b6; font-family: 'Courier New', monospace; }
+        ul { list-style: none; padding-left: 12px; }
+        li { margin: 14px 0; padding-left: 30px; position: relative; font-size: 1.05em; }
+        li::before { content: '✧'; position: absolute; left: 0; color: #e056fd; font-size: 1.1em; animation: sparkle 1.5s infinite; }
+        
+        .emoji { display: inline-block; animation: float 1s infinite; margin: 0 8px; }
+        
+        .ritual-circle { position: fixed; width: 500px; height: 500px; border: 3px solid rgba(155,89,182,0.3); border-radius: 50%;
+            top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; z-index: -1; animation: rotate 40s linear infinite; }
+        .ritual-circle::before { content: ''; position: absolute; top: 10%; left: 10%; width: 80%; height: 80%; border: 2px solid rgba(224,86,253,0.25);
+            border-radius: 50%; }
+        
+        .section-divider { height: 6px; background: linear-gradient(90deg, transparent, #9b59b6, #e056fd, #c792ea, #e056fd, #9b59b6, transparent);
+            background-size: 300% 100%; animation: rainbowMystical 4s ease infinite; margin: 45px 0; border-radius: 4px; }
+        
+        .scroll-top { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
+            background: linear-gradient(135deg, #9b59b6, #e056fd, #c792ea); background-size: 300% 300%;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1000; font-size: 1.6em;
+            box-shadow: 0 0 40px rgba(155,89,182,0.9), 0 0 80px rgba(224,86,253,0.5); animation: pulse 1.5s infinite; 
+            border: 3px solid #c792ea; }
+        
+        .artifact-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 20px; }
+        .artifact { background: rgba(40,20,60,0.9); border: 2px solid #9b59b6; border-radius: 12px; padding: 18px; text-align: center;
+            transition: transform 0.3s; }
+        .artifact:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(155,89,182,0.5); }
+        .artifact-icon { font-size: 2em; display: block; margin-bottom: 10px; animation: float 2s infinite; }
+        .artifact-desc { display: block; font-size: 0.85em; color: #c792ea; margin-top: 8px; }
+        
+        .vision-list { margin-top: 15px; }
+        .vision-list li { color: #d4b3ff; }
+</style>
+</head>
+<body>
+
+    <div class="smoke smoke-1"></div>
+    <div class="smoke smoke-2"></div>
+    <div class="smoke smoke-3"></div>
+    <div class="smoke smoke-4"></div>
+    <div class="sparkle sparkle-1"></div>
+    <div class="sparkle sparkle-2"></div>
+    <div class="sparkle sparkle-3"></div>
+    <div class="sparkle sparkle-4"></div>
+    <div class="sparkle sparkle-5"></div>
+    <div class="sparkle sparkle-6"></div>
+    <div class="rune-orb rune-orb-1">✧</div>
+    <div class="rune-orb rune-orb-2">◈</div>
+    <div class="rune-orb rune-orb-3">✧</div>
+    <div class="rune-orb rune-orb-4">◈</div>
+    
+    <h1><span class="emoji">✧</span> LM Studio Connection Debug Session <span class="emoji">✧</span></h1>
+    
+    <div class="panel panel-warning">
+        <h2 data-icon="⚡">⚡ WHAT HAPPENED</h2>
+        <ul>
+            <li>Review requirements before proceeding</li>
+            <li>Document all failures explicitly</li>
+            <li>Show results before generating deliverables</li>
+            <li>Ask for confirmation</li>
+        </ul>
+    </div>
+    
+    <div class="section-divider"></div>
+    
+    <h2 data-icon="⚠️">⚠️ CONSEQUENCES OF ORDER VIOLATIONS</h2>
+    
+    <div class="panel panel-danger">
+        <div class="consequence">
+            <span class="consequence-icon">💾</span>
+            <span class="badge badge-cost">-Storage</span>
+            <span><strong>Wasted Resources</strong> - Generated unneeded files</span>
+            <span class="result-indicator result-negative">X WASTED</span>
+        </div>
+        <div class="consequence">
+            <span class="consequence-icon">⏱️</span>
+            <span class="badge badge-time">-Time</span>
+            <span><strong>Time Lost</strong> - User time correcting work</span>
+            <span class="result-indicator result-warning">X LOST</span>
+        </div>
+        <div class="consequence">
+            <span class="consequence-icon">🤝</span>
+            <span class="badge badge-trust">-Trust</span>
+            <span><strong>Trust Broken</strong> - Violated user instructions</span>
+            <span class="result-indicator result-negative">X BROKEN</span>
+        </div>
+    </div>
+    
+    <h2 data-icon="📊">📊 ORDER OF OPERATIONS</h2>
+    <div class="panel">
+        <div class="step">
+            <span class="step-icon">✧</span>
+            <span class="step-number">1</span>
+            <span><strong>Read/Review</strong> - Understand requirements</span>
+        </div>
+        <div class="step">
+            <span class="step-icon">✧</span>
+            <span class="step-number">2</span>
+            <span><strong>Document</strong> - List failures explicitly</span>
+        </div>
+        <div class="step">
+            <span class="step-icon">✧</span>
+            <span class="step-number">3</span>
+            <span><strong>Show First</strong> - Display HTML before action</span>
+        </div>
+        <div class="step">
+            <span class="step-icon">✧</span>
+            <span class="step-number">4</span>
+            <span><strong>Wait</strong> - Get user feedback</span>
+        </div>
+        <div class="step">
+            <span class="step-icon">✧</span>
+            <span class="step-number">5</span>
+            <span><strong>Ask</strong> - "Generate MP4?"</span>
+        </div>
+        <div class="step">
+            <span class="step-icon">✧</span>
+            <span class="step-number">6</span>
+            <span><strong>Execute</strong> - Only after confirmation</span>
+        </div>
+    </div>
+    
+    <h2 data-icon="📝">📝 SESSION STEPS</h2>
+    <div class="panel">
+        <div class="timeline">
+
+            <div class="timeline-item">
+                <span class="timeline-icon">◈</span>
+                <strong>1. netstat -ano findstr 1234</strong><br>
+                Check if port 1234 is in use
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-icon">◈</span>
+                <strong>2. ping -n 1 localhost</strong><br>
+                Test DNS resolution for localhost
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-icon">◈</span>
+                <strong>3. curl 127.0.0.1:1234</strong><br>
+                Test IPv4 connection to localhost
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-icon">◈</span>
+                <strong>4. curl localhost:1234</strong><br>
+                Test hostname connection
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-icon">◈</span>
+                <strong>5. notepad C:\Windows\System32\drivers</strong><br>
+                Open hosts file for inspection
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-icon">◈</span>
+                <strong>6. Found: # 127.0.0.1 localhost</strong><br>
+                Root cause: localhost entries commented out with #
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-icon">◈</span>
+                <strong>7. Set-Content hosts -Value '127.0.0.1</strong><br>
+                EPERM: Access denied without elevation
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-icon">◈</span>
+                <strong>8. New-Item -Path fix_hosts.ps1</strong><br>
+                Create PowerShell script for automated fix
+            </div>
+
+        </div>
+    </div>
+    
+    <h2 data-icon="✧">✧ ARCANE ARTIFACTS DISCOVERED</h2>
+    <div class="panel">
+        <div class="artifact-grid">
+            <div class="artifact">
+                <span class="artifact-icon">🔮</span>
+                <strong>Port 1234</strong>
+                <span class="artifact-desc">Was bound by unseen forces</span>
+            </div>
+            <div class="artifact">
+                <span class="artifact-icon">📜</span>
+                <strong>Hosts File</strong>
+                <span class="artifact-desc">Ancient runes blocked resolution</span>
+            </div>
+            <div class="artifact">
+                <span class="artifact-icon">🗝️</span>
+                <strong>API Key</strong>
+                <span class="artifact-desc">Hidden from Python's sight</span>
+            </div>
+            <div class="artifact">
+                <span class="artifact-icon">⚖️</span>
+                <strong>PYTHONPATH</strong>
+                <span class="artifact-desc">Conflicting dimension</span>
+            </div>
+        </div>
+    </div>
+    
+    <h2 data-icon="🔮">🔮 VISIONS FROM THE VOID</h2>
+    <div class="panel panel-warning">
+        <p>Through mystical examination, these truths were revealed:</p>
+        <ul class="vision-list">
+            <li>✧ The localhost resolved not to 127.0.0.1 but to shadow</li>
+            <li>✧ Two spirits (lite-llm and litellm) fought for the same vessel</li>
+            <li>✧ The API key existed but was invisible to the code</li>
+            <li>✧ Each solution required ritual sacrifice of time</li>
+        </ul>
+    </div>
+    
+    <p style="text-align:center; margin-top:40px; color:#e056fd;">
+        Generated: 2026-02-18 | Session: Session Report
+    </p>
+
+</body>
+</html>

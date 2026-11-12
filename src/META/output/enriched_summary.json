@@ -1,0 +1,48 @@
+{
+  "timestamp": "2026-02-11T02:44:39.776921",
+  "duration_seconds": 10.89542,
+  "results": {
+    "METAZ": {
+      "success": true,
+      "files": 202,
+      "items": 202,
+      "duration_ms": 3526.3686180114746
+    },
+    "DEPENDZ": {
+      "success": true,
+      "files": 76,
+      "items": 692,
+      "duration_ms": 924.9110221862793
+    },
+    "VALIDZ": {
+      "success": false,
+      "files": 76,
+      "items": 75,
+      "duration_ms": 1012.1326446533203
+    },
+    "DEADZ": {
+      "success": true,
+      "files": 76,
+      "items": 103,
+      "duration_ms": 859.1482639312744
+    },
+    "METRICZ": {
+      "success": true,
+      "files": 76,
+      "items": 75,
+      "duration_ms": 942.8658485412598
+    },
+    "LOGZ": {
+      "success": true,
+      "files": 0,
+      "items": 0,
+      "duration_ms": 625.6732940673828
+    },
+    "CHANGEZ": {
+      "success": true,
+      "files": 202,
+      "items": 202,
+      "duration_ms": 3004.321336746216
+    }
+  }
+}

@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azazael Structure Visualizer - Force-Directed Ecosystem Graph</title>
+    <style>
+        :root {
+            --bg: #0a0a1a;
+            --surface: #111130;
+            --cyan: #00f5ff;
+            --purple: #bf00ff;
+            --green: #00ff88;
+            --pink: #ff0066;
+            --gold: #ffd700;
+            --orange: #ff6b35;
+            --red: #ff4757;
+            --lime: #00ff00;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--bg);
+            font-family: 'Consolas', 'Courier New', monospace;
+            color: #e0e0e0;
+            overflow: hidden;
+            height: 100vh;
+            cursor: default;
+        }
+
+        /* ── Canvas layer ── */
+        #graphCanvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1;
+        }
+
+        /* ── HUD overlay ── */
+        .hud {
+            position: fixed;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .hud-top {
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+        }
+
+        .hud-top h1 {
+            font-size: 2.2em;
+            background: linear-gradient(135deg, var(--cyan), var(--purple), var(--green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: auroraFlow 8s ease infinite;
+            background-size: 300% 300%;
+        }
+
+        @keyframes auroraFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .hud-top .subtitle {
+            font-size: 0.85em;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 4px;
+            animation: quantumFlicker 2s ease-in-out infinite;
+        }
+
+        @keyframes quantumFlicker {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 0.3; }
+        }
+
+        .hud-bottom {
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            pointer-events: all;
+        }
+
+        .hud-btn {
+            padding: 10px 24px;
+            border-radius: 25px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(10,10,30,0.8);
+            color: #ccc;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.85em;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .hud-btn:hover {
+            border-color: var(--cyan);
+            color: var(--cyan);
+            box-shadow: 0 0 20px rgba(0,245,255,0.2);
+        }
+
+        .hud-btn.active {
+            border-color: var(--cyan);
+            background: rgba(0,245,255,0.1);
+            color: var(--cyan);
+        }
+
+        /* ── Legend ── */
+        .legend {
+            position: fixed;
+            top: 130px;
+            right: 25px;
+            z-index: 10;
+            background: rgba(10,10,30,0.85);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 18px;
+            font-size: 0.8em;
+        }
+
+        .legend h3 {
+            color: var(--cyan);
+            margin-bottom: 12px;
+            font-size: 1em;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 6px 0;
+        }
+
+        .legend-dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            animation: nestedRingPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes nestedRingPulse {
+            0% { box-shadow: 0 0 0 0 currentColor; }
+            50% { box-shadow: 0 0 0 6px transparent; }
+            100% { box-shadow: 0 0 0 0 currentColor; }
+        }
+
+        /* ── Node tooltip ── */
+        .tooltip {
+            position: fixed;
+            z-index: 20;
+            background: rgba(10,10,30,0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--cyan);
+            border-radius: 12px;
+            padding: 14px 18px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+            max-width: 280px;
+            box-shadow: 0 0 30px rgba(0,245,255,0.2);
+        }
+
+        .tooltip.visible { opacity: 1; }
+
+        .tooltip h4 {
+            color: var(--cyan);
+            margin-bottom: 4px;
+        }
+
+        .tooltip .type {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.8em;
+        }
+
+        .tooltip .desc {
+            margin-top: 6px;
+            font-size: 0.85em;
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* ── Search ── */
+        .search-bar {
+            position: fixed;
+            top: 25px;
+            left: 25px;
+            z-index: 15;
+            pointer-events: all;
+        }
+
+        .search-bar input {
+            padding: 10px 18px;
+            border-radius: 25px;
+            border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(10,10,30,0.85);
+            backdrop-filter: blur(10px);
+            color: #fff;
+            font-family: inherit;
+            font-size: 0.9em;
+            width: 240px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .search-bar input:focus {
+            border-color: var(--cyan);
+            box-shadow: 0 0 20px rgba(0,245,255,0.15);
+        }
+    </style>
+</head>
+<body>
+    <canvas id="graphCanvas"></canvas>
+
+    <div class="hud hud-top">
+        <h1>Azazael Ecosystem Graph</h1>
+        <div class="subtitle">✦ Force-Directed Structure Visualizer ✦</div>
+    </div>
+
+    <div class="legend">
+        <h3>⬡ Legend</h3>
+        <div class="legend-item"><span class="legend-dot" style="color:var(--red);background:var(--red)"></span> Tier 1 - Core Worms</div>
+        <div class="legend-item"><span class="legend-dot" style="color:var(--orange);background:var(--orange)"></span> Tier 2 - Clusterworms</div>
+        <div class="legend-item"><span class="legend-dot" style="color:var(--gold);background:var(--gold)"></span> Tier 3 - Metaworms</div>
+        <div class="legend-item"><span class="legend-dot" style="color:var(--green);background:var(--green)"></span> Tier 4 - HYDRA/HORUS</div>
+        <div class="legend-item"><span class="legend-dot" style="color:var(--cyan);background:var(--cyan)"></span> Tier 0 - Support</div>
+        <div class="legend-item"><span class="legend-dot" style="color:var(--purple);background:var(--purple)"></span> Misc / Infra</div>
+    </div>
+
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="🔍 Search nodes..." autocomplete="off">
+    </div>
+
+    <div class="tooltip" id="tooltip">
+        <h4 id="ttName"></h4>
+        <div class="type" id="ttType"></div>
+        <div class="desc" id="ttDesc"></div>
+    </div>
+
+    <div class="hud hud-bottom">
+        <button class="hud-btn active" onclick="setLayout('force', event)">🔮 Force</button>
+        <button class="hud-btn" onclick="setLayout('radial', event)">◎ Radial</button>
+        <button class="hud-btn" onclick="setLayout('tiered', event)">☰ Tiered</button>
+        <button class="hud-btn" onclick="setLayout('spiral', event)">🌀 Spiral</button>
+        <button class="hud-btn" onclick="toggleParticles(event)">✦ Particles</button>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('graphCanvas');
+        const ctx = canvas.getContext('2d');
+        const tooltip = document.getElementById('tooltip');
+
+        let W, H;
+        let mouse = { x: 0, y: 0 };
+        let hoveredNode = null;
+        let selectedNode = null;
+        let currentLayout = 'force';
+        let showParticles = true;
+        let time = 0;
+
+        // ── Ecosystem Nodes ──
+        const nodes = [
+            // Tier 0 - Support
+            { id: 'SHORTY', label: 'SHORTY', tier: 0, group: 'support', color: '#00f5ff', desc: 'Imbution Shortcut Manager - Dynamic command resolution' },
+            { id: 'TARBABY', label: 'TARBABY', tier: 0, group: 'support', color: '#00f5ff', desc: 'Binary Imbution Builder - Build orchestration system' },
+            { id: 'POINDEXTER', label: 'POINDEXTER', tier: 0, group: 'support', color: '#00f5ff', desc: 'Mathematical Indexer - Statistical analysis' },
+            { id: 'PERSEPHONE', label: 'PERSEPHONE', tier: 0, group: 'support', color: '#00f5ff', desc: 'Cross-Platform utilities - OS abstraction' },
+            // Tier 1 - Core Worms
+            { id: 'SYSTEMZ', label: 'SYSTEMZ', tier: 1, group: 'worm', color: '#ff4757', desc: 'Resource Monitoring Worm - CPU/Memory/Disk/Network' },
+            { id: 'PROCESSZ', label: 'PROCESSZ', tier: 1, group: 'worm', color: '#ff4757', desc: 'Process Spawn Manager - PID tracking & resource control' },
+            { id: 'DISKZ', label: 'DISKZ', tier: 1, group: 'worm', color: '#ff4757', desc: 'Storage Intelligence Worm - SMART predictive failure' },
+            { id: 'NETWORXZ', label: 'NETWORXZ', tier: 1, group: 'worm', color: '#ff4757', desc: 'Network Observability - Protocol analysis' },
+            { id: 'CLOCKZ', label: 'CLOCKZ', tier: 1, group: 'worm', color: '#ff4757', desc: 'Temporal Imbution Worm - NTP/PTP sync' },
+            { id: 'WORMZ', label: 'WORMZ', tier: 1, group: 'worm', color: '#ff4757', desc: 'Content Crawler & Indexer - Multi-language AST' },
+            // Tier 2 - Clusterworms
+            { id: 'BIBL_CLUSTER', label: 'BIBL CLUSTER', tier: 2, group: 'cluster', color: '#ff6b35', desc: 'Content Intelligence - WORMZ + TRIMZ deduplication' },
+            { id: 'SYSTEM_CLUSTER', label: 'SYS CLUSTER', tier: 2, group: 'cluster', color: '#ff6b35', desc: 'Full-Stack Monitor - SYSTEMZ+PROCESSZ+DISKZ' },
+            { id: 'NET_CLUSTER', label: 'NET CLUSTER', tier: 2, group: 'cluster', color: '#ff6b35', desc: 'Infra Health - NETWORXZ+CLOCKZ+DISKZ' },
+            { id: 'SEC_CLUSTER', label: 'SEC CLUSTER', tier: 2, group: 'cluster', color: '#ff6b35', desc: 'IDS/Auditing - PROCESSZ+NETWORXZ' },
+            { id: 'ANALYSIS_CLUSTER', label: 'ANALYSIS', tier: 2, group: 'cluster', color: '#ff6b35', desc: 'Deep Code Analysis - METAZ+METRICZ+DEPENDZ' },
+            { id: 'VALID_CLUSTER', label: 'VALIDATION', tier: 2, group: 'cluster', color: '#ff6b35', desc: 'Code Quality - VALIDZ+DEADZ+ERRORZ' },
+            { id: 'HEALTH_CLUSTER', label: 'HEALTH', tier: 2, group: 'cluster', color: '#ff6b35', desc: 'System Wellness - HEALTHZ+OPTIMIZ+SYSTEMZ' },
+            // Tier 3 - Metaworms
+            { id: 'METAZ', label: 'METAZ', tier: 3, group: 'meta', color: '#ffd700', desc: 'Metadata Extraction - Authorship & complexity' },
+            { id: 'DEPENDZ', label: 'DEPENDZ', tier: 3, group: 'meta', color: '#ffd700', desc: 'Dependency Mapping - DAG construction' },
+            { id: 'VALIDZ', label: 'VALIDZ', tier: 3, group: 'meta', color: '#ffd700', desc: 'Syntax Validation - Language parsers' },
+            { id: 'DEADZ', label: 'DEADZ', tier: 3, group: 'meta', color: '#ffd700', desc: 'Dead Code Detection - Unreachable code analysis' },
+            { id: 'METRICZ', label: 'METRICZ', tier: 3, group: 'meta', color: '#ffd700', desc: 'Code Metrics - Cyclomatic/Halstead/Maintainability' },
+            { id: 'ERRORZ', label: 'ERRORZ', tier: 3, group: 'meta', color: '#ffd700', desc: 'Error Pattern Matching - Root cause inference' },
+            { id: 'LOGZ', label: 'LOGZ', tier: 3, group: 'meta', color: '#ffd700', desc: 'Log Analysis - Anomaly & pattern discovery' },
+            { id: 'OPTIMIZ', label: 'OPTIMIZ', tier: 3, group: 'meta', color: '#ffd700', desc: 'Auto-Tuning Engine - Hot paths & cache' },
+            { id: 'HEALTHZ', label: 'HEALTHZ', tier: 3, group: 'meta', color: '#ffd700', desc: 'System Wellness - Heartbeat & self-healing' },
+            { id: 'TRIMZ', label: 'TRIMZ', tier: 3, group: 'meta', color: '#ffd700', desc: 'Deduplication Engine - Rabin fingerprinting' },
+            { id: 'TESTZ', label: 'TESTZ', tier: 3, group: 'meta', color: '#ffd700', desc: 'Testing Orchestrator - Unit/Integration/Coverage' },
+            // Tier 4
+            { id: 'HYDRAMETA', label: 'HYDRAMETA', tier: 4, group: 'hydra', color: '#00ff88', desc: 'Meta-Learning Engine - Clustering/Classification/AutoML' },
+            { id: 'HORUS', label: 'HORUS', tier: 4, group: 'hydra', color: '#00ff88', desc: '24 Animation Protocols - Distributed Tracing' },
+            { id: 'TERENCE', label: 'TERENCE', tier: 4, group: 'hydra', color: '#00ff88', desc: 'Q-Learning Engine - Error resolution RL' },
+            { id: 'HYDRA', label: 'HYDRA', tier: 4, group: 'hydra', color: '#00ff88', desc: '6-Stage Processing Pipeline - Adaptive ML Cluster' },
+            // Misc
+            { id: 'KLINK', label: 'KLINK', tier: 5, group: 'misc', color: '#bf00ff', desc: 'Cross-Platform Launcher - Ecosystem CLI' },
+            { id: 'BIBL', label: 'BIBL', tier: 5, group: 'misc', color: '#bf00ff', desc: 'Terminology Crawler - Reference database' },
+            { id: 'MUSE', label: 'MUSE', tier: 5, group: 'misc', color: '#bf00ff', desc: 'AI Assistant - Code generation & analysis' },
+        ];
+
+        // ── Edges ──
+        const edges = [
+            ['HYDRA', 'HYDRAMETA'], ['HYDRA', 'HORUS'], ['HYDRA', 'TERENCE'],
+            ['SYSTEMZ', 'SYSTEM_CLUSTER'], ['PROCESSZ', 'SYSTEM_CLUSTER'], ['DISKZ', 'SYSTEM_CLUSTER'],
+            ['NETWORXZ', 'NET_CLUSTER'], ['CLOCKZ', 'NET_CLUSTER'], ['DISKZ', 'NET_CLUSTER'],
+            ['PROCESSZ', 'SEC_CLUSTER'], ['NETWORXZ', 'SEC_CLUSTER'],
+            ['METAZ', 'ANALYSIS_CLUSTER'], ['METRICZ', 'ANALYSIS_CLUSTER'], ['DEPENDZ', 'ANALYSIS_CLUSTER'],
+            ['VALIDZ', 'VALID_CLUSTER'], ['DEADZ', 'VALID_CLUSTER'], ['ERRORZ', 'VALID_CLUSTER'],
+            ['HEALTHZ', 'HEALTH_CLUSTER'], ['OPTIMIZ', 'HEALTH_CLUSTER'], ['SYSTEMZ', 'HEALTH_CLUSTER'],
+            ['WORMZ', 'BIBL_CLUSTER'], ['TRIMZ', 'BIBL_CLUSTER'],
+            ['WORMZ', 'BIBL'], ['BIBL_CLUSTER', 'BIBL'],
+            ['HYDRAMETA', 'OPTIMIZ'], ['HYDRAMETA', 'METRICZ'], ['HYDRAMETA', 'ERRORZ'],
+            ['HORUS', 'METRICZ'], ['TERENCE', 'ERRORZ'],
+            ['KLINK', 'HYDRA'], ['KLINK', 'SYSTEMZ'], ['KLINK', 'WORMZ'],
+            ['POINDEXTER', 'METRICZ'], ['TARBABY', 'SYSTEMZ'],
+            ['PERSEPHONE', 'KLINK'], ['SHORTY', 'KLINK'],
+        ];
+
+        // ── Initialize positions ──
+        function initPositions(layout) {
+            const cx = W / 2, cy = H / 2;
+            nodes.forEach((n, i) => {
+                if (layout === 'force') {
+                    n.x = cx + (Math.random() - 0.5) * 600;
+                    n.y = cy + (Math.random() - 0.5) * 400;
+                } else if (layout === 'radial') {
+                    const angle = (i / nodes.length) * Math.PI * 2;
+                    const r = 150 + n.tier * 100;
+                    n.x = cx + Math.cos(angle) * r;
+                    n.y = cy + Math.sin(angle) * r;
+                } else if (layout === 'tiered') {
+                    n.x = 150 + (i % 8) * 160;
+                    n.y = 80 + n.tier * 140;
+                } else if (layout === 'spiral') {
+                    const angle = i * 0.6;
+                    const r = 80 + i * 15;
+                    n.x = cx + Math.cos(angle) * r;
+                    n.y = cy + Math.sin(angle) * r;
+                }
+                n.vx = 0; n.vy = 0;
+            });
+        }
+
+        function setLayout(layout, evt) {
+            currentLayout = layout;
+            initPositions(layout);
+            document.querySelectorAll('.hud-btn').forEach(b => b.classList.remove('active'));
+            if (evt && evt.currentTarget) evt.currentTarget.classList.add('active');
+        }
+
+        function toggleParticles(evt) {
+            showParticles = !showParticles;
+            if (evt && evt.currentTarget) evt.currentTarget.classList.toggle('active');
+        }
+
+        // ── Force simulation ──
+        function simulate() {
+            const centerX = W / 2, centerY = H / 2;
+            const targets = {};
+
+            if (currentLayout === 'tiered') {
+                nodes.forEach((n, i) => {
+                    targets[n.id] = { x: 150 + (i % 8) * 160, y: 80 + n.tier * 140 };
+                });
+            } else if (currentLayout === 'radial') {
+                nodes.forEach((n, i) => {
+                    const angle = (i / nodes.length) * Math.PI * 2;
+                    const r = 150 + n.tier * 100;
+                    targets[n.id] = { x: centerX + Math.cos(angle) * r, y: centerY + Math.sin(angle) * r };
+                });
+            } else if (currentLayout === 'spiral') {
+                nodes.forEach((n, i) => {
+                    const angle = i * 0.6;
+                    const r = 80 + i * 15;
+                    targets[n.id] = { x: centerX + Math.cos(angle) * r, y: centerY + Math.sin(angle) * r };
+                });
+            }
+
+            // Apply forces
+            for (let i = 0; i < 3; i++) {
+                nodes.forEach(n => {
+                    if (selectedNode === n) return;
+
+                    // Center gravity (force layout only)
+                    if (currentLayout === 'force') {
+                        n.vx += (centerX - n.x) * 0.001;
+                        n.vy += (centerY - n.y) * 0.001;
+                    } else if (targets[n.id]) {
+                        n.vx += (targets[n.id].x - n.x) * 0.01;
+                        n.vy += (targets[n.id].y - n.y) * 0.01;
+                    }
+
+                    // Node repulsion
+                    nodes.forEach(m => {
+                        if (n === m) return;
+                        const dx = n.x - m.x;
+                        const dy = n.y - m.y;
+                        const dist = Math.max(1, Math.sqrt(dx * dx + dy * dy));
+                        const force = 5000 / (dist * dist);
+                        n.vx += (dx / dist) * force * 0.1;
+                        n.vy += (dy / dist) * force * 0.1;
+                    });
+
+                    n.vx *= 0.85;
+                    n.vy *= 0.85;
+                    n.x += n.vx;
+                    n.y += n.vy;
+
+                    // Clamp
+                    n.x = Math.max(40, Math.min(W - 40, n.x));
+                    n.y = Math.max(40, Math.min(H - 40, n.y));
+                });
+            }
+
+            // Edge forces
+            edges.forEach(([a, b]) => {
+                const na = nodes.find(n => n.id === a);
+                const nb = nodes.find(n => n.id === b);
+                if (!na || !nb) return;
+                const dx = nb.x - na.x;
+                const dy = nb.y - na.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                const target = 120;
+                const force = (dist - target) * 0.02;
+                const fx = (dx / dist) * force;
+                const fy = (dy / dist) * force;
+                na.vx += fx; na.vy += fy;
+                nb.vx -= fx; nb.vy -= fy;
+            });
+        }
+
+        // ── Render ──
+        function draw() {
+            ctx.clearRect(0, 0, W, H);
+
+            // Background grid
+            ctx.strokeStyle = 'rgba(0,245,255,0.03)';
+            ctx.lineWidth = 1;
+            for (let x = 0; x < W; x += 60) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
+            for (let y = 0; y < H; y += 60) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
+
+            // Edges
+            edges.forEach(([a, b], i) => {
+                const na = nodes.find(n => n.id === a);
+                const nb = nodes.find(n => n.id === b);
+                if (!na || !nb) return;
+                const midX = (na.x + nb.x) / 2;
+                const midY = (na.y + nb.y) / 2;
+
+                const gradient = ctx.createLinearGradient(na.x, na.y, nb.x, nb.y);
+                gradient.addColorStop(0, na.color + '88');
+                gradient.addColorStop(1, nb.color + '88');
+
+                ctx.beginPath();
+                ctx.moveTo(na.x, na.y);
+                ctx.lineTo(nb.x, nb.y);
+                ctx.strokeStyle = gradient;
+                ctx.lineWidth = 1;
+                ctx.globalAlpha = 0.4;
+                ctx.stroke();
+                ctx.globalAlpha = 1;
+
+                // Synaptic pulse along edge
+                const pulse = (time * 2 + i * 0.5) % 2;
+                if (pulse < 1) {
+                    const px = na.x + (nb.x - na.x) * pulse;
+                    const py = na.y + (nb.y - na.y) * pulse;
+                    ctx.beginPath();
+                    ctx.arc(px, py, 2.5, 0, Math.PI * 2);
+                    ctx.fillStyle = '#ffffff';
+                    ctx.globalAlpha = 1 - pulse;
+                    ctx.fill();
+                    ctx.globalAlpha = 1;
+                }
+            });
+
+            // Nodes
+            nodes.forEach(n => {
+                const isHovered = hoveredNode === n;
+                const isSelected = selectedNode === n;
+                const radius = isSelected ? 18 : isHovered ? 14 : 10;
+
+                // Glow
+                if (isHovered || isSelected) {
+                    const glow = ctx.createRadialGradient(n.x, n.y, radius * 0.5, n.x, n.y, radius * 2.5);
+                    glow.addColorStop(0, n.color + '88');
+                    glow.addColorStop(1, 'transparent');
+                    ctx.beginPath();
+                    ctx.arc(n.x, n.y, radius * 2.5, 0, Math.PI * 2);
+                    ctx.fillStyle = glow;
+                    ctx.fill();
+                }
+
+                // Node body
+                const bodyGrad = ctx.createRadialGradient(n.x - 2, n.y - 2, 0, n.x, n.y, radius);
+                bodyGrad.addColorStop(0, '#ffffff');
+                bodyGrad.addColorStop(0.4, n.color);
+                bodyGrad.addColorStop(1, '#000000');
+                ctx.beginPath();
+                ctx.arc(n.x, n.y, radius, 0, Math.PI * 2);
+                ctx.fillStyle = bodyGrad;
+                ctx.fill();
+
+                // Label
+                ctx.fillStyle = '#ffffff';
+                ctx.font = `${isHovered ? '12' : '9'}px Consolas, monospace`;
+                ctx.textAlign = 'center';
+                ctx.fillText(n.label, n.x, n.y + radius + 14);
+            });
+
+            // Particles
+            if (showParticles) {
+                for (let i = 0; i < 30; i++) {
+                    const px = ((time * 40 + i * 137) % W);
+                    const py = ((time * 20 + i * 251) % H);
+                    ctx.beginPath();
+                    ctx.arc(px, py, 1, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(0,245,255,${0.15 + Math.sin(time + i) * 0.1})`;
+                    ctx.fill();
+                }
+            }
+        }
+
+        // ── Loop ──
+        function loop() {
+            simulate();
+            draw();
+            time += 0.016;
+            requestAnimationFrame(loop);
+        }
+
+        // ── Events ──
+        canvas.addEventListener('mousemove', e => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+
+            let found = null;
+            nodes.forEach(n => {
+                const dx = mouse.x - n.x;
+                const dy = mouse.y - n.y;
+                if (Math.sqrt(dx * dx + dy * dy) < 20) found = n;
+            });
+
+            hoveredNode = found;
+            canvas.style.cursor = found ? 'pointer' : 'default';
+
+            if (found) {
+                tooltip.classList.add('visible');
+                tooltip.style.left = (mouse.x + 20) + 'px';
+                tooltip.style.top = (mouse.y - 70) + 'px';
+                document.getElementById('ttName').textContent = found.label;
+                document.getElementById('ttType').textContent = 'Tier ' + found.tier + ' · ' + found.group;
+                document.getElementById('ttDesc').textContent = found.desc;
+            } else {
+                tooltip.classList.remove('visible');
+            }
+        });
+
+        canvas.addEventListener('click', () => {
+            selectedNode = hoveredNode;
+        });
+
+        canvas.addEventListener('dblclick', () => {
+            if (selectedNode) {
+                selectedNode.vx = (Math.random() - 0.5) * 20;
+                selectedNode.vy = (Math.random() - 0.5) * 20;
+            }
+        });
+
+        document.getElementById('searchInput').addEventListener('input', e => {
+            const q = e.target.value.toLowerCase();
+            nodes.forEach(n => {
+                n.highlighted = !q || n.label.toLowerCase().includes(q) || n.desc.toLowerCase().includes(q);
+            });
+            if (q) {
+                const found = nodes.find(n => n.highlighted);
+                if (found) selectedNode = found;
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            W = canvas.width = window.innerWidth;
+            H = canvas.height = window.innerHeight;
+        });
+
+        // ── Init ──
+        W = canvas.width = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+        initPositions('force');
+        loop();
+    </script>
+</body>
+</html>

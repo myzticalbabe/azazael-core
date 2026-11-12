@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Azazael Ecosystem — Technical Visualization</title>
+<style>
+:root {
+  --cyan: #00f5ff; --purple: #bf00ff; --pink: #ff00aa;
+  --green: #00ff88; --gold: #ffdd00; --bg: #020210;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Segoe UI', Consolas, monospace;
+  background: var(--bg);
+  width: 1920px; height: 1080px;
+  overflow: hidden;
+  color: #e0e0e0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Canvases ─── */
+#bg-grid { position: absolute; inset: 0; z-index: 0; }
+#particle-web { position: absolute; inset: 0; z-index: 1; }
+
+/* ─── 3D Perspective Floor ─── */
+.perspective-floor {
+  position: absolute; bottom: -15%; left: -15%;
+  width: 130%; height: 60%;
+  background:
+    linear-gradient(rgba(0,245,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,245,255,0.05) 1px, transparent 1px);
+  background-size: 50px 50px;
+  transform: perspective(700px) rotateX(55deg);
+  transform-origin: center bottom;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ─── Title ─── */
+.title-block {
+  position: absolute; top: 60px; left: 50%;
+  transform: translateX(-50%); z-index: 30;
+  text-align: center; pointer-events: none;
+}
+.title-block h1 {
+  font-size: 5.5rem; font-weight: 900; line-height: 1;
+  background: linear-gradient(90deg, #fff, var(--cyan), var(--purple), var(--pink), var(--gold), var(--green));
+  background-size: 300% 100%;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: titleShimmer 6s ease infinite;
+  filter: drop-shadow(0 0 30px rgba(0,245,255,0.5));
+}
+@keyframes titleShimmer {
+  0%,100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.title-block .sub {
+  font-size: 1.1rem; letter-spacing: 10px;
+  text-transform: uppercase; color: rgba(255,255,255,0.4);
+  margin-top: 8px;
+}
+
+/* ─── Scene Panels ─── */
+.scene-panel {
+  position: absolute; z-index: 20; pointer-events: none;
+  opacity: 0; transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.scene-panel.active { opacity: 1; transform: translateY(0); }
+
+.panel-center {
+  top: 50%; left: 50%; transform: translate(-50%, -50%) translateY(40px);
+  text-align: center; max-width: 70%;
+}
+.panel-center.active { transform: translate(-50%, -50%) translateY(0); }
+
+.panel-center h2 {
+  font-size: 2.2rem; color: var(--cyan);
+  margin-bottom: 20px;
+}
+.panel-center p {
+  font-size: 1.15rem; line-height: 2;
+  color: rgba(255,255,255,0.65);
+}
+
+/* ─── Stats Row ─── */
+.stats-row {
+  display: flex; gap: 50px; justify-content: center;
+  margin-top: 30px;
+}
+.stat-item {
+  text-align: center;
+  opacity: 0; transform: scale(0.5);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.stat-item.visible { opacity: 1; transform: scale(1); }
+.stat-num {
+  font-size: 3rem; font-weight: 900;
+  background: linear-gradient(135deg, var(--cyan), var(--purple));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.stat-lbl {
+  font-size: 0.75rem; letter-spacing: 4px;
+  text-transform: uppercase; color: rgba(255,255,255,0.35);
+}
+
+/* ─── Architecture Cards ─── */
+.arch-card {
+  position: absolute; z-index: 20;
+  background: rgba(15,15,35,0.9);
+  border: 1px solid rgba(0,245,255,0.2);
+  border-radius: 14px; padding: 20px 28px;
+  opacity: 0; transform: translateY(20px) scale(0.95);
+  transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+.arch-card.visible {
+  opacity: 1; transform: translateY(0) scale(1);
+}
+.arch-card:hover {
+  border-color: var(--cyan);
+  box-shadow: 0 0 40px rgba(0,245,255,0.15);
+  transform: translateY(-5px) scale(1.02);
+}
+.arch-card .tier-badge {
+  display: inline-block; padding: 3px 12px;
+  background: linear-gradient(135deg, var(--purple), var(--pink));
+  border-radius: 20px; font-size: 0.65rem;
+  letter-spacing: 3px; text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.arch-card h3 { font-size: 1.3rem; color: var(--cyan); margin-bottom: 6px; }
+.arch-card ul { list-style: none; font-size: 0.8rem; color: rgba(255,255,255,0.55); }
+.arch-card ul li { padding: 3px 0; }
+.arch-card ul li::before { content: "▸ "; color: var(--cyan); }
+
+/* ─── Code Block ─── */
+.code-block {
+  background: rgba(0,0,0,0.6);
+  border: 1px solid rgba(0,245,255,0.15);
+  border-radius: 10px; padding: 20px 28px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem; line-height: 1.8;
+  color: rgba(0,245,255,0.7);
+  text-align: left; display: inline-block;
+}
+.code-block .kw { color: var(--purple); }
+.code-block .fn { color: var(--green); }
+.code-block .str { color: var(--gold); }
+.code-block .cm { color: rgba(255,255,255,0.25); }
+
+/* ─── Scene Counter ─── */
+.scene-counter {
+  position: absolute; top: 30px; right: 40px;
+  z-index: 40; font-size: 0.75rem;
+  letter-spacing: 4px; color: rgba(255,255,255,0.3);
+}
+.scene-counter .current { color: var(--cyan); font-size: 1.2rem; }
+
+/* ─── Progress ─── */
+.progress-track {
+  position: absolute; bottom: 0; left: 0;
+  width: 100%; height: 3px; background: rgba(255,255,255,0.03); z-index: 50;
+}
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--cyan), var(--purple), var(--pink));
+  width: 0%;
+  animation: fillBar 90s linear forwards;
+}
+@keyframes fillBar { to { width: 100%; } }
+
+/* ─── Floating Orbs ─── */
+.orb {
+  position: absolute; border-radius: 50%;
+  pointer-events: none; z-index: 5;
+  animation: orbFloat 10s ease-in-out infinite;
+}
+@keyframes orbFloat {
+  0%,100% { transform: translateY(0) scale(1); }
+  25% { transform: translateY(-40px) scale(1.1); }
+  75% { transform: translateY(30px) scale(0.9); }
+}
+</style>
+</head>
+<body>
+
+<canvas id="bg-grid"></canvas>
+<canvas id="particle-web"></canvas>
+<div class="perspective-floor"></div>
+
+<!-- Floating Orbs -->
+<div class="orb" style="width:200px;height:200px;top:15%;left:10%;background:radial-gradient(circle,rgba(0,245,255,0.06),transparent);animation-delay:0s;"></div>
+<div class="orb" style="width:160px;height:160px;top:60%;right:8%;background:radial-gradient(circle,rgba(191,0,255,0.05),transparent);animation-delay:-3s;"></div>
+<div class="orb" style="width:120px;height:120px;top:70%;left:25%;background:radial-gradient(circle,rgba(0,255,136,0.04),transparent);animation-delay:-6s;"></div>
+
+<!-- Scene Counter -->
+<div class="scene-counter">SCENE <span class="current" id="sceneIdx">1</span> / 5</div>
+
+<!-- Title -->
+<div class="title-block">
+  <h1>Azazael Ecosystem</h1>
+  <div class="sub">Distributed Computing Architecture</div>
+</div>
+
+<!-- SCENE 1: Overview -->
+<div class="scene-panel panel-center active" id="scene1">
+  <h2>7-Tier Architecture</h2>
+  <p>
+    Tier 0: Concurrency &bull; Tier 1: 6 Worms &bull; Tier 2: 7 Clusters<br>
+    Tier 3: 11 Metaworms &bull; Tier 4: HYDRAMETA ML &bull; Tier 5: HORUS Output<br>
+    Tier 6: Distillation Layer
+  </p>
+  <div class="stats-row" id="stats1">
+    <div class="stat-item"><div class="stat-num">77</div><div class="stat-lbl">Worms</div></div>
+    <div class="stat-item"><div class="stat-num">7</div><div class="stat-lbl">Tiers</div></div>
+    <div class="stat-item"><div class="stat-num">256</div><div class="stat-lbl">Modules</div></div>
+    <div class="stat-item"><div class="stat-num">54</div><div class="stat-lbl">Protocols</div></div>
+  </div>
+</div>
+
+<!-- SCENE 2: WORMZ Execution -->
+<div class="scene-panel panel-center" id="scene2">
+  <h2>TIER 1–2: WORMZ Execution</h2>
+  <p>
+    SYSTEMZ &bull; PROCESSZ &bull; DISKZ &bull; NETWORXZ &bull; CLOCKZ &bull; WORMZ<br>
+    CLUSTERWORMS coordinates parallel collectives across 7 operational clusters
+  </p>
+  <div class="code-block" style="margin-top:20px;">
+    <span class="kw">from</span> CORE.WORMS <span class="kw">import</span> CLUSTERWORMS<br>
+    cluster = CLUSTERWORMS.<span class="fn">BIBL_CLUSTER</span>()<br>
+    results = cluster.<span class="fn">execute_all</span>()  <span class="cm"># Parallel execution</span>
+  </div>
+</div>
+
+<!-- SCENE 3: METAWORMS -->
+<div class="scene-panel panel-center" id="scene3">
+  <h2>TIER 3: METAWORMS Orchestration</h2>
+  <p>
+    ERRORZ &bull; TRIMZ &bull; METAZ &bull; DEPENDZ &bull; VALIDZ<br>
+    DEADZ &bull; METRICZ &bull; LOGZ &bull; CHANGEZ &bull; OPTIMIZ &bull; HEALTHZ
+  </p>
+  <p style="margin-top:16px; font-size:0.95rem; color:rgba(255,255,255,0.4);">
+    11 metaworms form a self-diagnostic analysis layer
+  </p>
+</div>
+
+<!-- SCENE 4: HYDRAMETA -->
+<div class="scene-panel panel-center" id="scene4">
+  <h2>TIER 4: HYDRAMETA ML</h2>
+  <p>
+    Genetic Algorithm Optimization &bull; Population-based Tuning<br>
+    Crossover: 0.8 &bull; Mutation: 0.1 &bull; Elitism: Top 10%
+  </p>
+  <div class="stats-row" id="stats4">
+    <div class="stat-item"><div class="stat-num">1000</div><div class="stat-lbl">Population</div></div>
+    <div class="stat-item"><div class="stat-num">100</div><div class="stat-lbl">Generations</div></div>
+    <div class="stat-item"><div class="stat-num">5</div><div class="stat-lbl">Strategies</div></div>
+  </div>
+</div>
+
+<!-- SCENE 5: Output -->
+<div class="scene-panel panel-center" id="scene5">
+  <h2>TIER 5: HORUS + TERENCE</h2>
+  <p>
+    54 Animation Protocols &bull; 26 Fix Patterns<br>
+    Multi-format Output (HTML, JSON, Console, Video)<br>
+    CODEX Video Engine: HTML → MP4/WMV via FFmpeg 8.1.1
+  </p>
+  <div class="stats-row" id="stats5">
+    <div class="stat-item"><div class="stat-num">54</div><div class="stat-lbl">Animations</div></div>
+    <div class="stat-item"><div class="stat-num">26</div><div class="stat-lbl">Patterns</div></div>
+    <div class="stat-item"><div class="stat-num">8.1</div><div class="stat-lbl">FFmpeg</div></div>
+  </div>
+</div>
+
+<!-- Architecture Cards (always visible) -->
+<div class="arch-card" id="arch1" style="top:80px;left:40px;width:220px;transition-delay:0.2s;">
+  <span class="tier-badge">Tier 1</span>
+  <h3>WORMS</h3>
+  <ul><li>SYSTEMZ</li><li>PROCESSZ</li><li>DISKZ</li><li>NETWORXZ</li></ul>
+</div>
+<div class="arch-card" id="arch2" style="top:80px;right:40px;width:220px;transition-delay:0.4s;">
+  <span class="tier-badge">Tier 2</span>
+  <h3>CLUSTERS</h3>
+  <ul><li>BIBL Cluster</li><li>System Cluster</li><li>Network Cluster</li><li>Security Cluster</li></ul>
+</div>
+<div class="arch-card" id="arch3" style="bottom:100px;left:40px;width:260px;transition-delay:0.6s;">
+  <span class="tier-badge">Tier 3-4</span>
+  <h3>META + ML</h3>
+  <ul><li>11 Metaworms</li><li>HYDRAMETA GA</li><li>ML Optimization</li><li>Population Tuning</li></ul>
+</div>
+<div class="arch-card" id="arch4" style="bottom:100px;right:40px;width:260px;transition-delay:0.8s;">
+  <span class="tier-badge">Tier 5</span>
+  <h3>Output</h3>
+  <ul><li>HORUS 54 Protocols</li><li>TERENCE 26 Fixes</li><li>CODEX Video Engine</li><li>FFmpeg H.264/H.265</li></ul>
+</div>
+
+<!-- Progress -->
+<div class="progress-track"><div class="progress-bar"></div></div>
+
+<script>
+// ─── Grid Canvas ───
+const gridC = document.getElementById('bg-grid');
+const gridX = gridC.getContext('2d');
+gridC.width = 1920; gridC.height = 1080;
+let gOff = 0;
+function drawGridBg() {
+  gridX.clearRect(0,0,1920,1080);
+  gOff = (gOff + 0.2) % 60;
+  gridX.strokeStyle = 'rgba(0,245,255,0.03)'; gridX.lineWidth = 1;
+  for (let x = gOff; x < 1920; x += 60) { gridX.beginPath(); gridX.moveTo(x,0); gridX.lineTo(x,1080); gridX.stroke(); }
+  for (let y = gOff; y < 1080; y += 60) { gridX.beginPath(); gridX.moveTo(0,y); gridX.lineTo(1920,y); gridX.stroke(); }
+  requestAnimationFrame(drawGridBg);
+}
+drawGridBg();
+
+// ─── Particle Web ───
+const pwC = document.getElementById('particle-web');
+const pwX = pwC.getContext('2d');
+pwC.width = 1920; pwC.height = 1080;
+const pts = Array.from({length: 50}, () => ({
+  x: Math.random()*1920, y: Math.random()*1080,
+  vx: (Math.random()-0.5)*0.4, vy: (Math.random()-0.5)*0.4,
+  r: 1+Math.random()*2, ph: Math.random()*Math.PI*2, ps: 0.02+Math.random()*0.02
+}));
+function drawPW() {
+  pwX.clearRect(0,0,1920,1080);
+  pts.forEach(p => {
+    p.x += p.vx; p.y += p.vy; p.ph += p.ps;
+    if (p.x<0) p.x=1920; if (p.x>1920) p.x=0;
+    if (p.y<0) p.y=1080; if (p.y>1080) p.y=0;
+    pwX.beginPath(); pwX.arc(p.x,p.y,p.r,0,Math.PI*2);
+    pwX.fillStyle = `rgba(0,245,255,${0.3+Math.sin(p.ph)*0.2})`; pwX.fill();
+  });
+  for (let i=0;i<pts.length;i++)
+    for (let j=i+1;j<pts.length;j++) {
+      const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y, d=Math.sqrt(dx*dx+dy*dy);
+      if (d<140) { pwX.beginPath(); pwX.moveTo(pts[i].x,pts[i].y); pwX.lineTo(pts[j].x,pts[j].y);
+        pwX.strokeStyle = `rgba(0,245,255,${(1-d/140)*0.08})`; pwX.stroke(); }
+    }
+  requestAnimationFrame(drawPW);
+}
+drawPW();
+
+// ─── Scene Management ───
+let scene = 0;
+const SCENES = ['scene1','scene2','scene3','scene4','scene5'];
+const sceneEls = SCENES.map(id => document.getElementById(id));
+const sceneIdx = document.getElementById('sceneIdx');
+
+function showScene(n) {
+  sceneEls.forEach((el, i) => {
+    if (i === n) { el.classList.add('active'); }
+    else { el.classList.remove('active'); }
+  });
+  sceneIdx.textContent = n + 1;
+
+  // Show stats for this scene
+  setTimeout(() => {
+    const stats = sceneEls[n]?.querySelectorAll('.stat-item');
+    if (stats) stats.forEach((s, i) => setTimeout(() => s.classList.add('visible'), i * 150));
+  }, 400);
+}
+
+// Cycle scenes
+showScene(0);
+setTimeout(() => {
+  // Show arch cards
+  ['arch1','arch2','arch3','arch4'].forEach((id, i) => {
+    setTimeout(() => document.getElementById(id)?.classList.add('visible'), i * 300);
+  });
+}, 500);
+
+setInterval(() => { scene = (scene + 1) % 5; showScene(scene); }, 18000);
+</script>
+</body>
+</html>

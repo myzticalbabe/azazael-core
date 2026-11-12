@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Azazael Cinematic Scroll</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --cyan: #00f5ff;
+  --purple: #bf00ff;
+  --pink: #ff00aa;
+  --green: #00ff88;
+  --gold: #ffdd00;
+}
+
+body {
+  font-family: 'Segoe UI', Consolas, monospace;
+  background: #020210;
+  color: #e0e0e0;
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* ─── Parallax Layers ─── */
+.parallax-container {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.parallax-layer {
+  position: absolute;
+  inset: -30%;
+  will-change: transform;
+}
+.layer-stars {
+  background: radial-gradient(1px 1px at 15% 25%, rgba(255,255,255,0.6), transparent),
+              radial-gradient(1px 1px at 35% 55%, rgba(255,255,255,0.4), transparent),
+              radial-gradient(1px 1px at 55% 15%, rgba(255,255,255,0.5), transparent),
+              radial-gradient(1px 1px at 75% 65%, rgba(255,255,255,0.3), transparent),
+              radial-gradient(1px 1px at 85% 35%, rgba(255,255,255,0.5), transparent),
+              radial-gradient(2px 2px at 20% 70%, rgba(0,245,255,0.3), transparent),
+              radial-gradient(2px 2px at 60% 80%, rgba(191,0,255,0.3), transparent),
+              radial-gradient(2px 2px at 90% 45%, rgba(0,255,136,0.3), transparent);
+  background-size: 300px 300px;
+  opacity: 0.6;
+}
+.layer-grid {
+  background-image:
+    linear-gradient(rgba(0,245,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,245,255,0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+  opacity: 0.4;
+}
+.layer-particles {
+  background:
+    radial-gradient(3px 3px at 10% 20%, var(--cyan), transparent),
+    radial-gradient(2px 2px at 30% 60%, var(--purple), transparent),
+    radial-gradient(3px 3px at 50% 10%, var(--pink), transparent),
+    radial-gradient(2px 2px at 70% 50%, var(--green), transparent),
+    radial-gradient(3px 3px at 90% 80%, var(--gold), transparent),
+    radial-gradient(2px 2px at 45% 30%, var(--cyan), transparent),
+    radial-gradient(4px 4px at 25% 85%, var(--purple), transparent),
+    radial-gradient(2px 2px at 65% 95%, var(--pink), transparent);
+  background-size: 400px 400px;
+  opacity: 0.5;
+}
+
+/* ─── Scroll Progress Indicator ─── */
+.scroll-progress-ring {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 100;
+  width: 50px;
+  height: 50px;
+}
+.scroll-progress-ring svg {
+  transform: rotate(-90deg);
+}
+.scroll-progress-ring circle {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+.progress-bg { stroke: rgba(255,255,255,0.1); }
+.progress-fill {
+  stroke: url(#progressGrad);
+  stroke-dasharray: 138.2;
+  stroke-dashoffset: 138.2;
+  transition: stroke-dashoffset 0.1s linear;
+}
+
+/* ─── Hero ─── */
+.hero-cinematic {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+  padding: 40px;
+}
+.hero-cinematic h1 {
+  font-size: clamp(3em, 10vw, 9em);
+  font-weight: 900;
+  line-height: 0.9;
+  background: linear-gradient(180deg, #fff 0%, var(--cyan) 40%, var(--purple) 70%, var(--pink) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: heroShimmer 4s ease-in-out infinite alternate;
+  margin-bottom: 20px;
+}
+@keyframes heroShimmer {
+  0% { filter: brightness(1) drop-shadow(0 0 20px rgba(0,245,255,0.3)); }
+  100% { filter: brightness(1.3) drop-shadow(0 0 40px rgba(191,0,255,0.5)); }
+}
+
+.tagline {
+  font-size: 1.3em;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 12px;
+  text-transform: uppercase;
+  animation: fadeSlideUp 1s 0.5s ease-out both;
+}
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Cinematic Chapters ─── */
+.chapter {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 10;
+  padding: 80px 40px;
+}
+.chapter-inner {
+  max-width: 900px;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(80px);
+  transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.chapter-inner.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.chapter-number {
+  font-size: 8em;
+  font-weight: 900;
+  color: rgba(255,255,255,0.03);
+  position: absolute;
+  left: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.chapter-badge {
+  display: inline-block;
+  padding: 6px 16px;
+  border: 1px solid rgba(0,245,255,0.3);
+  border-radius: 20px;
+  font-size: 0.75em;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 20px;
+}
+.chapter h2 {
+  font-size: clamp(2em, 5vw, 3.5em);
+  margin-bottom: 20px;
+  line-height: 1.1;
+}
+.chapter p {
+  font-size: 1.1em;
+  line-height: 1.9;
+  color: rgba(255,255,255,0.65);
+  max-width: 650px;
+}
+
+/* ─── Split Layout ─── */
+.split-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  max-width: 1100px;
+  width: 100%;
+}
+@media (max-width: 768px) { .split-layout { grid-template-columns: 1fr; } }
+.split-left { text-align: right; }
+.split-right { text-align: left; }
+@media (max-width: 768px) { .split-left, .split-right { text-align: left; } }
+
+/* ─── Animated Stat Bar ─── */
+.stat-showcase {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: center;
+  margin-top: 40px;
+}
+.stat-block {
+  text-align: center;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.stat-block.visible { opacity: 1; transform: scale(1); }
+.stat-number {
+  font-size: 3.5em;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--cyan), var(--purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.stat-label {
+  font-size: 0.8em;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: rgba(255,255,255,0.4);
+  margin-top: 6px;
+}
+
+/* ─── Typewriter Overlay ─── */
+.typewriter-overlay {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 50;
+  font-size: 1.5em;
+  color: var(--cyan);
+  text-shadow: 0 0 20px rgba(0,245,255,0.5);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+  text-align: center;
+  max-width: 80%;
+}
+.typewriter-overlay.active { opacity: 1; }
+.typewriter-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: var(--cyan);
+  margin-left: 4px;
+  animation: blink 0.7s step-end infinite;
+  vertical-align: text-bottom;
+}
+
+/* ─── Timeline Rail ─── */
+.timeline-rail {
+  position: relative;
+  padding-left: 40px;
+  max-width: 600px;
+}
+.timeline-rail::before {
+  content: '';
+  position: absolute;
+  left: 16px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--cyan), var(--purple), var(--pink));
+}
+.timeline-node {
+  position: relative;
+  margin-bottom: 30px;
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: all 0.6s ease;
+}
+.timeline-node.visible { opacity: 1; transform: translateX(0); }
+.timeline-dot {
+  position: absolute;
+  left: -32px;
+  top: 4px;
+  width: 16px;
+  height: 16px;
+  background: var(--cyan);
+  border-radius: 50%;
+  box-shadow: 0 0 15px var(--cyan);
+}
+.timeline-node h4 { font-size: 1.1em; margin-bottom: 4px; }
+.timeline-node p { font-size: 0.85em; color: #888; }
+
+/* ─── Particle Trail Canvas ─── */
+#trail-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ─── CTA Section ─── */
+.cta-section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+}
+.cta-section h2 {
+  font-size: clamp(2em, 5vw, 3em);
+  margin-bottom: 30px;
+}
+.cta-btn {
+  padding: 16px 40px;
+  font-size: 1.1em;
+  font-weight: bold;
+  background: transparent;
+  color: var(--cyan);
+  border: 2px solid var(--cyan);
+  border-radius: 40px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+.cta-btn:hover {
+  background: var(--cyan);
+  color: #020210;
+  box-shadow: 0 0 40px rgba(0,245,255,0.4);
+  transform: scale(1.05);
+}
+</style>
+</head>
+<body>
+
+<!-- Parallax Background Layers -->
+<div class="parallax-container">
+  <div class="parallax-layer layer-stars" data-speed="0.1"></div>
+  <div class="parallax-layer layer-grid" data-speed="0.3"></div>
+  <div class="parallax-layer layer-particles" data-speed="0.5"></div>
+</div>
+
+<!-- Particle Trail Canvas -->
+<canvas id="trail-canvas"></canvas>
+
+<!-- Scroll Progress Ring -->
+<div class="scroll-progress-ring">
+  <svg viewBox="0 0 50 50">
+    <defs><linearGradient id="progressGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#00f5ff"/><stop offset="50%" stop-color="#bf00ff"/><stop offset="100%" stop-color="#ff00aa"/></linearGradient></defs>
+    <circle class="progress-bg" cx="25" cy="25" r="22"/>
+    <circle class="progress-fill" cx="25" cy="25" r="22" id="progressCircle"/>
+  </svg>
+</div>
+
+<!-- Typewriter Overlay -->
+<div class="typewriter-overlay" id="typewriter"></div>
+
+<!-- Hero -->
+<section class="hero-cinematic" id="hero">
+  <h1>Azazael</h1>
+  <p class="tagline">Distributed Computing Framework</p>
+</section>
+
+<!-- Chapter 1: WORMZ -->
+<section class="chapter" id="ch1">
+  <span class="chapter-number">01</span>
+  <div class="chapter-inner split-layout">
+    <div class="split-left">
+      <span class="chapter-badge">Tier 1-2</span>
+      <h2 style="color:var(--cyan)">WORMZ<br>Execution Layer</h2>
+      <p>Six autonomous worms crawl the system: SYSTEMZ monitors resources, PROCESSZ manages lifecycles, DISKZ analyzes storage, NETWORXZ traces connectivity, CLOCKZ synchronizes time, and CLUSTERWORMS coordinates parallel collectives.</p>
+    </div>
+    <div class="split-right">
+      <div class="stat-showcase" style="justify-content:flex-start">
+        <div class="stat-block"><div class="stat-number">6</div><div class="stat-label">Worms</div></div>
+        <div class="stat-block"><div class="stat-number">5</div><div class="stat-label">Clusters</div></div>
+        <div class="stat-block"><div class="stat-number">100K+</div><div class="stat-label">Lines</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Chapter 2: METAWORMS -->
+<section class="chapter" id="ch2">
+  <span class="chapter-number">02</span>
+  <div class="chapter-inner split-layout">
+    <div class="split-right" style="order:2">
+      <span class="chapter-badge">Tier 3</span>
+      <h2 style="color:var(--purple)">METAWORMS<br>Orchestration</h2>
+      <p>Eleven metaworms form a self-diagnostic layer: ERRORZ detects anomalies, TRIMZ optimizes code, METAZ enriches metadata, DEPENDZ maps dependencies, VALIDZ ensures integrity, and HEALTHZ monitors vitals. HYDRAMETA bridges to ML optimization.</p>
+    </div>
+    <div class="split-left" style="order:1">
+      <div class="stat-showcase" style="justify-content:flex-end">
+        <div class="stat-block"><div class="stat-number">11</div><div class="stat-label">Metaworms</div></div>
+        <div class="stat-block"><div class="stat-number" style="background:linear-gradient(135deg,var(--purple),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent">ML</div><div class="stat-label">Powered</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Chapter 3: Timeline -->
+<section class="chapter" id="ch3">
+  <span class="chapter-number">03</span>
+  <div class="chapter-inner">
+    <span class="chapter-badge">Pipeline</span>
+    <h2 style="color:var(--green)">Processing Timeline</h2>
+    <div class="timeline-rail" style="margin-top:40px">
+      <div class="timeline-node"><div class="timeline-dot"></div><h4 style="color:var(--cyan)">Discovery</h4><p>WORMZ crawls system state, collecting raw metrics across all cores</p></div>
+      <div class="timeline-node"><div class="timeline-dot"></div><h4 style="color:var(--purple)">Analysis</h4><p>METAWORMS processes data through 11 specialized analysis pipelines</p></div>
+      <div class="timeline-node"><div class="timeline-dot"></div><h4 style="color:var(--pink)">Optimization</h4><p>HYDRAMETA applies genetic algorithms and ML for parameter tuning</p></div>
+      <div class="timeline-node"><div class="timeline-dot"></div><h4 style="color:var(--gold)">Validation</h4><p>TERENCE verifies fixes with 26 pattern-matched correction strategies</p></div>
+      <div class="timeline-node"><div class="timeline-dot"></div><h4 style="color:var(--green)">Presentation</h4><p>HORUS renders results with 54 animation protocols across HTML/JSON/Console</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Chapter 4: Ecosystem Stats -->
+<section class="chapter" id="ch4">
+  <span class="chapter-number">04</span>
+  <div class="chapter-inner" style="text-align:center">
+    <span class="chapter-badge">Ecosystem</span>
+    <h2>By The Numbers</h2>
+    <div class="stat-showcase">
+      <div class="stat-block"><div class="stat-number">11</div><div class="stat-label">Core Systems</div></div>
+      <div class="stat-block"><div class="stat-number">7</div><div class="stat-label">Tiers</div></div>
+      <div class="stat-block"><div class="stat-number">250+</div><div class="stat-label">Python Modules</div></div>
+      <div class="stat-block"><div class="stat-number">54</div><div class="stat-label">Animations</div></div>
+      <div class="stat-block"><div class="stat-number">26</div><div class="stat-label">Fix Patterns</div></div>
+      <div class="stat-block"><div class="stat-number">10K+</div><div class="stat-label">BIBL Terms</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Explore the Ecosystem</h2>
+  <a href="ANIMATION_SHOWCASE.html" class="cta-btn">View Animations →</a>
+  <p style="margin-top:20px;color:#888">or visit <span style="color:var(--cyan)">STRUCTURE_VISUALIZER.html</span> for the live force graph</p>
+</section>
+
+<script>
+// ─── Parallax Scrolling ───
+const parallaxLayers = document.querySelectorAll('.parallax-layer');
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY;
+  parallaxLayers.forEach(layer => {
+    const speed = parseFloat(layer.dataset.speed) || 0.3;
+    layer.style.transform = `translateY(${scrolled * speed}px)`;
+  });
+
+  // Progress ring
+  const docH = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = Math.min(scrolled / docH, 1);
+  const circle = document.getElementById('progressCircle');
+  const circumference = 138.2;
+  circle.style.strokeDashoffset = circumference - (progress * circumference);
+});
+
+// ─── Chapter Intersection Observer ───
+const chapterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+
+      // Animate stat blocks within chapter
+      entry.target.querySelectorAll('.stat-block').forEach((block, i) => {
+        setTimeout(() => block.classList.add('visible'), i * 150);
+      });
+      // Animate timeline nodes
+      entry.target.querySelectorAll('.timeline-node').forEach((node, i) => {
+        setTimeout(() => node.classList.add('visible'), i * 200);
+      });
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.chapter-inner').forEach(el => {
+  chapterObserver.observe(el);
+});
+
+// ─── Particle Trail ───
+const trailCanvas = document.getElementById('trail-canvas');
+const trailCtx = trailCanvas.getContext('2d');
+let trailParticles = [];
+let mouse = { x: -100, y: -100 };
+
+function resizeTrail() {
+  trailCanvas.width = window.innerWidth;
+  trailCanvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeTrail);
+resizeTrail();
+
+window.addEventListener('mousemove', (e) => {
+  mouse.x = e.clientX;
+  mouse.y = e.clientY;
+  spawnTrailParticle();
+});
+
+window.addEventListener('touchmove', (e) => {
+  mouse.x = e.touches[0].clientX;
+  mouse.y = e.touches[0].clientY;
+  spawnTrailParticle();
+}, { passive: true });
+
+function spawnTrailParticle() {
+  trailParticles.push({
+    x: mouse.x + (Math.random() - 0.5) * 10,
+    y: mouse.y + (Math.random() - 0.5) * 10,
+    vx: (Math.random() - 0.5) * 2,
+    vy: (Math.random() - 0.5) * 2 - 1,
+    life: 1,
+    decay: 0.01 + Math.random() * 0.03,
+    size: 1 + Math.random() * 3,
+    hue: Math.random() < 0.5 ? 185 : 280, // cyan or purple
+  });
+  if (trailParticles.length > 200) trailParticles.shift();
+}
+
+function drawTrail() {
+  trailCtx.clearRect(0, 0, trailCanvas.width, trailCanvas.height);
+
+  for (let i = trailParticles.length - 1; i >= 0; i--) {
+    const p = trailParticles[i];
+    p.x += p.vx;
+    p.y += p.vy;
+    p.life -= p.decay;
+
+    if (p.life <= 0) {
+      trailParticles.splice(i, 1);
+      continue;
+    }
+
+    trailCtx.beginPath();
+    trailCtx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+    trailCtx.fillStyle = `hsla(${p.hue}, 100%, 70%, ${p.life * 0.6})`;
+    trailCtx.fill();
+  }
+
+  // Draw connections between nearby particles
+  for (let i = 0; i < trailParticles.length; i++) {
+    for (let j = i + 1; j < trailParticles.length; j++) {
+      const dx = trailParticles[i].x - trailParticles[j].x;
+      const dy = trailParticles[i].y - trailParticles[j].y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 60) {
+        trailCtx.beginPath();
+        trailCtx.strokeStyle = `rgba(0,245,255,${(1 - dist / 60) * 0.15})`;
+        trailCtx.lineWidth = 0.5;
+        trailCtx.moveTo(trailParticles[i].x, trailParticles[i].y);
+        trailCtx.lineTo(trailParticles[j].x, trailParticles[j].y);
+        trailCtx.stroke();
+      }
+    }
+  }
+
+  requestAnimationFrame(drawTrail);
+}
+drawTrail();
+
+// ─── Typewriter Trigger on Chapter Enter ───
+const typewriterEl = document.getElementById('typewriter');
+const typewriterTexts = {
+  ch1: 'WORMZ crawls the system... six autonomous agents scanning every layer.',
+  ch2: 'METAWORMS orchestrates. Eleven agents. One unified analysis pipeline.',
+  ch3: 'From discovery to presentation. Five stages. Zero downtime.',
+  ch4: '250+ Python modules. 10,416 terminology entries. One ecosystem.',
+};
+
+let typewriterTimeout = null;
+let typewriterActive = false;  // guard against concurrent typewriter animations
+
+const typewriterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && typewriterTexts[entry.target.id]) {
+      typeText(typewriterTexts[entry.target.id]);
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.chapter').forEach(ch => {
+  typewriterObserver.observe(ch);
+});
+
+function typeText(text) {
+  // Cancel any in-progress typewriter animation
+  if (typewriterTimeout) clearTimeout(typewriterTimeout);
+  typewriterActive = false;
+
+  // Small delay to let the cancel take effect before starting new text
+  setTimeout(() => {
+    typewriterActive = true;
+    typewriterEl.classList.add('active');
+    typewriterEl.innerHTML = '';
+    let i = 0;
+
+    function type() {
+      if (!typewriterActive) return;  // guard: stop if cancelled
+      if (i < text.length) {
+        typewriterEl.innerHTML = text.substring(0, i + 1) + '<span class="typewriter-cursor"></span>';
+        i++;
+        typewriterTimeout = setTimeout(type, 40 + Math.random() * 30);
+      } else {
+        typewriterTimeout = setTimeout(() => {
+          typewriterEl.classList.remove('active');
+          typewriterActive = false;
+        }, 2500);
+      }
+    }
+    type();
+  }, 100);
+}
+
+// ─── Hero initialization ───
+document.querySelector('.chapter-inner:first-of-type')?.classList.add('visible');
+</script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+{
+  "timestamp": "2026-02-13T14:07:50.520664",
+  "python": "3.14.3 (tags/v3.14.3:323c59a, Feb  3 2026, 16:04:56) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "win32",
+  "frameworks": [
+    {
+      "name": "NumPy",
+      "version": "2.4.2",
+      "status": "INSTALLED",
+      "desc": "array computation"
+    },
+    {
+      "name": "Pandas",
+      "version": "3.0.0",
+      "status": "INSTALLED",
+      "desc": "DataFrame"
+    },
+    {
+      "name": "SciPy",
+      "version": "1.17.0",
+      "status": "INSTALLED",
+      "desc": "statistics"
+    },
+    {
+      "name": "PyTorch",
+      "version": "2.10.0+cpu",
+      "status": "INSTALLED",
+      "desc": "tensor ops"
+    },
+    {
+      "name": "Scikit-learn",
+      "version": "1.8.0",
+      "status": "INSTALLED",
+      "desc": "ML model"
+    },
+    {
+      "name": "Transformers",
+      "version": "5.1.0",
+      "status": "INSTALLED",
+      "desc": "NLP pipeline"
+    },
+    {
+      "name": "Accelerate",
+      "version": "1.12.0",
+      "status": "INSTALLED",
+      "desc": "distributed training"
+    },
+    {
+      "name": "Optuna",
+      "version": "4.7.0",
+      "status": "INSTALLED",
+      "desc": "hyperparameter optimization"
+    },
+    {
+      "name": "Datasets",
+      "version": "4.5.0",
+      "status": "INSTALLED",
+      "desc": "data loading"
+    },
+    {
+      "name": "Sentence-Transformers",
+      "version": "5.2.2",
+      "status": "INSTALLED",
+      "desc": "embeddings"
+    },
+    {
+      "name": "NLTK",
+      "version": "3.9.2",
+      "status": "INSTALLED",
+      "desc": "tokenization"
+    },
+    {
+      "name": "SpaCy",
+      "status": "ERROR",
+      "desc": "unable to infer type for attribute \"REGEX\""
+    },
+    {
+      "name": "OpenCV",
+      "version": "4.13.0",
+      "status": "INSTALLED",
+      "desc": "image processing"
+    },
+    {
+      "name": "PIL/Pillow",
+      "version": "12.1.1",
+      "status": "INSTALLED",
+      "desc": "image creation"
+    },
+    {
+      "name": "Requests",
+      "version": "2.32.5",
+      "status": "INSTALLED",
+      "desc": "HTTP"
+    },
+    {
+      "name": "HTTPX",
+      "version": "0.28.1",
+      "status": "INSTALLED",
+      "desc": "HTTP client"
+    },
+    {
+      "name": "AioHTTP",
+      "version": "3.13.3",
+      "status": "INSTALLED",
+      "desc": "async HTTP"
+    },
+    {
+      "name": "Starlette",
+      "version": "0.52.1",
+      "status": "INSTALLED",
+      "desc": "ASGI"
+    },
+    {
+      "name": "Selenium",
+      "version": "4.40.0",
+      "status": "INSTALLED",
+      "desc": "browser automation"
+    },
+    {
+      "name": "PyYAML",
+      "version": "6.0.3",
+      "status": "INSTALLED",
+      "desc": "YAML parse"
+    },
+    {
+      "name": "tomli",
+      "version": "0.10.2",
+      "status": "INSTALLED",
+      "desc": "TOML parse"
+    },
+    {
+      "name": "Cryptography",
+      "version": "46.0.5",
+      "status": "INSTALLED",
+      "desc": "encryption"
+    },
+    {
+      "name": "gRPC",
+      "version": "1.78.0",
+      "status": "INSTALLED",
+      "desc": "RPC framework"
+    }
+  ]
+}

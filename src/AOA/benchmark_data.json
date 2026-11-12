@@ -1,0 +1,44 @@
+{
+  "perfmon": {
+    "cpu_percent": 22.1,
+    "cpu_count": 16,
+    "memory_percent": 60.6,
+    "memory_total_gb": 15.4,
+    "memory_available_gb": 6.1,
+    "disk_percent": 95.5,
+    "disk_total_gb": 755.1,
+    "disk_free_gb": 33.8
+  },
+  "azazael": {
+    "total_worms": 108,
+    "initialized": true
+  },
+  "system": {
+    "python_version": "3.14.6",
+    "free_threaded": true,
+    "os": "Windows",
+    "node": "LAPTOP-8U5MSH3G",
+    "cpu_count": 16
+  },
+  "eve": {
+    "initialized": true,
+    "benchmark_date": "2026-08-27",
+    "discovery_total_models": 14,
+    "discovery_ollama": 8,
+    "discovery_gguf": 6,
+    "best_ollama_model": "llama3.2:1b",
+    "best_ollama_tps": 44.2,
+    "min_ollama_tps": 40.0,
+    "best_gguf_model": "gemma-4-E2B-it (Q4_K_M)",
+    "best_gguf_tps": 28.16,
+    "min_gguf_tps": 25.0,
+    "gguf_results_file": "Desktop/EveUnleashed_Selector/logs/gguf_benchmark_results_2026-08-27.json",
+    "ollama_results_file": "Desktop/EveUnleashed_Selector/logs/inference_test_results_2026-08-27.json"
+  },
+  "codex": {
+    "initialized": true,
+    "codex_studio_path": "C:\\Users\\clint\\azazael\\src\\CODEX\\CODEX_Studio.py",
+    "codex_studio_exists": true,
+    "python": "C:\\Users\\clint\\azazael\\.venv-3.14t\\Scripts\\python.exe"
+  }
+}

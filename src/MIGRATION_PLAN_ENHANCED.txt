@@ -1,0 +1,861 @@
+================================================================================
+AZAZAEL MIGRATION PLAN: Desktop -> C:\Azazael - ENHANCED EDITION
+================================================================================
+Purpose: Move Azazael ecosystem from Desktop to dedicated C:\Azazael directory
+Type: ENHANCED PLANNING DOCUMENT
+Created: 2026-02-13
+Version: 2.0 (Enhanced with Automation)
+================================================================================
+
+ENHANCEMENTS OVER V1.0:
+1. Automated path detection script
+2. Pre-flight validation checks
+3. Dry-run mode for testing
+4. Parallel file copy with progress
+5. Dependency mapping
+6. Git integration recommendations
+7. Docker containerization option
+8. Rollback with snapshot restore
+9. Automated documentation update
+10. Timeline optimization
+
+================================================================================
+TABLE OF CONTENTS:
+1. CURRENT STATE ANALYSIS (Enhanced)
+2. PROPOSED NEW STRUCTURE (Same)
+3. AUTOMATED PATH DETECTION
+4. ENHANCED MIGRATION STEPS
+5. PRE-FLIGHT CHECKLIST
+6. DRY-RUN MODE
+7. DEPENDENCY MAPPING
+8. PARALLEL COPY STRATEGY
+9. GIT INTEGRATION
+10. DOCKER OPTION
+11. AUTOMATED DOC UPDATE
+12. IMPROVED TESTING PLAN
+13. ENHANCED ROLLBACK
+14. OPTIMIZED TIMELINE
+
+================================================================================
+1. CURRENT STATE ANALYSIS (Enhanced)
+================================================================================
+
+NEW ADDITIONS:
+
+A. FILE INVENTORY AUTOMATION
+----------------------------
+Before migration, run automated inventory:
+
+python3 << 'INVENTORY'
+import os, json, hashlib
+from pathlib import Path
+
+root = Path.home() / "Desktop" / "Azazael_UNIFIED"
+inventory = {"files": [], "total_size": 0}
+
+for f in root.rglob("*"):
+    if f.is_file():
+        size = f.stat().st_size
+        inventory["files"].append({
+            "path": str(f.relative_to(root)),
+            "size": size,
+            "hash": hashlib.md5(f.read_bytes()).hexdigest()[:8]
+        })
+        inventory["total_size"] += size
+
+inventory["file_count"] = len(inventory["files"])
+inventory["size_mb"] = round(inventory["total_size"] / 1024 / 1024, 2)
+
+print(json.dumps(inventory, indent=2))
+INVENTORY
+
+This generates:
+- Complete file list with sizes
+- MD5 hashes for integrity verification
+- Estimated migration time
+
+B. DEPENDENCY GRAPH
+-------------------
+Create dependency map before migration:
+
+python3 << 'DEPS'
+import ast, sys
+from pathlib import Path
+
+root = Path.home() / "Desktop" / "Azazael_UNIFIED"
+dependencies = {}
+
+for py in root.rglob("*.py"):
+    if ".venv" in str(py) or "site-packages" in str(py):
+        continue
+    try:
+        content = py.read_text()
+        tree = ast.parse(content)
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Import):
+                for alias in node.names:
+                    deps = dependencies.get(str(py.relative_to(root)), set())
+                    deps.add(alias.name)
+                    dependencies[str(py.relative_to(root))] = deps
+            elif isinstance(node, ast.ImportFrom):
+                if node.module:
+                    for alias in node.names:
+                        deps = dependencies.get(str(py.relative_to(root)), set())
+                        deps.add(f"{node.module}.{alias.name}")
+                        dependencies[str(py.relative_to(root))] = deps
+    except:
+        pass
+
+# Print critical dependencies
+print("CRITICAL CROSS-MODULE DEPENDENCIES:")
+for file, deps in sorted(dependencies.items()):
+    external = [d for d in deps if not d.startswith(".")]
+    if external:
+        print(f"{file}: {list(external)[:5]}...")
+DEPS
+
+C. IMPORT PATH ANALYSIS
+------------------------
+Identify all hardcoded paths:
+
+grep -r "Desktop.*Azazael" --include="*.py" --include="*.ps1" --include="*.bat" .
+grep -r "C:\\\\Users\\\\clint\\\\Desktop" .
+grep -r "/c/Users/clint/Desktop" .
+
+================================================================================
+2. PROPOSED NEW STRUCTURE (Unchanged from V1.0)
+================================================================================
+
+Target: C:\Azazael\
+
+Structure is identical to V1.0 - see Section 2 in original document.
+
+================================================================================
+3. AUTOMATED PATH DETECTION
+================================================================================
+
+CREATE: C:\Azazael\migration\detect_paths.py
+
+#!/usr/bin/env python3
+"""
+Automated path detection and modification for migration
+"""
+import re
+from pathlib import Path
+
+class PathDetector:
+    def __init__(self, source_root, target_root):
+        self.source = Path(source_root)
+        self.target = Path(target_root)
+        self.patterns = [
+            r"C:\\\\Users\\\\clint\\\\Desktop\\\\Azazael_UNIFIED",
+            r"/c/Users/clint/Desktop/Azazael_UNIFIED",
+            r"~/Desktop/Azazael_UNIFIED",
+            r"\$HOME/Desktop/Azazael_UNIFIED",
+        ]
+        self.files_to_modify = []
+    
+    def scan(self):
+        """Scan all files for paths to update"""
+        for py in self.source.rglob("*.py"):
+            if ".venv" in str(py) or "site-packages" in str(py):
+                continue
+            content = py.read_text(encoding="utf-8", errors="ignore")
+            matches = []
+            for pattern in self.patterns:
+                if re.search(pattern, content):
+                    matches.append(pattern)
+            if matches:
+                self.files_to_modify.append({
+                    "file": str(py.relative_to(self.source)),
+                    "patterns_found": matches
+                })
+        return self.files_to_modify
+    
+    def generate_modifications(self):
+        """Generate sed-style replacements"""
+        modifications = []
+        for entry in self.files_to_modify:
+            file = entry["file"]
+            for pattern in entry["patterns_found"]:
+                old = pattern.replace("\\", "\\\\")
+                new = str(self.target).replace("\\", "\\\\")
+                modifications.append({
+                    "file": file,
+                    "old_pattern": old,
+                    "new_value": new,
+                    "command": f'sed -i "s/{old}/{new}/g" {file}'
+                })
+        return modifications
+    
+    def create_patch_script(self):
+        """Create automated patch script"""
+        mods = self.generate_modifications()
+        script = '#!/bin/bash\n# AUTO-GENERATED PATCH SCRIPT\n\n'
+        for mod in mods:
+            script += f'# File: {mod["file"]}\n'
+            script += f'sed -i "s/{mod["old_pattern"]}/{mod["new_value"]}/g" {mod["file"]}\n\n'
+        
+        ps_script = '@echo off\nREM AUTO-GENERATED PATCH SCRIPT\n\n'
+        for mod in mods:
+            ps_script += f'Replace-FileString -Path "{mod["file"]}" -Find "{mod["old_pattern"]}" -Replace "{mod["new_value"]}"\n'
+        
+        return script, ps_script
+
+USAGE:
+python3 detect_paths.py > path_modifications.json
+
+================================================================================
+4. ENHANCED MIGRATION STEPS
+================================================================================
+
+PHASE 1: PRE-MIGRATION (Enhanced - 15 minutes)
+-----------------------------------------------
+Step 1.1: SNAPSHOT ENVIRONMENT
+  - Record installed packages: pip freeze > packages_backup.txt
+  - Record environment variables: set > env_backup.txt
+  - Record registry settings: reg export ... > registry_backup.reg
+
+Step 1.2: FILE INVENTORY
+  - Run: python3 inventory.py > file_inventory.json
+  - Verify total size and file count
+  - Calculate estimated migration time
+
+Step 1.3: DEPENDENCY ANALYSIS
+  - Run: python3 deps.py > dependency_graph.json
+  - Identify circular dependencies
+  - Map critical paths
+
+Step 1.4: PATH DETECTION
+  - Run: python3 detect_paths.py > path_modifications.json
+  - Generate patch scripts
+  - Review modifications list
+
+Step 1.5: PRE-FLIGHT VALIDATION (NEW)
+  - Check disk space: df -h (need 2x current size)
+  - Check target drive: C: has space?
+  - Check .venv integrity: pip list > venv_backup.txt
+  - Test current functionality: python bootstrap.py
+
+PHASE 2: CREATE NEW STRUCTURE (Same - 5 minutes)
+--------------------------------------------------
+
+PHASE 3: COPY FILES (Enhanced - Parallel Copy)
+----------------------------------------------
+Use ROBOCOPY for parallel, resumable copy:
+
+Step 3.1: COPY .venv FIRST (Critical)
+  robocopy "C:\Users\clint\Desktop\Azazael_UNIFIED\.venv" "C:\Azazael\.venv" /E /Z /ZB /DCOPY:T /MT:16 /R:3 /W:5 /V /FP /LOG:C:\Azazael\migration\venv_copy.log
+
+Step 3.2: COPY CORE DIRECTORIES
+  robocopy "C:\Users\clint\Desktop\Azazael_UNIFIED\CORE" "C:\Azazael\CORE" /E /Z /MT:8 /R:3 /W:5
+
+Step 3.3: COPY HYDRA
+  robocopy "C:\Users\clint\Desktop\Azazael_UNIFIED\HYDRA" "C:\Azazael\HYDRA" /E /Z /MT:8 /R:3 /W:5
+
+Step 3.4: PARALLEL COPY (NEW)
+  Run multiple robocopy in parallel for:
+  - CODEX
+  - META
+  - ORCHESTRATION
+  - UTILITIES
+  - SCRIPTS
+  - config, docs, output, reports, clusters, shortcuts
+
+Step 3.5: VERIFY INTEGRITY
+  - Run: python3 inventory.py (new location)
+  - Compare file counts and hashes
+  - Report any missing/corrupted files
+
+PHASE 4: UPDATE PATHS (Enhanced - Automated)
+--------------------------------------------
+Step 4.1: RUN PATCH SCRIPTS
+  bash patch.sh  # For WSL
+  .\patch.ps1    # For PowerShell
+
+Step 4.2: UPDATE ENVIRONMENT
+  - Update .env file
+  - Update VS Code settings
+  - Update registry (if needed)
+
+Step 4.3: REGENERATE PATH DETECTION
+  - Verify no Desktop references remain
+  - Run: grep -r "Desktop.*Azazael" .
+
+PHASE 5: UPDATE SHORTCUTS (Same)
+--------------------------------
+
+PHASE 6: TESTING (Enhanced - Automated)
+----------------------------------------
+Create: C:\Azazael\migration\test_migration.py
+
+#!/usr/bin/env python3
+"""
+Automated migration testing
+"""
+import subprocess, json, sys
+from pathlib import Path
+
+TESTS = [
+    {"name": "Python Version", "cmd": "python --version", "expected": "3.14"},
+    {"name": "Bootstrap", "cmd": "python bootstrap.py", "expected": "complete"},
+    {"name": "Core Import", "cmd": "python -c CORE.WORMS.WORMZ", "expected": "OK"},
+    {"name": "HYDRA Import", "cmd": "python -c HYDRA.hydra_launcher", "expected": "OK"},
+    {"name": "Logger", "cmd": "python -c UTILITIES.AzazaelDynamicLogger", "expected": "OK"},
+    {"name": "File Count", "cmd": "python -c count_files", "expected": ">100"},
+]
+
+def run_test(test):
+    result = subprocess.run(test["cmd"], shell=True, capture_output=True, text=True)
+    return {
+        "name": test["name"],
+        "passed": test["expected"] in result.stdout,
+        "stdout": result.stdout[:200],
+        "stderr": result.stderr[:200] if result.stderr else ""
+    }
+
+def main():
+    results = [run_test(t) for t in TESTS]
+    passed = sum(1 for r in results if r["passed"])
+    print(f"\nMIGRATION TEST RESULTS: {passed}/{len(results)} PASSED\n")
+    for r in results:
+        status = "[PASS]" if r["passed"] else "[FAIL]"
+        print(f"{status} {r['name']}")
+        if not r["passed"]:
+            print(f"       stdout: {r['stdout'][:100]}")
+            print(f"       stderr: {r['stderr'][:100]}")
+    return passed == len(results)
+
+if __name__ == "__main__":
+    sys.exit(0 if main() else 1)
+
+PHASE 7: CLEANUP (Enhanced - Snapshot Delete)
+----------------------------------------------
+Step 7.1: VERIFY 7 DAYS
+  - Keep backup for 7 days minimum
+  - Set reminder to delete
+
+Step 7.2: UPDATE MIGRATION LOG
+  - Document any deviations from plan
+  - Record actual time taken
+  - Save to C:\Azazael\MIGRATION_RESULTS.txt
+
+================================================================================
+5. PRE-FLIGHT CHECKLIST
+================================================================================
+
+AUTOMATED PRE-FLIGHT:
+
+python3 << 'CHECKS'
+import os, subprocess, json
+from pathlib import Path
+
+checks = []
+
+# Disk space
+ Azazael = Path.home() / "Desktop" / "Azazael_UNIFIED"
+target = Path("C:/Azazael")
+
+source_size = sum(f.stat().st_size for f in Azazael.rglob("*") if f.is_file())
+source_mb = round(source_size / 1024 / 1024, 2)
+
+target_free = shutil.disk_usage("C:").free
+target_free_mb = round(target_free / 1024 / 1024, 2)
+
+checks.append({
+    "check": "Disk Space",
+    "passed": target_free_mb > source_mb * 2,
+    "details": f"Need: {source_mb*2}MB, Free: {target_free_mb}MB"
+})
+
+# Python version
+try:
+    result = subprocess.run(["python", "--version"], capture_output=True)
+    passed = "3.14" in result.stdout
+    checks.append({
+        "check": "Python Version",
+        "passed": passed,
+        "details": result.stdout.strip()
+    })
+except:
+    checks.append({"check": "Python Version", "passed": False, "details": "Not found"})
+
+# Bootstrap test
+try:
+    result = subprocess.run(["python", "bootstrap.py"], capture_output=True, cwd=Azazael)
+    passed = "complete" in result.stdout.lower()
+    checks.append({
+        "check": "Bootstrap Test",
+        "passed": passed,
+        "details": result.stdout[:100]
+    })
+except Exception as e:
+    checks.append({"check": "Bootstrap Test", "passed": False, "details": str(e)})
+
+# Print results
+print("\nPRE-FLIGHT CHECKLIST:")
+print("=" * 60)
+for c in checks:
+    status = "[PASS]" if c["passed"] else "[FAIL]"
+    print(f"{status} {c['check']}: {c['details']}")
+
+all_passed = all(c["passed"] for c in checks)
+print("=" * 60)
+print(f"\nOVERALL: {'READY TO MIGRATE' if all_passed else 'FIX ISSUES FIRST'}")
+CHECKS
+
+================================================================================
+6. DRY-RUN MODE
+================================================================================
+
+CREATE: C:\Azazael\migration\migration_dry_run.py
+
+This script simulates the entire migration without making changes:
+
+#!/usr/bin/env python3
+"""
+Dry run mode - simulate entire migration
+"""
+import shutil, time
+from pathlib import Path
+
+def dry_run():
+    source = Path.home() / "Desktop" / "Azazael_UNIFIED"
+    target = Path("C:/Azazael_dry_run")
+    
+    print("=" * 70)
+    print("AZAZAEL MIGRATION - DRY RUN MODE")
+    print("=" * 70)
+    
+    # Step 1: Inventory
+    files = list(source.rglob("*"))
+    total_size = sum(f.stat().st_size for f in files if f.is_file())
+    print(f"\n[1/6] INVENTORY")
+    print(f"  Files to copy: {len(files)}")
+    print(f"  Total size: {round(total_size/1024/1024, 2)}MB")
+    
+    # Step 2: Structure
+    print(f"\n[2/6] CREATE STRUCTURE")
+    dirs = ["CORE", "HYDRA", "CODEX", "META", "ORCHESTRATION", "UTILITIES"]
+    for d in dirs:
+        print(f"  Would create: {target/d}")
+    
+    # Step 3: Copy estimation
+    print(f"\n[3/6] COPY ESTIMATION")
+    est_time = total_size / (100 * 1024 * 1024) * 60  # Assume 100MB/s
+    print(f"  Estimated time: {round(est_time, 1)} minutes")
+    
+    # Step 4: Path modifications
+    py_files = list(source.rglob("*.py"))
+    print(f"\n[4/6] PATH MODIFICATIONS")
+    print(f"  Python files to modify: {len(py_files)}")
+    
+    # Step 5: Shortcuts
+    lnk_files = list(source.glob("*.lnk"))
+    print(f"\n[5/6] SHORTCUTS")
+    print(f"  Shortcuts to update: {len(lnk_files)}")
+    
+    # Step 6: Testing
+    print(f"\n[6/6] TESTING")
+    print(f"  Tests to run: 6")
+    
+    print("\n" + "=" * 70)
+    print("DRY RUN COMPLETE - NO FILES WERE MODIFIED")
+    print("=" * 70)
+    print("\nTo execute real migration:")
+    print("  1. Review this output")
+    print("  2. Run: python migration_execute.py")
+    print("=" * 70)
+
+if __name__ == "__main__":
+    dry_run()
+
+================================================================================
+7. DEPENDENCY MAPPING
+================================================================================
+
+CREATE: C:\Azazael\migration\map_dependencies.py
+
+Purpose: Identify all cross-module dependencies before migration
+
+OUTPUT EXAMPLE:
+{
+  "critical_paths": [
+    "bootstrap.py -> HYDRA/ml_platforms",
+    "azazael_cli.py -> CORE/WORMS",
+    "COMPREHENSIVE_FIX.py -> UTILITIES"
+  ],
+  "external_dependencies": [
+    "torch", "numpy", "pandas", "transformers"
+  ],
+  "circular_dependencies": [],
+  "orphaned_files": []
+}
+
+================================================================================
+8. PARALLEL COPY STRATEGY
+================================================================================
+
+USE ROBOCOPY WITH MULTI-THREADING:
+
+REM Parallel copy script
+@echo off
+echo Starting parallel copy...
+
+REM Start background copies
+start "HYDRA" robocopy "C:\Users\clint\Desktop\Azazael_UNIFIED\HYDRA" "C:\Azazael\HYDRA" /E /MT:8 /R:3 /W:5
+start "CODEX" robocopy "C:\Users\clint\Desktop\Azazael_UNIFIED\CODEX" "C:\Azazael\CODEX" /E /MT:8 /R:3 /W:5
+start "META" robocopy "C:\Users\clint\Desktop\Azazael_UNIFIED\META" "C:\Azazael\META" /E /MT:8 /R:3 /W:5
+start "ORCH" robocopy "C:\Users\clint\Desktop\Azazael_UNIFIED\ORCHESTRATION" "C:\Azazael\ORCHESTRATION" /E /MT:8 /R:3 /W:5
+start "UTIL" robocopy "C:\Users\clint\Desktop\Azazael_UNIFIED\UTILITIES" "C:\Azazael\UTILITIES" /E /MT:8 /R:3 /W:5
+
+REM Wait for all to complete
+wait
+
+echo All copies complete!
+
+================================================================================
+9. GIT INTEGRATION
+================================================================================
+
+OPTIONAL: Initialize git for version control during migration
+
+CREATE: C:\Azazael\migration\git_migration.py
+
+#!/usr/bin/env python3
+"""
+Git integration for migration tracking
+"""
+import subprocess
+from pathlib import Path
+
+def init_git_migration():
+    root = Path("C:/Azazael")
+    
+    # Initialize git if not exists
+    if not (root / ".git").exists():
+        subprocess.run(["git", "init"], cwd=root)
+        subprocess.run(["git", "config", "user.name", "Azazael Migration"])
+        subprocess.run(["git", "config", "user.email", "migration@azazael.local"])
+    
+    # Create .gitignore
+    gitignore = """
+# Azazael Migration Gitignore
+*.pyc
+__pycache__
+.venv/
+*.log
+logs/
+*.tmp
+*.bak
+迁移/
+migration/
+"""
+    (root / ".gitignore").write_text(gitignore)
+    
+    # Initial commit with all files
+    subprocess.run(["git", "add", "."], cwd=root)
+    result = subprocess.run(["git", "commit", "-m", "Initial migration from Desktop"], 
+                          cwd=root, capture_output=True)
+    
+    # Tag pre-migration
+    subprocess.run(["git", "tag", "pre-migration"], cwd=root)
+    
+    print(f"Git initialized at {root}")
+    print(f"Initial commit: {result.stdout.decode()[:100]}")
+
+if __name__ == "__main__":
+    init_git_migration()
+
+================================================================================
+10. DOCKER OPTION
+================================================================================
+
+CREATE: C:\Azazael\Dockerfile
+
+FROM python:3.14-slim
+
+WORKDIR /azazael
+
+COPY .venv .venv
+COPY CORE CORE
+COPY HYDRA HYDRA
+COPY CODEX CODEX
+COPY META META
+COPY ORCHESTRATION ORCHESTRATION
+COPY UTILITIES UTILITIES
+COPY *.py .
+COPY *.txt .
+
+ENV PYTHONPATH=/azazael
+
+CMD ["python", "bootstrap.py"]
+
+CREATE: C:\Azazael\docker-compose.yml
+
+version: '3.8'
+services:
+  azazael:
+    build: .
+    volumes:
+      - ./logs:/azazael/logs
+      - ./data:/azazael/data
+    environment:
+      - PYTHONPATH=/azazael
+
+================================================================================
+11. AUTOMATED DOC UPDATE
+================================================================================
+
+CREATE: C:\Azazael\migration\update_docs.py
+
+#!/usr/bin/env python3
+"""
+Automatically update documentation with new paths
+"""
+import re
+from pathlib import Path
+
+def update_docs():
+    root = Path("C:/Azazael")
+    
+    # Patterns to update
+    updates = [
+        (r"C:\\\\Users\\\\clint\\\\Desktop\\\\Azazael_UNIFIED", "C:/Azazael"),
+        (r"/c/Users/clint/Desktop/Azazael_UNIFIED", "/c/Azazael"),
+        (r"~/Desktop/Azazael_UNIFIED", "~/Azazael"),
+    ]
+    
+    for md in root.rglob("*.md"):
+        content = md.read_text()
+        original = content
+        for old, new in updates:
+            content = re.sub(old, new, content)
+        if content != original:
+            md.write_text(content)
+            print(f"Updated: {md}")
+
+if __name__ == "__main__":
+    update_docs()
+
+================================================================================
+12. IMPROVED TESTING PLAN
+================================================================================
+
+AUTOMATED TEST SUITE:
+
+C:\Azazael\migration\test_suite.py
+
+#!/usr/bin/env python3
+"""
+Comprehensive migration test suite
+"""
+import subprocess, json, sys
+from pathlib import Path
+import time
+
+class MigrationTestSuite:
+    def __init__(self):
+        self.root = Path("C:/Azazael")
+        self.results = []
+    
+    def test_python_version(self):
+        """Test Python version"""
+        result = subprocess.run(["python", "--version"], capture_output=True, cwd=self.root)
+        return "3.14" in result.stdout
+    
+    def test_bootstrap(self):
+        """Test bootstrap completes"""
+        result = subprocess.run(["python", "bootstrap.py"], capture_output=True, cwd=self.root, timeout=30)
+        return "complete" in result.stdout.lower()
+    
+    def test_imports(self):
+        """Test all major imports"""
+        imports = [
+            "from CORE.WORMS import WORMZ",
+            "from UTILITIES.AzazaelDynamicLogger import logger",
+            "import HYDRA.hydra_launcher",
+        ]
+        for imp in imports:
+            result = subprocess.run([sys.executable, "-c", imp], capture_output=True, cwd=self.root)
+            if result.returncode != 0:
+                return False, imp
+        return True, None
+    
+    def test_logger(self):
+        """Test logger creates file"""
+        logger_path = self.root / "logs" / "test.log"
+        if logger_path.exists():
+            logger_path.unlink()
+        result = subprocess.run(
+            ["python", "-c", "from UTILITIES.AzazaelDynamicLogger import logger; logger.info('test')"],
+            capture_output=True, cwd=self.root
+        )
+        return logger_path.exists(), str(logger_path)
+    
+    def test_file_count(self):
+        """Test file count matches inventory"""
+        inventory = json.loads((self.root / "migration" / "file_inventory.json").read_text())
+        actual = len(list(self.root.rglob("*.py")))
+        return actual >= inventory["file_count"] * 0.99, f"{actual} vs {inventory['file_count']}"
+    
+    def run_all(self):
+        """Run all tests"""
+        tests = [
+            ("Python Version", self.test_python_version),
+            ("Bootstrap", self.test_bootstrap),
+            ("Imports", lambda: self.test_imports()[0]),
+            ("Logger", lambda: self.test_logger()[0]),
+            ("File Count", lambda: self.test_file_count()[0]),
+        ]
+        
+        print("\n" + "=" * 70)
+        print("MIGRATION TEST SUITE")
+        print("=" * 70 + "\n")
+        
+        passed = 0
+        for name, test in tests:
+            try:
+                result = test()
+                status = "[PASS]" if result else "[FAIL]"
+                print(f"{status} {name}")
+                if result:
+                    passed += 1
+                else:
+                    print(f"       Failed: {test()}")
+            except Exception as e:
+                print(f"[ERROR] {name}: {e}")
+        
+        print("\n" + "=" * 70)
+        print(f"RESULTS: {passed}/{len(tests)} TESTS PASSED")
+        print("=" * 70)
+        
+        return passed == len(tests)
+
+================================================================================
+13. ENHANCED ROLLBACK
+================================================================================
+
+CREATE: C:\Azazael\migration\rollback.py
+
+#!/usr/bin/env python3
+"""
+Enhanced rollback with snapshot restore
+"""
+import subprocess, shutil
+from pathlib import Path
+import json
+
+class Rollback:
+    def __init__(self):
+        self.backup_dir = Path("C:/Backup/Azazael")
+        self.target = Path("C:/Azazael")
+        self.source = Path.home() / "Desktop" / "Azazael_UNIFIED"
+    
+    def create_backup_snapshot(self):
+        """Create timestamped backup before migration"""
+        import time
+        timestamp = time.strftime("%Y%m%d_%H%M%S")
+        snapshot = self.backup_dir / f"pre_migration_{timestamp}"
+        snapshot.mkdir(parents=True, exist_ok=True)
+        
+        # Copy current state
+        shutil.copytree(self.source, snapshot / "original", dirs_exist_ok=True)
+        
+        # Save metadata
+        meta = {
+            "timestamp": timestamp,
+            "source": str(self.source),
+            "target": str(self.target)
+        }
+        (snapshot / "meta.json").write_text(json.dumps(meta, indent=2))
+        
+        print(f"Backup created: {snapshot}")
+        return snapshot
+    
+    def restore_from_snapshot(self, snapshot_path):
+        """Restore from backup snapshot"""
+        snapshot = Path(snapshot_path)
+        if not snapshot.exists():
+            print(f"Snapshot not found: {snapshot_path}")
+            return False
+        
+        # Stop any running processes
+        subprocess.run(["taskkill", "/F", "/IM", "python.exe"])
+        
+        # Remove current target
+        if self.target.exists():
+            shutil.rmtree(self.target)
+        
+        # Restore from snapshot
+        shutil.copytree(snapshot / "original", self.source, dirs_exist_ok=True)
+        
+        print(f"Restored from: {snapshot}")
+        return True
+    
+    def quick_rollback(self):
+        """Quick rollback - restore original directory"""
+        if not self.source.exists():
+            print("Original directory not found")
+            return False
+        
+        # Stop processes
+        subprocess.run(["taskkill", "/F", "/IM", "python.exe"])
+        
+        # Remove target
+        if self.target.exists():
+            shutil.rmtree(self.target)
+        
+        print("Quick rollback complete")
+        return True
+
+================================================================================
+14. OPTIMIZED TIMELINE
+================================================================================
+
+ENHANCED TIMELINE:
+
+PHASE                      | TIME    | IMPROVEMENT
+--------------------------|---------|--------------------------
+Pre-migration              | 15 min  | +5 min (automated checks)
+Create Structure           | 5 min   | Same
+Copy Files (Parallel)     | 10 min  | -20 min (parallel + robocopy)
+Update Paths (Automated)  | 15 min  | -45 min (auto patch)
+Update Shortcuts          | 5 min   | -5 min
+Testing (Automated)       | 5 min   | -10 min (automated)
+Cleanup                   | 5 min   | Same
+--------------------------|---------|--------------------------
+TOTAL                     | 60 min  | -75 min (from 135 to 60)
+
+KEY IMPROVEMENTS:
+1. Automated path detection saves ~45 minutes
+2. Parallel copy saves ~20 minutes
+3. Automated testing saves ~10 minutes
+
+================================================================================
+END OF ENHANCED MIGRATION PLAN v2.0
+================================================================================
+
+ENHANCEMENTS SUMMARY:
+1. ✓ Automated path detection script
+2. ✓ Pre-flight validation checks
+3. ✓ Dry-run mode for testing
+4. ✓ Parallel file copy with progress
+5. ✓ Dependency mapping
+6. ✓ Git integration recommendations
+7. ✓ Docker containerization option
+8. ✓ Rollback with snapshot restore
+9. ✓ Automated documentation update
+10. ✓ Improved testing plan
+11. ✓ Timeline optimization (135min -> 60min)
+12. ✓ Pre-flight checklist
+13. ✓ Inventory with file hashing
+14. ✓ Comprehensive test suite
+
+For Next Assistant:
+- Read this enhanced plan
+- Use automated tools where possible
+- Run dry-run before actual migration
+- Execute phases sequentially
+- Document any issues in MIGRATION_RESULTS.txt
+================================================================================

@@ -1,0 +1,9 @@
+{
+  "total_errors": {
+    "BOM": 0,
+    "SYNTAX": 0,
+    "IMPORT": 0
+  },
+  "critical": [],
+  "medium": []
+}

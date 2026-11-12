@@ -1,0 +1,23 @@
+{
+  "provenance": {
+    "measured": "2026-10-30",
+    "surface": "live daemon 127.0.0.1:8765, asked both directly and through :8766",
+    "corpus_state": "after the contaminated test records were purged (n=15 noise, 8 real)",
+    "claim": "noise BEST and real BEST separate with a measured gap of 0.113; INDIVIDUAL rows do not -- a genuine query's tail reaches down to 0.600, so one per-row threshold is wrong in both directions and the two tiers live in the gap, not on a guess",
+    "re_measure_when": "the corpus changes substantially -- thresholds are a property of the store, not of the software"
+  },
+  "populations": {
+    "noise_best": [0.836, 0.722, 0.646, 0.646, 0.640],
+    "noise_best_mean": 0.645,
+    "real_best": [1.313, 1.298, 1.280, 1.251, 1.245, 0.994, 0.949],
+    "real_row_tail": [0.600, 0.640, 0.850, 0.937],
+    "real_row_stats": {"min": 0.600, "p10": 0.640, "p25": 0.850, "median": 0.937}
+  },
+  "floors": {
+    "PMB_RECALL_MIN_BEST": 0.89,
+    "PMB_RECALL_FLOOR": 0.70,
+    "measured_gap": [0.836, 0.949],
+    "gap_midpoint": 0.8925,
+    "placement": "MIN_BEST sits on the gap midpoint; FLOOR sits between the real-query p10 (0.640) and p25 (0.850) so it trims only the weak tail"
+  }
+}

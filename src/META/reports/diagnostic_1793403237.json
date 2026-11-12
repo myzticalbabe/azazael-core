@@ -1,0 +1,63 @@
+{
+  "overall_health": "healthy",
+  "total_issues": 0,
+  "generated_at": 1793403237.7364614,
+  "component_status": [
+    {
+      "name": "worm_registry",
+      "healthy": true,
+      "detail": "113 registered across 25 categories",
+      "measured_at": 1793403237.736455,
+      "error": ""
+    },
+    {
+      "name": "registry_vocabulary",
+      "healthy": true,
+      "detail": "40 valid categories",
+      "measured_at": 1793403237.7364554,
+      "error": ""
+    },
+    {
+      "name": "failure_ledger",
+      "healthy": true,
+      "detail": "10 swallowed failures recorded",
+      "measured_at": 1793403237.736457,
+      "error": ""
+    },
+    {
+      "name": "local_memory",
+      "healthy": true,
+      "detail": "store attached",
+      "measured_at": 1793403237.7364578,
+      "error": ""
+    },
+    {
+      "name": "import:CORE.worm_registry",
+      "healthy": true,
+      "detail": "ok",
+      "measured_at": 1793403237.7364585,
+      "error": ""
+    },
+    {
+      "name": "import:CORE.failure_ledger",
+      "healthy": true,
+      "detail": "ok",
+      "measured_at": 1793403237.736459,
+      "error": ""
+    },
+    {
+      "name": "import:CORE.local_memory",
+      "healthy": true,
+      "detail": "ok",
+      "measured_at": 1793403237.7364595,
+      "error": ""
+    },
+    {
+      "name": "import:META.MetaWormSpawner",
+      "healthy": true,
+      "detail": "ok",
+      "measured_at": 1793403237.7364602,
+      "error": ""
+    }
+  ]
+}

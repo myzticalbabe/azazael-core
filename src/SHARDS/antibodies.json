@@ -1,0 +1,100 @@
+{
+ "generation": 8,
+ "updated_at": "2026-10-29T07:59:19.957973+00:00",
+ "antibodies": {
+  "seq-range-mismatch": {
+   "status": "immune",
+   "signature": {
+    "namespace": "polyglot",
+    "handler_role": "work-golden",
+    "exc_type": "none",
+    "message_shape": "work sum != EXPECTED_SUM",
+    "ast_shape": "n/a (data bug, not structural)",
+    "first_seen": "2026-10-29",
+    "parent_instance": "bash work golden summed 1..20000 via seq"
+   },
+   "generations": [
+    {
+     "gen": 1,
+     "at": "2026-10-29T07:44:06.589832+00:00",
+     "ok": true,
+     "instances": [],
+     "origin": "LAPTOP-8U5MSH3G",
+     "uuid": "b5ee9df9"
+    },
+    {
+     "gen": 3,
+     "at": "2026-10-29T07:50:41.357366+00:00",
+     "ok": true,
+     "instances": [],
+     "origin": "LAPTOP-8U5MSH3G",
+     "uuid": "cc105bba"
+    },
+    {
+     "gen": 5,
+     "at": "2026-10-29T07:50:42.646805+00:00",
+     "ok": true,
+     "instances": [],
+     "origin": "LAPTOP-8U5MSH3G",
+     "uuid": "4248a4fd"
+    },
+    {
+     "gen": 7,
+     "at": "2026-10-29T07:59:19.955362+00:00",
+     "ok": true,
+     "instances": [],
+     "origin": "LAPTOP-8U5MSH3G",
+     "root": "C:\\Azazael\\azazael",
+     "uuid": "5812e738"
+    }
+   ]
+  },
+  "stale-table-routing": {
+   "status": "immune",
+   "signature": {
+    "namespace": "registry",
+    "handler_role": "_measured_order",
+    "exc_type": "none",
+    "message_shape": "stale medians spent as measurements",
+    "ast_shape": "n/a (policy bug, not structural)",
+    "first_seen": "2026-10-29",
+    "parent_instance": "stale sweep.json drove route_lang with warning only"
+   },
+   "generations": [
+    {
+     "gen": 2,
+     "at": "2026-10-29T07:44:06.824556+00:00",
+     "ok": true,
+     "instances": [],
+     "origin": "LAPTOP-8U5MSH3G",
+     "uuid": "b583a98c"
+    },
+    {
+     "gen": 4,
+     "at": "2026-10-29T07:50:41.608630+00:00",
+     "ok": true,
+     "instances": [],
+     "origin": "LAPTOP-8U5MSH3G",
+     "uuid": "18cf9c58"
+    },
+    {
+     "gen": 6,
+     "at": "2026-10-29T07:50:42.889853+00:00",
+     "ok": true,
+     "instances": [],
+     "origin": "LAPTOP-8U5MSH3G",
+     "uuid": "d4402710"
+    },
+    {
+     "gen": 8,
+     "at": "2026-10-29T07:59:19.957931+00:00",
+     "ok": true,
+     "instances": [],
+     "origin": "LAPTOP-8U5MSH3G",
+     "root": "C:\\Azazael\\azazael",
+     "uuid": "06ee2e84"
+    }
+   ]
+  }
+ }
+}

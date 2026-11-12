@@ -1,0 +1,41 @@
+{
+  "timestamp": "2026-02-11T02:38:56.548493",
+  "worms_run": 7,
+  "results": {
+    "METAZ": {
+      "success": true,
+      "items": 192,
+      "duration_ms": 3592.158079147339
+    },
+    "DEPENDZ": {
+      "success": true,
+      "items": 671,
+      "duration_ms": 950.3519535064697
+    },
+    "VALIDZ": {
+      "success": false,
+      "items": 73,
+      "duration_ms": 961.275577545166
+    },
+    "DEADZ": {
+      "success": true,
+      "items": 74,
+      "duration_ms": 907.2275161743164
+    },
+    "METRICZ": {
+      "success": true,
+      "items": 73,
+      "duration_ms": 1029.1519165039062
+    },
+    "LOGZ": {
+      "success": true,
+      "items": 0,
+      "duration_ms": 699.3350982666016
+    },
+    "CHANGEZ": {
+      "success": true,
+      "items": 192,
+      "duration_ms": 3512.986898422241
+    }
+  }
+}

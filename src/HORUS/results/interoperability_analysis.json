@@ -1,0 +1,205 @@
+{
+  "timestamp": "2026-02-11T02:11:42.855520",
+  "summary": {
+    "total_systems": 7,
+    "interoperability_index": 0.1541545189504373,
+    "redundancy_index": 0.0,
+    "total_data_flows": 7
+  },
+  "centrality_ranking": [
+    {
+      "system": "HYDRA",
+      "centrality": 0.0
+    },
+    {
+      "system": "HORUS",
+      "centrality": 0.0
+    },
+    {
+      "system": "TARBABY",
+      "centrality": 0.0
+    },
+    {
+      "system": "PERSEPHONE",
+      "centrality": 0.0
+    },
+    {
+      "system": "BIBL",
+      "centrality": 0.0
+    },
+    {
+      "system": "MetricsTracker",
+      "centrality": 0.0
+    },
+    {
+      "system": "Azazael_CORE",
+      "centrality": 0.0
+    }
+  ],
+  "top_couplings": [
+    {
+      "pair": "HYDRA <-> HORUS",
+      "strength": 0.1429
+    },
+    {
+      "pair": "HYDRA <-> MetricsTracker",
+      "strength": 0.1429
+    },
+    {
+      "pair": "TARBABY <-> BIBL",
+      "strength": 0.0714
+    },
+    {
+      "pair": "PERSEPHONE <-> Azazael_CORE",
+      "strength": 0.0714
+    },
+    {
+      "pair": "HYDRA <-> TARBABY",
+      "strength": 0.0
+    },
+    {
+      "pair": "HYDRA <-> PERSEPHONE",
+      "strength": 0.0
+    },
+    {
+      "pair": "HYDRA <-> BIBL",
+      "strength": 0.0
+    },
+    {
+      "pair": "HYDRA <-> Azazael_CORE",
+      "strength": 0.0
+    },
+    {
+      "pair": "HORUS <-> TARBABY",
+      "strength": 0.0
+    },
+    {
+      "pair": "HORUS <-> PERSEPHONE",
+      "strength": 0.0
+    }
+  ],
+  "fan_analysis": {
+    "fan_in": {
+      "HYDRA": 0,
+      "HORUS": 1,
+      "TARBABY": 0,
+      "PERSEPHONE": 0,
+      "BIBL": 0,
+      "MetricsTracker": 1,
+      "Azazael_CORE": 0
+    },
+    "fan_out": {
+      "HYDRA": 2,
+      "HORUS": 0,
+      "TARBABY": 0,
+      "PERSEPHONE": 0,
+      "BIBL": 0,
+      "MetricsTracker": 0,
+      "Azazael_CORE": 0
+    }
+  },
+  "entropy_analysis": {
+    "HYDRA": 3.1699,
+    "HORUS": 2.8074,
+    "TARBABY": 2.585,
+    "PERSEPHONE": 2.8074,
+    "BIBL": 2.585,
+    "MetricsTracker": 2.585,
+    "Azazael_CORE": 3.0
+  },
+  "data_flows": {
+    "HYDRA -> HORUS": {
+      "path": [
+        "HYDRA.stage_results",
+        "HORUS.ml_results_input"
+      ],
+      "data_types": [
+        "json_metrics",
+        "stage_status",
+        "timing_data"
+      ],
+      "latency_ms": 5,
+      "throughput_files_per_sec": 1000
+    },
+    "HYDRA -> MetricsTracker": {
+      "path": [
+        "HYDRA.performance_data",
+        "MetricsTracker.run_logs"
+      ],
+      "data_types": [
+        "stage_timings",
+        "success_counts",
+        "error_logs"
+      ],
+      "latency_ms": 2,
+      "throughput_files_per_sec": 5000
+    },
+    "TARBABY -> PERSEPHONE": {
+      "path": [
+        "TARBABY.artifacts",
+        "PERSEPHONE.sync_queue"
+      ],
+      "data_types": [
+        "executables",
+        "checksums",
+        "metadata"
+      ],
+      "latency_ms": 10,
+      "throughput_files_per_sec": 100
+    },
+    "PERSEPHONE -> HYDRA": {
+      "path": [
+        "PERSEPHONE.python_paths",
+        "HYDRA.discovery_input"
+      ],
+      "data_types": [
+        "file_lists",
+        "path_mappings"
+      ],
+      "latency_ms": 15,
+      "throughput_files_per_sec": 10000
+    },
+    "BIBL -> HORUS": {
+      "path": [
+        "BIBL.documentation",
+        "HORUS.reference_input"
+      ],
+      "data_types": [
+        "term_definitions",
+        "api_references"
+      ],
+      "latency_ms": 1,
+      "throughput_files_per_sec": 10000
+    },
+    "Azazael_CORE -> HYDRA": {
+      "path": [
+        "Azazael_CORE.commands",
+        "HYDRA.cluster_config"
+      ],
+      "data_types": [
+        "cli_args",
+        "configuration"
+      ],
+      "latency_ms": 1,
+      "throughput_files_per_sec": 100
+    },
+    "Azazael_CORE -> HORUS": {
+      "path": [
+        "Azazael_CORE.output",
+        "HORUS.display_queue"
+      ],
+      "data_types": [
+        "status_messages",
+        "progress_updates"
+      ],
+      "latency_ms": 5,
+      "throughput_files_per_sec": 500
+    }
+  },
+  "mathematical_properties": {
+    "interface_sparsity": 0.9523809523809523,
+    "avg_path_length": 2.5,
+    "clustering_coefficient": 0.35,
+    "graph_diameter": 3
+  }
+}

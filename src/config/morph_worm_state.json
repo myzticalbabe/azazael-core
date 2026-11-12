@@ -1,0 +1,27 @@
+{
+  "genomes": {
+    "WORM_MALFORMED_0": {
+      "name": "WORM_MALFORMED_0",
+      "pattern_type": "MALFORMED",
+      "severity": "HIGH",
+      "success_count": 0
+    },
+    "WORM_IMPORT_1": {
+      "name": "WORM_IMPORT_1",
+      "pattern_type": "IMPORT",
+      "severity": "MEDIUM",
+      "success_count": 0
+    },
+    "WORM_ESCAPE_2": {
+      "name": "WORM_ESCAPE_2",
+      "pattern_type": "ESCAPE",
+      "severity": "LOW",
+      "success_count": 0
+    }
+  },
+  "stats": {
+    "morphs": 3,
+    "fixes": 0,
+    "scans": 0
+  }
+}

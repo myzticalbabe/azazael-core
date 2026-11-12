@@ -1,0 +1,8 @@
+{
+  "arena": {
+    "quorum": 0.7497
+  },
+  "_provenance": {
+    "arena.quorum": "HYPER_EDGE evolve seed=20261105 evidence=arena_llm_judgments_r8.json sha=4b282e4d7de9"
+  }
+}

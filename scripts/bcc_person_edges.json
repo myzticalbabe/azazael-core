@@ -1,0 +1,46 @@
+{
+  "version": 2,
+  "built": "2026-09-04",
+  "note": "Person→person intimacy layer merged over the cosmos org-attendance graph. Every edge is documented in the corpus (PEOPLE_DOSSIER.html + cited evidence docs); no inferred/name-matched edges. Same-board clique = the 9 current BCC board members co-serving per the FY2025 990 roster and live site (Sep 3, 2026).",
+  "same_board_clique": [
+    "person_plageman",
+    "person_seitz",
+    "person_robinson",
+    "person_krause",
+    "person_gaul",
+    "person_orlando",
+    "person_scull",
+    "person_brooks",
+    "person_ralph"
+  ],
+  "edges": [
+    {
+      "source": "person_plageman",
+      "target": "person_krause",
+      "type": "co_employment",
+      "detail": "Same Edward Jones branch/team — Plageman is Financial Advisor (918 Penn Ave, Wyomissing; CRD #5964768), Krause is his Sr. Branch Office Administrator on the same team",
+      "evidence": ["PEOPLE_NETWORK_CARD.html", "INVESTMENT_PEOPLE_REPORT.html", "PEOPLE_DOSSIER.html"]
+    },
+    {
+      "source": "person_plageman",
+      "target": "person_bromley",
+      "type": "same_org_committee",
+      "detail": "TPUC — Plageman is President (elected April 2026); Bromley is the TPUC Financial Committee's designated advisor",
+      "evidence": ["PEOPLE_DOSSIER.html", "INVESTMENT_PEOPLE_REPORT.html"]
+    },
+    {
+      "source": "person_axford",
+      "target": "person_little",
+      "type": "co_executive",
+      "detail": "BCC executive team — Axford CEO/President and Little CFO, both in post since Jan 2019 (the Malley-out/Axford-Little-in transition)",
+      "evidence": ["PEOPLE_DOSSIER.html", "INVESTMENT_PEOPLE_REPORT.html"]
+    },
+    {
+      "source": "person_malley",
+      "target": "person_axford",
+      "type": "succession",
+      "detail": "CEO transition — Axford 'took over from Frances Malley in the FY2019 transition that preceded the asset explosion'",
+      "evidence": ["PEOPLE_DOSSIER.html", "INVESTMENT_PEOPLE_REPORT.html"]
+    }
+  ]
+}

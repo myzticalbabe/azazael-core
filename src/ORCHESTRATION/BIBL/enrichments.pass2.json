@@ -1,0 +1,102 @@
+{
+ "code:function:_f": {
+  "category": "Worm",
+  "definition": "Local float-coercing accessor over the parsed oracle payload: returns the value for `key` as a float, and 0.0 rather than raising when it is missing or not numeric."
+ },
+ "code:method:_dev": {
+  "category": "Worm",
+  "definition": "Lazily resolves and caches the compute device, falling back to CPU when CORE.device is unavailable, so a missing device module degrades rather than crashes."
+ },
+ "code:method:_build": {
+  "category": "Worm",
+  "definition": "Constructs the ensemble of randomly initialised networks the oracle scores against. Seeds each model separately (`seed + 1000*k`) so the ensemble is reproducible but its members differ."
+ },
+ "code:method:dfs": {
+  "category": "Core",
+  "definition": "Depth-first traversal of the step dependency graph that detects cycles: a node reached while still on the recursion stack is a back edge, which makes the workflow unexecutable and must be reported rather than recursed into forever."
+ },
+ "code:method:_key": {
+  "category": "Core",
+  "definition": "Cache key for an embedding: SHA-256 over the model name and text joined by a NUL separator, so the same text under a different model is a different entry and the separator cannot be forged by text content."
+ },
+ "code:method:do_GET": {
+  "category": "Core",
+  "definition": "HTTP request handler for the metrics endpoint, serving the registry's Prometheus exposition and the health response depending on the requested path."
+ },
+ "code:method:register": {
+  "category": "Core",
+  "definition": "Registers a metric definition with the registry, including its type and label set, so values recorded against it can be exported."
+ },
+ "code:method:is_open": {
+  "category": "Core",
+  "definition": "Whether the circuit is currently rejecting calls. A half-open circuit is not open -- it admits a limited probe -- so the answer is state, not the inverse of a boolean flag."
+ },
+ "code:method:reset": {
+  "category": "Core",
+  "definition": "Returns the breaker to its closed state and clears accumulated failures and the dead letter queue, for tests and manual recovery."
+ },
+ "code:method:get": {
+  "category": "Core",
+  "definition": "Mapping-style read of a recorded value by key, with a default when absent."
+ },
+ "code:method:check_bom": {
+  "category": "Worm",
+  "definition": "Detects a byte-order mark at the start of a file, which breaks Python source parsing in a way that surfaces as a confusing syntax error rather than an encoding one."
+ },
+ "code:method:remove_bom": {
+  "category": "Worm",
+  "definition": "Strips a leading byte-order mark from a file in place, the repair half of check_bom."
+ },
+ "code:method:save_report": {
+  "category": "Worm",
+  "definition": "Writes the scanner's findings to a report file so a scan leaves evidence rather than only console output."
+ },
+ "code:method:get_all": {
+  "category": "Core",
+  "definition": "Snapshot of every currently known thread entry, used by introspection and health reporting."
+ },
+ "code:method:run_all": {
+  "category": "Core",
+  "definition": "Runs every registered callable concurrently across the free-threaded pool and returns the collected results."
+ },
+ "code:function:get_int": {
+  "category": "ML",
+  "definition": "Reads an integer hyperparameter from the tuning config, falling back to `default` when unset or unparseable."
+ },
+ "code:function:load": {
+  "category": "ML",
+  "definition": "Loads a hyperparameter configuration from disk for the optimiser to sweep."
+ },
+ "code:function:_make": {
+  "category": "Core",
+  "definition": "Constructs the probe fixture used to exercise the filesystem-watch path."
+ },
+ "code:function:_run": {
+  "category": "Core",
+  "definition": "Executes a command under a timeout and returns its result, bounding the probe so a hung command cannot stall the check."
+ },
+ "code:method:map": {
+  "category": "Core",
+  "definition": "Applies a function across the agent's inputs, keeping results aligned with what was passed in."
+ },
+ "code:method:close": {
+  "category": "Core",
+  "definition": "Releases the agent's resources, terminating anything it started so nothing is left running after the agent is done."
+ },
+ "code:method:start": {
+  "category": "Compliance",
+  "definition": "Starts the periodic compliance audit loop."
+ },
+ "code:method:stop": {
+  "category": "Compliance",
+  "definition": "Stops the periodic compliance audit loop and joins the worker so no audit outlives its owner."
+ },
+ "code:method:_log": {
+  "category": "Core",
+  "definition": "Single funnel every logging method routes through, so level, script attribution and formatting are applied in one place."
+ },
+ "code:function:log": {
+  "category": "Worm",
+  "definition": "Module-level logging helper for the cluster worms."
+ }
+}

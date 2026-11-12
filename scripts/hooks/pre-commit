@@ -1,0 +1,35 @@
+#!/bin/bash
+# Azazael pre-commit hook — verify all 7 environments before commit
+# Created Session 26 (T63)
+
+echo "=== Azazael Pre-Commit: sync_all.py --verify ==="
+cd "$(git rev-parse --show-toplevel 2>/dev/null || echo '.')"
+
+if [ -f scripts/sync_all.py ]; then
+    python3 scripts/sync_all.py --verify 2>&1
+    if [ $? -ne 0 ]; then
+        echo ""
+        echo "❌ sync_all.py --verify FAILED. Commit blocked."
+        echo "   Run: python3 scripts/sync_all.py --sync-all"
+        exit 1
+    fi
+    echo "✅ All environments in sync"
+else
+    echo "⚠️  scripts/sync_all.py not found — skipping pre-commit verify"
+fi
+
+# Bulk-diff gate (2026-09-28): block staged changesets that no commit
+# message could honestly describe (the forensic-fix commits carried
+# 200-400 lines of unrelated worktree dirt). Focused commits pass;
+# deliberate bulk ops declare ALLOW_BULK_COMMIT=1.
+if [ -f scripts/commit_gate.py ]; then
+    echo "=== Azazael Pre-Commit: bulk-diff gate ==="
+    python3 scripts/commit_gate.py --hook 2>&1
+    if [ $? -ne 0 ]; then
+        echo ""
+        echo "❌ Bulk changeset blocked (see above)."
+        exit 1
+    fi
+    echo "✅ Changeset is focused"
+fi
+exit 0

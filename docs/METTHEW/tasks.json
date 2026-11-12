@@ -1,0 +1,1080 @@
+{
+  "schema": "metthew.tasks/1",
+  "project": "Metthew",
+  "created": "2026-10-31",
+  "source_of_truth": "docs/METTHEW/METTHEW_PLAN_2026-10-31.md",
+  "status": "planned",
+  "execution_contract": {
+    "shape": "defensive-v1",
+    "written_at": "2026-11-01",
+    "executor": "a fallible model -- after the 2026-11-01 restart that is DeepSeek, and the shape is written so a different model does not invalidate it",
+    "written_because": "a task written for a careful reader fails differently under a model that would rather produce a paragraph than a command: 'implement X' has no predicate, so every output satisfies it and the cheapest satisfying output is a summary claiming success. The shape moves the refusal into the task, so the executor cannot satisfy it by describing it.",
+    "required_fields": [
+      "acceptance",
+      "control",
+      "refusal",
+      "evidence"
+    ],
+    "known_failure_modes": [
+      {
+        "id": "DKM-1",
+        "mode": "declares success in prose (\"this passes\", \"done\", \"looks right\") without running anything",
+        "caught_by": "acceptance",
+        "check_that_fires": "T2 predicate-runnable + T5 no-acceptance in tools/task_shape_check.py"
+      },
+      {
+        "id": "DKM-2",
+        "mode": "satisfies the letter: implements the happy path, never exercises the refusal, so a broken gate reads as working",
+        "caught_by": "control",
+        "check_that_fires": "T3 control-present (a control that is not something REFUSED is itself refused)"
+      },
+      {
+        "id": "DKM-3",
+        "mode": "deletes the obstacle -- a test, a claim, a gate, a detector -- to make the run green",
+        "caught_by": "defends + must_not_break (the defensive frame)",
+        "check_that_fires": "defender D2 defends-something, D3 break-list"
+      },
+      {
+        "id": "DKM-4",
+        "mode": "re-scopes the task to something easier and reports the easier thing as the task",
+        "caught_by": "deliverable + refusal",
+        "check_that_fires": "T1 shape-complete (deliverable) + the frame's rule 4 (do not narrow, widen or improve the intent)"
+      },
+      {
+        "id": "DKM-5",
+        "mode": "answers a question instead of doing the work, at length",
+        "caught_by": "acceptance (a command, not a discussion)",
+        "check_that_fires": "T2 predicate-runnable; a task whose acceptance cannot be run is not shipped as a task"
+      },
+      {
+        "id": "DKM-6",
+        "mode": "reports a detector that could not run as zero findings",
+        "caught_by": "evidence",
+        "check_that_fires": "T4 evidence-lands (a path or command, never a promise) + FLAMING SWORD's UNRUN rule"
+      },
+      {
+        "id": "DKM-7",
+        "mode": "claims a control is in place without exercising it (RULE 0B-D)",
+        "caught_by": "evidence + control",
+        "check_that_fires": "the tool's own --selftest, which must be the evidence named"
+      },
+      {
+        "id": "DKM-8",
+        "mode": "over-generalises one incident into a universal rule that decides nothing",
+        "caught_by": "refusal (a named materialised trigger)",
+        "check_that_fires": "META-LEVELS-CANON Heaven tests: name the decision class and three trajectories, or drop the rule"
+      }
+    ],
+    "how_the_shape_defends": [
+      "the finish line is a command and an outcome, so \"describe the result\" and \"produce the result\" stop looking alike",
+      "the control is a mutation that MUST be refused, so a happy path cannot masquerade as a test",
+      "the refusal is written before the work, so the executor cannot choose the landing condition after seeing what it built",
+      "the evidence field names where the proof lands, so a claim with nowhere to land is visible as empty",
+      "legacy tasks are counted and printed, not failed: a gate that retroactively fails finished work teaches routing-around, not rigor"
+    ],
+    "gate": "python tools/task_shape_check.py --check (pre-commit, through tools/preflight_all.py)",
+    "ritual": [
+      "1. read the task's four fields before writing code; if any is missing, the task is not ready and that is a finding, not an obstacle",
+      "2. run the control FIRST: introduce the defect, watch the predicate fail",
+      "3. do the work; never delete a test, claim or gate -- if one must go, name what it defended in the commit",
+      "4. run the acceptance command and quote its output in the commit body (the `Verified:` line)",
+      "5. if the acceptance cannot be run, STOP and report which field failed; a frame report is a finished turn, a summary is not"
+    ]
+  },
+  "tracks": {
+    "A": {
+      "name": "Contract",
+      "gates": "M-01 -> M-03 -> M-04"
+    },
+    "B": {
+      "name": "Runtime",
+      "gates": "M-05 -> M-06 -> M-07"
+    },
+    "C": {
+      "name": "Circle (no server, no accounts)",
+      "gates": "M-08 -> M-09 -> M-10"
+    },
+    "D": {
+      "name": "Portability and gates",
+      "gates": "M-11 -> M-12"
+    },
+    "E": {
+      "name": "Sword dissection and render shards",
+      "gates": "M-13 -> M-14 -> M-15 -> M-16 -> M-17 -> M-18",
+      "source": "docs/METTHEW/SWORD_DISSECTION_2026-11-01.md",
+      "one_line": "a FLAMING SWORD that dissects game code into captured units, mints them as Shards under the M-01 contract, and composes them into a player's own game -- including 3D render shards -- without ever shipping a unit whose rights the extractor cannot show"
+    },
+    "G": {
+      "name": "Revival -- discontinued games converted into shards",
+      "gates": "M-25 -> M-26 -> M-27 -> M-28 -> M-29 -> M-30",
+      "source": "docs/METTHEW/REVIVAL_DEEP_DIVE_2026-11-01.md",
+      "one_line": "ship the rules, hash the assets: a shard converts a discontinued game's simulation and configuration by MEASUREMENT, refuses to contain a byte of the original, and will not start without the player's own copy -- because the EU declined to legislate (2026) and the US declined a preservation exemption (2024)"
+    },
+    "H": {
+      "name": "Resurrection -- the Atari 2600 as the first repairable machine (right-to-repair framing)",
+      "gates": "M-31 -> M-32 -> M-33 -> M-34 -> M-35 -> M-36 -> M-37, with M-38 (orchestrator) usable now and M-39 (cartridge source) decided",
+      "source": "docs/METTHEW/RESURRECT_2600_2026-11-01.md",
+      "one_line": "the owner already owns the cartridge and the machine is what died, so the repair is the emulator -- which Sony v. Connectix (2000) already held is fair use: implement the hardware, keep the cartridge, never decrypt and never patch, and let the shard carry the rules plus a hash lock to the owner's own image",
+      "why_the_2600_first": "1.19 MHz 6507, fixed 76x262 frame, 128 bytes of RAM, 160x192 beam-raced display, integer only -- every 2600 game is ALREADY a deterministic frame-locked simulation, so conversion is separating two things the hardware forced together, not translating into a foreign model"
+    },
+    "X": {
+      "name": "Defensive execution -- tasks written to survive a fallible model",
+      "gates": "M-40 -> M-41 -> M-42 -> M-43",
+      "source": "docs/METTHEW/DEEPSEEK_DEFENSIVE_TASK_SHAPE_2026-11-01.md",
+      "one_line": "a task is a predicate plus a refusal, not a sentence: the gate in the task file (M-40) and the defender prompter in FLAMING SWORD (M-41) exist so the executor cannot satisfy a task by describing it, and the sweep loop refuses a batch with no frame (M-42)"
+    }
+  },
+  "critical_path": [
+    "M-01",
+    "M-03",
+    "M-05",
+    "M-06"
+  ],
+  "right_to_repair_goals": [
+    {
+      "id": "H-G1",
+      "title": "An owner can resurrect a cartridge they already own on modern hardware, without acquiring anything they do not own",
+      "measure": "one 2600 cartridge converted and played on Windows/Ubuntu/Kali from the owner's own image, with zero bytes of that image in the shard",
+      "blocked_by": [
+        "M-31",
+        "M-33",
+        "M-34"
+      ],
+      "status": "in_progress"
+    },
+    {
+      "id": "H-G2",
+      "title": "The conversion proves itself by measurement, not by a reviewer's opinion",
+      "measure": "a divergence counter over >= 10,000 ticks per scenario family, with a first-divergence tick named on every failure",
+      "blocked_by": [
+        "M-35"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "H-G3",
+      "title": "Resurrected games run on the bleeding edge without changing how they play",
+      "measure": "one state hash across >= 3 presentation tiers (tier 0 = the original hardware class), 120/240 Hz presentation over a native-rate sim, verifiable score runs",
+      "blocked_by": [
+        "M-36",
+        "M-37"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "H-G4",
+      "title": "The 2600 becomes the argument that unlocks the harder cases (16-bit, DOS, dead MMOs)",
+      "measure": "a written legal + engineering record from this track that Track G cites for its own classes instead of re-deriving them",
+      "blocked_by": [
+        "M-32",
+        "M-34"
+      ],
+      "status": "pending"
+    }
+  ],
+  "hardware": {
+    "reference": "one Windows laptop with integrated graphics, the Ubuntu-26.04 WSL host and the Kali host; a 4 GB-RAM machine for M-11",
+    "budget_is_provisional": true,
+    "budget_source": "M-02 replaces every provisional number with a reading or a recorded waiver"
+  },
+  "tasks": [
+    {
+      "id": "M-01",
+      "track": "A",
+      "title": "Shard manifest spec v1 (shard.json + JSON Schema)",
+      "owner": "freebuff",
+      "depends_on": [],
+      "deliverable": "docs/METTHEW/shard.schema.json + prose in the plan: id, version, genre, files, entrypoint, loader, golden_run {input, ticks, state_sha256, token}, hubs[], budget, licence, author_pubkey, execution_model, env_allowlist, tick_budget, competitive, provenance",
+      "acceptance": "validates the three M-05 shards; rejects 5 named malformed fixtures (missing golden run, undeclared hub, oversize payload, entry outside shard, duplicate id) with the offending field named",
+      "risk": "a schema that only fits one genre will be rewritten by M-05; keep the engine out of the schema",
+      "status": "completed",
+      "completed_at": "2026-11-01"
+    },
+    {
+      "id": "M-02",
+      "track": "A",
+      "title": "Low-end budget bench",
+      "owner": "kilo + windows/ubuntu/kali owners",
+      "depends_on": [
+        "M-01"
+      ],
+      "deliverable": "tools/metthew_bench.py + budget.json (load, tick cost, peak RSS, validator wall clock, play fps at 720p)",
+      "acceptance": "three runs per scene, numbers reproducible within 10%; every provisional plan number replaced by a reading or a recorded waiver; the failing numbers are published, not rounded",
+      "risk": "measuring on a fast host and calling it 'low-end' would invalidate every later gate; the box is named in the record"
+    },
+    {
+      "id": "M-03",
+      "track": "A",
+      "title": "Validator tools/metthew_validate.py",
+      "owner": "freebuff",
+      "depends_on": [
+        "M-01",
+        "M-02"
+      ],
+      "deliverable": "static liftability check (no reference escapes the shard), hub declaration check, payload budget, golden run, determinism re-run, JSON report, exit codes, --selftest",
+      "acceptance": "pass/block on 3 fixtures in the tests; a shard with one external reference is blocked and the blocker is named with graph + ref count; a shard that fakes its state hash is blocked; exit 0 only when every gate passes",
+      "risk": "an oracle that has never failed is not an oracle -- the negative controls ship in the same change (RULE 0B-C)"
+    },
+    {
+      "id": "M-04",
+      "track": "A",
+      "title": "Minting CLI: metthew mint <name>",
+      "owner": "freebuff",
+      "depends_on": [
+        "M-03"
+      ],
+      "deliverable": "scaffold manifest, golden run, self-test, placeholder scene; run the validator; print the exact next command",
+      "acceptance": "mint -> validate -> play in <=10 minutes on the reference box with no toolchain beyond python3; the scaffolded shard is green before it is edited",
+      "risk": "a scaffolder that hides the manifest teaches nothing; the manifest must be the first file a gamer reads"
+    },
+    {
+      "id": "M-05",
+      "track": "B",
+      "title": "Three reference shards, three genres",
+      "owner": "freebuff",
+      "depends_on": [
+        "M-03"
+      ],
+      "deliverable": "2-player arena; single-player puzzle; doc+data-only rule set/roster pack; each <=24 files",
+      "acceptance": "all three validate green on Windows/Ubuntu/Kali; arena and puzzle run at 720p/30 on the reference box; the doc-only shard loads with zero code",
+      "risk": "three from one author still share that author's blind spots; M-10's play test is the counterweight"
+    },
+    {
+      "id": "M-06",
+      "track": "B",
+      "title": "Deterministic play ledger and replay verifier",
+      "owner": "freebuff",
+      "depends_on": [
+        "M-05"
+      ],
+      "deliverable": "fixed-step sim, input log, per-tick state hash chain, replay verifier, documented numeric policy",
+      "acceptance": "same input log -> identical hash on all three hosts; a flipped input byte diverges at a named tick; 20-minute session replays in <=2 s",
+      "risk": "float and iteration-order drift will look like cheating; a numeric policy (fixed-point or bounded float) is part of the task, not a follow-up"
+    },
+    {
+      "id": "M-07",
+      "track": "B",
+      "title": "Exploit-as-content: antibody shard for game exploits",
+      "owner": "freebuff",
+      "depends_on": [
+        "M-06"
+      ],
+      "deliverable": "signature/probe/instances/status shard in the shape of src/SHARDS/antibodies.py, with seeking -> neutralized -> immune tied to recorded seek evidence",
+      "acceptance": "one real exploit demo cloned into a probe that finds it in 3 fixture shards and in none of 3 clean shards (positive and negative control); status cannot advance without the recorded seek",
+      "risk": "an antibody that fires on healthy shards splits a circle faster than cheating does"
+    },
+    {
+      "id": "M-08",
+      "track": "C",
+      "title": "Bundle exchange (USB / LAN / chat)",
+      "owner": "freebuff",
+      "depends_on": [
+        "M-03"
+      ],
+      "deliverable": "one-file bundle (payload + manifest + hash), metthew add <bundle>, verify-then-play; the circle's shard list is a local file",
+      "acceptance": "a tampered bundle is refused with the hash mismatch named; a bundle over budget is refused by the budget gate; installing requires no network",
+      "risk": "file exchange does not scale past a circle; M-10 records that boundary rather than papering over it"
+    },
+    {
+      "id": "M-09",
+      "track": "C",
+      "title": "Local reputation: signed result files",
+      "owner": "freebuff",
+      "depends_on": [
+        "M-08"
+      ],
+      "deliverable": "signed result file (shard id, version, state hash, score, witnesses) that travels with the bundle",
+      "acceptance": "forged score fails signature; a result whose shard version/hash does not match the installed shard is rejected; no global ranking is implied or stored",
+      "risk": "signature files are not a reputation system; the plan says what they cannot do (Sybil, collusion) in the player-facing text"
+    },
+    {
+      "id": "M-10",
+      "track": "C",
+      "title": "Circle protocol + 3-person play test",
+      "owner": "kilo",
+      "depends_on": [
+        "M-06"
+      ],
+      "deliverable": "written procedure: how a circle starts, mints, shares, contests, retires; plus the write-up of a real 3-person run with timings",
+      "acceptance": "mint -> share -> play -> contest -> retire completed with no central service; every step names the command that performed it and how long it took",
+      "risk": "a play test with the author present tests the author; one participant must be the non-author who runs the commands"
+    },
+    {
+      "id": "M-11",
+      "track": "D",
+      "title": "Portability matrix",
+      "owner": "windows / ubuntu / kali owners",
+      "depends_on": [
+        "M-05"
+      ],
+      "deliverable": "matrix of validator + one reference shard across Windows 10/11 iGPU, Ubuntu-26.04, Kali, and one 4 GB-RAM host",
+      "acceptance": "one row per host, pass/fail per gate, and the exact failing command for every fail; no host is reported green without a run",
+      "risk": "green on the author's machine is the default outcome; the matrix exists to make that inadmissible"
+    },
+    {
+      "id": "M-12",
+      "track": "D",
+      "title": "Project gates: unplayable ratchet + weekly cold run",
+      "owner": "kilo",
+      "depends_on": [
+        "M-03",
+        "M-11"
+      ],
+      "deliverable": "baseline of unplayable shards that may fall and never rise (the unresolved-ratchet pattern) plus a scheduled cold run",
+      "acceptance": "ratchet fails on a newly unplayable shard and passes on a fix; --selftest runs with its negative control; a stale baseline is reported stale rather than trusted",
+      "risk": "a ratchet nobody runs is a comment; the scheduled run is part of the acceptance, not a later convenience"
+    },
+    {
+      "id": "M-13",
+      "track": "E",
+      "title": "Dissection contract: what a captured unit IS",
+      "owner": "freebuff",
+      "depends_on": [
+        "M-01"
+      ],
+      "deliverable": "docs/METTHEW/dissection.spec.json + tools/sword_dissect.py --check: a unit is {kind: feature|function|effect|controller|config, capability_id, provenance{source_repo, source_path, source_commit, licence, licence_evidence}, bounds{files, bytes}, interface{inputs, outputs, tick_affects}, evidence{entrypoints, tests}}",
+      "acceptance": "refuses a unit with no licence, no source_commit, an unknown capability_id (not in highend_families.json), or tick_affects=sim with determinism!=exact; a seeded fixture of 3 valid + 4 invalid units gives 3 PASS and 4 named REFUSALs",
+      "risk": "a contract that describes only Python cannot capture a controller written in another language; keep kind and interface language-neutral or the first real extraction rewrites the schema",
+      "status": "pending"
+    },
+    {
+      "id": "M-14",
+      "track": "E",
+      "title": "Sword dissection engine (static capture of units)",
+      "owner": "freebuff",
+      "depends_on": [
+        "M-13"
+      ],
+      "deliverable": "tools/sword_dissect.py --repo <path> --emit units.jsonl: AST pass that finds candidate features/functions/effects/controllers/configs, classifies each by what it touches (state, input, render, config), and refuses anything whose closure it cannot bound",
+      "acceptance": "on a seeded tree with 3 extractable units and 2 decoys -- one with a hidden import, one whose effect reaches the simulation through a global -- emits exactly 3 and names both decoys with the reason; an empty tree emits 0 units and says so instead of guessing",
+      "risk": "static capture is the easiest place to over-claim: a unit that is only 'mostly' captured must be refused, because a half-captured effect is a bug the player cannot see",
+      "status": "pending"
+    },
+    {
+      "id": "M-15",
+      "track": "E",
+      "title": "Provenance and licence gate for captured code",
+      "owner": "freebuff",
+      "depends_on": [
+        "M-13"
+      ],
+      "deliverable": "the gate between extraction and minting: each unit carries licence + licence_evidence + source_commit; a mint records the chain into shard.provenance, and a composition may not mix incompatible licences",
+      "acceptance": "4 fixtures: MIT accepted, unknown licence refused, a GPL unit into an MIT shard refused, mixed set refused with both licences named; a unit whose source_commit is absent cannot be minted at all",
+      "risk": "dissecting game code is only lawful where the extractor can show the rights -- this gate is the difference between a tool and a liability, so it lands BEFORE minting and never after",
+      "status": "pending"
+    },
+    {
+      "id": "M-16",
+      "track": "E",
+      "title": "Mint a Shard from captured units",
+      "owner": "freebuff",
+      "depends_on": [
+        "M-03",
+        "M-13",
+        "M-14",
+        "M-15"
+      ],
+      "deliverable": "sword_dissect.py --mint <units> --out <dir>: writes a Metthew shard (manifest + files + golden_run) whose capability ids come from highend_families.json and whose id is content-addressed over the captured set",
+      "acceptance": "the minted shard passes tools/metthew_validate.py including V7/V9 and the families vocabulary check; a unit set that cannot produce a deterministic golden run is refused with the failing unit named",
+      "risk": "minting turns a research artefact into something a friend will run; the golden run must be generated by execution, never copied from the source game",
+      "status": "pending"
+    },
+    {
+      "id": "M-17",
+      "track": "E",
+      "title": "Compose captured units into the player's own game",
+      "owner": "freebuff",
+      "depends_on": [
+        "M-16"
+      ],
+      "deliverable": "sword_dissect.py --compose <unit>... --out <dir>: resolves the unit interfaces, refuses conflicts (two units claiming the same tick channel, two controllers owning the same config key) instead of last-write-wins, and emits one shard with a single golden run",
+      "acceptance": "3 units captured from 2 different source trees compose into a shard that runs and whose hash is stable across two processes; two units with conflicting tick_affects are refused and both ids are named",
+      "risk": "composition is where extraction stops being a demo: without refusal semantics the sword silently produces a game whose rules nobody wrote",
+      "status": "pending"
+    },
+    {
+      "id": "M-18",
+      "track": "E",
+      "title": "3D render shards out of the sword",
+      "owner": "freebuff",
+      "depends_on": [
+        "M-05",
+        "M-17"
+      ],
+      "deliverable": "the sword emits render shards in the catalogue's presentation families (glassland, spectra, fogcut, splatfield, ladder), always dual-layer: an exact integer sim plus a declared presentation tier ladder and a headless golden run",
+      "acceptance": "an emitted render shard is ladder-class and its --verify proves ONE state hash across at least 3 tiers while the presentation counters differ; a shard whose renderer is allowed to touch the sim is refused by V7",
+      "risk": "the only render shards testable on this box are the sim half and the ladder; the splat/path/neural halves need a native host and must be declared unverified until one exists",
+      "status": "pending"
+    },
+    {
+      "id": "M-25",
+      "track": "G",
+      "title": "Revival classes R0-R4 in the manifest, with the refusals they imply",
+      "owner": "freebuff",
+      "depends_on": [
+        "M-13",
+        "M-15"
+      ],
+      "evidence": [
+        {
+          "claim": "1,294,188 verified statements submitted; Commission declined to propose new legislation",
+          "source": "https://citizens-initiative.europa.eu/stop-destroying-videogames-commissions-reply-european-citizens-initiative_en",
+          "date": "2026-01-26",
+          "tier": "A"
+        },
+        {
+          "claim": "US Copyright Office declined a new preservation exemption; renewed exemptions run Oct 2027-Oct 2030",
+          "source": "https://gamehistory.org/dmca-2024-statement/",
+          "date": "2024-10-25",
+          "tier": "A"
+        },
+        {
+          "claim": "87% of classic US releases are out of print and critically endangered",
+          "source": "https://gamehistory.org/87percent/",
+          "date": "2023-07-10",
+          "tier": "A"
+        },
+        {
+          "claim": "NCSoft granted Homecoming a limited licence to run and develop City of Heroes",
+          "source": "https://forums.homecomingservers.com/topic/47223-ncsoft-homecoming-license-announcement/",
+          "date": "2024-01-04",
+          "tier": "B"
+        },
+        {
+          "claim": "clean-room reimplementations ship no game code and require the player's own data",
+          "source": "https://www.retroreversing.com/clean-room-reversing",
+          "date": "2026-10-22",
+          "tier": "B"
+        }
+      ],
+      "deliverable": "a `revival` block in shard.schema.json: class R0|R1|R2|R3|R4, source_game, clean_room, ships_original_bytes, requires_assets, behaviour_evidence; plus validator rules V14 (R2 may not declare shareable), V15 (class R4 is not a shard at all), V16 (R1 with ships_original_bytes true is refused)",
+      "acceptance": "5 class fixtures: R0-R3 validate, R4 refused with the reason recorded; an R2 bundle marked shareable is refused naming V14; an R1 shard whose file list contains the source game's own bytes is refused naming V16",
+      "risk": "classes invite false precision -- a rights question settled by a JSON field is not settled at all; the class records what the author asserts, and the evidence field must be printable so a reader can disagree with the assertion",
+      "status": "pending"
+    },
+    {
+      "id": "M-26",
+      "track": "G",
+      "title": "Asset lock and null-assets CI mode",
+      "owner": "freebuff",
+      "depends_on": [
+        "M-25"
+      ],
+      "deliverable": "requires_assets.files[{path, sha256, size_bytes}] checked at load, with a refusal naming the file and both hashes; and a --null-assets mode that runs the golden run against synthetic stand-ins so CI never needs the original game",
+      "acceptance": "a missing file refuses; a mismatched hash refuses and prints expected vs found; --null-assets runs the golden run headless and reproduces the declared state hash exactly, while declaring in its output that the asset half is unproven",
+      "risk": "too strict a lock refuses a legitimate owner with a different regional release; too loose a lock quietly runs on the wrong data. Declare the granularity and make the refusal message specific enough to diagnose without the author",
+      "status": "pending"
+    },
+    {
+      "id": "M-27",
+      "track": "G",
+      "title": "Behaviour capture protocol: measure, do not decompile",
+      "owner": "freebuff",
+      "depends_on": [
+        "M-25"
+      ],
+      "deliverable": "a scenario schema (fixed inputs, fixed tick count) plus a divergence counter that compares an observed transition trace with a reimplementation's, reporting first-divergence tick and the offending field",
+      "acceptance": "recording the same scenario twice yields 0 divergences; injecting a one-tick input offset yields >0 divergences with the first divergent tick named; the counter is exercised on a scenario of >= 10000 ticks",
+      "risk": "divergence of 0 on one scenario is not fidelity; the protocol needs a matrix (movement, combat, economy, timing) or it will certify a game whose jump feels wrong",
+      "status": "pending"
+    },
+    {
+      "id": "M-28",
+      "track": "G",
+      "title": "Config and data extraction into a config shard, class-gated",
+      "owner": "freebuff",
+      "depends_on": [
+        "M-27"
+      ],
+      "deliverable": "parse a discontinued game's tables into typed, ranged, integerised config units with a provenance record per table; R2 by default when the source is a proprietary binary, and the sword refuses to bundle an R2 unit for sharing",
+      "acceptance": "the extracted table reproduces the recorded outcomes on at least 20 worked cases; a table derived from a proprietary file is stamped R2 and the bundle command refuses with the reason; a public-domain table is stamped R0 and bundles",
+      "risk": "a derived table is a derived copy; the sword must never launder it into 'new data' by renaming fields, and the refusal has to be structural rather than advisory",
+      "status": "pending"
+    },
+    {
+      "id": "M-29",
+      "track": "G",
+      "title": "sword revive: identify -> class -> assets -> behaviour -> sim -> mint",
+      "owner": "freebuff",
+      "depends_on": [
+        "M-26",
+        "M-28"
+      ],
+      "deliverable": "one CLI that takes a discontinued game's install directory and emits either an R1 asset-free shard (shareable) or a refusal naming the stage that failed and the class it would have required",
+      "acceptance": "a synthetic 'dead game' fixture converts to an R1 shard that runs under --null-assets and passes metthew_validate.py; the same fixture with a fake DRM marker is refused at the class stage as R4 with no bundle written",
+      "risk": "the sword must never gain a decryption path. A 'convenience' switch added under pressure is the single change that turns this project into the thing the 2024 rulemaking refused to protect",
+      "status": "pending"
+    },
+    {
+      "id": "M-30",
+      "track": "G",
+      "title": "Revival ladder and compose: the old game's feel as a capability",
+      "owner": "freebuff",
+      "depends_on": [
+        "M-05",
+        "M-29"
+      ],
+      "deliverable": "every revival shard declares >= 3 presentation tiers (the original's hardware class as tier 0), and a composed shard may graft a revived controller onto new rules without copying the original's presentation",
+      "acceptance": "the revival shard proves one state hash across its tiers (reusing the ladder gate); composing a revived controller with a new rules shard yields a shard whose hash is stable across two processes while its tier-0 presentation drops everything the original could not draw",
+      "risk": "compose is where a revival quietly becomes a rerelease; the composition must carry the source shard's class and refuse to upgrade R1 into R0 by assembly",
+      "status": "pending"
+    },
+    {
+      "id": "M-31",
+      "track": "H",
+      "title": "Cartridge intake: identify, hash, decode, classify, with no output path for a modified image",
+      "owner": "freebuff",
+      "depends_on": [
+        "M-25"
+      ],
+      "deliverable": "tools/sword_2600.py --inspect <rom> (DELIVERED 2026-11-01): size/mapper intake for 2K-64K, sha256 identity as the asset lock, documented-6502 recursive decode from the RESET vector with branches/JMP/JSR, TIA/RIOT/RAM/ROM classification of every operand, hardware profile (WSYNC/VSYNC, graphics registers, RIOT timers, collision reads, controller reads) and per-game CLASS advice phrased as what the conversion must do",
+      "acceptance": "27 decode controls + 4 scan controls pass under --selftest; tests/test_sword_2600.py 7 checks green under the 3.15t interpreter; the report declares shipped_original_bytes false; an unknown cartridge size is refused rather than guessed; a RESET vector outside the image is refused; a stream of undocumented opcodes decodes to 0 instructions instead of a plausible guess",
+      "evidence": {
+        "selftest": "SELFTEST OK (27 decode controls, 4 scan controls)",
+        "pytest": "7 passed in 0.44s",
+        "interpreter": "C:/Azazael/.venvs/py315t/Scripts/python.exe 3.15.0rc3 free-threading"
+      },
+      "limits": [
+        "documented opcodes only -- some 2600 games use undocumented instructions for size",
+        "one bank: a static scan sees the bank mapped at load, not the others",
+        "no TIA model, so no cycle-exact capture yet (that is M-33)",
+        "makes no claim about the game's rules (that is M-34)"
+      ],
+      "risk": "intake is the only stage where a wrong answer looks like a good report: an unknown mapper guessed as 4K produces confident nonsense. Refuse instead of guessing",
+      "status": "completed",
+      "completed_at": "2026-11-01"
+    },
+    {
+      "id": "M-32",
+      "track": "H",
+      "title": "Bank-switching model: F8 / F6 / F4 / E0 / 3F",
+      "owner": "freebuff",
+      "depends_on": [
+        "M-31"
+      ],
+      "deliverable": "a mapper layer (DELIVERED 2026-11-01): MapperSpec + modelled schemes F8/F6/F4/FE/3F, a (bank, offset) worklist so the scan follows a switch into the new bank at the instruction after the switching access, per-bank code/data split, the switch list with resume addresses, and scheme selection by MEASUREMENT rather than by size",
+      "acceptance": "DONE 2026-11-01 -- an 8K F8 fixture reaches both banks and proves the far side is visible only past the switch; FE is measured over F8 on the same geometry; a wrong hot-spot (forced F8) reports bank 0 NOT REACHED while still reporting the entry bank's 4 instructions, so it is not a zero-code image; two schemes touched -> 'ambiguous'; a 64K image (no modelled scheme) is refused; 3F resolves the bank from the value written to $003F",
+      "evidence": {
+        "selftest": "SELFTEST OK (27 decode controls, 11 scan controls, 15 mapper controls)",
+        "pytest": "13 passed in 0.54s",
+        "interpreter": "C:/Azazael/.venvs/py315t/Scripts/python.exe 3.15.0rc3 free-threading",
+        "measured_f8": "mapper F8 x2 of 4096 bytes, entry bank 1, 2 of 2 banks reached, bank 1 -> bank 0 at 0xf004 via 0x1ff8, resume 0xf007, 6 instructions / 14 bytes code across both banks",
+        "measured_wrong_hotspot": "forced F8 on a switch at $1ff0: 1 of 2 banks reached, bank 0 0 instr NOT REACHED, bank 1 entry 4 instr; verdict names the unreached bank rather than calling it empty"
+      },
+      "limits": [
+        "E0, E7, F6SC, F4SC, 3E and DPC are named as unmodelled and refused rather than approximated",
+        "3F resolves the bank only when the immediate written to $003F is visible in the same linear run; otherwise the switch is reported UNRESOLVED, never assumed to be bank 0",
+        "a 64K image is refused outright: no modelled scheme covers it, and reporting it as one window would decode switch accesses as ordinary stores",
+        "RORG placement (code assembled for $F000 but switched at $F800) is not modelled; 3F shards must declare their RORG in the report and the note says so"
+      ],
+      "risk": "a wrong hot-spot produces a plausible-looking wrong game. The negative control (wrong address -> explicit failure) is the whole acceptance, not a nicety",
+      "status": "completed",
+      "completed_at": "2026-11-01"
+    },
+    {
+      "id": "M-33",
+      "track": "H",
+      "title": "Raster-kernel capture: the presentation as a scanline recipe",
+      "owner": "freebuff",
+      "depends_on": [
+        "M-31"
+      ],
+      "deliverable": "a minimal TIA/6507 timing model sufficient to record, per frame, every TIA write with its cycle position, emitted as a raster recipe (the same recipe across tiers); 76 cycles x 262 lines, 3 colour clocks per CPU cycle, WSYNC recognised as the synchroniser",
+      "acceptance": "recording a fixture kernel twice yields byte-identical recipes; a frame overruns its 262 lines and the capture reports the overrun instead of truncating it; the recipe is small enough to state its size in bytes and that number is recorded; a recipe replays to the same scanline register state it was captured from",
+      "why_it_is_lawfully_clean": "a recipe describes BEHAVIOUR (what the program did to the beam), not EXPRESSION (the pixels it produced) -- and it is also the thing the tier ladder needs, because a handheld drops resolution while replaying the same writes",
+      "risk": "HMOVE timing, RESP reset delays and the WSYNC race are where 'almost right' becomes wrong for a 1979 audience. PAL is not NTSC (50 Hz, 312 lines) and the recipe must declare which machine it models or two players will disagree about speed",
+      "status": "pending"
+    },
+    {
+      "id": "M-34",
+      "track": "H",
+      "depends_on": [
+        "M-33"
+      ],
+      "title": "Integer sim extraction: 128 bytes of state, identified by evidence",
+      "owner": "freebuff",
+      "deliverable": "identify RAM variables as position/velocity/score/lives/timer by EVIDENCE (read by render, written by input, compared against a threshold) and emit an integer sim + state hash + input transcript; the full game state fits in one hash",
+      "acceptance": "the extracted sim replays the recorded input transcript to the observed state hash on >= 3 scenarios; a variable with no evidence is left UNIDENTIFIED and listed rather than guessed; a deliberately mis-classified variable (position read as score) makes the replay diverge and the divergence is reported with the tick",
+      "risk": "128 bytes is the entire game, so a single mis-identified byte is a wrong game. The UNIDENTIFIED list is the honest output, not a failure to hide",
+      "status": "pending"
+    },
+    {
+      "id": "M-35",
+      "track": "H",
+      "depends_on": [
+        "M-34"
+      ],
+      "title": "Divergence lab: measure the feel, do not argue about it",
+      "owner": "freebuff",
+      "deliverable": "reuse the M-27 divergence counter over a 2600 scenario matrix (movement, collision, scoring, timing/frame budget, input latency) and publish a divergence count per family with the first-divergence tick",
+      "acceptance": "the same scenario recorded twice gives 0 divergences; a one-frame input offset gives > 0 with the first divergent tick named; a scenario of >= 10,000 native ticks runs inside the bench budget and that number is recorded; each scenario family has its own line in the report (a single global 'fidelity: good' is refused)",
+      "risk": "zero divergence on one scenario is not fidelity. The matrix exists because the only shard you can fully test is the one you already understand",
+      "status": "pending"
+    },
+    {
+      "id": "M-36",
+      "track": "H",
+      "depends_on": [
+        "M-34"
+      ],
+      "title": "Bleeding-edge presentation: 3 tiers over one 60 Hz sim, plus CRT as parameters",
+      "owner": "freebuff",
+      "deliverable": "the M-30 ladder applied to a 2600 revival shard: tier 0 = the original hardware class (160x192, 2-bit-ish palette), tier 1 = corrected aspect + palette, tier 2 = CRT model (scanline gate, phosphor decay, NTSC artefacting as PARAMETERS, no image assets), tier 3 = optional 120/240 Hz presentation of the same recipe; plus verifiable score runs from a transcript + state hash",
+      "acceptance": "--verify proves ONE state hash across >= 3 tiers while presentation counters differ; the shard's total payload is stated in bytes and stays inside the M-02 budget; a tier that alters the sim is refused by the existing V7 gate; a score run's transcript re-verifies on a second host",
+      "risk": "the temptation is to make tier 3 look like a modern game, which destroys the reason to resurrect it. Tier 0 is the reference and every tier must be able to justify itself as 'the same 1979 picture, seen better'",
+      "status": "pending"
+    },
+    {
+      "id": "M-37",
+      "track": "H",
+      "depends_on": [
+        "M-33"
+      ],
+      "title": "Audio recipe: extract the patch table, never sample the output",
+      "owner": "freebuff",
+      "depends_on_note": "independent of M-36; can run in parallel with it",
+      "deliverable": "capture the AUDC/AUDF/AUDV write pattern as a patch table (2-bit waveform machine, per-channel frequency divider and volume) and replay it through a small synth; declare the assumed sample rate and the machine (NTSC/PAL)",
+      "acceptance": "the same note sequence captured twice gives the same patch table; a capture that cannot resolve a divider is reported as unresolved rather than approximated; the audio is generated from parameters with no audio file in the shard",
+      "risk": "sampling the output would be an exact copy of the game's own audio, which is the one thing this whole design exists to avoid. The patch table is lawful because it is the machine's parameters, not the sound",
+      "status": "pending"
+    },
+    {
+      "id": "M-38",
+      "track": "H",
+      "title": "Swordline: the fixed-step orchestrator, with rate and acceleration invariance proved",
+      "owner": "freebuff",
+      "depends_on": [],
+      "deliverable": "Project_FLAME/tools/flame_engine.py (DELIVERED 2026-11-01; the game engine belongs to Project FLAME, not FLAMING SWORD): exact rational clock over NTSC 60000/1001 Hz, a Session frame pump that never loses a remainder, a tick-exact comparison path, a Machine seam four methods wide (`reset`/`step`/`state_hash`/`snapshot`) that the 2600 sim plugs into at M-34, and `--verify` running the invariance matrix",
+      "acceptance": "DONE 2026-11-01 -- slicing invariance holds (60/120/144/240 fps deliver identical tick counts and identical state hashes at 1x, 2x and 8x); acceleration equivalence holds (the same tick count reached at 1x and 8x gives the same state, in 600 vs 75 frames); no tick served twice and none skipped; the negative control (a clock that assumes every display is 60 Hz, right at 60 fps and 4x too fast at 240 fps) is CAUGHT",
+      "evidence": {
+        "selftest": "SELFTEST OK (9 clock controls, 3 machine controls, 4 schedule controls)",
+        "pytest": "7 passed in 0.42s",
+        "verified_matrix": "599 ticks / identical hash across 60, 120, 144 and 240 fps at 1x; 1198 at 2x; 4795 at 8x; 10 simulated seconds each",
+        "control": "60 Hz-assuming clock: 599 ticks at 60 fps, 2397 at 240 fps -> 2 distinct hashes -> CAUGHT"
+      },
+      "limits": [
+        "the machine it drives is a STAND-IN with the 2600's constraints (integer only, bounded state); what is proved is scheduling invariance, not game fidelity -- the output says so in its own `scope` field",
+        "there is no renderer: presentation is a state projection until M-36 defines tiers",
+        "input is a transcript deterministic in the TICK, which is required for the invariance claim and is also what rollback and replay need"
+      ],
+      "found_by_its_own_control": "the first version of `run_to_ticks` stopped on FRAME boundaries, so at 8x it overshot 299 ticks to 303 and reported a different state -- found by the acceleration test, fixed by adding a tick-exact path",
+      "risk": "an orchestrator that cannot be shown to fail is decoration; the 60 Hz-assuming control is the only reason the VERIFIED line means anything",
+      "status": "completed",
+      "completed_at": "2026-11-01"
+    },
+    {
+      "id": "M-39",
+      "track": "H",
+      "title": "End-to-end cartridge source: no third-party ROM enters this tree",
+      "owner": "freebuff",
+      "depends_on": [
+        "M-31"
+      ],
+      "question": "the pipeline needs a real cartridge to exercise end to end; where may it come from?",
+      "decision_2026_11_01": "three lawful sources, and a downloaded commercial ROM is not one of them: (1) the owner's own cartridge, which `--inspect` already accepts and which is the entire premise of the track; (2) the synthetic banked fixtures in tests/test_sword_2600.py, which exercise F8/FE/3F geometry and the wrong-hot-spot control; (3) a homebrew cart whose licence the user can show. Searched for a CC0/public-domain 2600 ROM and found none with an explicit licence statement -- Stella's test tree ships only profile and bezel data (git tree queried 2026-11-01) and 8bitworkshop declares no repo-level licence through the API -- so none was downloaded, and the e2e path stays cartridge-in, bytes-never-out",
+      "acceptance": "an e2e run is demonstrated on a real image the owner supplies (`sword_2600.py --inspect`), and the fixtures cover the geometry; no binary from a third party is committed; a missing fixture causes the tests to construct their own rather than fetch",
+      "status": "completed",
+      "completed_at": "2026-11-01"
+    },
+    {
+      "id": "M-40",
+      "track": "X",
+      "title": "The task file has a gate (tools/task_shape_check.py, T1..T5)",
+      "owner": "freebuff",
+      "depends_on": [],
+      "shape": "defensive-v1",
+      "deliverable": "tools/task_shape_check.py: T1 shape-complete, T2 predicate-runnable, T3 control-present, T4 evidence-lands, T5 no-acceptance-language; planted in tools/preflight_all.py as the `task-shape` gate so the hook runs it",
+      "acceptance": "`python tools/task_shape_check.py --check` exits 0 and prints the shaped count; `--selftest` refuses 7 named mutations and accepts a correctly shaped task it adds itself",
+      "control": "set a shaped task's acceptance to the adjective 'good enough' and require T5 to REFUSE it, then blank the command and require T2 to REFUSE that too",
+      "refusal": "BLOCK when a shaped task's acceptance names no command or no observable outcome, when its control describes nothing refused, or when its evidence is a promise like TBD",
+      "evidence": "stdout of tools/task_shape_check.py --selftest; tests/test_task_shape_check.py drives both directions",
+      "risk": "a shape gate that fails legacy tasks retroactively teaches the executor to route around it; legacy tasks are therefore counted and printed, never failed",
+      "status": "completed",
+      "completed_at": "2026-11-01"
+    },
+    {
+      "id": "M-41",
+      "track": "X",
+      "title": "FLAMING SWORD has a defender prompter (frame before the change, DRAFT when it is still empty)",
+      "owner": "freebuff",
+      "depends_on": [
+        "M-40"
+      ],
+      "shape": "defensive-v1",
+      "deliverable": "Project_FLAMING_SWORD/tools/defender.py (D1..D9, render, draft) + `sword.py --defend` + the `protocol.defender` block in aio/flaming_sword.aio.json",
+      "acceptance": "`python Project_FLAMING_SWORD/tools/defender.py --selftest` exits 0 with 12 controls; `sword.py --defend '<intent>'` with no evidence prints a DRAFT and exits 0, and the same frame with a named defence but no acceptance command exits 1",
+      "control": "set bytes_of_original to 1024 in an otherwise valid posture and require D9 to REFUSE the frame, then cite authority 'vibes' and require the same refusal",
+      "refusal": "BLOCK a frame that names no defence, no refused mutation, or no posture on preservation work; a refused frame renders no prompt at all",
+      "evidence": "Project_FLAMING_SWORD/tests/test_defender.py plus the --selftest output",
+      "risk": "a prompter is not a guarantee: it cannot make the work lawful, only make it state whose copy it is; the frame's own rule 3 (quote the command) is what stops a summary from closing a task",
+      "status": "completed",
+      "completed_at": "2026-11-01"
+    },
+    {
+      "id": "M-42",
+      "track": "X",
+      "title": "The sweep refuses a batch whose items carry no frame",
+      "owner": "deepseek",
+      "depends_on": [
+        "M-41"
+      ],
+      "shape": "defensive-v1",
+      "deliverable": "sword.py --run reads .flaming_sword/frames.jsonl (one frame per queue id, written by --defend) and refuses a batch where any id has none; the frame is printed in the before-land decision block",
+      "acceptance": "`python Project_FLAMING_SWORD/tools/sword.py --run --batch 1 --test \"python -m pytest -q\" --dry-run` on a queued id with no frame prints REFUSED and exits 1, and re-running after `--defend` writes that frame makes it proceed (2 runs, 2 verdicts)",
+      "control": "delete the frame line for one id in a copy of frames.jsonl and require the runner to REFUSE that batch rather than fill the gap in",
+      "refusal": "BLOCK the batch when any id lacks a frame, or when its frame is still a DRAFT with sentinels left in it",
+      "evidence": ".flaming_sword/frames.jsonl plus the two dry-run outputs quoted in the commit's Verified: line",
+      "risk": "an extra file to keep in step with the queue; the frame is keyed by queue id and a missing key is refused, so drift shows up as a refusal rather than a silent default",
+      "status": "pending"
+    },
+    {
+      "id": "M-43",
+      "track": "X",
+      "title": "The lane board carries the same four fields",
+      "owner": "deepseek",
+      "depends_on": [
+        "M-40"
+      ],
+      "shape": "defensive-v1",
+      "deliverable": "a `--board` mode in tools/task_shape_check.py that reads C:/Users/clint/.azazael/telemetry_store.db and reports rows lacking acceptance/control/refusal/evidence, plus a post helper that writes all four",
+      "acceptance": "`python tools/task_shape_check.py --board --json` exits 0 and prints the count of rows lacking the four fields; after the backfill it prints 0 of N, and a probe row posted without them is REFUSED locally (1 probe, 1 refusal)",
+      "control": "post a probe row carrying only a title and require the checker to count it as unshaped, then require the post helper to REFUSE the same row",
+      "refusal": "BLOCK a post that carries no acceptance command, so the first turn cannot claim work the row never defined",
+      "evidence": "stdout of tools/task_shape_check.py --board --json before and after the backfill, quoted in lane.freebuff.status",
+      "risk": "the board is shared with other lanes and writes go through _board.py; this task must not fork the store or set AZAZAEL_MEMORY_DIR, and it reads first",
+      "status": "pending"
+    },
+    {
+      "id": "M-44",
+      "track": "X",
+      "title": "A retraction is recorded when it happens, not reconstructed at the end",
+      "owner": "deepseek",
+      "depends_on": [],
+      "shape": "defensive-v1",
+      "deliverable": "tools/retraction_ledger.py: append-only JSONL (claim, why it was wrong, what replaced it, command that showed it), with `--check` refusing an open retraction older than one turn",
+      "acceptance": "`python tools/retraction_ledger.py --check` exits 0 on an empty ledger and glaringly reports 1 open retraction after a planted one; the planted record is REFUSED when its command field is empty (2 verdicts, 2 exits)",
+      "control": "append a retraction with no command and require --check to REFUSE it, then add the command and require it to be accepted",
+      "refusal": "BLOCK a retracted claim that names no replacement, because a retraction with no successor leaves the wrong claim standing",
+      "evidence": "tools/retraction_ledger.py --selftest output plus the ledger file it writes in a temp directory",
+      "risk": "easy to turn into a diary; the gate only counts, and a retraction with no materialised trigger is refused the same way a lesson without a decision class is",
+      "status": "pending"
+    },
+    {
+      "id": "M-45",
+      "track": "X",
+      "title": "The prompter ships with a sentinel (S1..S7, every assertion stats a path)",
+      "owner": "freebuff",
+      "depends_on": [
+        "M-41"
+      ],
+      "shape": "defensive-v1",
+      "deliverable": "Project_FLAMING_SWORD/tools/sentinel.py: a pre-action check over the frame -- intent from a closed act vocabulary, target exists or is declared new:<path>, every must_not_break path stat'ed, placeholder defences refused, posture delegated to the defender so there is one answer to what a valid posture is",
+      "acceptance": "`python Project_FLAMING_SWORD/tools/sentinel.py --selftest` exits 0 with 12 controls; a frame naming `tools/ghost.py` is BLOCKED with 'does not exist' and a frame whose defence is the placeholder `<name what survives>` is BLOCKED (2 verdicts, 2 reasons)",
+      "control": "point the target at a file that does not exist and require S2 to BLOCK, then declare `new:` on a file that already exists and require the same refusal",
+      "refusal": "BLOCK the action when any path in the frame does not resolve, because a break list that cannot be stat'ed decides nothing",
+      "evidence": "Project_FLAMING_SWORD/tests/test_sentinel_memory.py + the --selftest output",
+      "risk": "a sentinel that resolves paths can still be aimed at the wrong tree; S3 proves a file exists, not that it is the file the claim is about",
+      "status": "completed",
+      "completed_at": "2026-11-01"
+    },
+    {
+      "id": "M-46",
+      "track": "X",
+      "title": "The prompter ships with memory: two adapters, and UNMEMORED is never 'no lessons'",
+      "owner": "freebuff",
+      "depends_on": [
+        "M-41"
+      ],
+      "shape": "defensive-v1",
+      "deliverable": "Project_FLAMING_SWORD/tools/memory_bridge.py (jsonl and command adapters, probe/recall/record, append-only .flaming_sword/frames.jsonl) plus defender.to_aio, which renders the AIO instruction object only when frame, sentinel and memory all answer",
+      "acceptance": "`python Project_FLAMING_SWORD/tools/memory_bridge.py --selftest` exits 0 with 9 controls; `sword.py --aio '<prompt>' --target <missing file>` exits 1 and prints BLOCKED with no AIO, while the same call on a real target with a named defence exits 0 and prints 'AIO  defensive-aio-v1' (2 runs, 2 verdicts)",
+      "control": "point the bridge at a command that exits 3 and require UNMEMORED naming the code, then at a command printing 'not json' and require UNMEMORED naming the parse failure -- neither may report zero lessons",
+      "refusal": "BLOCK the AIO when the frame or the sentinel fails, and mark the prompt UNMEMORED when no backend answered rather than implying nothing was ever learned",
+      "evidence": "the --selftest output plus the two --aio runs quoted in the commit's Verified: line",
+      "risk": "the command adapter is a shell string and therefore an injection surface; it is only ever fed a command the operator typed, never a prompt-shaped value",
+      "status": "completed",
+      "completed_at": "2026-11-01"
+    },
+    {
+      "id": "M-47",
+      "track": "X",
+      "title": "PROJECT CRADLE: the composition, one launcher, one endpoint for the user's own model",
+      "owner": "freebuff",
+      "depends_on": [
+        "M-41",
+        "M-45",
+        "M-46"
+      ],
+      "shape": "defensive-v1",
+      "deliverable": "Project_CRADLE/cradle.py (--doctor, --demo, --serve), Project_CRADLE/CRADLE.md, and Project_FLAMING_SWORD/tools/chain_server.py: GET /health, GET /frames, POST /aio, POST /ask, POST /verify, speaking the OpenAI chat shape every local runtime already implements; frame ids; lessons and verifications written by the chain itself",
+      "acceptance": "`python Project_CRADLE/cradle.py --demo` exits 0 and its five steps include a FAILED verification that writes a recallable lesson and a ghost target BLOCKED with no prompt; `POST /ask` with no --model-url returns HTTP 503 with a reason and no answer field (2 runs, 2 verdicts)",
+      "control": "remove Project_FLAMING_SWORD/tools/sentinel.py and require --doctor to exit 1, then point /ask at nothing and require 503 rather than an echoed prompt",
+      "refusal": "BLOCK /aio and /ask with 422 and no aio field when the frame or the sentinel refuses, and BLOCK /ask with 503 when no model is configured -- a model's text is never stored as verified",
+      "evidence": "Project_CRADLE/tests/test_cradle.py and Project_FLAMING_SWORD/tests/test_chain_server.py, plus the --demo output in the commit's Verified: line",
+      "risk": "the server binds a local port with no authentication and runs the commands it is given; it defaults to 127.0.0.1 and the help text states what --host 0.0.0.0 costs",
+      "status": "completed",
+      "completed_at": "2026-11-01"
+    },
+    {
+      "id": "M-48",
+      "track": "X",
+      "title": "A sentinel for the inference, not just the frame",
+      "owner": "deepseek",
+      "depends_on": [
+        "M-47"
+      ],
+      "shape": "defensive-v1",
+      "deliverable": "a session-start assertion over the runtime the chain actually talks to: which model answered, which base URL, a hash of the system instruction, the context budget actually granted, and whether the response shape matched the contract",
+      "acceptance": "`python tools/inference_sentinel.py --check` exits 0 with a configured endpoint and prints model, endpoint, instruction sha and context window; pointing it at a model name the endpoint does not serve exits 1 naming the mismatch (2 runs, 2 exits)",
+      "control": "change one character of the served system instruction and require the sha assertion to REFUSE the run rather than warn",
+      "refusal": "BLOCK a run whose model or instruction hash differs from the one recorded for the frame, because 'the model that answered' is part of the claim and today nothing asserts it",
+      "evidence": "tools/inference_sentinel.py --selftest output plus the /health stanza of chain_server.py naming model and endpoint",
+      "risk": "a hash of the system instruction changes whenever the AIO changes, so the assertion must be per-frame rather than global or it will be disabled on the second day",
+      "status": "completed",
+      "completed_at": "2026-11-02"
+    },
+    {
+      "id": "SHX-1",
+      "track": "SHARDEX",
+      "title": "Mirror a game's whole codebase with per-file provenance",
+      "owner": "freebuff",
+      "depends_on": [],
+      "shape": "defensive-v1",
+      "deliverable": "Project_SHARDEX/shardex.py --mirror: one walk of the tree, sha256 per file, role (code/asset/data) and kind per extension, skipped build/vendor dirs, mirror.json carrying the sha of the whole mirror",
+      "acceptance": "`--mirror <game>` exits 0 and writes mirror.json whose every sha256 re-derives from the file on disk; a path that is not a directory exits 2 NO-SOURCE; a directory with no files exits 1 EMPTY-SOURCE (2 runs, 2 exits)",
+      "control": "delete every source file and re-run `--mirror`: the run must FAIL with EMPTY-SOURCE (exit 1) rather than write a mirror of zero files, and a shatter driven from that empty mirror must be REFUSED"
+      ,
+      "refusal": "REFUSE to write a mirror of nothing: '0 files' is a finding about the source, never a result",
+      "evidence": "Project_SHARDEX/tests/test_shardex.py::test_mirror_hashes_match_a_second_read and ::test_an_empty_source_is_refused_rather_than_reported_as_zero_files",
+      "risk": "a real game tree is huge; the walk is bounded at 50 000 files and the mirror records how many groups were skipped rather than pretending it saw everything",
+      "status": "completed",
+      "completed_at": "2026-11-02"
+    },
+    {
+      "id": "SHX-2",
+      "track": "SHARDEX",
+      "title": "Shatter the mirror into content-addressed, self-contained shards",
+      "owner": "freebuff",
+      "depends_on": ["SHX-1"],
+      "shape": "defensive-v1",
+      "deliverable": "--shatter: one shard per top-level group (a flat game is named after its own directory), id = name@sha256:<64> over the sorted file list, METTHEW-shaped manifest with per-file provenance, a slice marked shardex.state=SLICE with an all-zero golden_run so nothing can mistake it for a game",
+      "acceptance": "the METTHEW highend_duel reference shard shatters into `highend-duel@sha256:fb8c75bd…`; editing one file changes the src shard's id and leaves the untouched shard's id identical (2 runs, 2 ids)",
+      "control": "change one byte in one source file: the src shard id must change while the assets id does not, and a run that keeps the id for a changed group must be REFUSED as a stale address rather than accepted",
+      "refusal": "REFUSE a chunk over the 2 MiB / 24-file low-end ceiling with its byte count, rather than splitting it silently for the validator to reject later",
+      "evidence": "Project_SHARDEX/tests/test_shardex.py::test_the_shard_id_changes_when_a_file_changes and ::test_a_shard_is_not_a_game_until_it_is_forged",
+      "risk": "grouping by top-level directory is a heuristic; a game that puts everything in src/ becomes one shard, and the honest fix is a declared split, not a smarter guess",
+      "status": "completed",
+      "completed_at": "2026-11-02"
+    },
+    {
+      "id": "SHX-3",
+      "track": "SHARDEX",
+      "title": "Forge a shard into FLAME: a playable 3D arena with a golden run both languages compute",
+      "owner": "freebuff",
+      "depends_on": ["SHX-2"],
+      "shape": "defensive-v1",
+      "deliverable": "--forge emits flame.json + a self-contained flame.html (software-projected 3D, canvas 2D, no library, no network, no WebGL requirement) whose tunables are derived from the shard (arena from payload, orbs from file count, seed from the content hash), plus a golden state hash computed by shardex.simulate() and by the shell's own step()",
+      "acceptance": "forging docs/METTHEW/reference-shards/highend_duel yields golden 1c045e596f950543 over 120 ticks; headless Chrome loading the same file prints `golden: 1c045e596f950543 OK`; ?play=900 collects all 3 orbs in 900 ticks (2 runs, 2 verdicts)",
+      "control": "a shard with no entrypoint must be REFUSED (NO-ENTRYPOINT) and must leave no flame.html behind",
+      "refusal": "REFUSE to forge a shard with no files or no entrypoint: an arena generated from nothing is a demo, not a game",
+      "evidence": "Project_SHARDEX/tests/test_shardex.py::test_the_browser_computes_the_same_golden_hash_and_can_play (skipped only when no browser exists) and ::test_a_shard_with_no_entrypoint_is_refused_not_forged_empty",
+      "risk": "the shell is one arena, not the source game's mechanics; SHARDEX.md states this in the artifact's own fidelity field so no document can drift into claiming a resurrection",
+      "status": "completed",
+      "completed_at": "2026-11-02"
+    },
+    {
+      "id": "SHX-4",
+      "track": "SHARDEX",
+      "title": "The champion's tweak surface: a config that moves the golden hash",
+      "owner": "freebuff",
+      "depends_on": ["SHX-3"],
+      "shape": "defensive-v1",
+      "deliverable": "--tune k=v at forge time and a documented flame.json surface (sim_hz, gravity, speed, jump, arena, orbs, difficulty, seed); --verify recomputing independently and REFUSING a claimed hash that does not recompute, a shell still carrying __FLAME_JSON__, or a shell that does not name its shard",
+      "acceptance": "`--forge --tune speed=9 --tune orbs=9` produces a different golden than the untuned forge, and `--verify` exits 0 on a clean bundle and 1 on a bundle whose golden was edited by hand (2 runs, 2 exits)",
+      "control": "overwrite flame.json's golden with 0000000000000000 and require --verify to exit 1 naming the recomputation",
+      "refusal": "REFUSE a bundle whose artifact is not the artifact that was proven -- a tournament config is only a claim while its hash recomputes",
+      "evidence": "Project_SHARDEX/tests/test_shardex.py::test_verify_refuses_a_tampered_golden and ::test_tuning_moves_the_golden_hash_and_stays_in_range",
+      "risk": "a champion who edits the golden file by hand can publish a hash nobody can reproduce; the only defence is that verification is cheap and every bracket is expected to run it",
+      "status": "completed",
+      "completed_at": "2026-11-02"
+    },
+    {
+      "id": "SHX-5",
+      "track": "SHARDEX",
+      "title": "LAUNCH: brackets, signed result files, replay verification",
+      "owner": "unassigned",
+      "depends_on": ["SHX-4"],
+      "shape": "defensive-v1",
+      "deliverable": "a bracket is a list of (config, golden hash, replay transcript) rounds; a result file is signed with the shard's author_pubkey (present in the schema, empty in every forged manifest today); a replay is re-run against the hash and refused if it diverges",
+      "acceptance": "`python Project_SHARDEX/shardex.py --verify <signed-result>` exits 0 on a replay that reproduces its hash and exits 1 naming the tick on one that diverges by a single tick; a bracket of 3 configs prints 3 hashes, each reproduced by a second run (2 runs, 2 verdicts)",
+      "control": "flip one bit in a recorded replay and require `--verify` to REFUSE at the named tick and the ranking to be rejected rather than published",
+      "refusal": "REFUSE to rank an unsigned or non-replaying result: a table anyone can edit is not a ranking, and an unsigned winner is a claim with no author",
+      "evidence": "Project_SHARDEX/tests/test_launch.py (to be written) and docs/SHARDEX_BRACKET.md; until both exist this task stays pending and nothing in SHARDEX.md claims it works",
+      "risk": "determinism across hosts is a numeric policy question; until it is settled, cross-machine replays will disagree in ways that look like cheating",
+      "status": "pending"
+    },
+    {
+      "id": "SHX-6",
+      "track": "SHARDEX",
+      "title": "Ruleset extraction: recover a source game's actual mechanics",
+      "owner": "unassigned",
+      "depends_on": ["SHX-3"],
+      "shape": "defensive-v1",
+      "deliverable": "static extraction of movement constants, collision shapes and win conditions from a mirrored codebase into the shard's declared capabilities, so a forged arena can cite the source rules it reproduced and a reader can check each one",
+      "acceptance": "`python tools/ruleset_extract.py --game <tree> --out rules.json` exits 0 with every extracted constant carrying file:line provenance, and prints the not-extracted list; on a game whose rules are generated at runtime the same command exits 1 rather than emitting a ruleset (2 runs, 2 exits)",
+      "control": "point it at a game whose movement is computed by a neural net at runtime: the tool must REFUSE to emit a ruleset and print the not-extracted list, never an invented constant",
+      "refusal": "REFUSE to emit a ruleset that cannot cite its source: an invented rule would make every later claim about fidelity unfalsifiable",
+      "evidence": "tools/ruleset_extract.py --selftest and Project_SHARDEX/tests/test_ruleset_extract.py; neither exists yet, and SHARDEX.md's fidelity field says so in every forged artifact",
+      "risk": "this is the rung that would make 'resurrected' a true word; until it lands, the word is banned from every artifact this project emits",
+      "status": "pending"
+    },
+    {
+      "id": "SHX-7",
+      "track": "SHARDEX",
+      "title": "INTAKE: run a real game tree through the whole ladder and record what it breaks",
+      "owner": "freebuff",
+      "depends_on": ["SHX-3", "SHX-4"],
+      "shape": "defensive-v1",
+      "deliverable": "the user's real game files mirrored, shattered and forged end to end, with an intake record: total files/bytes, groups produced, shards refused and why (payload cap, no entrypoint), the forged shard's golden hash, and the browser's agreement on that hash",
+      "acceptance": "`python Project_SHARDEX/shardex.py --mirror <tree> --out .shardex` reports a file count equal to an independent `find <tree> -type f | wc -l` minus the skipped count it prints; `--shatter` and `--forge` each exit 0 or name their refusal; the forged golden hash is reproduced by headless Chrome, so the intake record carries 2 matching hashes and 0 unexplained groups",
+      "control": "change one byte in one source file and re-run `--shatter`: the changed group must get a NEW id while untouched groups keep theirs, and a run that reports an unchanged id for a changed group must BLOCK the intake as a stale address, not be accepted",
+      "refusal": "REFUSE to report the tree as processed while any group is unaccounted for: every skipped path and every refused shard is listed with its reason, and an intake record with an unexplained group must FAIL rather than pass",
+      "evidence": "the intake record written to docs/SHARDEX_INTAKE.md plus the command lines and their exit codes",
+      "risk": "a real game tree is the only thing that tests the heuristics; the selftest fixture is 4 files and cannot fail the way 40 000 files fail",
+      "status": "pending"
+    },
+    {
+      "id": "SHX-8",
+      "track": "SHARDEX",
+      "title": "Harden the ladder against what a real game tree exposes",
+      "owner": "freebuff",
+      "depends_on": ["SHX-7"],
+      "shape": "defensive-v1",
+      "deliverable": "fixes for the defects SHX-7 measures, expected but not assumed: oversized single groups (a game whose whole logic is in one directory), non-UTF8 and over-length Windows paths, symlink loops, duplicate basenames collapsing inside one shard, asset directories that dominate payload, and shards whose entrypoint is a shader or a data file rather than code",
+      "acceptance": "`python -m pytest Project_SHARDEX/tests -q` exits 0 with one named test per defect found in SHX-7, each shown failing before its fix; the count of shards refused for the payload cap drops only where a real split was recorded, and the shard count for SHX-7's tree matches the intake record unless a split is listed",
+      "control": "forge a shard from a tree with duplicate basenames in one group and require a REFUSED manifest naming the collision rather than two files silently collapsing into one path -- and raising the payload cap instead of splitting must be refused by review, not accepted",
+      "refusal": "REFUSE to raise the low-end ceiling to make a tree fit: the ceiling is the contract the validator enforces, and moving it converts a measurement into a preference",
+      "evidence": "the per-defect tests plus the before/after intake record",
+      "risk": "each fix is a heuristic traded against the others; the record is the only thing that keeps the trade visible",
+      "status": "pending"
+    }
+  ],
+  "contract_changes_decided": {
+    "source": "docs/METTHEW/REJECTION_ANALYSIS_2026-10-31.md + docs/METTHEW/BLEEDING_EDGE_ADAPTATIONS_2026-10-31.md",
+    "status": "all five accepted before M-01 freeze",
+    "decided_at": "2026-11-01",
+    "items": [
+      {
+        "change": "Wasm 3.0 host on the deterministic execution profile, threads and SIMD disabled",
+        "decision": "ACCEPTED",
+        "because": "R2 - a shard is currently arbitrary code from a friend's USB; measured: src/INTERPRETERS/* run raw subprocesses with only cwd+timeout; also makes determinism a host property",
+        "affects": [
+          "M-01",
+          "M-03",
+          "M-05",
+          "M-06"
+        ]
+      },
+      {
+        "change": "one-download player (browser/WASM target) as the distribution unit",
+        "decision": "ACCEPTED",
+        "because": "R1 - install-python-first is where a non-author player stops; browser target also gives sandbox for free",
+        "affects": [
+          "M-04",
+          "M-08"
+        ]
+      },
+      {
+        "change": "hubs as versioned shared libraries, declared and counted",
+        "decision": "ACCEPTED",
+        "because": "R4 - banning external references forces every shard to duplicate its engine inside 24 files; census already models hubs as 'mycelium'",
+        "affects": [
+          "M-01",
+          "M-03"
+        ]
+      },
+      {
+        "change": "competitive flag: determinism declared per shard, not required of all",
+        "decision": "ACCEPTED",
+        "because": "R3 - the hash chain is a tax against ranked strangers, and a circle has none; solo/puzzle/doc-only shards opt out",
+        "affects": [
+          "M-01",
+          "M-06"
+        ]
+      },
+      {
+        "change": "content-addressed shard ids (id@hash) with host-version fallback",
+        "decision": "ACCEPTED",
+        "because": "R6 - version skew currently reads to players as a broken game; arena@sha256:... allows coexistence",
+        "affects": [
+          "M-01",
+          "M-08",
+          "M-09"
+        ]
+      }
+    ],
+    "deferred": [
+      "federated signed index (R5, M-08)",
+      "relay or streamed transport (R7, M-08)",
+      "per-asset provenance (R9, M-01 field)",
+      "visual identity or raised payload budget (R10, M-02)",
+      "naming (R11)"
+    ]
+  },
+  "bleeding_edge_adaptations": {
+    "source": "docs/METTHEW/BLEEDING_EDGE_ADAPTATIONS_2026-10-31.md",
+    "status": "research recorded 2026-10-31; one contract refinement and one candidate task, neither accepted",
+    "contract_refinement": "pending change #1 upgrades from 'sandboxed loader (WASM or restricted VM)' to 'Wasm 3.0 host, deterministic execution profile, threads and SIMD disabled' (Wasm 3.0 completed 2025-09-17; spec 3.0 numerics dated 2026-10-27)",
+    "adopted_strands": [
+      "S2 wasm deterministic profile",
+      "S3 WASM-4 cartridge as artifact form",
+      "S5 iroh 1.0 transport ladder",
+      "S6 seed+commit+two-sided desync report",
+      "S8 verifier role",
+      "S12 Nostr NIP-94/96 federated catalogue"
+    ],
+    "evaluated_later": [
+      "S7 GGRS rollback (lockstep first)",
+      "S9 recompilation track (legal position first)",
+      "S10 Playdate/Picotron budgets for M-05"
+    ],
+    "avoid": [
+      "S14 web3 framing: 93% of blockchain games dead by 2024, Abstract chain shutting 2026-12-15, IMX ~-99% from ATH"
+    ]
+  },
+  "candidate_tasks": [
+    {
+      "id": "M-13",
+      "title": "Recovery track: a shard wrapping a clean-room recompiled game",
+      "owner": "unassigned",
+      "depends_on": [
+        "M-03"
+      ],
+      "deliverable": "provenance record (raw + sha + url + tier) per artifact; an explicit statement that no original assets ship; one worked example or a recorded decision not to do this",
+      "acceptance": "a written legal position exists before any code; the provenance record validates; the shard runs from the user's own legal copy and ships no original assets",
+      "risk": "legal exposure by jurisdiction; precedents are the N64 recompilation/decompilation scene, which exists in a grey zone",
+      "status": "candidate, not in the ledger"
+    }
+  ],
+  "non_goals": [
+    "storefront",
+    "DRM",
+    "any decryption, patching, unlocking or dumping path in the sword -- the M-29 risk note names this as the single change that would turn this project into the thing the 2024 rulemaking refused to protect",
+    "shipping an original ROM, cartridge image or game asset inside a shard",
+    "a bulk converter that claims to convert a library: per-game work is the honest product",
+    "accounts",
+    "cloud saves",
+    "live services",
+    "monetisation",
+    "kernel-level anti-cheat",
+    "GPU compute requirement",
+    "matchmaking service",
+    "forking or rewriting src/SHARDS/*"
+  ],
+  "known_limits": [
+    "discovery is social: a circle works for five friends and fails for five thousand strangers",
+    "determinism across hosts needs a numeric policy or the replay verifier will disagree in ways that look like cheating",
+    "a cheat inside a shard's own golden run is invisible to the validator; only a peer re-run or an antibody shard catches it",
+    "budgets in the plan are commitments to measure, not results"
+  ]
+}

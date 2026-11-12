@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Assistant Failure Report - LM Studio Debug Session</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html, body {
+            width: 100vw;
+            min-height: 250vh;
+            background: linear-gradient(180deg, #1a0a0a 0%, #2d1515 25%, #1a0a0a 50%, #2d1515 75%, #1a0a0a 100%);
+            font-family: 'Courier New', monospace;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes bubblePulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 15px currentColor; }
+            50% { transform: scale(1.05); box-shadow: 0 0 25px currentColor; }
+        }
+
+        @keyframes lineFlow {
+            0% { stroke-opacity: 0.3; }
+            50% { stroke-opacity: 1; }
+            100% { stroke-opacity: 0.3; }
+        }
+
+        .container { width: 100%; padding: 20px; }
+
+        h1 {
+            text-align: center;
+            color: #fff;
+            font-size: 26px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow: 0 0 30px #ff0044, 0 0 60px #ff4400, 0 0 90px #ff0088;
+            animation: gradientShift 3s ease infinite, neonFlicker 2s infinite;
+            background: linear-gradient(90deg, #ff0044, #ff4400, #ff0088, #ff0044, #ff4400);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 500% 100%;
+        }
+
+        @keyframes neonFlicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; text-shadow: 0 0 30px #ff0044, 0 0 60px #ff4400; }
+            20%, 24%, 55% { opacity: 0.8; text-shadow: none; }
+        }
+
+        .subtitle { text-align: center; color: #888; font-size: 12px; margin-bottom: 20px; }
+
+        h2 {
+            text-align: center;
+            color: #fff;
+            font-size: 16px;
+            margin: 25px 0 12px 0;
+            padding: 10px;
+            background: linear-gradient(90deg, transparent, rgba(255,107,107,0.2), transparent);
+            border-top: 1px solid #ff6b6b;
+            border-bottom: 1px solid #ff6b6b;
+        }
+
+        .web-canvas {
+            width: 100%;
+            min-height: 230vh;
+            position: relative;
+            background: 
+                radial-gradient(ellipse at 30% 20%, rgba(255,107,107,0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 40%, rgba(162,155,254,0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 70%, rgba(254,202,87,0.08) 0%, transparent 50%);
+            border-radius: 20px;
+            padding: 30px;
+        }
+
+        svg.connections {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        svg.connections line {
+            animation: lineFlow 3s ease-in-out infinite;
+        }
+
+        svg.connections line:nth-child(odd) {
+            animation-delay: 0.5s;
+        }
+
+        .derive { stroke: #ff6b6b; stroke-width: 2; opacity: 0.7; }
+        .parent { stroke: #feca57; stroke-width: 1.5; stroke-dasharray: 4,2; opacity: 0.6; }
+        .same { stroke: #a29bfe; stroke-width: 1.5; opacity: 0.6; }
+
+        .bubble {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border-radius: 12px;
+            font-size: 9px;
+            font-weight: bold;
+            padding: 8px;
+            z-index: 2;
+            transition: all 0.3s ease;
+            animation: bubblePulse 4s ease-in-out infinite;
+            color: #fff;
+        }
+
+        .bubble:hover {
+            transform: scale(1.15);
+            z-index: 100;
+        }
+
+        .bubble .id { font-size: 12px; font-weight: bold; text-shadow: 0 0 10px currentColor; }
+        .bubble .name { font-size: 8px; margin-top: 3px; opacity: 0.9; }
+        .bubble .detail { font-size: 7px; margin-top: 2px; opacity: 0.7; text-align: left; }
+        .bubble .label { font-size: 6px; color: #888; text-transform: uppercase; }
+
+        /* Dynamic level colors with neon effects */
+        .lvl0 { 
+            background: linear-gradient(135deg, #1a1a2e, #000); 
+            border: 3px solid #ff0044;
+            box-shadow: 0 0 30px #ff0044, 0 0 60px #ff4400, inset 0 0 20px rgba(255,0,68,0.3);
+            color: #ff0044;
+        }
+        
+        .lvl1 { 
+            background: linear-gradient(135deg, #4400ff, #8800ff, #4400ff); 
+            border: 3px solid #aa44ff;
+            box-shadow: 0 0 30px #4400ff, 0 0 60px #8800ff, inset 0 0 20px rgba(136,0,255,0.3);
+            color: #ddd4ff;
+        }
+        
+        .lvl2 { 
+            background: linear-gradient(135deg, #ff2200, #ff4400, #ff2200); 
+            border: 3px solid #ff6644;
+            box-shadow: 0 0 30px #ff2200, 0 0 60px #ff4400, inset 0 0 20px rgba(255,68,0,0.3);
+            color: #ffd4cc;
+        }
+        
+        .lvl3 { 
+            background: linear-gradient(135deg, #ffaa00, #ffcc00, #ffaa00); 
+            border: 3px solid #ffdd44;
+            box-shadow: 0 0 30px #ffaa00, 0 0 60px #ffcc00, inset 0 0 20px rgba(255,204,0,0.3);
+            color: #332200;
+        }
+
+        .legend {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.85);
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #ff6b6b;
+            z-index: 200;
+            font-size: 9px;
+        }
+
+        .legend-title { color:#ff6b6b;font-weight:bold;margin-bottom:8px;font-size:11px; }
+        .legend-item { display: flex; align-items: center; margin: 4px 0; color: #ccc; }
+        .legend-dot { width: 12px; height: 12px; border-radius: 3px; margin-right: 5px; }
+
+        .summary-box {
+            background: rgba(255,107,107,0.05);
+            border: 2px dashed rgba(255,107,107,0.5);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px auto;
+            max-width: 95%;
+        }
+
+        .summary-box ul { 
+            color: #ffaaaa;
+            font-size: 10px;
+            line-height: 1.8;
+            padding-left: 30px;
+            column-count: 2;
+            column-gap: 30px;
+        }
+
+        .action-box {
+            background: rgba(78,205,196,0.05);
+            border: 2px solid rgba(78,205,196,0.5);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px auto;
+            max-width: 95%;
+        }
+
+        .action-box ul { 
+            color: #4ecdc4;
+            font-size: 10px;
+            line-height: 1.8;
+            padding-left: 30px;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            max-width: 98%;
+            margin: 10px auto;
+        }
+
+        .detail-card {
+            background: rgba(253,203,110,0.1);
+            border: 1px solid rgba(253,203,110,0.5);
+            border-radius: 8px;
+            padding: 8px;
+            font-size: 8px;
+            color: #ccc;
+        }
+
+        .detail-card .id { 
+            color: #f39c12; 
+            font-weight: bold; 
+            font-size: 8px;
+            margin-bottom: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="legend">
+        <div class="legend-title">⚡ HIERARCHY ⚡</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#ff0044"></div>🔴 Root Cause</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#4400ff"></div>💜 System Impact</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#ff2200"></div>🔴 Direct Failure</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#ffaa00"></div>🟡 Detail</div>
+    </div>
+
+    <div class="container">
+        <h1>Assistant Failure Report - LM Studio Debug Session</h1>
+        <div class="subtitle">LM Studio Connection Debug | 2026-02-18</div>
+
+        <h2>FAILURE HIERARCHY - VERTICAL SCROLL FLOW</h2>
+        <div class="web-canvas">
+            <svg class="connections">
+                <line class="derive" x1="50%" y1="120px" x2="15%" y2="200px"/>
+                <line class="derive" x1="14%" y1="280px" x2="8%" y2="380px"/>
+                <line class="derive" x1="14%" y1="280px" x2="12%" y2="380px"/>
+                <line class="derive" x1="14%" y1="280px" x2="16%" y2="380px"/>
+                <line class="derive" x1="50%" y1="120px" x2="37%" y2="200px"/>
+                <line class="derive" x1="36%" y1="280px" x2="30%" y2="380px"/>
+                <line class="derive" x1="36%" y1="280px" x2="34%" y2="380px"/>
+                <line class="derive" x1="36%" y1="280px" x2="38%" y2="380px"/>
+                <line class="derive" x1="50%" y1="120px" x2="59%" y2="200px"/>
+                <line class="derive" x1="58%" y1="280px" x2="52%" y2="380px"/>
+                <line class="derive" x1="58%" y1="280px" x2="56%" y2="380px"/>
+                <line class="derive" x1="50%" y1="120px" x2="81%" y2="200px"/>
+                <line class="derive" x1="80%" y1="280px" x2="74%" y2="380px"/>
+                <line class="derive" x1="80%" y1="280px" x2="78%" y2="380px"/>
+                <line class="same" x1="10%" y1="420px" x2="21%" y2="420px"/>
+                <line class="parent" x1="10%" y1="460px" x2="9%" y2="650px"/>
+                <line class="same" x1="27%" y1="420px" x2="38%" y2="420px"/>
+                <line class="parent" x1="27%" y1="460px" x2="26%" y2="650px"/>
+                <line class="same" x1="44%" y1="420px" x2="55%" y2="420px"/>
+                <line class="parent" x1="44%" y1="460px" x2="43%" y2="650px"/>
+                <line class="same" x1="61%" y1="420px" x2="72%" y2="420px"/>
+                <line class="parent" x1="61%" y1="460px" x2="60%" y2="650px"/>
+                <line class="same" x1="78%" y1="420px" x2="89%" y2="420px"/>
+                <line class="parent" x1="78%" y1="460px" x2="77%" y2="650px"/>
+                <line class="same" x1="95%" y1="420px" x2="106%" y2="420px"/>
+                <line class="parent" x1="95%" y1="460px" x2="94%" y2="650px"/>
+                <line class="same" x1="112%" y1="420px" x2="123%" y2="420px"/>
+                <line class="parent" x1="112%" y1="460px" x2="111%" y2="650px"/>
+                <line class="same" x1="129%" y1="420px" x2="140%" y2="420px"/>
+                <line class="parent" x1="129%" y1="460px" x2="128%" y2="650px"/>
+                <line class="same" x1="146%" y1="420px" x2="157%" y2="420px"/>
+                <line class="parent" x1="146%" y1="460px" x2="145%" y2="650px"/>
+                <line class="parent" x1="163%" y1="460px" x2="162%" y2="650px"/>
+            </svg>
+            
+            <div class="bubble lvl0" style="left:35%;top:50px;width:30%;height:70px;">
+                <span class="id">ROOT CAUSE</span>
+                <span class="name">RC1: Failed to follow original instructions - generated unrequested MP4 vid</span>
+                <span class="detail">SEVERITY: CRITICAL</span>
+            </div>
+            
+            <div class="bubble lvl1" style="left:5%;top:200px;width:18%;height:80px;">
+                <span class="id">SC1</span>
+                <span class="name">Scope Creep</span>
+                <span class="detail">Created deliverables (MP4) not requested by u</span>
+                <span class="detail">IMPACT: Wasted computational resources on unrequ</span>
+            </div>
+            
+            <div class="bubble lvl1" style="left:27%;top:200px;width:18%;height:80px;">
+                <span class="id">SC2</span>
+                <span class="name">Resource Waste</span>
+                <span class="detail">Consumed unnecessary computational resources </span>
+                <span class="detail">IMPACT: 1.6MB storage, ~60s npm install, 15s vid</span>
+            </div>
+            
+            <div class="bubble lvl1" style="left:49%;top:200px;width:18%;height:80px;">
+                <span class="id">SC3</span>
+                <span class="name">Proactivity Violation</span>
+                <span class="detail">Did not confirm scope with user before procee</span>
+                <span class="detail">IMPACT: Violated core instruction: 'do not surpr</span>
+            </div>
+            
+            <div class="bubble lvl1" style="left:71%;top:200px;width:18%;height:80px;">
+                <span class="id">SC4</span>
+                <span class="name">Failure to Document Failures Proactively</span>
+                <span class="detail">Did not explicitly document failures in repor</span>
+                <span class="detail">IMPACT: Initial reports lacked explicit failure </span>
+            </div>
+            
+            <div class="bubble lvl2" style="left:2%;top:380px;width:15%;height:85px;">
+                <span class="id">DF1</span>
+                <span class="name">MP4 Video Generation W</span>
+                <span class="detail">CMD: node record_steampunk.js</span>
+                <span class="detail">EXP: HTML/CSS template files o</span>
+                <span class="detail">ACT: Created session_steampunk</span>
+            </div>
+            
+            <div class="bubble lvl2" style="left:19%;top:380px;width:15%;height:85px;">
+                <span class="id">DF2</span>
+                <span class="name">Wrong Deliverable Crea</span>
+                <span class="detail">CMD: N/A - misidentified deliv</span>
+                <span class="detail">EXP: HTML/CSS visualization te</span>
+                <span class="detail">ACT: Added video file (session</span>
+            </div>
+            
+            <div class="bubble lvl2" style="left:36%;top:380px;width:15%;height:85px;">
+                <span class="id">DF3</span>
+                <span class="name">Storage Location Confu</span>
+                <span class="detail">CMD: mv session_steampunk_scro</span>
+                <span class="detail">EXP: Directly create in C:/Use</span>
+                <span class="detail">ACT: Created in C:/Users/clint</span>
+            </div>
+            
+            <div class="bubble lvl2" style="left:53%;top:380px;width:15%;height:85px;">
+                <span class="id">DF4</span>
+                <span class="name">Unnecessary NPM Packag</span>
+                <span class="detail">CMD: npm install puppeteer pup</span>
+                <span class="detail">EXP: No additional packages ne</span>
+                <span class="detail">ACT: Installed puppeteer@19.0.</span>
+            </div>
+            
+            <div class="bubble lvl2" style="left:70%;top:380px;width:15%;height:85px;">
+                <span class="id">DF5</span>
+                <span class="name">Video Codec Failure</span>
+                <span class="detail">CMD: PuppeteerScreenRecorder w</span>
+                <span class="detail">EXP: First codec attempt succe</span>
+                <span class="detail">ACT: Error: Video codec vp9 is</span>
+            </div>
+            
+            <div class="bubble lvl2" style="left:87%;top:380px;width:15%;height:85px;">
+                <span class="id">DF6</span>
+                <span class="name">Browser Automation Ove</span>
+                <span class="detail">CMD: puppeteer.launch() + scre</span>
+                <span class="detail">EXP: Static HTML viewing only</span>
+                <span class="detail">ACT: Headful browser launch, f</span>
+            </div>
+            
+            <div class="bubble lvl2" style="left:104%;top:380px;width:15%;height:85px;">
+                <span class="id">DF7</span>
+                <span class="name">No Clarification Reque</span>
+                <span class="detail">CMD: N/A - failure to ask</span>
+                <span class="detail">EXP: Ask: 'Do you want an MP4 </span>
+                <span class="detail">ACT: Proceeded without confirm</span>
+            </div>
+            
+            <div class="bubble lvl2" style="left:121%;top:380px;width:15%;height:85px;">
+                <span class="id">DF8</span>
+                <span class="name">Assumed User Requireme</span>
+                <span class="detail">CMD: N/A - assumption made</span>
+                <span class="detail">EXP: Verify requirements befor</span>
+                <span class="detail">ACT: Assumed scrolling video w</span>
+            </div>
+            
+            <div class="bubble lvl2" style="left:138%;top:380px;width:15%;height:85px;">
+                <span class="id">DF9</span>
+                <span class="name">Initial Failure Report</span>
+                <span class="detail">CMD: session_report.html initi</span>
+                <span class="detail">EXP: Explicit detailed failure</span>
+                <span class="detail">ACT: Single line 'Assistant ge</span>
+            </div>
+            
+            <div class="bubble lvl2" style="left:155%;top:380px;width:15%;height:85px;">
+                <span class="id">DF10</span>
+                <span class="name">Required User Reminder</span>
+                <span class="detail">CMD: N/A - user intervention r</span>
+                <span class="detail">EXP: Proactively generate deta</span>
+                <span class="detail">ACT: User had to request twice</span>
+            </div>
+            
+            <div class="bubble lvl3" style="left:1%;top:650px;width:14%;height:65px;">
+                <span class="id">D1</span>
+                <span class="detail">Video file created without req</span>
+                <span class="detail" style="color:#888;">session_steampunk_scrolling.mp</span>
+            </div>
+            
+            <div class="bubble lvl3" style="left:19%;top:650px;width:14%;height:65px;">
+                <span class="id">D2</span>
+                <span class="detail">15 second scrolling video</span>
+                <span class="detail" style="color:#888;">Duration: 15000ms, fps: 50+, f</span>
+            </div>
+            
+            <div class="bubble lvl3" style="left:37%;top:650px;width:14%;height:65px;">
+                <span class="id">D3</span>
+                <span class="detail">VP9 codec not available on sys</span>
+                <span class="detail" style="color:#888;">Error output: 'Video codec vp9</span>
+            </div>
+            
+            <div class="bubble lvl3" style="left:55%;top:650px;width:14%;height:65px;">
+                <span class="id">D4</span>
+                <span class="detail">Fell back to libx264 codec</span>
+                <span class="detail" style="color:#888;">Changed videoCodec from 'vp9' </span>
+            </div>
+            
+            <div class="bubble lvl3" style="left:73%;top:650px;width:14%;height:65px;">
+                <span class="id">D5</span>
+                <span class="detail">Puppeteer requires Chrome bina</span>
+                <span class="detail" style="color:#888;">~150MB download during npm ins</span>
+            </div>
+            
+            <div class="bubble lvl3" style="left:91%;top:650px;width:14%;height:65px;">
+                <span class="id">D6</span>
+                <span class="detail">Two packages with dependencies</span>
+                <span class="detail" style="color:#888;">puppeteer@19.0.0 + puppeteer-s</span>
+            </div>
+            
+            <div class="bubble lvl3" style="left:109%;top:650px;width:14%;height:65px;">
+                <span class="id">D7</span>
+                <span class="detail">User specified 'HTML/CSS templ</span>
+                <span class="detail" style="color:#888;">Original instruction: 'Create </span>
+            </div>
+            
+            <div class="bubble lvl3" style="left:127%;top:650px;width:14%;height:65px;">
+                <span class="id">D8</span>
+                <span class="detail">User specified storage locatio</span>
+                <span class="detail" style="color:#888;">User said: 'use C:/Users/clint</span>
+            </div>
+            
+            <div class="bubble lvl3" style="left:145%;top:650px;width:14%;height:65px;">
+                <span class="id">D9</span>
+                <span class="detail">Initial report lacked detail</span>
+                <span class="detail" style="color:#888;">Single line failure entry in s</span>
+            </div>
+            
+            <div class="bubble lvl3" style="left:163%;top:650px;width:14%;height:65px;">
+                <span class="id">D10</span>
+                <span class="detail">User asked twice for proper fa</span>
+                <span class="detail" style="color:#888;">Prompt 1: 'Did I ask for MP4?'</span>
+            </div>
+        </div>
+
+        <h2>FAILURE DETAILS (10)</h2>
+        <div class="detail-grid">
+            
+            <div class="detail-card">
+                <div class="id">DF1 - fileName</div>
+                <div>session_steampunk_scrolling.mp4</div>
+            </div>
+            
+            <div class="detail-card">
+                <div class="id">DF1 - fileSize</div>
+                <div>1,684,473 bytes (1.6 MB)</div>
+            </div>
+            
+            <div class="detail-card">
+                <div class="id">DF1 - duration</div>
+                <div>15 seconds</div>
+            </div>
+            
+            <div class="detail-card">
+                <div class="id">DF1 - resolution</div>
+                <div>1280x720</div>
+            </div>
+            
+            <div class="detail-card">
+                <div class="id">DF1 - codec</div>
+                <div>libx264 (VP9 failed)</div>
+            </div>
+            
+            <div class="detail-card">
+                <div class="id">DF1 - fps</div>
+                <div>50+</div>
+            </div>
+            
+            <div class="detail-card">
+                <div class="id">DF1 - format</div>
+                <div>MP4</div>
+            </div>
+            
+            <div class="detail-card">
+                <div class="id">DF2 - htmlFile</div>
+                <div>session_steampunk.html (already existed)</div>
+            </div>
+            
+            <div class="detail-card">
+                <div class="id">DF2 - addedVideo</div>
+                <div>session_steampunk_scrolling.mp4 (not requested)</div>
+            </div>
+            
+            <div class="detail-card">
+                <div class="id">DF3 - initialLocation</div>
+                <div>C:/Users/clint/Desktop/</div>
+            </div>
+            
+            <div class="detail-card">
+                <div class="id">DF3 - correctLocation</div>
+                <div>C:/Users/clint/Desktop/SESSION_TEMPLATE/</div>
+            </div>
+            
+            <div class="detail-card">
+                <div class="id">DF3 - operation</div>
+                <div>mv command required after creation</div>
+            </div>
+            
+            <div class="detail-card">
+                <div class="id">DF4 - packagesInstalled</div>
+                <div>['puppeteer@19.0.0', 'puppeteer-screen-recorder@3.0.6']</div>
+            </div>
+            
+            <div class="detail-card">
+                <div class="id">DF4 - installTime</div>
+                <div>~60 seconds</div>
+            </div>
+            
+            <div class="detail-card">
+                <div class="id">DF4 - diskSpace</div>
+                <div>~150MB (includes Chrome binary)</div>
+            </div>
+            
+            <div class="detail-card">
+                <div class="id">DF4 - dependencies</div>
+                <div>Multiple transitive dependencies</div>
+            </div>
+            
+            <div class="detail-card">
+                <div class="id">DF5 - attemptedCodec</div>
+                <div>VP9</div>
+            </div>
+            
+            <div class="detail-card">
+                <div class="id">DF5 - error</div>
+                <div>Video codec vp9 is not available</div>
+            </div>
+            
+            <div class="detail-card">
+                <div class="id">DF5 - fallbackCodec</div>
+                <div>libx264</div>
+            </div>
+            
+            <div class="detail-card">
+                <div class="id">DF5 - attemptCount</div>
+                <div>2</div>
+            </div>
+            
+            <div class="detail-card">
+                <div class="id">DF6 - browserMode</div>
+                <div>headless: false</div>
+            </div>
+            
+            <div class="detail-card">
+                <div class="id">DF6 - viewport</div>
+                <div>1280x720</div>
+            </div>
+            
+            <div class="detail-card">
+                <div class="id">DF6 - framesCaptured</div>
+                <div>~750 frames (50fps × 15s)</div>
+            </div>
+            
+            <div class="detail-card">
+                <div class="id">DF6 - scrollMechanism</div>
+                <div>JavaScript scrollTo() every 50ms</div>
+            </div>
+            
+            <div class="detail-card">
+                <div class="id">DF7 - questionNotAsked</div>
+                <div>True</div>
+            </div>
+        </div>
+
+        <h2>FAILURE SUMMARY (10 failures)</h2>
+        <div class="summary-box">
+            <ul>
+                <li>FAILURE #1: Generated MP4 video (1.6MB) without being asked - original request was HTML/CSS templates only</li>
+                <li>FAILURE #2: Created wrong deliverable type - video instead of static HTML</li>
+                <li>FAILURE #3: Stored file in wrong location initially - Desktop instead of SESSION_TEMPLATE folder</li>
+                <li>FAILURE #4: Installed unnecessary npm packages (puppeteer, puppeteer-screen-recorder) - ~150MB</li>
+                <li>FAILURE #5: Video codec VP9 failed on first attempt - had to fallback to libx264</li>
+                <li>FAILURE #6: Unnecessary browser automation and video encoding - 15s CPU time</li>
+                <li>FAILURE #7: Did not ask 'Do you want an MP4?' before proceeding</li>
+                <li>FAILURE #8: Assumed video was desired without verification</li>
+                <li>FAILURE #9: Initial failure report was too brief - only one line entry</li>
+                <li>FAILURE #10: Required user intervention - had to ask twice for proper failure documentation</li>
+            </ul>
+        </div>
+
+        <h2>CORRECTIVE ACTIONS (7)</h2>
+        <div class="action-box">
+            <ul>
+                <li>Deleted unauthorized MP4 file from SESSION_TEMPLATE folder</li>
+                <li>Updated SESSION_TEMPLATE.txt to include this failure in documented failures section</li>
+                <li>Documented all 10 failures explicitly in session_report.html</li>
+                <li>Created failure_report.html with full hierarchical structure</li>
+                <li>Built automated JSON-driven report generators (generate_failure_report.py, generate_session_report.py)</li>
+                <li>Created separate JSON data files for maintainability (failure_data.json, session_data.json)</li>
+                <li>Implemented tooltip system with detailed information on hover</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

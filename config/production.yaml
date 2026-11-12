@@ -1,0 +1,67 @@
+# AZAZAEL Production Configuration
+# Generated: May 28, 2026
+# Python: 3.15.0rc3 free-threading (Windows 11)
+
+server:
+  host: "127.0.0.1"
+  port: 8000
+  reload: false
+  workers: 1
+  log_level: "info"
+
+free_threading:
+  enabled: true
+  python_path: "C:/Azazael/.venvs/py315t/Scripts/python.exe"
+  build_python: "C:/Azazael/.venvs/py315/Scripts/python.exe"
+  note: "Python 3.15t production (rc3). Numeric stack has cp315/cp315t wheels (numpy/scipy/sklearn/pandas/psutil/pytest proven)."
+
+paths:
+  azazael_root: "C:/Azazael/azazael"
+  src_dir: "src"
+  data_dir: "data"
+  logs_dir: "logs"
+  standalone_dir: "G:/AZAZAEL_Standalone"
+  wsl2_root: "/root/azazael"
+
+services:
+  orchestrator:
+    enabled: true
+    port: 8000
+  memory:
+    backend: "pams"
+    pams_url: "http://127.0.0.1:21434"
+  llama:
+    backend: "llama-server"
+    llama_url: "http://127.0.0.1:18080"
+    native_port: 12780
+
+ml_frameworks:
+  working_on_3_15:
+    - numpy
+    - torch (CPU)
+    - gymnasium
+    - langchain
+    - scikit-learn
+    - pandas
+    - scipy
+  broken_on_3_15:
+    reason: "Pending 3.15.0 final + torch stable cp315 (nightly 2.15/2.16 pinned)"
+    packages:
+      - onnx
+      - onnxruntime
+      - xgboost
+      - lightgbm
+      - numba
+      - transformers
+      - tokenizers
+      - ollama
+      - mlflow
+      - gym
+      - accelerate
+  workaround: "Use Python 3.15 GIL build for ML workloads failing on free-threading. Build .exe after 3.15.0 final."
+
+standalone:
+  total_exe: 46
+  total_bat: 39
+  builder: "Nuitka 4.1.2 + Python 3.13.13"
+  location: "G:/AZAZAEL_Standalone/"

@@ -1,0 +1,12 @@
+{
+  "name": "LOGZ",
+  "success": true,
+  "files_processed": 0,
+  "items_found": 0,
+  "duration_ms": 625.6732940673828,
+  "output": {
+    "log_analysis": {}
+  },
+  "errors": [],
+  "warnings": []
+}

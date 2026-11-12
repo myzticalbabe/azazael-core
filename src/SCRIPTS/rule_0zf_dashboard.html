@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RULE 0Z-F Telemetry Dashboard</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0d1117; color: #c9d1d9; padding: 24px; }
+  h1 { font-size: 24px; margin-bottom: 4px; color: #58a6ff; }
+  .subtitle { color: #8b949e; font-size: 14px; margin-bottom: 24px; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+  .card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 20px; }
+  .card h3 { color: #8b949e; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .card .value { font-size: 36px; font-weight: 700; color: #58a6ff; }
+  .card .value.sequential { color: #da3633; }
+  .card .value.ratio { color: #d29922; }
+  .card .label { font-size: 12px; color: #8b949e; margin-top: 4px; }
+  .bars { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 20px; margin-bottom: 24px; }
+  .bars h2 { font-size: 16px; margin-bottom: 16px; }
+  .bar-row { display: flex; align-items: center; margin-bottom: 12px; }
+  .bar-label { width: 160px; font-size: 13px; color: #c9d1d9; }
+  .bar-track { flex: 1; height: 28px; background: #21262d; border-radius: 14px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 14px; transition: width 0.5s ease; }
+  .bar-fill.parallel { background: linear-gradient(90deg, #1f6feb, #58a6ff); }
+  .bar-fill.sequential { background: linear-gradient(90deg, #da3633, #f85149); }
+  .bar-count { width: 60px; text-align: right; font-size: 14px; font-weight: 600; margin-left: 12px; }
+  .meter { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 20px; margin-bottom: 24px; }
+  .meter h2 { font-size: 16px; margin-bottom: 16px; }
+  .needle-container { text-align: center; padding: 20px; }
+  .needle-label { font-size: 48px; font-weight: 800; }
+  .needle-label.good { color: #3fb950; }
+  .needle-label.warn { color: #d29922; }
+  .needle-label.bad { color: #da3633; }
+  .needle-sub { font-size: 14px; color: #8b949e; margin-top: 8px; }
+  .footer { font-size: 12px; color: #484f58; text-align: center; padding-top: 16px; border-top: 1px solid #21262d; }
+</style>
+</head>
+<body>
+  <h1>RULE 0Z-F Telemetry</h1>
+  <p class="subtitle">Parallel Agent Execution Compliance Dashboard</p>
+
+  <div class="cards">
+    <div class="card">
+      <h3>Parallel Batches</h3>
+      <div class="value" id="parallel-count">--</div>
+      <div class="label">spawn_agents calls (parallel)</div>
+    </div>
+    <div class="card">
+      <h3>Sequential Violations</h3>
+      <div class="value sequential" id="sequential-count">--</div>
+      <div class="label">sequential spawns (violations)</div>
+    </div>
+    <div class="card">
+      <h3>Compliance Ratio</h3>
+      <div class="value ratio" id="compliance-ratio">--</div>
+      <div class="label">parallel / total spawns</div>
+    </div>
+    <div class="card">
+      <h3>Edits Through Gate</h3>
+      <div class="value" id="edit-count">--</div>
+      <div class="label">validated file edits</div>
+    </div>
+  </div>
+
+  <div class="bars">
+    <h2>Execution Mode Distribution</h2>
+    <div class="bar-row">
+      <span class="bar-label">Parallel (compliant)</span>
+      <div class="bar-track"><div class="bar-fill parallel" id="parallel-bar" style="width:0%"></div></div>
+      <span class="bar-count" id="parallel-bar-count">0</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Sequential (violation)</span>
+      <div class="bar-track"><div class="bar-fill sequential" id="sequential-bar" style="width:0%"></div></div>
+      <span class="bar-count" id="sequential-bar-count">0</span>
+    </div>
+  </div>
+
+  <div class="meter">
+    <h2>Compliance Meter</h2>
+    <div class="needle-container">
+      <div class="needle-label good" id="compliance-meter">--</div>
+      <div class="needle-sub" id="compliance-detail">Waiting for data...</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    RULE 0Z-F | PreActionGate Telemetry | Last updated: <span id="timestamp">--</span>
+  </div>
+
+  <script>
+    // __TELEMETRY_EMBED_START__
+    const EMBEDDED_TELEMETRY = {"parallel_batches": 3, "sequential_violations": 1, "edit_count": 27, "compliance_ratio": 75.0, "total_spawns": 4, "timestamp": "2026-10-30T14:41:34+00:00", "status": "ok"};
+    // __TELEMETRY_EMBED_END__
+
+    function normalizeTelemetry(data) {
+      const parallel = data.parallel_batches !== undefined ? data.parallel_batches : 0;
+      const sequential = data.sequential_violations !== undefined ? data.sequential_violations : 0;
+      const editCount = data.edit_count !== undefined ? data.edit_count : 0;
+      const total = parallel + sequential;
+      const ratio = total > 0 ? Math.round((parallel / total) * 100) : 100;
+      return { parallel, sequential, editCount, ratio, timestamp: data.timestamp || null };
+    }
+
+    async function loadTelemetryData() {
+      // 1. Real data stamped into the HTML by generate_telemetry.py (works on file://)
+      if (EMBEDDED_TELEMETRY && EMBEDDED_TELEMETRY.parallel_batches !== undefined) {
+        return normalizeTelemetry(EMBEDDED_TELEMETRY);
+      }
+      // 2. Live fetch from telemetry.json (fresher when served over HTTP)
+      try {
+        const resp = await fetch('telemetry.json');
+        if (!resp.ok) return null;
+        const data = await resp.json();
+        if (data.parallel_batches !== undefined) {
+          return normalizeTelemetry(data);
+        }
+        return null;
+      } catch {
+        return null;
+      }
+    }
+
+    async function updateDashboard() {
+      const data = await loadTelemetryData();
+      if (!data) {
+        document.getElementById('parallel-count').textContent = '--';
+        document.getElementById('sequential-count').textContent = '--';
+        document.getElementById('compliance-ratio').textContent = '--';
+        document.getElementById('edit-count').textContent = '--';
+        document.getElementById('parallel-bar').style.width = '0%';
+        document.getElementById('sequential-bar').style.width = '0%';
+        document.getElementById('parallel-bar-count').textContent = '0';
+        document.getElementById('sequential-bar-count').textContent = '0';
+        const meter = document.getElementById('compliance-meter');
+        meter.textContent = 'NO DATA';
+        meter.className = 'needle-label bad';
+        document.getElementById('compliance-detail').textContent = 'Run generate_telemetry.py to populate telemetry';
+        document.getElementById('timestamp').textContent = '--';
+        return;
+      }
+
+      document.getElementById('parallel-count').textContent = data.parallel;
+      document.getElementById('sequential-count').textContent = data.sequential;
+      document.getElementById('compliance-ratio').textContent = data.ratio + '%';
+      document.getElementById('edit-count').textContent = data.editCount;
+
+      const maxVal = Math.max(data.parallel, data.sequential, 1);
+      const pctP = (data.parallel / maxVal) * 100;
+      const pctS = (data.sequential / maxVal) * 100;
+      document.getElementById('parallel-bar').style.width = pctP + '%';
+      document.getElementById('sequential-bar').style.width = pctS + '%';
+      document.getElementById('parallel-bar-count').textContent = data.parallel;
+      document.getElementById('sequential-bar-count').textContent = data.sequential;
+
+      const meter = document.getElementById('compliance-meter');
+      const detail = document.getElementById('compliance-detail');
+      if (data.sequential === 0 && data.parallel > 0) {
+        meter.textContent = 'PERFECT';
+        meter.className = 'needle-label good';
+        detail.textContent = 'All spawn_agents calls are parallel (RULE 0Z-F compliant)';
+      } else if (data.sequential <= 2) {
+        meter.textContent = data.ratio + '%';
+        meter.className = 'needle-label warn';
+        detail.textContent = data.sequential + ' sequential violation(s) detected';
+      } else {
+        meter.textContent = data.ratio + '%';
+        meter.className = 'needle-label bad';
+        detail.textContent = 'CRITICAL: ' + data.sequential + ' sequential spawns detected';
+      }
+
+      document.getElementById('timestamp').textContent = data.timestamp
+        ? new Date(data.timestamp).toLocaleTimeString()
+        : new Date().toLocaleTimeString();
+    }
+
+    updateDashboard();
+    setInterval(updateDashboard, 3000);
+  </script>
+</body>
+</html>

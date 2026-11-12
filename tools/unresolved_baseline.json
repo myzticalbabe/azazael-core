@@ -1,0 +1,11 @@
+{
+  "measured": "2026-10-31T16:43:40",
+  "counts": {
+    "external-module": 13,
+    "outside-root": 4,
+    "target-not-found": 10
+  },
+  "total": 27,
+  "note": "shell/batch references the census cannot place, by reason. Decline only: resolve the reference, or declare an alias in tools/resolution_aliases.json.",
+  "review": "2026-10-31 reviewed. external-module 11 -> 13 because PowerShell launches the interpreter through a VARIABLE (`& $py -m venv`), which no literal pattern could see: the references were always there, invisible. ambiguous 7 -> 0 resolved by declaring ml_platforms -> ORCHESTRATION and a nearest tie-break. Total 32 -> 27, and tail 67 -> 0."
+}

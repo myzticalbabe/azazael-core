@@ -1,0 +1,30 @@
+{
+  "measured": "2026-11-03",
+  "policy": "CANONICAL copies (tested in test_sentinel_publish_copies.py) must stay byte-identical to the live sentinel. NAMED_DRIFT entries must match the sha256 recorded here and must STAY DIFFERENT from the live file. An unmanifested change to any entry is a defect, not progress: update this manifest in the same commit that moved the file, with a fresh date and sha.",
+  "live": {
+    "path": "azazael/Project_FLAMING_SWORD/tools/sentinel.py",
+    "note": "its hash is read at test time; the manifest records nothing about it so re-staging the canonical copies never needs a manifest edit"
+  },
+  "named_drift": [
+    {
+      "path": "publish_clean/flaming_sword/tools/sentinel.py",
+      "sha256": "e1bbf89978721f0ed40d8d25e77903829e94f10245aa631cfa9ddc7fa17d8c64",
+      "reason": "publish_clean holds an earlier clean-generation snapshot; the stage_publish_repos --force remedy does not write there by design"
+    },
+    {
+      "path": "publish_clean/inst_flaming_sword/tools/sentinel.py",
+      "sha256": "e1bbf89978721f0ed40d8d25e77903829e94f10245aa631cfa9ddc7fa17d8c64",
+      "reason": "installed-package view of the same earlier generation as publish_clean/flaming_sword (measured identical)"
+    },
+    {
+      "path": "azazael/Project_CRADLE/tools/sentinel.py",
+      "sha256": "0a5846737d69cbd7ddd86ca4770c23d3aec5b9faeea88a7a64192470be37a923",
+      "reason": "a DIFFERENT sentinel written for a different project -- same filename, not the reaper; must never be unified with it"
+    },
+    {
+      "path": "publish_repos/flaming_sword/tools/sentinel.py",
+      "sha256": "237144d722b16e3b3e9462cc175f7b942755861044d7808af1a756918e4481d7",
+      "reason": "pre-remedy staging snapshot holding the 2026-11-03-morning generation (237144d7); refreshes only when that staging flow next regenerates"
+    }
+  ]
+}

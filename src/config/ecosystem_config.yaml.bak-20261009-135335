@@ -1,0 +1,98 @@
+# Azazael Unified Ecosystem Configuration
+# Updated: 2026-05-27 — Paths corrected to actual ~/azazael/src/ structure
+# Version: 7.1.0
+
+ECOSYSTEM:
+  name: "Azazael Unified"
+  version: "7.1.0"
+  root: "C:/Users/clint/azazael"
+  src_dir: "C:/Users/clint/azazael/src"
+  python: "C:/Users/clint/AppData/Local/Programs/Python/Python315/python.exe"
+  python_free_threaded: "C:/Users/clint/AppData/Local/Programs/Python/Python315/python3.15t.exe"
+  archive_drive: "G:/archived_files"
+
+PATHS:
+  AZAAZEL_ROOT: "C:/Users/clint/azazael"
+  CORE: "C:/Users/clint/azazael/src/CORE"
+  WORMS: "C:/Users/clint/azazael/src/CORE/WORMS"
+  META: "C:/Users/clint/azazael/src/META"
+  HYDRA: "C:/Users/clint/azazael/src/HYDRA"
+  HYDRA_ML: "C:/Users/clint/azazael/src/HYDRA/ml_platforms"
+  ORCHESTRATION: "C:/Users/clint/azazael/src/ORCHESTRATION"
+  OUTPUT: "C:/Users/clint/azazael/output"
+  UTILITIES: "C:/Users/clint/azazael/src/UTILITIES"
+  TERENCE: "C:/Users/clint/azazael/src/UTILITIES/TERENCE"
+  PERSEPHONE: "C:/Users/clint/azazael/src/UTILITIES/PERSEPHONE"
+  POINDEXTER: "C:/Users/clint/azazael/src/UTILITIES/POINDEXTER"
+  TARBABY: "C:/Users/clint/azazael/src/UTILITIES/TARBABY"
+  KLINK: "C:/Users/clint/azazael/src/UTILITIES/KLINK"
+  BIBL: "C:/Users/clint/azazael/src/ORCHESTRATION/BIBL"
+  SHORTCUTS: "C:/Users/clint/azazael/src/SHORTCUTS"
+  CODEX: "C:/Users/clint/azazael/src/CODEX"
+  SCRIPTS: "C:/Users/clint/azazael/scripts"
+  CLI: "C:/Users/clint/azazael/src/CLI"
+  CONFIG: "C:/Users/clint/azazael/config"
+  DATA: "C:/Users/clint/azazael/data"
+  LOGS: "C:/Users/clint/azazael/logs"
+  DOCS: "C:/Users/clint/azazael/docs"
+
+# PAMS Memory Server
+PAMS:
+  url: "http://127.0.0.1:21434"
+  port: 21434
+  db_conversations: "C:/Users/clint/AppData/Local/Programs/Python/Python314/Lib/site-packages/memory_data/conversations.db"
+  db_memories: "C:/Users/clint/AppData/Local/Programs/Python/Python314/Lib/site-packages/memory_data/ai_memories.db"
+  db_tool_calls: "C:/Users/clint/AppData/Local/Programs/Python/Python314/Lib/site-packages/memory_data/mcp_tool_calls.db"
+  wrapper_script: "C:/temp/start_pams.py"
+  status: "running"
+
+# LLM Inference
+LLAMA:
+  server_exe: "C:/Users/clint/temp_llama_cpp_build/llama.cpp/build_server_multi/bin/Release/llama-server.exe"
+  models_dir: "C:/Users/clint/llama-server/models"
+  unified_dir: "C:/Users/clint/llama-server/unified"
+  launch_script: "C:/Users/clint/Desktop/Llama Server/launch_chat.bat"
+  port: 18080
+  router: "C:/Users/clint/llama-server/unified/router.py"
+  models:
+    - "gemma-4-E2B"
+    - "Qwen2.5-1.5B"
+    - "InternVL3-8B"
+
+WINDOWS_PATHS:
+  AZAAZEL: "C:/Users/clint/azazael/src/ORCHESTRATION"
+
+WSL_PATHS:
+  AZAAZEL: "/mnt/c/Users/clint/azazael"
+  CORE: "/mnt/c/Users/clint/azazael/src/CORE"
+
+PERSEPHONE:
+  WINDOWS: "C:/Users/clint/azazael/src/UTILITIES/PERSEPHONE"
+  WSL: "/mnt/c/Users/clint/azazael/src/UTILITIES/PERSEPHONE"
+
+ENVIRONMENT:
+  env_var_root: "AZAZAEL_ROOT"
+  env_var_pams: "PAMS_URL"
+  auto_resolve: true
+
+INTEROPERABILITY:
+  cross_platform: true
+  wsl_enabled: true
+  persephone_sync: true
+  pams_enabled: true
+  llama_enabled: true
+
+COMPONENTS:
+  - "CORE/WORMS (SYSTEMZ, PROCESSZ, DISKZ, NETWORXZ, CLOCKZ, WORMZ, CONCURRENCY, CLUSTERWORMS, OS_CONGRUENCY)"
+  - "META (MetaWormSpawner, ERRORZ, HEALTHZ, TRIMZ, HYDRAMETA, METAWORMS)"
+  - "HYDRA (6-stage cluster, ML platforms)"
+  - "ORCHESTRATION (HYDRA, HORUS, TARBABY, ECOSYSTEM_OPTIMIZER)"
+  - "UTILITIES/TERENCE (Error resolution, 26 fix patterns)"
+  - "UTILITIES/PERSEPHONE (Cross-platform utilities)"
+  - "UTILITIES/POINDEXTER (Mathematical indexer)"
+  - "UTILITIES/TARBABY (Binary builder)"
+  - "UTILITIES/KLINK (Unified CLI launcher, 20 commands)"
+  - "CODEX (Documentation, HTML reference, multimedia)"
+  - "SHORTCUTS (.bat automation)"
+  - "CLI (azazael_cli.py interactive terminal)"
+  - "config (ecosystem_config.yaml, worm_definitions.json)"

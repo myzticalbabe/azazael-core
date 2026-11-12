@@ -1,0 +1,162 @@
+{
+  "PPO": {
+    "a": 2,
+    "b": 1,
+    "picks": 1,
+    "wins": 1,
+    "last_slot": 5972405,
+    "cool": 5972409
+  },
+  "DQN": {
+    "a": 2,
+    "b": 1,
+    "picks": 1,
+    "wins": 1,
+    "last_slot": 5972409,
+    "cool": 5972413
+  },
+  "A2C": {
+    "a": 2,
+    "b": 1,
+    "picks": 1,
+    "wins": 1,
+    "last_slot": 5972412,
+    "cool": 5972416
+  },
+  "SAC": {
+    "a": 1,
+    "b": 2,
+    "picks": 1,
+    "wins": 0,
+    "last_slot": 5972415,
+    "cool": 5972419
+  },
+  "TD3": {
+    "a": 1,
+    "b": 2,
+    "picks": 1,
+    "wins": 0,
+    "last_slot": 5972418,
+    "cool": 5972422
+  },
+  "DDPG": {
+    "a": 2,
+    "b": 1,
+    "picks": 1,
+    "wins": 1,
+    "last_slot": 5972421,
+    "cool": 5972425
+  },
+  "QRDQN": {
+    "a": 2,
+    "b": 1,
+    "picks": 1,
+    "wins": 1,
+    "last_slot": 5972425,
+    "cool": 5972429
+  },
+  "TRPO": {
+    "a": 2,
+    "b": 1,
+    "picks": 1,
+    "wins": 1,
+    "last_slot": 5972428,
+    "cool": 5972432
+  },
+  "TQC": {
+    "a": 2,
+    "b": 1,
+    "picks": 1,
+    "wins": 1,
+    "last_slot": 5972431,
+    "cool": 5972435
+  },
+  "ARS": {
+    "a": 2,
+    "b": 1,
+    "picks": 1,
+    "wins": 1,
+    "last_slot": 5972434,
+    "cool": 5972438
+  },
+  "MaskablePPO": {
+    "a": 2,
+    "b": 1,
+    "picks": 1,
+    "wins": 1,
+    "last_slot": 5972437,
+    "cool": 5972441
+  },
+  "GRPO": {
+    "a": 1,
+    "b": 2,
+    "picks": 1,
+    "wins": 0,
+    "last_slot": 5972441,
+    "cool": 5972445
+  },
+  "DPO": {
+    "a": 2,
+    "b": 1,
+    "picks": 1,
+    "wins": 1,
+    "last_slot": 5972444,
+    "cool": 5972448
+  },
+  "OFFLINE": {
+    "a": 2,
+    "b": 1,
+    "picks": 1,
+    "wins": 1,
+    "last_slot": 5977001,
+    "cool": 5977005
+  },
+  "RL": {
+    "a": 1,
+    "b": 1,
+    "picks": 0,
+    "wins": 0,
+    "last_slot": null,
+    "cool": 0
+  },
+  "DREAMTUNE": {
+    "a": 1,
+    "b": 1,
+    "picks": 0,
+    "wins": 0,
+    "last_slot": null,
+    "cool": 0
+  },
+  "WORMGA": {
+    "a": 1,
+    "b": 1,
+    "picks": 0,
+    "wins": 0,
+    "last_slot": null,
+    "cool": 0
+  },
+  "INTAKE": {
+    "a": 4,
+    "b": 2,
+    "picks": 4,
+    "wins": 3,
+    "last_slot": 5973749,
+    "cool": 5973753
+  },
+  "CLUSTER": {
+    "a": 1,
+    "b": 2,
+    "picks": 1,
+    "wins": 0,
+    "last_slot": 5975575,
+    "cool": 5975579
+  },
+  "ALLPAR": {
+    "a": 1,
+    "b": 1,
+    "picks": 0,
+    "wins": 0,
+    "last_slot": null,
+    "cool": 0
+  }
+}

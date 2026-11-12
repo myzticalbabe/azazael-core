@@ -1,0 +1,45 @@
+{
+  "worms": [
+    {
+      "id": "SystemZ:base_SystemZ:1791593273674",
+      "type": "SystemZ",
+      "state": "running",
+      "priority": 5
+    },
+    {
+      "id": "DiagnosticWorm:base_DiagnosticWorm:1791593273674",
+      "type": "DiagnosticWorm",
+      "state": "running",
+      "priority": 5
+    },
+    {
+      "id": "MonitorZ:base_MonitorZ:1791593273674",
+      "type": "MonitorZ",
+      "state": "running",
+      "priority": 5
+    },
+    {
+      "id": "MeshRouterWorm:base_MeshRouterWorm:1791593273674",
+      "type": "MeshRouterWorm",
+      "state": "running",
+      "priority": 5
+    },
+    {
+      "id": "SystemZ:t1:1791593273675",
+      "type": "SystemZ",
+      "state": "running",
+      "priority": 5
+    }
+  ],
+  "fleet_status": {
+    "current_mode": "standard",
+    "total_worms": 5,
+    "running": 5,
+    "types": {
+      "SystemZ": 2,
+      "DiagnosticWorm": 1,
+      "MonitorZ": 1,
+      "MeshRouterWorm": 1
+    }
+  }
+}

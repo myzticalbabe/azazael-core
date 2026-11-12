@@ -1,0 +1,401 @@
+================================================================================
+AZAZAEL KNOWLEDGE BASE - ACTIONABLE INTELLIGENCE
+================================================================================
+Purpose: Distilled, verified, actionable ML/AI knowledge
+Generated: 2026-02-13
+Python: 3.14.3 | Platform: win32
+================================================================================
+
+TABLE OF CONTENTS:
+================================================================================
+1. INSTALLED FRAMEWORKS (22 verified)
+2. CAPABILITY MAPPING
+3. ACTIONABLE CODE SNIPPETS
+4. WORKFLOW RECIPES
+5. PERFORMANCE BENCHMARKS
+6. TROUBLESHOOTING GUIDE
+7. QUICK REFERENCE
+
+================================================================================
+1. INSTALLED FRAMEWORKS (22 VERIFIED)
+================================================================================
+
+ML/AI CORE:
+  numpy     v2.4.2    - Array/matrix operations
+  pandas    v3.0.0    - DataFrame manipulation
+  scipy     v1.17.0   - Scientific computing
+  torch     v2.10.0+cpu - Neural networks
+  sklearn   v1.8.0     - Classical ML
+  transformers v5.1.0  - NLP pipelines
+  accelerate v1.12.0   - Distributed training
+  optuna    v4.7.0     - Hyperparameter optimization
+  datasets  v4.5.0     - Data loading
+  sentence_transformers v5.2.2 - Embeddings
+
+COMPUTER VISION:
+  cv2       v4.13.0    - OpenCV image processing
+  PIL       v12.1.1    - Pillow image manipulation
+
+WEB AUTOMATION:
+  requests  v2.32.5    - HTTP client
+  httpx     v0.28.1    - Modern HTTP client
+  aiohttp   v3.13.3   - Async HTTP
+  starlette v0.52.1   - ASGI web framework
+  selenium  v4.40.0    - Browser automation
+
+NLP:
+  nltk      v3.9.2     - Tokenization, stemming
+  spacy     v3.8.11    - Advanced NLP (requires model download)
+
+SECURITY/OTHER:
+  cryptography v46.0.5 - Encryption
+  grpc      v1.78.0    - RPC framework
+  yaml      v6.0.3     - YAML parsing
+  toml      v0.10.2    - TOML parsing
+
+================================================================================
+2. CAPABILITY MAPPING
+================================================================================
+
+TASK -> FRAMEWORK -> FUNCTION
+=============================
+
+DATA PROCESSING:
+  Load CSV     -> pandas      -> pd.read_csv()
+  Clean data   -> pandas      -> df.dropna(), df.fillna()
+  Merge data   -> pandas      -> pd.merge()
+  Groupby     -> pandas      -> df.groupby()
+  Pivot       -> pandas      -> df.pivot()
+
+ARRAY COMPUTATION:
+  Create array -> numpy       -> np.array()
+  Matrix mul   -> numpy       -> np.dot()
+  Random      -> numpy       -> np.random.rand()
+  Statistics  -> numpy       -> np.mean(), np.std()
+  Linear alg -> numpy       -> np.linalg.solve()
+
+SCIENTIFIC COMPUTING:
+  Optimization -> scipy       -> scipy.optimize
+  Statistics  -> scipy       -> scipy.stats
+  Integration -> scipy       -> scipy.integrate
+
+MACHINE LEARNING:
+  Regression  -> sklearn      -> LinearRegression()
+  Classific  -> sklearn      -> RandomForestClassifier()
+  Clustering -> sklearn      -> KMeans()
+  SVM        -> sklearn      -> SVC()
+  Neural Net -> torch        -> nn.Module
+
+DEEP LEARNING:
+  Tensor ops -> torch        -> torch.tensor()
+  Autograd  -> torch        -> torch.autograd
+  GPU       -> torch        -> .cuda()
+  DataLoader -> torch        -> DataLoader()
+
+NLP:
+  Tokenize   -> nltk        -> word_tokenize()
+  Sentiment  -> transformers -> pipeline('sentiment-analysis')
+  Embeddings -> sentence_transformers -> SentenceTransformer()
+  Translate  -> transformers -> pipeline('translation')
+
+COMPUTER VISION:
+  Read img   -> cv2         -> cv2.imread()
+  Resize    -> cv2         -> cv2.resize()
+  Draw      -> cv2         -> cv2.rectangle()
+  Create    -> PIL         -> Image.new()
+  Draw      -> PIL         -> ImageDraw.Draw()
+
+WEB:
+  GET       -> requests    -> requests.get()
+  POST      -> requests    -> requests.post()
+  Async GET -> httpx       -> httpx.get()
+  Async HTTP-> aiohttp     -> ClientSession()
+  ASGI app -> starlette    -> Starlette()
+
+OPTIMIZATION:
+  Hyperparam-> optuna      -> study.optimize()
+  Grid search-> sklearn    -> GridSearchCV()
+  Random search-> sklearn  -> RandomizedSearchCV()
+
+================================================================================
+3. ACTIONABLE CODE SNIPPETS
+================================================================================
+
+DATA PIPELINE:
+--------------
+import pandas as pd
+import numpy as np
+
+df = pd.read_csv('data.csv')
+df = df.dropna()
+df['col'] = df['col'].apply(lambda x: x*2)
+df.to_csv('cleaned.csv')
+
+NUMPY ARRAY OPS:
+----------------
+import numpy as np
+
+arr = np.random.rand(1000, 5)
+mean = np.mean(arr, axis=0)
+std = np.std(arr, axis=0)
+normalized = (arr - mean) / std
+
+PANDAS GROUPBY:
+---------------
+import pandas as pd
+
+df = pd.read_csv('data.csv')
+grouped = df.groupby('category').agg({
+    'value': ['mean', 'sum', 'count']
+}).reset_index()
+
+PYTORCH TENSOR:
+---------------
+import torch
+
+x = torch.randn(100, 10)
+y = torch.randn(100, 1)
+
+class Net(torch.nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.fc = torch.nn.Linear(10, 1)
+    
+    def forward(self, x):
+        return self.fc(x)
+
+SKLEARN ML PIPELINE:
+-------------------
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+from sklearn.pipeline import Pipeline
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+pipeline = Pipeline([
+    ('scaler', StandardScaler()),
+    ('clf', LogisticRegression())
+])
+pipeline.fit(X_train, y_train)
+score = pipeline.score(X_test, y_test)
+
+TRANSFORMERS NLP:
+-----------------
+from transformers import pipeline
+
+classifier = pipeline('sentiment-analysis')
+result = classifier('I love machine learning')[0]
+print(f"Label: {result['label']}, Score: {result['score']}")
+
+OPENCV IMAGE:
+-------------
+import cv2
+import numpy as np
+
+img = cv2.imread('image.jpg')
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+resized = cv2.resize(gray, (100, 100))
+cv2.imwrite('processed.jpg', resized)
+
+PIL IMAGE:
+----------
+from PIL import Image, ImageDraw
+
+img = Image.new('RGB', (200, 200), 'white')
+draw = ImageDraw.Draw(img)
+draw.rectangle([50, 50, 150, 150], fill='blue')
+img.save('drawn.png')
+
+WEB SCRAPING:
+-------------
+import requests
+from bs4 import BeautifulSoup
+
+r = requests.get('https://example.com')
+soup = BeautifulSoup(r.text, 'html.parser')
+titles = [h2.text for h2 in soup.find_all('h2')]
+
+ASYNC HTTP:
+-----------
+import asyncio
+import httpx
+
+async def fetch_all(urls):
+    async with httpx.AsyncClient() as client:
+        tasks = [client.get(url) for url in urls]
+        responses = await asyncio.gather(*tasks)
+        return [r.json() for r in responses]
+
+urls = ['https://api.github.com/users', 'https://api.github.com/repos']
+results = asyncio.run(fetch_all(urls))
+
+OPTUNA HYPERPARAM:
+------------------
+import optuna
+
+def objective(trial):
+    x = trial.suggest_float('x', -10, 10)
+    y = trial.suggest_float('y', -10, 10)
+    return (x - 2)**2 + (y + 3)**2
+
+study = optuna.create_study()
+study.optimize(objective, n_trials=100)
+print(f"Best value: {study.best_value}")
+print(f"Best params: {study.best_params}")
+
+================================================================================
+4. WORKFLOW RECIPES
+================================================================================
+
+RECIPE 1: DATA ANALYSIS PIPELINE
+--------------------------------
+1. Load data: pandas.read_csv()
+2. Explore: df.head(), df.info(), df.describe()
+3. Clean: df.dropna(), df.fillna()
+4. Transform: df.apply(), df.transform()
+5. Visualize: matplotlib/seaborn
+6. Export: df.to_csv()
+
+RECIPE 2: CLASSIFICATION MODEL
+-----------------------------
+1. Load data: pandas
+2. Split: train_test_split()
+3. Scale: StandardScaler()
+4. Train: RandomForestClassifier()
+5. Evaluate: accuracy_score()
+6. Tune: GridSearchCV()
+
+RECIPE 3: DEEP LEARNING TRAINING
+-------------------------------
+1. Dataset: torch.utils.data.DataLoader
+2. Model: torch.nn.Module
+3. Loss: torch.nn.CrossEntropyLoss()
+4. Optimizer: torch.optim.Adam()
+5. Train loop: for batch in loader...
+6. Save: torch.save(model.state_dict())
+
+RECIPE 4: NLP SENTIMENT ANALYSIS
+--------------------------------
+1. Load pipeline: pipeline('sentiment-analysis')
+2. Classify: classifier(text)
+3. Extract: result['label'], result['score']
+4. Batch: [classifier(t) for t in texts]
+
+RECIPE 5: IMAGE PROCESSING
+---------------------------
+1. Read: cv2.imread()
+2. Process: cv2.cvtColor(), cv2.resize()
+3. Analyze: cv2.findContours()
+4. Visualize: cv2.imshow()
+5. Save: cv2.imwrite()
+
+RECIPE 6: WEB API CLIENT
+------------------------
+1. Session: requests.Session()
+2. GET: session.get(url, params=...)
+3. POST: session.post(url, json=...)
+4. Auth: session.headers.update()
+5. Rate limit: time.sleep()
+
+================================================================================
+5. PERFORMANCE BENCHMARKS
+================================================================================
+
+ARRAY OPS (1000x1000 matrix):
+  np.mean():         ~0.1ms
+  np.dot():          ~1ms
+  np.linalg.svd():   ~50ms
+
+PANDAS OPS (100K rows):
+  read_csv:          ~50ms
+  groupby:           ~10ms
+  merge:             ~20ms
+  sort_values:       ~15ms
+
+SKLEARN (10K samples):
+  LinearRegression: ~1ms
+  RandomForest:     ~100ms
+  SVC (rbf):        ~500ms
+
+PYTORCH (CPU, 10K samples):
+  Forward pass:     ~5ms
+  Backward pass:     ~10ms
+  Full epoch:       ~1s
+
+TRANSFORMERS (DistilBERT):
+  Load model:        ~2s
+  Predict:          ~50ms/batch
+
+OPENCV (1920x1080 image):
+  imread:           ~5ms
+  resize:           ~2ms
+  color conversion: ~1ms
+
+================================================================================
+6. TROUBLESHOOTING GUIDE
+================================================================================
+
+PROBLEM: ImportError
+SOLUTION: pip install <package>
+  - torch: Requires pip install torch
+  - transformers: pip install transformers
+  - spacy: pip install spacy + python -m spacy download en_core_web_sm
+
+PROBLEM: CUDA out of memory
+SOLUTION: 
+  - Reduce batch size
+  - Use torch.cuda.empty_cache()
+  - Move to CPU: model.cpu()
+
+PROBLEM: DataFrame SettingWithCopyWarning
+SOLUTION: Use .loc: df.loc[:, 'col'] = value
+
+PROBLEM: SSL certificate verify failed
+SOLUTION: requests.get(url, verify=False)
+
+PROBLEM: Tensor shape mismatch
+SOLUTION: Check .shape, use .view(), .reshape()
+
+PROBLEM: Slow DataLoader
+SOLUTION: Increase num_workers, pin_memory=True
+
+PROBLEM: Optuna trials taking too long
+SOLUTION: Reduce n_trials, use pruner
+
+================================================================================
+7. QUICK REFERENCE
+================================================================================
+
+IMPORT PATTERNS:
+  import numpy as np
+  import pandas as pd
+  import torch
+  from sklearn.model_selection import train_test_split
+  from transformers import pipeline
+
+SHAPE MANIPULATION:
+  arr.reshape(-1)    # Flatten
+  arr.T              # Transpose
+  arr[:, None]      # Expand dims
+
+INDEXING:
+  df.iloc[rows, cols]    # Integer position
+  df.loc[row_labels, col_labels]  # Labels
+
+TENSOR:
+  x.shape              # Get shape
+  x.view(-1)          # Reshape
+  x.detach()          # Remove grad
+  x.requires_grad_()  # Track grad
+
+DEVICE:
+  device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+  x = x.to(device)
+
+RANDOM SEED:
+  np.random.seed(42)
+  torch.manual_seed(42)
+
+================================================================================
+END OF KNOWLEDGE BASE
+================================================================================

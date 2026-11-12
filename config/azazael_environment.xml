@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<azazael_environment version="5.0.0" platform="linux" arch="x86_64">
+  <python version="3.14.5" free_threaded="true" path="/usr/bin/python3"/>
+  <wsl version="3" ubuntu="26.04"/>
+  <host os="Windows 11" arch="AMD64" cpu="Intel Core Ultra 9 285H"/>
+  <paths>
+    <root>/root/azazael</root>
+    <src>/root/azazael/src</src>
+    <config>/root/azazael/config</config>
+    <data>/root/azazael/data</data>
+    <logs>/root/azazael/src/logs</logs>
+    <backup>/mnt/g/azazael-archive</backup>
+  </paths>
+  <packages>
+    <verified>numpy,pandas,scipy,scikit-learn,Pillow,requests,psutil,rich,colorama</verified>
+    <ml_frameworks>torch,transformers</ml_frameworks>
+    <optional>opencv-python,pygame,fastapi,uvicorn,numba,ray,mlflow,streamlit</optional>
+  </packages>
+</azazael_environment>

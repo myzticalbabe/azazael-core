@@ -1,0 +1,15 @@
+# Allowlist for scripts/audit_wiring.py
+#
+# One function name per line. Anything listed here is reported under
+# "allowlisted" instead of "DEAD", and does NOT fail the audit.
+#
+# Use this only for an entry point that is deliberately not called from this
+# tree -- for example one invoked by an external scheduler, a CI config that
+# lives outside the repo, or a documented public API.
+#
+# It is deliberately NOT a place to silence a finding you have not explained.
+# A dead mechanism that is real should be wired up or deleted; the audit's
+# whole purpose is that "it exists" stopped being evidence that it runs.
+#
+# Example:
+#   start_external_cron_job

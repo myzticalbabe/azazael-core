@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azazael Ecosystem - Technical Overview</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #0f0f23 100%);
+            min-height: 100vh;
+            font-family: 'Courier New', Consolas, monospace;
+            color: #00f5ff;
+            overflow: hidden;
+        }
+
+        .video-container {
+            width: 1920px;
+            height: 1080px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Background Grid */
+        .grid-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 245, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: perspective(500px) rotateX(60deg) translateY(0); }
+            100% { transform: perspective(500px) rotateX(60deg) translateY(50px); }
+        }
+
+        /* Title Section */
+        .title-section {
+            position: absolute;
+            top: 80px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .main-title {
+            font-size: 72px;
+            font-weight: bold;
+            background: linear-gradient(90deg, #00f5ff, #bf00ff, #ff00aa, #ffdd00, #00ff88, #00f5ff);
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 8s ease infinite;
+            text-shadow: 0 0 30px rgba(0, 245, 255, 0.5);
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .subtitle {
+            font-size: 24px;
+            color: #888;
+            margin-top: 20px;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+        }
+
+        /* Caret Typewriter Effect */
+        .typewriter-container {
+            position: absolute;
+            top: 280px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            z-index: 10;
+        }
+
+        .typewriter-text {
+            font-size: 28px;
+            line-height: 1.8;
+            min-height: 200px;
+            color: #e0e0e0;
+        }
+
+        .caret {
+            display: inline-block;
+            width: 3px;
+            height: 28px;
+            background: #00f5ff;
+            margin-left: 2px;
+            animation: blink 0.8s step-end infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Rotating Cards */
+        .cards-container {
+            position: absolute;
+            top: 520px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 30px;
+            z-index: 10;
+        }
+
+        .info-card {
+            width: 280px;
+            height: 180px;
+            background: rgba(20, 20, 40, 0.8);
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            border-radius: 12px;
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            opacity: 0;
+            transform: translateY(50px) rotateX(45deg);
+        }
+
+        .info-card.visible {
+            opacity: 1;
+            transform: translateY(0) rotateX(0);
+        }
+
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 245, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .info-card:hover::before {
+            left: 100%;
+        }
+
+        .info-card:hover {
+            border-color: rgba(0, 245, 255, 0.8);
+            box-shadow: 0 0 30px rgba(0, 245, 255, 0.3);
+            transform: translateY(-10px);
+        }
+
+        .card-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #00f5ff;
+            margin-bottom: 10px;
+        }
+
+        .card-value {
+            font-size: 36px;
+            font-weight: bold;
+            background: linear-gradient(90deg, #00f5ff, #bf00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .card-desc {
+            font-size: 14px;
+            color: #888;
+            margin-top: 8px;
+        }
+
+        /* Tier Visualization */
+        .tier-section {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 10;
+        }
+
+        .tier-block {
+            width: 120px;
+            height: 80px;
+            background: rgba(20, 20, 40, 0.9);
+            border: 1px solid rgba(191, 0, 255, 0.5);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.4s ease;
+        }
+
+        .tier-block.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .tier-number {
+            font-size: 32px;
+            font-weight: bold;
+            color: #bf00ff;
+        }
+
+        .tier-name {
+            font-size: 12px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Timeline at bottom */
+        .timeline {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 40px;
+            z-index: 10;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+        }
+
+        .timeline-dot {
+            width: 12px;
+            height: 12px;
+            background: #00f5ff;
+            border-radius: 50%;
+            animation: pulse 2s ease infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(0, 245, 255, 0.7); }
+            50% { box-shadow: 0 0 0 10px rgba(0, 245, 255, 0); }
+        }
+
+        .timeline-text {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Floating particles */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #00f5ff;
+            border-radius: 50%;
+            animation: float 15s linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* Progress bar */
+        .progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #00f5ff, #bf00ff, #ff00aa);
+            width: 0%;
+            animation: progress 60s linear forwards;
+        }
+
+        @keyframes progress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        /* Scene indicators */
+        .scene-indicator {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 14px;
+            color: #444;
+        }
+
+        .scene-number {
+            color: #00f5ff;
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="video-container">
+        <!-- Background -->
+        <div class="grid-bg"></div>
+        <div class="particles" id="particles"></div>
+
+        <!-- Scene Indicator -->
+        <div class="scene-indicator">
+            SCENE <span class="scene-number" id="sceneNumber">1</span> / 5
+        </div>
+
+        <!-- Title -->
+        <div class="title-section">
+            <h1 class="main-title">Azazael Ecosystem</h1>
+            <p class="subtitle">Technical Architecture Overview</p>
+        </div>
+
+        <!-- Typewriter Section -->
+        <div class="typewriter-container">
+            <div class="typewriter-text" id="typewriter"></div>
+            <span class="caret"></span>
+        </div>
+
+        <!-- Cards -->
+        <div class="cards-container">
+            <div class="info-card" id="card1">
+                <div class="card-icon">🚀</div>
+                <div class="card-title">Systems</div>
+                <div class="card-value">14</div>
+                <div class="card-desc">Core Components</div>
+            </div>
+            <div class="info-card" id="card2">
+                <div class="card-icon">📊</div>
+                <div class="card-title">Worms</div>
+                <div class="card-value">17</div>
+                <div class="card-desc">Functional Agents</div>
+            </div>
+            <div class="info-card" id="card3">
+                <div class="card-icon">🔄</div>
+                <div class="card-title">Tiers</div>
+                <div class="card-value">7</div>
+                <div class="card-desc">Architecture Levels</div>
+            </div>
+            <div class="info-card" id="card4">
+                <div class="card-icon">⚙️</div>
+                <div class="card-title">Animations</div>
+                <div class="card-value">24</div>
+                <div class="card-desc">Visual Protocols</div>
+            </div>
+        </div>
+
+        <!-- Tiers -->
+        <div class="tier-section">
+            <div class="tier-block" id="tier5"><span class="tier-number">5</span><span class="tier-name">Distillation</span></div>
+            <div class="tier-block" id="tier4"><span class="tier-number">4</span><span class="tier-name">HYDRAMETA</span></div>
+            <div class="tier-block" id="tier3"><span class="tier-number">3</span><span class="tier-name">Metaworms</span></div>
+            <div class="tier-block" id="tier2"><span class="tier-number">2</span><span class="tier-name">Clusters</span></div>
+            <div class="tier-block" id="tier1"><span class="tier-number">1</span><span class="tier-name">Worms</span></div>
+            <div class="tier-block" id="tier0"><span class="tier-number">0</span><span class="tier-name">Concurrency</span></div>
+            <div class="tier-block" id="tier-1"><span class="tier-number">-1</span><span class="tier-name">OS Layer</span></div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="timeline">
+            <div class="timeline-item" id="timeline1"><div class="timeline-dot"></div><span class="timeline-text">WORMZ Crawler</span></div>
+            <div class="timeline-item" id="timeline2"><div class="timeline-dot"></div><span class="timeline-text">METAWORMS Analysis</span></div>
+            <div class="timeline-item" id="timeline3"><div class="timeline-dot"></div><span class="timeline-text">HYDRA ML Pipeline</span></div>
+            <div class="timeline-item" id="timeline4"><div class="timeline-dot"></div><span class="timeline-text">HYDRAMETA Optimization</span></div>
+            <div class="timeline-item" id="timeline5"><div class="timeline-dot"></div><span class="timeline-text">HORUS Output</span></div>
+        </div>
+
+        <!-- Progress -->
+        <div class="progress-bar"></div>
+    </div>
+
+    <script>
+        // Content for typewriter effect - scenes
+        const scenes = [
+            {
+                text: `The Azazael Ecosystem represents a sophisticated distributed computational framework.
+Spanning 14 interconnected components across 7 hierarchical tiers.
+Powered by 17 functional worms and metaworms for comprehensive system management.
+Featuring advanced ML orchestration through HYDRA and HYDRAMETA.
+With 24 animation protocols for rich visual feedback via HORUS.`,
+                duration: 15
+            },
+            {
+                text: `TIER 1-2: WORMZ Execution Layer
+├── WORMZ: Terminology crawler maintaining BIBL lexicon
+├── SYSTEMZ: System monitoring and metrics
+├── PROCESSZ: Process management
+├── DISKZ: Storage operations
+├── CLOCKZ: Time and scheduling
+├── NETWORXZ: Network operations
+└── CLUSTERWORMS: Coordinated worm collectives`,
+                duration: 12
+            },
+            {
+                text: `TIER 3: METAWORMS Orchestration
+├── ERRORZ, TRIMZ, METAZ, DEPENDZ, VALIDZ
+├── DEADZ, METRICZ, LOGZ, CHANGEZ
+├── OPTIMIZ, HEALTHZ
+Each metaworm performs specialized analysis tasks.
+Results integrated into unified ecosystem state.`,
+                duration: 12
+            },
+            {
+                text: `TIER 4: HYDRAMETA ML Optimization
+Genetic Algorithm Implementation:
+├── Population-based parameter tuning
+├── Crossover rate: 0.8
+├── Mutation rate: 0.1 (Gaussian)
+├── Elitism: Top 10% preserved
+└── UV-powered optimization trials`,
+                duration: 12
+            },
+            {
+                text: `PRESENTATION: HORUS Output System
+├── 24 Animation Protocols
+├── Glitch, Neon Pulse, Rainbow Wave
+├── Real-time monitoring
+├── Multi-format output (HTML, JSON, Console)
+└── Browser integration with live updates`,
+                duration: 9
+            }
+        ];
+
+        let currentScene = 0;
+        let charIndex = 0;
+        let isTyping = false;
+        const typewriterEl = document.getElementById('typewriter');
+        const sceneNumberEl = document.getElementById('sceneNumber');
+
+        // Create particles
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+            document.getElementById('particles').appendChild(particle);
+        }
+
+        function typeText() {
+            if (isTyping) return;
+            isTyping = true;
+
+            const scene = scenes[currentScene];
+            typewriterEl.innerHTML = '';
+
+            function typeChar() {
+                if (charIndex < scene.text.length) {
+                    typewriterEl.innerHTML = scene.text.substring(0, charIndex + 1) + '<span class="caret"></span>';
+                    charIndex++;
+                    setTimeout(typeChar, 30 + Math.random() * 20);
+                } else {
+                    isTyping = false;
+                    setTimeout(() => {
+                        charIndex = 0;
+                        currentScene = (currentScene + 1) % scenes.length;
+                        sceneNumberEl.textContent = currentScene + 1;
+                        showSceneElements();
+                        typeText();
+                    }, scene.duration * 1000);
+                }
+            }
+
+            typeChar();
+        }
+
+        function showSceneElements() {
+            // Cards
+            for (let i = 1; i <= 4; i++) {
+                setTimeout(() => {
+                    document.getElementById('card' + i).classList.add('visible');
+                }, (i - 1) * 200);
+            }
+
+            // Tiers
+            const tiers = ['tier-1', 'tier0', 'tier1', 'tier2', 'tier3', 'tier4', 'tier5'];
+            tiers.forEach((tier, i) => {
+                setTimeout(() => {
+                    document.getElementById(tier).classList.add('visible');
+                }, 800 + i * 150);
+            });
+
+            // Timeline
+            for (let i = 1; i <= 5; i++) {
+                setTimeout(() => {
+                    document.getElementById('timeline' + i).classList.add('visible');
+                }, 1800 + i * 200);
+            }
+        }
+
+        // Start
+        showSceneElements();
+        setTimeout(typeText, 1500);
+
+        // Reset scene periodically
+        setInterval(() => {
+            if (currentScene === 0 && !isTyping && charIndex === 0) {
+                document.querySelectorAll('.info-card').forEach(c => c.classList.remove('visible'));
+                document.querySelectorAll('.tier-block').forEach(t => t.classList.remove('visible'));
+                document.querySelectorAll('.timeline-item').forEach(t => t.classList.remove('visible'));
+            }
+        }, 60000);
+    </script>
+</body>
+</html>

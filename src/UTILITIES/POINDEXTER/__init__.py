@@ -1,0 +1,1 @@
+"""Azazael POINDEXTER - Mathematical indexer."""

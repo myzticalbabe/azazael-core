@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>33 Steps - Static Details Web</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { width: 100vw; min-height: 100vh; background: radial-gradient(ellipse at center, #0d1117 0%, #161b22 50%, #010409 100%); font-family: 'Consolas', monospace; overflow: auto; }
+        .container { width: 100%; padding: 5px; }
+        h1 { text-align: center; color: #58a6ff; font-size: 10px; margin: 2px 0; letter-spacing: 1px; }
+        .web-canvas { width: 100%; min-height: 98vh; position: relative; }
+        svg.connections { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+        
+        /* Connection types */
+        line.seq { stroke: #238636; stroke-width: 1.2; opacity: 0.6; }
+        line.dep { stroke: #f85149; stroke-width: 1; stroke-dasharray: 3,2; opacity: 0.5; }
+        line.feed { stroke: #d29922; stroke-width: 0.8; stroke-dasharray: 2,2; opacity: 0.4; }
+        line.sib { stroke: #8b949e; stroke-width: 0.6; opacity: 0.3; }
+        
+        .bubble { position: absolute; display: flex; align-items: center; justify-content: center; text-align: center; border-radius: 4px; font-size: 6px; font-weight: bold; color: #fff; border: 1px solid #30363d; padding: 2px; z-index: 2; overflow: hidden; }
+        
+        /* 8 Phase colors */
+        .ph1 { background: linear-gradient(135deg, #da3633, #b62324); }
+        .ph2 { background: linear-gradient(135deg, #d29922, #9e6a03); }
+        .ph3 { background: linear-gradient(135deg, #58a6ff, #1f6feb); }
+        .ph4 { background: linear-gradient(135deg, #3fb950, #238636); }
+        .ph5 { background: linear-gradient(135deg, #a371f7, #8957e5); }
+        .ph6 { background: linear-gradient(135deg, #db61a2, #bf3989); }
+        .ph7 { background: linear-gradient(135deg, #79c0ff, #56d4dd); color: #000; }
+        .ph8 { background: linear-gradient(135deg, #7ee787, #56d364); color: #000; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>33 STEPS - STATIC DETAILS WEB (Every Step Visible)</h1>
+        <div class="web-canvas">
+            <svg class="connections">
+                <!-- Phase 1 connections -->
+                <line class="seq" x1="5%" y1="4%" x2="8%" y2="7%"/>
+                <line class="seq" x1="8%" y1="7%" x2="11%" y2="10%"/>
+                <line class="dep" x1="11%" y1="10%" x2="14%" y2="13%"/>
+                <!-- Phase 1 -> 2 -->
+                <line class="dep" x1="14%" y1="13%" x2="17%" y2="4%"/>
+                <!-- Phase 2 connections -->
+                <line class="seq" x1="17%" y1="4%" x2="20%" y2="7%"/>
+                <line class="seq" x1="20%" y1="7%" x2="23%" y2="10%"/>
+                <line class="seq" x1="23%" y1="10%" x2="26%" y2="13%"/>
+                <line class="dep" x1="26%" y1="13%" x2="29%" y2="4%"/>
+                <!-- Phase 3 -->
+                <line class="dep" x1="29%" y1="4%" x2="32%" y2="7%"/>
+                <line class="seq" x1="32%" y1="7%" x2="35%" y2="10%"/>
+                <line class="dep" x1="35%" y1="10%" x2="38%" y2="4%"/>
+                <!-- Phase 4 -->
+                <line class="seq" x1="38%" y1="4%" x2="41%" y2="7%"/>
+                <line class="seq" x1="41%" y1="7%" x2="44%" y2="10%"/>
+                <line class="dep" x1="44%" y1="10%" x2="47%" y2="4%"/>
+                <!-- Phase 5 -->
+                <line class="seq" x1="47%" y1="4%" x2="50%" y2="7%"/>
+                <line class="seq" x1="50%" y1="7%" x2="53%" y2="10%"/>
+                <line class="dep" x1="53%" y1="10%" x2="56%" y2="4%"/>
+                <!-- Phase 6 -->
+                <line class="seq" x1="56%" y1="4%" x2="59%" y2="7%"/>
+                <line class="seq" x1="59%" y1="7%" x2="62%" y2="10%"/>
+                <line class="dep" x1="62%" y1="10%" x2="65%" y2="4%"/>
+                <!-- Phase 7 -->
+                <line class="dep" x1="65%" y1="4%" x2="68%" y2="7%"/>
+                <line class="seq" x1="68%" y1="7%" x2="71%" y2="10%"/>
+                <line class="seq" x1="71%" y1="10%" x2="74%" y2="13%"/>
+                <line class="dep" x1="74%" y1="13%" x2="77%" y2="4%"/>
+                <!-- Phase 8 -->
+                <line class="seq" x1="77%" y1="4%" x2="80%" y2="7%"/>
+                <line class="seq" x1="80%" y1="7%" x2="83%" y2="10%"/>
+                <line class="seq" x1="83%" y1="10%" x2="86%" y2="13%"/>
+                <!-- Feedback -->
+                <line class="feed" x1="86%" y1="13%" x2="5%" y2="4%"/>
+            </svg>
+
+            <!-- PHASE 1: INVESTIGATE (Steps 1-6) -->
+            <div class="bubble ph1" style="left:3%;top:2%;width:11%;height:3%;font-size:5px;">P1 INVESTIGATE</div>
+            <div class="bubble ph1" style="left:3%;top:6%;width:11%;height:2.5%;font-size:4px;">1 netstat -ano</div>
+            <div class="bubble ph1" style="left:3%;top:9%;width:11%;height:2.5%;font-size:4px;">2 ping localhost</div>
+            <div class="bubble ph1" style="left:3%;top:12%;width:11%;height:2.5%;font-size:4px;">3 curl 127.0.0.1</div>
+            <div class="bubble ph1" style="left:3%;top:15%;width:11%;height:2.5%;font-size:4px;">4 curl localhost</div>
+            <div class="bubble ph1" style="left:3%;top:18%;width:11%;height:2.5%;font-size:4px;">5 Read hosts file</div>
+            <div class="bubble ph1" style="left:3%;top:21%;width:11%;height:2.5%;font-size:4px;">6 #commented</div>
+
+            <!-- PHASE 2: HOSTS FIX (Steps 7-13) -->
+            <div class="bubble ph2" style="left:16%;top:2%;width:11%;height:3%;font-size:5px;">P2 HOSTS FIX</div>
+            <div class="bubble ph2" style="left:16%;top:6%;width:11%;height:2.5%;font-size:4px;">7 EPERM denied</div>
+            <div class="bubble ph2" style="left:16%;top:9%;width:11%;height:2.5%;font-size:4px;">8 fix_hosts.ps1</div>
+            <div class="bubble ph2" style="left:16%;top:12%;width:11%;height:2.5%;font-size:4px;">9 PS RunAs</div>
+            <div class="bubble ph2" style="left:16%;top:15%;width:11%;height:2.5%;font-size:4px;">10 Set-Content</div>
+            <div class="bubble ph2" style="left:16%;top:18%;width:11%;height:2.5%;font-size:4px;">11 127.0.0.1</div>
+            <div class="bubble ph2" style="left:16%;top:21%;width:11%;height:2.5%;font-size:4px;">12 ::1 IPv6</div>
+            <div class="bubble ph2" style="left:16%;top:24%;width:11%;height:2.5%;font-size:4px;">13 delete script</div>
+
+            <!-- PHASE 3: CONNECTION (Steps 14-15) -->
+            <div class="bubble ph3" style="left:29%;top:2%;width:11%;height:3%;font-size:5px;">P3 CONNECTION</div>
+            <div class="bubble ph3" style="left:29%;top:6%;width:11%;height:2.5%;font-size:4px;">14 Python req</div>
+            <div class="bubble ph3" style="left:29%;top:9%;width:11%;height:2.5%;font-size:4px;">15 HTTP 200 OK</div>
+
+            <!-- PHASE 4: LITELLM (Steps 16-18) -->
+            <div class="bubble ph4" style="left:42%;top:2%;width:11%;height:3%;font-size:5px;">P4 LITELLM</div>
+            <div class="bubble ph4" style="left:42%;top:6%;width:11%;height:2.5%;font-size:4px;">16 pip uninstall</div>
+            <div class="bubble ph4" style="left:42%;top:9%;width:11%;height:2.5%;font-size:4px;">17 pip uninstall</div>
+            <div class="bubble ph4" style="left:42%;top:12%;width:11%;height:2.5%;font-size:4px;">18 pip install</div>
+
+            <!-- PHASE 5: API KEY (Steps 19-21) -->
+            <div class="bubble ph5" style="left:55%;top:2%;width:11%;height:3%;font-size:5px;">P5 API KEY</div>
+            <div class="bubble ph5" style="left:55%;top:6%;width:11%;height:2.5%;font-size:4px;">19 setx dummy</div>
+            <div class="bubble ph5" style="left:55%;top:9%;width:11%;height:2.5%;font-size:4px;">20 setx sk-lm...</div>
+            <div class="bubble ph5" style="left:55%;top:12%;width:11%;height:2.5%;font-size:4px;">21 HKCU reg</div>
+
+            <!-- PHASE 6: LM STUDIO (Steps 22-25) -->
+            <div class="bubble ph6" style="left:68%;top:2%;width:11%;height:3%;font-size:5px;">P6 LM STUDIO</div>
+            <div class="bubble ph6" style="left:68%;top:6%;width:11%;height:2.5%;font-size:4px;">22 taskkill</div>
+            <div class="bubble ph6" style="left:68%;top:9%;width:11%;height:2.5%;font-size:4px;">23 Start-Process</div>
+            <div class="bubble ph6" style="left:68%;top:12%;width:11%;height:2.5%;font-size:4px;">24 Load llama</div>
+            <div class="bubble ph6" style="left:68%;top:15%;width:11%;height:2.5%;font-size:4px;">25 server :1234</div>
+
+            <!-- PHASE 7: AZAZAEL (Steps 26-29) -->
+            <div class="bubble ph7" style="left:81%;top:2%;width:11%;height:3%;font-size:5px;">P7 AZAZAEL</div>
+            <div class="bubble ph7" style="left:81%;top:6%;width:11%;height:2.5%;font-size:4px;">26 grep PATH</div>
+            <div class="bubble ph7" style="left:81%;top:9%;width:11%;height:2.5%;font-size:4px;">27 PYTHONPATH</div>
+            <div class="bubble ph7" style="left:81%;top:12%;width:11%;height:2.5%;font-size:4px;">28 setx ""</div>
+            <div class="bubble ph7" style="left:81%;top:15%;width:11%;height:2.5%;font-size:4px;">29 registry</div>
+
+            <!-- PHASE 8: FINAL (Steps 30-33) -->
+            <div class="bubble ph8" style="left:94%;top:2%;width:5%;height:3%;font-size:5px;">P8</div>
+            <div class="bubble ph8" style="left:94%;top:6%;width:5%;height:2.5%;font-size:4px;">30</div>
+            <div class="bubble ph8" style="left:94%;top:9%;width:5%;height:2.5%;font-size:4px;">31</div>
+            <div class="bubble ph8" style="left:94%;top:12%;width:5%;height:2.5%;font-size:4px;">32</div>
+            <div class="bubble ph8" style="left:94%;top:15%;width:5%;height:2.5%;font-size:4px;">33</div>
+            
+            <!-- Full Width Static Details -->
+            <div style="position:absolute;left:1%;top:28%;width:98%;height:70%;display:flex;flex-wrap:wrap;gap:2px;align-content:flex-start;">
+                <div class="bubble ph1" style="width:14%;height:4%;font-size:6px;">1 netstat -ano findstr 1234 - Check port 1234</div>
+                <div class="bubble ph1" style="width:14%;height:4%;font-size:6px;">2 ping -n 1 localhost - Test DNS resolution</div>
+                <div class="bubble ph1" style="width:14%;height:4%;font-size:6px;">3 curl http://127.0.0.1:1234/v1/models - IPv4 test</div>
+                <div class="bubble ph1" style="width:14%;height:4%;font-size:6px;">4 curl http://localhost:1234/v1/models - Hostname test</div>
+                <div class="bubble ph1" style="width:14%;height:4%;font-size:6px;">5 Read C:\Windows\System32\drivers\etc\hosts - View hosts</div>
+                <div class="bubble ph1" style="width:14%;height:4%;font-size:6px;">6 Found localhost entries commented (#) - Root cause</div>
+                <div class="bubble ph2" style="width:14%;height:4%;font-size:6px;">7 Edit hosts - EPERM: operation not permitted</div>
+                <div class="bubble ph2" style="width:14%;height:4%;font-size:6px;">8 Create C:\Users\clint\fix_hosts.ps1 - PowerShell script</div>
+                <div class="bubble ph2" style="width:14%;height:4%;font-size:6px;">9 PowerShell Start-Process -Verb RunAs - Admin elevation</div>
+                <div class="bubble ph2" style="width:14%;height:4%;font-size:6px;">10 Set-Content hosts file - Write fixed entries</div>
+                <div class="bubble ph2" style="width:14%;height:4%;font-size:6px;">11 127.0.0.1 -> localhost - IPv4 mapping</div>
+                <div class="bubble ph2" style="width:14%;height:4%;font-size:6px;">12 ::1 -> localhost - IPv6 mapping</div>
+                <div class="bubble ph2" style="width:14%;height:4%;font-size:6px;">13 Delete fix_hosts.ps1 - Cleanup temp script</div>
+                <div class="bubble ph3" style="width:14%;height:4%;font-size:6px;">14 Python requests.get localhost:1234/v1/models - HTTP test</div>
+                <div class="bubble ph3" style="width:14%;height:4%;font-size:6px;">15 HTTP 200 OK - Connection verified success</div>
+                <div class="bubble ph4" style="width:14%;height:4%;font-size:6px;">16 pip uninstall lite-llm -y - Remove old package</div>
+                <div class="bubble ph4" style="width:14%;height:4%;font-size:6px;">17 pip uninstall litellm -y - Clean removal</div>
+                <div class="bubble ph4" style="width:14%;height:4%;font-size:6px;">18 pip install litellm - Install fresh package</div>
+                <div class="bubble ph5" style="width:14%;height:4%;font-size:6px;">19 setx OPENAI_API_KEY sk-dummy - Set dummy key</div>
+                <div class="bubble ph5" style="width:14%;height:4%;font-size:6px;">20 setx KEY sk-lm-8iZKmzXN:37nUHv... - Real key</div>
+                <div class="bubble ph5" style="width:14%;height:4%;font-size:6px;">21 Registry HKCU\Environment - Persist key</div>
+                <div class="bubble ph6" style="width:14%;height:4%;font-size:6px;">22 taskkill /IM LM Studio.exe /F - Kill process</div>
+                <div class="bubble ph6" style="width:14%;height:4%;font-size:6px;">23 Start-Process LM Studio.exe - Launch app</div>
+                <div class="bubble ph6" style="width:14%;height:4%;font-size:6px;">24 Load llama-3.2-1b-instruct - Load model</div>
+                <div class="bubble ph6" style="width:14%;height:4%;font-size:6px;">25 Server localhost:1234/v1 - Start API server</div>
+                <div class="bubble ph7" style="width:14%;height:4%;font-size:6px;">26 grep PATH Azazael - Search for conflicts</div>
+                <div class="bubble ph7" style="width:14%;height:4%;font-size:6px;">27 PYTHONPATH=Azazael_UNIFIED - Found bad path</div>
+                <div class="bubble ph7" style="width:14%;height:4%;font-size:6px;">28 setx PYTHONPATH "" - Clear variable</div>
+                <div class="bubble ph7" style="width:14%;height:4%;font-size:6px;">29 Remove from registry - Permanent fix</div>
+                <div class="bubble ph8" style="width:14%;height:4%;font-size:6px;">30 os.environ[KEY]=sk-lm-... - Set in code</div>
+                <div class="bubble ph8" style="width:14%;height:4%;font-size:6px;">31 litellm.completion call - Make API call</div>
+                <div class="bubble ph8" style="width:14%;height:4%;font-size:6px;">32 model=openai/llama-3.2-1b-instruct - Specify model</div>
+                <div class="bubble ph8" style="width:14%;height:4%;font-size:6px;">33 Response: Hello! I'm Qwen... - SUCCESS!</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

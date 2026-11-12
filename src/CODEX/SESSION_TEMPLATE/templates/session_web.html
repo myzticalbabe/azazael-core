@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Session Operations - Web</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { width: 100vw; min-height: 100vh; background: radial-gradient(ellipse at center, #1a1a2e 0%, #0a0a1a 100%); font-family: 'Courier New', monospace; overflow: auto; }
+        .container { width: 100%; padding: 20px; }
+        h1 { text-align: center; color: #4ecdc4; font-size: 14px; margin: 5px 0; text-transform: uppercase; }
+        .web-canvas { width: 100%; min-height: 90vh; position: relative; }
+        svg.connections { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+        line.main { stroke: rgba(78, 205, 196, 0.8); stroke-width: 2.5; }
+        line.cross { stroke: rgba(255, 107, 107, 0.6); stroke-width: 1.5; stroke-dasharray: 5,3; }
+        line.feedback { stroke: rgba(253, 203, 110, 0.5); stroke-width: 1; }
+        .bubble { position: absolute; display: flex; align-items: center; justify-content: center; text-align: center; border-radius: 50%; font-size: 6px; font-weight: bold; color: #000; box-shadow: 0 0 15px rgba(78, 205, 196, 0.4); border: 2px solid #fff; padding: 2px; z-index: 2; transition: all 0.3s; }
+        .bubble:hover { transform: scale(1.6); box-shadow: 0 0 30px rgba(255, 107, 107, 0.8); z-index: 10; }
+        .bubble .tooltip { display: none; position: absolute; bottom: -35px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.95); color: #4ecdc4; padding: 6px; border-radius: 4px; font-size: 8px; white-space: nowrap; z-index: 100; border: 1px solid #4ecdc4; }
+        .bubble:hover .tooltip { display: block; }
+        
+        /* Phase colors */
+        .p1 { background: linear-gradient(135deg, #ff6b6b, #c0392b); color: #fff; }
+        .p2 { background: linear-gradient(135deg, #f39c12, #e67e22); color: #fff; }
+        .p3 { background: linear-gradient(135deg, #3498db, #2980b9); color: #fff; }
+        .p4 { background: linear-gradient(135deg, #27ae60, #1e8449); color: #fff; }
+        .p5 { background: linear-gradient(135deg, #9b59b6, #8e44ad); color: #fff; }
+        .p6 { background: linear-gradient(135deg, #e91e63, #c2185b); color: #fff; }
+        .p7 { background: linear-gradient(135deg, #00bcd4, #0097a7); color: #fff; }
+        .p8 { background: linear-gradient(135deg, #8bc34a, #689f38); color: #fff; }
+        
+        /* Node sizes by importance */
+        .phase-node { width: 50px; height: 50px; }
+        .step-node { width: 35px; height: 35px; font-size: 5px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>33 Steps - Interconnected Web (8 Phases)</h1>
+        <div class="web-canvas">
+            <svg class="connections">
+                <!-- Phase 1: Investigation nodes -->
+                <line class="main" x1="15%" y1="15%" x2="20%" y2="20%"/>
+                <line class="main" x1="15%" y1="15%" x2="10%" y2="20%"/>
+                <line class="main" x1="15%" y1="15%" x2="20%" y2="25%"/>
+                <line class="main" x1="15%" y1="15%" x2="10%" y2="25%"/>
+                
+                <!-- Phase 2: Hosts Fix -->
+                <line class="main" x1="30%" y1="15%" x2="35%" y2="20%"/>
+                <line class="main" x1="30%" y1="15%" x2="25%" y2="20%"/>
+                <line class="main" x1="30%" y1="15%" x2="35%" y2="25%"/>
+                <line class="main" x1="30%" y1="15%" x2="25%" y2="25%"/>
+                
+                <!-- Phase 3: Connection -->
+                <line class="main" x1="45%" y1="15%" x2="50%" y2="20%"/>
+                <line class="main" x1="45%" y1="15%" x2="40%" y2="20%"/>
+                <line class="main" x1="45%" y1="15%" x2="50%" y2="25%"/>
+                <line class="main" x1="45%" y1="15%" x2="40%" y2="25%"/>
+                
+                <!-- Phase 4: LiteLLM -->
+                <line class="main" x1="60%" y1="15%" x2="65%" y2="20%"/>
+                <line class="main" x1="60%" y1="15%" x2="55%" y2="20%"/>
+                <line class="main" x1="60%" y1="15%" x2="65%" y2="25%"/>
+                <line class="main" x1="60%" y1="15%" x2="55%" y2="25%"/>
+                
+                <!-- Phase 5: API Key -->
+                <line class="main" x1="75%" y1="15%" x2="80%" y2="20%"/>
+                <line class="main" x1="75%" y1="15%" x2="70%" y2="20%"/>
+                <line class="main" x1="75%" y1="15%" x2="80%" y2="25%"/>
+                <line class="main" x1="75%" y1="15%" x2="70%" y2="25%"/>
+                
+                <!-- Phase 6: LM Studio -->
+                <line class="main" x1="90%" y1="15%" x2="90%" y2="20%"/>
+                <line class="main" x1="90%" y1="15%" x2="90%" y2="25%"/>
+                
+                <!-- Inter-phase connections -->
+                <line class="cross" x1="20%" y1="20%" x2="30%" y2="15%"/>
+                <line class="cross" x1="35%" y1="20%" x2="45%" y2="15%"/>
+                <line class="cross" x1="50%" y1="20%" x2="60%" y2="15%"/>
+                <line class="cross" x1="65%" y1="20%" x2="75%" y2="15%"/>
+                <line class="cross" x1="80%" y1="20%" x2="90%" y2="15%"/>
+                
+                <!-- Vertical connections down -->
+                <line class="cross" x1="10%" y1="25%" x2="10%" y2="35%"/>
+                <line class="cross" x1="20%" y1="25%" x2="20%" y2="35%"/>
+                <line class="cross" x1="40%" y1="25%" x2="40%" y2="35%"/>
+                <line class="cross" x1="50%" y1="25%" x2="50%" y2="35%"/>
+                <line class="cross" x1="70%" y1="25%" x2="70%" y2="35%"/>
+                <line class="cross" x1="80%" y1="25%" x2="80%" y2="35%"/>
+                
+                <!-- Lower connections -->
+                <line class="cross" x1="10%" y1="35%" x2="20%" y2="45%"/>
+                <line class="cross" x1="20%" y1="35%" x2="30%" y2="45%"/>
+                <line class="cross" x1="40%" y1="35%" x2="50%" y2="45%"/>
+                <line class="cross" x1="50%" y1="35%" x2="60%" y2="45%"/>
+                <line class="cross" x1="70%" y1="35%" x2="80%" y2="45%"/>
+                <line class="cross" x1="80%" y1="35%" x2="90%" y2="45%"/>
+                
+                <!-- Row 3 interconnects -->
+                <line class="cross" x1="10%" y1="45%" x2="20%" y2="55%"/>
+                <line class="cross" x1="20%" y1="45%" x2="30%" y2="55%"/>
+                <line class="cross" x1="30%" y1="45%" x2="40%" y2="55%"/>
+                <line class="cross" x1="40%" y1="45%" x2="50%" y2="55%"/>
+                <line class="cross" x1="50%" y1="45%" x2="60%" y2="55%"/>
+                <line class="cross" x1="60%" y1="45%" x2="70%" y2="55%"/>
+                <line class="cross" x1="70%" y1="45%" x2="80%" y2="55%"/>
+                <line class="cross" x1="80%" y1="45%" x2="90%" y2="55%"/>
+                
+                <!-- Feedback loops (yellow) -->
+                <line class="feedback" x1="20%" y1="55%" x2="15%" y2="15%"/>
+                <line class="feedback" x1="40%" y1="55%" x2="30%" y2="15%"/>
+                <line class="feedback" x1="60%" y1="55%" x2="45%" y2="15%"/>
+                <line class="feedback" x1="80%" y1="55%" x2="60%" y2="15%"/>
+                <line class="feedback" x1="90%" y1="55%" x2="75%" y2="15%"/>
+            </svg>
+
+            <!-- ROW 1: Phase Headers -->
+            <div class="bubble p1 phase-node" style="left:10%;top:10%;">P1<div class="tooltip">1. INVESTIGATE<br/>Diagnose connection</div></div>
+            <div class="bubble p2 phase-node" style="left:25%;top:10%;">P2<div class="tooltip">2. HOSTS FIX<br/>Fix localhost</div></div>
+            <div class="bubble p3 phase-node" style="left:40%;top:10%;">P3<div class="tooltip">3. CONNECTION<br/>Verify server</div></div>
+            <div class="bubble p4 phase-node" style="left:55%;top:10%;">P4<div class="tooltip">4. LITELLM<br/>Install package</div></div>
+            <div class="bubble p5 phase-node" style="left:70%;top:10%;">P5<div class="tooltip">5. API KEY<br/>Set auth</div></div>
+            <div class="bubble p6 phase-node" style="left:85%;top:10%;">P6<div class="tooltip">6. LM STUDIO<br/>Start server</div></div>
+
+            <!-- ROW 2: Steps 1-12 -->
+            <div class="bubble p1 step-node" style="left:7%;top:18%;">netstat<div class="tooltip">netstat -ano</div></div>
+            <div class="bubble p1 step-node" style="left:17%;top:18%;">ping<div class="tooltip">ping localhost</div></div>
+            <div class="bubble p2 step-node" style="left:32%;top:18%;">curl<div class="tooltip">curl localhost</div></div>
+            <div class="bubble p2 step-node" style="left:22%;top:18%;">hosts<div class="tooltip">Read hosts</div></div>
+            <div class="bubble p3 step-node" style="left:47%;top:18%;">EPERM<div class="tooltip">Permission err</div></div>
+            <div class="bubble p3 step-node" style="left:37%;top:18%;">PS admin<div class="tooltip">PowerShell</div></div>
+            <div class="bubble p4 step-node" style="left:62%;top:18%;">Python<div class="tooltip">requests</div></div>
+            <div class="bubble p4 step-node" style="left:52%;top:18%;">HTTP 200<div class="tooltip">Success</div></div>
+            <div class="bubble p5 step-node" style="left:77%;top:18%;">pip uninstall<div class="tooltip">Remove pkgs</div></div>
+            <div class="bubble p5 step-node" style="left:67%;top:18%;">pip install<div class="tooltip">Install litellm</div></div>
+            <div class="bubble p6 step-node" style="left:87%;top:18%;">setx<div class="tooltip">Set env var</div></div>
+            <div class="bubble p6 step-node" style="left:92%;top:18%;">Registry<div class="tooltip">HKCU</div></div>
+
+            <!-- ROW 3: Steps 13-24 -->
+            <div class="bubble p1 step-node" style="left:7%;top:32%;">127.0.0.1<div class="tooltip">IP binding</div></div>
+            <div class="bubble p1 step-node" style="left:17%;top:32%;">::1<div class="tooltip">IPv6</div></div>
+            <div class="bubble p2 step-node" style="left:27%;top:32%;">Delete<div class="tooltip">Cleanup script</div></div>
+            <div class="bubble p2 step-node" style="left:37%;top:32%;">Verify<div class="tooltip">Check hosts</div></div>
+            <div class="bubble p3 step-node" style="left:47%;top:32%;">Python<div class="tooltip">requests.get</div></div>
+            <div class="bubble p3 step-node" style="left:57%;top:32%;">localhost<div class="tooltip">:1234/v1</div></div>
+            <div class="bubble p4 step-node" style="left:67%;top:32%;">sk-dummy<div class="tooltip">Temp key</div></div>
+            <div class="bubble p4 step-node" style="left:77%;top:32%;">sk-lm...<div class="tooltip">Real key</div></div>
+            <div class="bubble p5 step-node" style="left:87%;top:32%;">HKCU<div class="tooltip">Registry</div></div>
+            <div class="bubble p6 step-node" style="left:92%;top:32%;">taskkill<div class="tooltip">Stop LM</div></div>
+
+            <!-- ROW 4: Steps 25-33 + Azazael + Final -->
+            <div class="bubble p2 step-node" style="left:12%;top:45%;">Start<div class="tooltip">LM Studio</div></div>
+            <div class="bubble p3 step-node" style="left:22%;top:45%;">Load Model<div class="tooltip">llama-3.2-1b</div></div>
+            <div class="bubble p4 step-node" style="left:32%;top:45%;">Server<div class="tooltip">:1234/v1</div></div>
+            <div class="bubble p5 step-node" style="left:42%;top:45%;">grep<div class="tooltip">Search PATH</div></div>
+            <div class="bubble p5 step-node" style="left:52%;top:45%;">PYTHONPATH<div class="tooltip">Azazael path</div></div>
+            <div class="bubble p6 step-node" style="left:62%;top:45%;">Clear<div class="tooltip">setx ""</div></div>
+            <div class="bubble p7 step-node" style="left:72%;top:45%;">Registry<div class="tooltip">Remove var</div></div>
+            <div class="bubble p8 step-node" style="left:82%;top:45%;">os.environ<div class="tooltip">Set in code</div></div>
+            <div class="bubble p8 step-node" style="left:92%;top:45%;">completion<div class="tooltip">litellm call</div></div>
+
+            <!-- FINAL -->
+            <div class="bubble p8 phase-node" style="left:85%;top:60%;">8<div class="tooltip">8. FINAL TEST<br/>Verify all work</div></div>
+            <div class="bubble p8 step-node" style="left:82%;top:72%;">Hello Qwen<div class="tooltip">SUCCESS!</div></div>
+            <div class="bubble p8 step-node" style="left:92%;top:72%;">Response<div class="tooltip">Model output</div></div>
+        </div>
+    </div>
+</body>
+</html>

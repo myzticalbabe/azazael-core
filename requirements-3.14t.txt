@@ -1,0 +1,39 @@
+# Azazael Unified Lockfile — Python 3.14t (Free-Threading) — RETIRED
+# Generated: June 19, 2026 — from Kali canonical environment (pip freeze)
+#
+# RETIRED 2026-10-19 — pins for the retired 3.14t venv
+# (C:\Users\clint\venv-314t). Not installed by any current path.
+# The sanctioned 3.14 runtime is .venvs/py314m; production is .venvs/py315t.
+# The historical 3.14t-only mandate is superseded; see SYSTEM_INSTRUCTIONS.md.
+
+# === Core Runtime Dependencies ===
+# System monitoring (all worms)
+psutil==7.2.2
+
+# ML/Numeric (ORCHESTRATION/ml_platforms, SYSTEZ_ML, worm training)
+numpy==2.4.6
+
+# Config
+PyYAML>=6.0
+
+# === Optional: Dev Dependencies (install with: pip install -e ".[dev]") ===
+# See packages/azazael-core/pyproject.toml for full [project.optional-dependencies]
+# pytest>=8.0  (pinned in pyproject.toml, installs via pip install -e .)
+# nuitka>=2.0  (SUSPENDED — Nuitka broken on 3.14.5t per BUILD.md)
+
+# === Notes ===
+# - psutil 7.2.2: confirmed working cp314t wheel. If segfaults, reinstall:
+#   pip install --force-reinstall --no-deps psutil
+# - numpy 2.4.6: cp314t wheel available
+# - pytest: CORRECTED 2026-09-22. This note previously said pytest segfaults on
+#   3.14t (Error #48) and that tests must run standalone. Measured on the
+#   canonical interpreter (3.14.7 free-threading build, cp314t-win_amd64,
+#   sys._is_gil_enabled() False): pytest 9.1.1 runs the whole tests/ tree in ONE
+#   process — 3,606 passed, 38 skipped, 0 errors, 22 minutes. The standalone
+#   runner is still what run_tests.py --skip-slow uses (faster per file, needs no
+#   pytest), but the claim that pytest cannot run here is false. Repeating it is
+#   what kept the aggregate isolation defects invisible: a per-file runner cannot
+#   see a defect that exists only across files inside one interpreter.
+# - Additional packages (torch, scipy, sklearn, transformers, etc.)
+#   are NOT included — they have known 3.14t wheel issues.
+#   See BUILD.md for 3.14t incompatibilities.

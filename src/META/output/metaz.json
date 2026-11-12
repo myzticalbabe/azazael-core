@@ -1,0 +1,1356 @@
+{
+  "name": "METAZ",
+  "success": true,
+  "files_processed": 192,
+  "items_found": 192,
+  "duration_ms": 3592.158079147339,
+  "output": {
+    "metadata": {
+      "C:\\Users\\clint\\Desktop\\Azazael\\Azazael_ENHANCEMENT_PLAN.md": {
+        "size": 8060,
+        "mtime": 1770766871.31826,
+        "ctime": 1770763500.8470297,
+        "checksum": "c1888dcb1d8ce870",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\CHANGELOG.md": {
+        "size": 5001,
+        "mtime": 1770780022.7938986,
+        "ctime": 1770766485.3328047,
+        "checksum": "0c0d25c5b4daea6c",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\CLI_ASSISTANT_BEST_PRACTICES.md": {
+        "size": 9738,
+        "mtime": 1770779374.4443538,
+        "ctime": 1770761621.7643573,
+        "checksum": "1332abd8b6dbce0b",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\CURRENT_STATE.md": {
+        "size": 32541,
+        "mtime": 1770788029.1918805,
+        "ctime": 1770764929.4959667,
+        "checksum": "7184565dcbeb2b12",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\DOCUMENTATION_PROTOCOL.md": {
+        "size": 17958,
+        "mtime": 1770757038.3021748,
+        "ctime": 1770755704.0483437,
+        "checksum": "1bfbdccf8d6e19a8",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\HORUS.py": {
+        "size": 23703,
+        "mtime": 1770792592.9333122,
+        "ctime": 1770789578.9451683,
+        "checksum": "db4629c0ae886280",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\HYDRA.py": {
+        "size": 19538,
+        "mtime": 1770792690.430315,
+        "ctime": 1770791941.9551685,
+        "checksum": "87d290000ad7b7ff",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\HYDRA_10MIN_TEST.py": {
+        "size": 5417,
+        "mtime": 1770793273.5206466,
+        "ctime": 1770793273.4655228,
+        "checksum": "7a424a05474f5936",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\INDEX.md": {
+        "size": 6380,
+        "mtime": 1770795072.7109916,
+        "ctime": 1770785626.2605007,
+        "checksum": "f36b1c196593b224",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\INSTRUCTIONS.md": {
+        "size": 7609,
+        "mtime": 1770787922.0366347,
+        "ctime": 1770749274.1550546,
+        "checksum": "62b1ed2aeaf9aba0",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\INTEROPERABILITY_ANALYSIS.py": {
+        "size": 19853,
+        "mtime": 1770794159.1135967,
+        "ctime": 1770793738.257967,
+        "checksum": "9d477b1084d73aab",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\interoperability_graph.png": {
+        "size": 333620,
+        "mtime": 1770761997.2110672,
+        "ctime": 1770761981.6153083,
+        "checksum": "450d576759912ab0",
+        "extension": ".png"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\LAUNCHER.bat": {
+        "size": 1798,
+        "mtime": 1770751907.906467,
+        "ctime": 1770751907.8984897,
+        "checksum": "d2f8d7d01d00dabc",
+        "extension": ".bat"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\LAUNCH_QA.bat": {
+        "size": 928,
+        "mtime": 1770755252.4806638,
+        "ctime": 1770755252.4806638,
+        "checksum": "b7ebc4cf2193eedb",
+        "extension": ".bat"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\model_config.yaml": {
+        "size": 6561,
+        "mtime": 1770753995.0990777,
+        "ctime": 1770749308.9093602,
+        "checksum": "56c3b89ce0435055",
+        "extension": ".yaml"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\module_network.png": {
+        "size": 325442,
+        "mtime": 1770761997.6835487,
+        "ctime": 1770761982.1082537,
+        "checksum": "8e6d96d641853026",
+        "extension": ".png"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\OPTIMIZED_BAT_TEMPLATE.bat": {
+        "size": 1057,
+        "mtime": 1770761997.6835487,
+        "ctime": 1770761982.174099,
+        "checksum": "5b9397cbcd3435f1",
+        "extension": ".bat"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\qlearning_heatmap.png": {
+        "size": 69984,
+        "mtime": 1770761997.516806,
+        "ctime": 1770761981.9395993,
+        "checksum": "238d3e1c51338a9e",
+        "extension": ".png"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\README.md": {
+        "size": 4972,
+        "mtime": 1770787962.8287728,
+        "ctime": 1770758401.5383725,
+        "checksum": "0047bde1cd5d9d7c",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\requirements.txt": {
+        "size": 445,
+        "mtime": 1770763047.2508163,
+        "ctime": 1767734714.9811735,
+        "checksum": "b12fc4ad29175306",
+        "extension": ".txt"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\requirements_wsa.txt": {
+        "size": 6282,
+        "mtime": 1770767615.315206,
+        "ctime": 1770763363.833466,
+        "checksum": "8290fc36510e2eef",
+        "extension": ".txt"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\TARBABY.py": {
+        "size": 18485,
+        "mtime": 1770792539.7460916,
+        "ctime": 1770792539.7084973,
+        "checksum": "02736e2b10cb1ae3",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\version.py": {
+        "size": 3320,
+        "mtime": 1770766445.0773752,
+        "ctime": 1770766445.0359576,
+        "checksum": "58a79c97df7f2c36",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\0-9.md": {
+        "size": 256,
+        "mtime": 1770795047.4885535,
+        "ctime": 1770794766.9083557,
+        "checksum": "348d46fcfea52731",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\A-F.md": {
+        "size": 13998,
+        "mtime": 1770791188.262973,
+        "ctime": 1770788499.3354251,
+        "checksum": "0c8d45ce988bce94",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\A.md": {
+        "size": 18838,
+        "mtime": 1770795047.474138,
+        "ctime": 1770794766.9083557,
+        "checksum": "bbde33c49c161a53",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\B.md": {
+        "size": 52018,
+        "mtime": 1770795047.474138,
+        "ctime": 1770794766.9083557,
+        "checksum": "ee8b370e6c72771e",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\C.md": {
+        "size": 93365,
+        "mtime": 1770795047.474138,
+        "ctime": 1770794766.9083557,
+        "checksum": "1bb9facd17917044",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\D.md": {
+        "size": 15447,
+        "mtime": 1770795047.4761415,
+        "ctime": 1770794766.9083557,
+        "checksum": "3ffb516b1b24f9b2",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\E.md": {
+        "size": 246535,
+        "mtime": 1770795047.4761415,
+        "ctime": 1770794766.9083557,
+        "checksum": "e4ed631855753b47",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\F.md": {
+        "size": 20327,
+        "mtime": 1770795047.477644,
+        "ctime": 1770794766.9083557,
+        "checksum": "a6e82ef1be9cb6b8",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\G-L.md": {
+        "size": 5411,
+        "mtime": 1770788537.9727168,
+        "ctime": 1770788537.9727168,
+        "checksum": "2d5606b37fec4b58",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\G.md": {
+        "size": 18295,
+        "mtime": 1770795047.4809504,
+        "ctime": 1770794766.9083557,
+        "checksum": "68d0de9327d06aad",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\H.md": {
+        "size": 5558,
+        "mtime": 1770795047.4809504,
+        "ctime": 1770794766.9083557,
+        "checksum": "b468d3722bd2a277",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\I.md": {
+        "size": 42215,
+        "mtime": 1770795047.4809504,
+        "ctime": 1770794766.9083557,
+        "checksum": "0c31d16b4f42f442",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\INDEX.md": {
+        "size": 610632,
+        "mtime": 1770795047.4578357,
+        "ctime": 1770788457.3326676,
+        "checksum": "e21736048801f87c",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\J.md": {
+        "size": 4304,
+        "mtime": 1770795047.4809504,
+        "ctime": 1770794766.923987,
+        "checksum": "eeebaf8fb8e55424",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\K.md": {
+        "size": 776,
+        "mtime": 1770795047.4809504,
+        "ctime": 1770794766.923987,
+        "checksum": "7a87c1083b80ed90",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\L.md": {
+        "size": 11483,
+        "mtime": 1770795047.4809504,
+        "ctime": 1770794766.923987,
+        "checksum": "835f9ac0c1c34b81",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\M-R.md": {
+        "size": 8460,
+        "mtime": 1770791523.8883543,
+        "ctime": 1770788585.6544585,
+        "checksum": "8f868b9f429f5595",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\M.md": {
+        "size": 30135,
+        "mtime": 1770795047.4809504,
+        "ctime": 1770794766.923987,
+        "checksum": "803452d810ae4d6f",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\N.md": {
+        "size": 6209,
+        "mtime": 1770795047.4809504,
+        "ctime": 1770794766.923987,
+        "checksum": "751d32cf8642a1b1",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\O.md": {
+        "size": 4650,
+        "mtime": 1770795047.4809504,
+        "ctime": 1770794766.923987,
+        "checksum": "31e039ef6b292cba",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\P.md": {
+        "size": 167362,
+        "mtime": 1770795047.484654,
+        "ctime": 1770794766.923987,
+        "checksum": "b243e949817afc4d",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\Q.md": {
+        "size": 3397,
+        "mtime": 1770795047.484654,
+        "ctime": 1770794766.923987,
+        "checksum": "c30f0e92e7093428",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\R.md": {
+        "size": 26929,
+        "mtime": 1770795047.484654,
+        "ctime": 1770794766.923987,
+        "checksum": "ea8af6df23d8a51e",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\S-Z.md": {
+        "size": 7655,
+        "mtime": 1770788635.3850749,
+        "ctime": 1770788635.3850749,
+        "checksum": "19e63544578e7914",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\S.md": {
+        "size": 26052,
+        "mtime": 1770795047.484654,
+        "ctime": 1770794766.923987,
+        "checksum": "3236957b03bbc186",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\T.md": {
+        "size": 24679,
+        "mtime": 1770795047.484654,
+        "ctime": 1770794766.923987,
+        "checksum": "16696256c061e770",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\U.md": {
+        "size": 4282,
+        "mtime": 1770795047.484654,
+        "ctime": 1770794766.923987,
+        "checksum": "581cda55bf0352fb",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\V.md": {
+        "size": 4830,
+        "mtime": 1770795047.484654,
+        "ctime": 1770794766.923987,
+        "checksum": "c586d7be67562f2f",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\W.md": {
+        "size": 3079,
+        "mtime": 1770795047.484654,
+        "ctime": 1770794766.923987,
+        "checksum": "58dbd5dcc151a5dc",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\X.md": {
+        "size": 183,
+        "mtime": 1770795047.484654,
+        "ctime": 1770794766.923987,
+        "checksum": "87f5f2574dcff129",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\Y.md": {
+        "size": 183,
+        "mtime": 1770795047.4885535,
+        "ctime": 1770794766.923987,
+        "checksum": "b7d6a5148672985f",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\Z.md": {
+        "size": 328,
+        "mtime": 1770795047.4885535,
+        "ctime": 1770794766.923987,
+        "checksum": "b3439a7432146e28",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\\u0391.md": {
+        "size": 235,
+        "mtime": 1770795047.4885535,
+        "ctime": 1770794766.923987,
+        "checksum": "3ade99970b628d23",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\\u0393.md": {
+        "size": 241,
+        "mtime": 1770795047.4885535,
+        "ctime": 1770794766.939713,
+        "checksum": "a8160e0fcc38f010",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\docs\\CONTRIBUTING.md": {
+        "size": 4168,
+        "mtime": 1770779974.309646,
+        "ctime": 1770758241.0702817,
+        "checksum": "ab71e0e3c7415cc8",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\docs\\QUICKREF\\COMMANDS_QUICKREF.md": {
+        "size": 2748,
+        "mtime": 1770758291.9979742,
+        "ctime": 1770755836.364967,
+        "checksum": "72717c0c9e7542de",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\docs\\TUTORIALS\\QUICKSTART.md": {
+        "size": 3068,
+        "mtime": 1770779965.963035,
+        "ctime": 1770755816.882639,
+        "checksum": "55898e0fc2107c75",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\autoload.py": {
+        "size": 839,
+        "mtime": 1770760581.2828815,
+        "ctime": 1770688305.5115297,
+        "checksum": "f5fcadf75e55ad77",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\auto_install.py": {
+        "size": 3397,
+        "mtime": 1770785036.0324423,
+        "ctime": 1770688284.9213486,
+        "checksum": "348c0f53c8477625",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\changelog.py": {
+        "size": 3393,
+        "mtime": 1770760581.2828815,
+        "ctime": 1770684636.002919,
+        "checksum": "a9a05c99e80af02f",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\config.py": {
+        "size": 17270,
+        "mtime": 1770789189.668511,
+        "ctime": 1770684405.1736627,
+        "checksum": "d619f8ed7907842a",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\convert.bat": {
+        "size": 1172,
+        "mtime": 1770748439.6034667,
+        "ctime": 1770748439.6034667,
+        "checksum": "2f8cd2308b256b0c",
+        "extension": ".bat"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\CONVERTER_README.md": {
+        "size": 2715,
+        "mtime": 1770757658.1186142,
+        "ctime": 1770748453.8055615,
+        "checksum": "eb07175c3e062264",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\cross_platform_analysis.py": {
+        "size": 10061,
+        "mtime": 1770760581.2828815,
+        "ctime": 1770685064.544078,
+        "checksum": "b18c3c33ac61c2b1",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\diagnostics.py": {
+        "size": 3154,
+        "mtime": 1770760581.2828815,
+        "ctime": 1770684417.8430316,
+        "checksum": "a3e259a159d857e6",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\FILE_EXPLANATIONS.md": {
+        "size": 11826,
+        "mtime": 1770757868.4617665,
+        "ctime": 1770754079.4514947,
+        "checksum": "b46587a91afd42ea",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\framework_activator.py": {
+        "size": 31330,
+        "mtime": 1770760581.2828815,
+        "ctime": 1770755232.6000292,
+        "checksum": "0e09dc3b6c7213c0",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\harness.py": {
+        "size": 9397,
+        "mtime": 1770762076.7508676,
+        "ctime": 1770751886.8862693,
+        "checksum": "7c2d12fad6668d19",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\health_monitor.py": {
+        "size": 18359,
+        "mtime": 1770760581.2989037,
+        "ctime": 1770747116.384892,
+        "checksum": "59ff303a6a8b3127",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\installation_debug.py": {
+        "size": 12480,
+        "mtime": 1770760581.2989037,
+        "ctime": 1770746563.6917973,
+        "checksum": "487ff7c46b5201cd",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\INSTALL_AS_ADMIN.bat": {
+        "size": 1319,
+        "mtime": 1770754148.4941483,
+        "ctime": 1770688429.1636558,
+        "checksum": "22a36b631da342a0",
+        "extension": ".bat"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\install_improvements.py": {
+        "size": 2699,
+        "mtime": 1770760581.2989037,
+        "ctime": 1770686030.7826843,
+        "checksum": "b5fcd7b16ffa82e9",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\install_light.py": {
+        "size": 1119,
+        "mtime": 1770760581.2989037,
+        "ctime": 1770686454.9613066,
+        "checksum": "681176b3a4a99762",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\install_manager.py": {
+        "size": 11011,
+        "mtime": 1770760581.2989037,
+        "ctime": 1770746855.5039444,
+        "checksum": "b0c2f09dce10c14d",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\jax_analysis.py": {
+        "size": 11756,
+        "mtime": 1770760581.2989037,
+        "ctime": 1770685242.6865776,
+        "checksum": "e4fa7c60b5985feb",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\launcher.py": {
+        "size": 1794,
+        "mtime": 1770760581.2989037,
+        "ctime": 1770684431.0882893,
+        "checksum": "9a88a630a9235263",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\lm_studio_autoload.py": {
+        "size": 1996,
+        "mtime": 1770762129.9842386,
+        "ctime": 1770687385.4787345,
+        "checksum": "182a267aab877c4b",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\lm_studio_client.py": {
+        "size": 9966,
+        "mtime": 1770768217.640606,
+        "ctime": 1770768217.6069577,
+        "checksum": "571cdb7f7d073293",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\lm_studio_integration.py": {
+        "size": 3572,
+        "mtime": 1770782696.6644442,
+        "ctime": 1770686984.8078187,
+        "checksum": "3a0c37265f36f949",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\lm_studio_server.py": {
+        "size": 7584,
+        "mtime": 1770760581.2989037,
+        "ctime": 1770686941.058064,
+        "checksum": "2a0f1e09d968d407",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\LM_STUDIO_SYSTEM_PROMPT.txt": {
+        "size": 1785,
+        "mtime": 1770753843.3951192,
+        "ctime": 1770687408.1690056,
+        "checksum": "d85364e830e2687c",
+        "extension": ".txt"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\META_LEARNING.md": {
+        "size": 1825,
+        "mtime": 1770757617.9737866,
+        "ctime": 1770684449.5944974,
+        "checksum": "044d5b5205140565",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\ml_platforms.pth": {
+        "size": 44,
+        "mtime": 1770754151.9788046,
+        "ctime": 1770688350.6199658,
+        "checksum": "f23d5d68412743ae",
+        "extension": ".pth"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\MOE_VERIFICATION_README.md": {
+        "size": 7097,
+        "mtime": 1770757659.907678,
+        "ctime": 1770750079.6006665,
+        "checksum": "240947e99e599880",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\openinterpreter_config.yaml": {
+        "size": 1477,
+        "mtime": 1770754153.040887,
+        "ctime": 1770687883.9147172,
+        "checksum": "524b85b9713ed66d",
+        "extension": ".yaml"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\openinterpreter_startup.py": {
+        "size": 1435,
+        "mtime": 1770760581.2989037,
+        "ctime": 1770687864.8593934,
+        "checksum": "dec4a1b9498ab250",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\PERMANENT_LOAD.py": {
+        "size": 3674,
+        "mtime": 1770760581.2989037,
+        "ctime": 1770688622.4266627,
+        "checksum": "6fff0346d896cdec",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\README.md": {
+        "size": 1669,
+        "mtime": 1770757619.8370988,
+        "ctime": 1770684464.238831,
+        "checksum": "8b4770ea9119d2a5",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\run_qanalysis.py": {
+        "size": 7122,
+        "mtime": 1770760581.2989037,
+        "ctime": 1770750566.420434,
+        "checksum": "b743e658fcaf8cce",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\run_qanalysis_full.py": {
+        "size": 7118,
+        "mtime": 1770760581.3147714,
+        "ctime": 1770750952.3018959,
+        "checksum": "053e8de09409460b",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\run_qanalysis_multi.py": {
+        "size": 8873,
+        "mtime": 1770760581.3188863,
+        "ctime": 1770750735.5894508,
+        "checksum": "b8819198d81d9a7d",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\SET_PYTHONPATH.bat": {
+        "size": 395,
+        "mtime": 1770754149.995246,
+        "ctime": 1770688203.508114,
+        "checksum": "535d00afe4b5a3f7",
+        "extension": ".bat"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\TROUBLESHOOTING.md": {
+        "size": 2383,
+        "mtime": 1770757889.193782,
+        "ctime": 1770684440.7748063,
+        "checksum": "fe8126192430a7fb",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\unified_analysis.py": {
+        "size": 22678,
+        "mtime": 1770760581.3208904,
+        "ctime": 1770685500.2044363,
+        "checksum": "e8688854a54b1102",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\universal_converter.py": {
+        "size": 39721,
+        "mtime": 1770760581.3269005,
+        "ctime": 1770748419.1935687,
+        "checksum": "4f8bf1b9b0543298",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\verify_moe.bat": {
+        "size": 1130,
+        "mtime": 1770750083.5339015,
+        "ctime": 1770750083.5339015,
+        "checksum": "f329cebe08f92fdb",
+        "extension": ".bat"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\verify_moe.py": {
+        "size": 18708,
+        "mtime": 1770760581.3306477,
+        "ctime": 1770750010.9133925,
+        "checksum": "f455e6df13c303d4",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\__init__.py": {
+        "size": 3116,
+        "mtime": 1770783020.2035694,
+        "ctime": 1770684387.2689192,
+        "checksum": "36bfc5d70bfcfecc",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\analysis_logs\\dlq_analysis_20260210_140955.json": {
+        "size": 2456,
+        "mtime": 1770750595.4652932,
+        "ctime": 1770750595.4652932,
+        "checksum": "e15f3791dbaf0f01",
+        "extension": ".json"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\analysis_logs\\dlq_full_converge_20260210_141643.json": {
+        "size": 13811,
+        "mtime": 1770751003.1749668,
+        "ctime": 1770751003.1749668,
+        "checksum": "7e26ec84895a7b69",
+        "extension": ".json"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\analysis_logs\\dlq_multi_iter_20260210_141258.json": {
+        "size": 13913,
+        "mtime": 1770750778.8811717,
+        "ctime": 1770750778.879428,
+        "checksum": "2004a281b79ab2ae",
+        "extension": ".json"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\analysis_logs\\dlq_multi_iter_20260210_141356.json": {
+        "size": 14781,
+        "mtime": 1770750836.6215193,
+        "ctime": 1770750836.6215193,
+        "checksum": "55a0f5ee6707c31c",
+        "extension": ".json"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\analysis_logs\\dlq_multi_iter_20260210_141415.json": {
+        "size": 14859,
+        "mtime": 1770750855.2633948,
+        "ctime": 1770750855.2618148,
+        "checksum": "d044ed4103a83358",
+        "extension": ".json"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\analysis_logs\\dlq_multi_iter_20260210_141420.json": {
+        "size": 14833,
+        "mtime": 1770750860.4633472,
+        "ctime": 1770750860.4613435,
+        "checksum": "423eaf02c76b748b",
+        "extension": ".json"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\analysis_logs\\dlq_multi_iter_20260210_141425.json": {
+        "size": 14785,
+        "mtime": 1770750865.5553234,
+        "ctime": 1770750865.5553234,
+        "checksum": "0800b9f090d89776",
+        "extension": ".json"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\analysis_logs\\framework_availability.json": {
+        "size": 642,
+        "mtime": 1770750474.8650951,
+        "ctime": 1770750474.8650951,
+        "checksum": "edab2c053fd9efb7",
+        "extension": ".json"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\analysis_logs\\q_table_20260210_140955.npy": {
+        "size": 368,
+        "mtime": 1770750595.4652932,
+        "ctime": 1770750595.4652932,
+        "checksum": "009bfb2d6f7a1e66",
+        "extension": ".npy"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\analysis_logs\\q_table_converged_20260210_141643.npy": {
+        "size": 368,
+        "mtime": 1770751003.1749668,
+        "ctime": 1770751003.1749668,
+        "checksum": "73f981736b469c5c",
+        "extension": ".npy"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\analysis_logs\\q_table_final_20260210_141258.npy": {
+        "size": 368,
+        "mtime": 1770750778.8811717,
+        "ctime": 1770750778.8811717,
+        "checksum": "3458318b3aa36ed3",
+        "extension": ".npy"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\analysis_logs\\q_table_final_20260210_141356.npy": {
+        "size": 368,
+        "mtime": 1770750836.6235223,
+        "ctime": 1770750836.6235223,
+        "checksum": "c0b92825f81b4ae3",
+        "extension": ".npy"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\analysis_logs\\q_table_final_20260210_141415.npy": {
+        "size": 368,
+        "mtime": 1770750855.2633948,
+        "ctime": 1770750855.2633948,
+        "checksum": "e73fc2357543a33d",
+        "extension": ".npy"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\analysis_logs\\q_table_final_20260210_141420.npy": {
+        "size": 368,
+        "mtime": 1770750860.46385,
+        "ctime": 1770750860.4633472,
+        "checksum": "4a0a50f3351d9c3c",
+        "extension": ".npy"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\analysis_logs\\q_table_final_20260210_141425.npy": {
+        "size": 368,
+        "mtime": 1770750865.5573256,
+        "ctime": 1770750865.5573256,
+        "checksum": "659a346b7f4536a4",
+        "extension": ".npy"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\docs\\DOCUMENTATION_PROTOCOL.md": {
+        "size": 3300,
+        "mtime": 1770757104.1586423,
+        "ctime": 1770755747.7182055,
+        "checksum": "4ff75228c8b4c98e",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\docs\\INDEX.md": {
+        "size": 1762,
+        "mtime": 1770787842.0702622,
+        "ctime": 1770754463.7251308,
+        "checksum": "79e88ad8c2b08b89",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\docs\\analysis\\INDEX.md": {
+        "size": 1828,
+        "mtime": 1770787790.1713374,
+        "ctime": 1770755325.6557653,
+        "checksum": "2f1d7f0bedfe771d",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\docs\\autoload\\INDEX.md": {
+        "size": 1517,
+        "mtime": 1770787802.0741508,
+        "ctime": 1770755332.277145,
+        "checksum": "4e5acf1888bbb5c5",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\docs\\conversion\\INDEX.md": {
+        "size": 1349,
+        "mtime": 1770787792.427782,
+        "ctime": 1770755285.3353133,
+        "checksum": "6d0129305f371586",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\docs\\core\\config_API.md": {
+        "size": 7435,
+        "mtime": 1770757510.568813,
+        "ctime": 1770754542.8636117,
+        "checksum": "4b55f74fca63163b",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\docs\\core\\diagnostics_API.md": {
+        "size": 7523,
+        "mtime": 1770757512.3378696,
+        "ctime": 1770754576.0695739,
+        "checksum": "47987203df1f2a23",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\docs\\core\\harness_API.md": {
+        "size": 6724,
+        "mtime": 1770779936.8406198,
+        "ctime": 1770754510.829083,
+        "checksum": "d6d8a1f68d141b5d",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\docs\\core\\INDEX.md": {
+        "size": 1063,
+        "mtime": 1770787807.175514,
+        "ctime": 1770755269.5044532,
+        "checksum": "550177fe7bdcd0d4",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\docs\\core\\launcher_API.md": {
+        "size": 4145,
+        "mtime": 1770757513.5321107,
+        "ctime": 1770754588.2635164,
+        "checksum": "87cbe2475abb0579",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\docs\\core\\__init__API.md": {
+        "size": 1297,
+        "mtime": 1770757515.1660779,
+        "ctime": 1770754594.7028494,
+        "checksum": "dcb35bea0f49c6f4",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\docs\\installation\\INDEX.md": {
+        "size": 1643,
+        "mtime": 1770787785.8688967,
+        "ctime": 1770755321.6470199,
+        "checksum": "cb79d9e3959f498c",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\docs\\integration\\INDEX.md": {
+        "size": 1425,
+        "mtime": 1770787971.9648914,
+        "ctime": 1770755309.093166,
+        "checksum": "c89fbbf9f9bf8cc4",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\docs\\integration\\mlflow_integration_API.md": {
+        "size": 9415,
+        "mtime": 1770757516.634713,
+        "ctime": 1770754847.0121143,
+        "checksum": "b6d35275b6d07025",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\docs\\integration\\onnx_integration_API.md": {
+        "size": 7476,
+        "mtime": 1770757518.5445812,
+        "ctime": 1770754802.8443234,
+        "checksum": "ad6a0771e414da22",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\docs\\integration\\ray_integration_API.md": {
+        "size": 6989,
+        "mtime": 1770757531.136932,
+        "ctime": 1770754880.8860686,
+        "checksum": "8a07db8b6b7af963",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\docs\\lmstudio\\INDEX.md": {
+        "size": 1332,
+        "mtime": 1770787781.6356144,
+        "ctime": 1770755315.443272,
+        "checksum": "0792bcb53780e683",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\docs\\lmstudio\\lm_studio_integration_API.md": {
+        "size": 2294,
+        "mtime": 1770783059.5087674,
+        "ctime": 1770782716.8546076,
+        "checksum": "48991ef9f2fcd655",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\docs\\monitoring\\health_monitor_API.md": {
+        "size": 9500,
+        "mtime": 1770757533.3121133,
+        "ctime": 1770754775.6503913,
+        "checksum": "b0be135941dd8752",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\docs\\monitoring\\INDEX.md": {
+        "size": 1098,
+        "mtime": 1770787980.0186327,
+        "ctime": 1770755295.580934,
+        "checksum": "5ef1cae56fd641bc",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\docs\\other\\INDEX.md": {
+        "size": 1411,
+        "mtime": 1770787799.2375567,
+        "ctime": 1770755336.593616,
+        "checksum": "84a42dd1548fb9d6",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\docs\\qlearning\\INDEX.md": {
+        "size": 1226,
+        "mtime": 1770787948.4605496,
+        "ctime": 1770755280.7155828,
+        "checksum": "387197a2ce33110f",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\docs\\qlearning\\run_qanalysis_full_API.md": {
+        "size": 7029,
+        "mtime": 1770757535.1423361,
+        "ctime": 1770754655.857787,
+        "checksum": "128d1fb86433b27f",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\docs\\qlearning\\verify_moe_API.md": {
+        "size": 7915,
+        "mtime": 1770757536.2981741,
+        "ctime": 1770754685.3099096,
+        "checksum": "3d87f2b19093190b",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\docs\\qlearning\\improvements\\qlearning_table_API.md": {
+        "size": 9464,
+        "mtime": 1770757538.279037,
+        "ctime": 1770754720.9749367,
+        "checksum": "97daa2315364f537",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\docs\\qlearning\\improvements\\STRATEGIC_INTELLIGENCE.md": {
+        "size": 4213,
+        "mtime": 1770785954.0836184,
+        "ctime": 1770785954.0836184,
+        "checksum": "e5ee7b7b6ce65c6d",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\deep_learning_qlearning.py": {
+        "size": 19615,
+        "mtime": 1770779515.988793,
+        "ctime": 1770779314.3623629,
+        "checksum": "efd935e72eabf067",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\enhanced_qlearning.py": {
+        "size": 22146,
+        "mtime": 1770762805.2707994,
+        "ctime": 1770762805.231722,
+        "checksum": "689934f615729751",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\IMPROVEMENTS.md": {
+        "size": 4047,
+        "mtime": 1770757621.0364873,
+        "ctime": 1770685931.7461693,
+        "checksum": "55c673a0113ad67e",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\metrics_tracker.py": {
+        "size": 9567,
+        "mtime": 1770791132.2204907,
+        "ctime": 1770791132.1817622,
+        "checksum": "e9689db952510b4e",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\mlflow_integration.py": {
+        "size": 9565,
+        "mtime": 1770760581.3344157,
+        "ctime": 1770685774.0337293,
+        "checksum": "7f900d27c19fcabe",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\ml_integration.py": {
+        "size": 28148,
+        "mtime": 1770787253.9881964,
+        "ctime": 1770787181.949073,
+        "checksum": "26c666abd3bebd70",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\onnx_integration.py": {
+        "size": 8803,
+        "mtime": 1770781750.0217392,
+        "ctime": 1770685900.4235709,
+        "checksum": "672da3f7e4e0b742",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\qlearning_table.py": {
+        "size": 35868,
+        "mtime": 1770761944.720946,
+        "ctime": 1770746510.7253625,
+        "checksum": "dd5502c519e3311e",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\qualitative_improvements.py": {
+        "size": 16179,
+        "mtime": 1770786238.309142,
+        "ctime": 1770786238.2631342,
+        "checksum": "28afb09aefb7588a",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\ray_integration.py": {
+        "size": 7548,
+        "mtime": 1770760581.3344157,
+        "ctime": 1770685809.903767,
+        "checksum": "78ca67add515e386",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\strategic_intelligence.py": {
+        "size": 13724,
+        "mtime": 1770785913.0125244,
+        "ctime": 1770785853.14751,
+        "checksum": "415aa495f731171b",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\tensor_utils.py": {
+        "size": 8754,
+        "mtime": 1770760581.3344157,
+        "ctime": 1770685727.9701302,
+        "checksum": "55454eb86a55e2da",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\vectorize_utils.py": {
+        "size": 5296,
+        "mtime": 1770760581.3344157,
+        "ctime": 1770685849.5703845,
+        "checksum": "a0b36d6124ca4cd2",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\weakness_testing.py": {
+        "size": 37699,
+        "mtime": 1770786789.9495087,
+        "ctime": 1770786596.6720924,
+        "checksum": "fd0fd004161b16a6",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\__init__.py": {
+        "size": 335,
+        "mtime": 1770760581.3344157,
+        "ctime": 1770685663.6033044,
+        "checksum": "6e983d42a6b121b6",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\data\\workflow_history.json": {
+        "size": 42569,
+        "mtime": 1770786614.4738283,
+        "ctime": 1770786614.3988335,
+        "checksum": "f8859cfcbe0a3b29",
+        "extension": ".json"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\test_data\\weakness_test_results.json": {
+        "size": 266,
+        "mtime": 1770786808.069952,
+        "ctime": 1770786614.4938293,
+        "checksum": "05bf83fa7b5694e0",
+        "extension": ".json"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\azazael_cli.py": {
+        "size": 25252,
+        "mtime": 1770795061.0641198,
+        "ctime": 1770761683.2144592,
+        "checksum": "31c3cd9a0dc1675c",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\azazael_wsa.py": {
+        "size": 23928,
+        "mtime": 1770763447.7296922,
+        "ctime": 1770763447.6982782,
+        "checksum": "f391bb3167420e45",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\bat_analysis.py": {
+        "size": 29477,
+        "mtime": 1770760581.3467543,
+        "ctime": 1770759262.687956,
+        "checksum": "3b288fd0c69096ef",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\check_links.py": {
+        "size": 4710,
+        "mtime": 1770760581.3467543,
+        "ctime": 1770755806.485079,
+        "checksum": "49b6a86328958f37",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\complete_module_analysis.py": {
+        "size": 21043,
+        "mtime": 1770760213.8776834,
+        "ctime": 1770760160.6381986,
+        "checksum": "3f50dd762085ef32",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\comprehensive_analysis.py": {
+        "size": 22820,
+        "mtime": 1770760581.3467543,
+        "ctime": 1770759753.9601579,
+        "checksum": "b35cb5dd89a6cc5f",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\consistency_checker.py": {
+        "size": 12517,
+        "mtime": 1770766591.1727815,
+        "ctime": 1770766559.9783008,
+        "checksum": "eb6a596914facd56",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\fix_syntax_errors.py": {
+        "size": 4201,
+        "mtime": 1770760526.7639358,
+        "ctime": 1770760320.5966842,
+        "checksum": "211925ec38706bc1",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\generate_docstrings.py": {
+        "size": 3565,
+        "mtime": 1770760567.9301426,
+        "ctime": 1770760567.895444,
+        "checksum": "55e0004d802e55f4",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\generate_docs_index.py": {
+        "size": 5805,
+        "mtime": 1770779730.0129075,
+        "ctime": 1770755780.0681355,
+        "checksum": "f71f15f960c47b4e",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\improve_bat_files.py": {
+        "size": 4628,
+        "mtime": 1770760653.9502227,
+        "ctime": 1770760619.9677503,
+        "checksum": "8d38c149dcf72831",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\run_tests.py": {
+        "size": 7698,
+        "mtime": 1770760721.6932845,
+        "ctime": 1770760721.6510465,
+        "checksum": "69f82983d14da029",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\test_enhancements.py": {
+        "size": 14348,
+        "mtime": 1770762883.4800625,
+        "ctime": 1770762883.4481773,
+        "checksum": "0a7b5bf9d2bf6a94",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\validate_docs.py": {
+        "size": 27411,
+        "mtime": 1770761866.556958,
+        "ctime": 1770757088.0481992,
+        "checksum": "ab10ff67be886bf2",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\web_dashboard.py": {
+        "size": 13446,
+        "mtime": 1770763002.829835,
+        "ctime": 1770763002.792701,
+        "checksum": "ce8a837043286172",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\POINDEXTER\\POINDEXTER.py": {
+        "size": 11176,
+        "mtime": 1770794209.6998048,
+        "ctime": 1770794209.66243,
+        "checksum": "18aafc9b4b3caa27",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\POINDEXTER\\poindexter_report.json": {
+        "size": 2125,
+        "mtime": 1770794224.5003445,
+        "ctime": 1770794224.5003445,
+        "checksum": "95064437f0544121",
+        "extension": ".json"
+      },
+      "C:\\Users\\clint\\Desktop\\PERSEPHONE\\admin_activator.bat": {
+        "size": 14541,
+        "mtime": 1770765759.7436843,
+        "ctime": 1770765759.7436843,
+        "checksum": "213798421620f560",
+        "extension": ".bat"
+      },
+      "C:\\Users\\clint\\Desktop\\PERSEPHONE\\admin_activator_wsl.sh": {
+        "size": 19034,
+        "mtime": 1770765843.0619967,
+        "ctime": 1770765843.0619967,
+        "checksum": "5ef170096ffef151",
+        "extension": ".sh"
+      },
+      "C:\\Users\\clint\\Desktop\\PERSEPHONE\\persephone.py": {
+        "size": 17971,
+        "mtime": 1770792709.3000658,
+        "ctime": 1770764252.278982,
+        "checksum": "73b826209c094397",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\PERSEPHONE\\README.md": {
+        "size": 8801,
+        "mtime": 1770794840.7857418,
+        "ctime": 1770764359.0905278,
+        "checksum": "234d690f3a927e24",
+        "extension": ".md"
+      },
+      "C:\\Users\\clint\\Desktop\\PERSEPHONE\\requirements_wsl.txt": {
+        "size": 8144,
+        "mtime": 1770764176.9710662,
+        "ctime": 1770764176.9710662,
+        "checksum": "78746b1dd7ea450b",
+        "extension": ".txt"
+      },
+      "C:\\Users\\clint\\Desktop\\PERSEPHONE\\sync_azazael.bat": {
+        "size": 2873,
+        "mtime": 1770764280.785496,
+        "ctime": 1770764280.785496,
+        "checksum": "91bbca1a68156fd8",
+        "extension": ".bat"
+      },
+      "C:\\Users\\clint\\Desktop\\PERSEPHONE\\sync_azazael_wsl.sh": {
+        "size": 5128,
+        "mtime": 1770764316.0756125,
+        "ctime": 1770764316.0756125,
+        "checksum": "b159f6187ab93419",
+        "extension": ".sh"
+      },
+      "C:\\Users\\clint\\Desktop\\PERSEPHONE\\bin\\persephone_cli.py": {
+        "size": 2950,
+        "mtime": 1770766952.6272223,
+        "ctime": 1770766952.6272223,
+        "checksum": "9e85a65e09580dc1",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\PERSEPHONE\\bin\\setup_wizard.py": {
+        "size": 2069,
+        "mtime": 1770766969.6971815,
+        "ctime": 1770766969.66531,
+        "checksum": "c66b079f23b1cb1f",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\PERSEPHONE\\lib\\environment.py": {
+        "size": 3006,
+        "mtime": 1770766921.7499237,
+        "ctime": 1770766921.7100708,
+        "checksum": "72c45d687d27562a",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\PERSEPHONE\\lib\\path_manager.py": {
+        "size": 3113,
+        "mtime": 1770766897.9925895,
+        "ctime": 1770766897.9564922,
+        "checksum": "195978f2f45d736e",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\PERSEPHONE\\lib\\sync_manager.py": {
+        "size": 12293,
+        "mtime": 1770791693.4794729,
+        "ctime": 1770766908.129272,
+        "checksum": "4c3441a5d2283a2c",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\PERSEPHONE\\lib\\__init__.py": {
+        "size": 284,
+        "mtime": 1770766883.594789,
+        "ctime": 1770766883.594789,
+        "checksum": "e9bfe3130455f6cd",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\WORMZ\\WORMZ.py": {
+        "size": 24030,
+        "mtime": 1770794981.2738757,
+        "ctime": 1770794700.1107268,
+        "checksum": "725f366d13d0b2c5",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\WORMZ\\WORMZ_POPUP.py": {
+        "size": 2399,
+        "mtime": 1770795022.2110667,
+        "ctime": 1770795022.18002,
+        "checksum": "0cfe05fe931ca6e4",
+        "extension": ".py"
+      },
+      "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS.py": {
+        "size": 20334,
+        "mtime": 1770795508.7262917,
+        "ctime": 1770795508.69186,
+        "checksum": "5277979b1dfd24dc",
+        "extension": ".py"
+      }
+    }
+  },
+  "errors": []
+}

@@ -1,0 +1,6 @@
+judge_rs/target/
+judge_rs/Cargo.lock
+judge_go/judge_go.exe
+judge_go/judge_go
+out/
+__pycache__/

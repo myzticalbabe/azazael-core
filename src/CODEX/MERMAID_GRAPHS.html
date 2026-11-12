@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Azazael Mermaid Graphs</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --cyan: #00f5ff;
+  --purple: #bf00ff;
+  --pink: #ff00aa;
+  --green: #00ff88;
+  --gold: #ffdd00;
+  --red: #ff4757;
+  --bg: #060610;
+  --card: #0d0d24;
+}
+
+body {
+  font-family: 'Segoe UI', Consolas, monospace;
+  background: var(--bg);
+  color: #e0e0e0;
+  padding: 40px 20px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2.5em;
+  background: linear-gradient(135deg, var(--cyan), var(--purple), var(--pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+}
+.subtitle {
+  text-align: center;
+  color: #888;
+  font-size: 0.9em;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 50px;
+}
+
+.graph-section {
+  max-width: 1100px;
+  margin: 0 auto 60px;
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+  padding: 30px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.graph-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.graph-section h2 {
+  font-size: 1.4em;
+  color: var(--cyan);
+  margin-bottom: 6px;
+}
+.graph-section .desc {
+  color: #888;
+  font-size: 0.85em;
+  margin-bottom: 20px;
+}
+.mermaid {
+  display: flex;
+  justify-content: center;
+  background: rgba(255,255,255,0.02);
+  border-radius: 12px;
+  padding: 20px;
+  overflow-x: auto;
+}
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+.tab {
+  padding: 10px 24px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: transparent;
+  color: #888;
+  border-radius: 30px;
+  cursor: pointer;
+  font-family: Consolas, monospace;
+  font-size: 0.85em;
+  transition: all 0.3s ease;
+}
+.tab:hover, .tab.active {
+  border-color: var(--cyan);
+  color: var(--cyan);
+  background: rgba(0,245,255,0.05);
+  box-shadow: 0 0 20px rgba(0,245,255,0.1);
+}
+
+.legend {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8em;
+  color: #aaa;
+}
+.legend-dot {
+  width: 12px; height: 12px;
+  border-radius: 3px;
+}
+</style>
+</head>
+<body>
+
+<h1>Azazael Architecture Graphs</h1>
+<p class="subtitle">Mermaid.js • System Diagrams</p>
+
+<div class="tabs">
+  <button class="tab active" onclick="filterGraphs('all')">All Graphs</button>
+  <button class="tab" onclick="filterGraphs('architecture')">Architecture</button>
+  <button class="tab" onclick="filterGraphs('flow')">Flow</button>
+  <button class="tab" onclick="filterGraphs('sequence')">Sequence</button>
+  <button class="tab" onclick="filterGraphs('class')">Class</button>
+  <button class="tab" onclick="filterGraphs('state')">State</button>
+  <button class="tab" onclick="filterGraphs('er')">ER Diagram</button>
+</div>
+
+<!-- 1. 7-Tier Architecture -->
+<div class="graph-section" data-category="architecture">
+  <h2>7-Tier System Architecture</h2>
+  <p class="desc">Top-down view of the Azazael distributed computing framework layers</p>
+  <div class="mermaid">
+graph TD
+    A["🧠 DISTILLATION<br/>Pattern Extraction<br/>Knowledge Synthesis"] --> B["⚡ HYDRAMETA<br/>ML Optimization<br/>Genetic Algorithm Engine"]
+    B --> C["🐛 METAWORMS<br/>11 Orchestration Agents<br/>ERRORZ • TRIMZ • METAZ"]
+    C --> D["🔄 CLUSTERWORMS<br/>Parallel Collectives<br/>Resource Sharing"]
+    D --> E["🪱 WORMS<br/>6 System Worms<br/>SYSTEMZ • PROCESSZ • DISKZ"]
+    E --> F["⚙️ CONCURRENCY<br/>Thread Management<br/>Async Executor"]
+    F --> G["💻 OS CONGRUENCY<br/>Platform Abstraction<br/>Syscall Layer"]
+
+    style A fill:#a855f7,stroke:#a855f7,color:#fff
+    style B fill:#7c3aed,stroke:#7c3aed,color:#fff
+    style C fill:#ff4757,stroke:#ff4757,color:#fff
+    style D fill:#ff6b35,stroke:#ff6b35,color:#fff
+    style E fill:#00f5ff,stroke:#00f5ff,color:#000
+    style F fill:#00ff88,stroke:#00ff88,color:#000
+    style G fill:#ffdd00,stroke:#ffdd00,color:#000
+  </div>
+</div>
+
+<!-- 2. WORMZ Cluster -->
+<div class="graph-section" data-category="architecture">
+  <h2>WORMZ Cluster Topology</h2>
+  <p class="desc">6 core worms with their monitoring targets and interconnections</p>
+  <div class="mermaid">
+graph LR
+    SYSTEMZ["🔍 SYSTEMZ<br/>CPU/Memory"] --> NETWORXZ["🌐 NETWORXZ<br/>Network I/O"]
+    PROCESSZ["📋 PROCESSZ<br/>Lifecycle"] --> SYSTEMZ
+    DISKZ["💾 DISKZ<br/>Storage"] --> SYSTEMZ
+    CLOCKZ["⏱️ CLOCKZ<br/>Time Sync"] --> PROCESSZ
+    MEMORZ["🧩 MEMORZ<br/>Cache/Heap"] --> SYSTEMZ
+    NETWORXZ --> CLOCKZ
+    DISKZ --> MEMORZ
+    PROCESSZ --> DISKZ
+
+    style SYSTEMZ fill:#00f5ff,stroke:#00f5ff,color:#000
+    style PROCESSZ fill:#00ff88,stroke:#00ff88,color:#000
+    style DISKZ fill:#bf00ff,stroke:#bf00ff,color:#fff
+    style NETWORXZ fill:#ff6b35,stroke:#ff6b35,color:#fff
+    style CLOCKZ fill:#ffdd00,stroke:#ffdd00,color:#000
+    style MEMORZ fill:#ff00aa,stroke:#ff00aa,color:#fff
+  </div>
+</div>
+
+<!-- 3. Data Flow -->
+<div class="graph-section" data-category="flow">
+  <h2>Data Processing Pipeline</h2>
+  <p class="desc">End-to-end data flow from collection through presentation</p>
+  <div class="mermaid">
+flowchart LR
+    A["📡 Collect<br/>WORMZ crawl"] --> B["🔬 Analyze<br/>METAWORMS process"]
+    B --> C["🧬 Optimize<br/>HYDRAMETA GA/ML"]
+    C --> D{"✅ Valid?"}
+    D -->|Yes| E["📊 Present<br/>HORUS render"]
+    D -->|No| F["🔧 Fix<br/>TERENCE patch"]
+    F --> B
+    E --> G["📤 Export<br/>HTML/JSON/Console"]
+
+    style A fill:#00f5ff,stroke:#00f5ff,color:#000
+    style B fill:#bf00ff,stroke:#bf00ff,color:#fff
+    style C fill:#7c3aed,stroke:#7c3aed,color:#fff
+    style D fill:#ffdd00,stroke:#ffdd00,color:#000
+    style E fill:#00ff88,stroke:#00ff88,color:#000
+    style F fill:#ff4757,stroke:#ff4757,color:#fff
+    style G fill:#ff6b35,stroke:#ff6b35,color:#fff
+  </div>
+</div>
+
+<!-- 4. METAWORMS Sequence -->
+<div class="graph-section" data-category="sequence">
+  <h2>Error Detection & Fix Sequence</h2>
+  <p class="desc">Message flow when ERRORZ detects an anomaly</p>
+  <div class="mermaid">
+sequenceDiagram
+    participant E as ERRORZ
+    participant T as TRIMZ
+    participant M as METAZ
+    participant D as DEPENDZ
+    participant V as VALIDZ
+    participant H as HEALTHZ
+    participant TER as TERENCE
+
+    E->>T: anomaly_detected(type, location)
+    T->>M: enrich_metadata(anomaly)
+    M->>D: resolve_dependencies(dep_tree)
+    D->>T: dependency_graph
+    T->>TER: propose_fix(pattern, context)
+    TER->>V: validate_fix(patch)
+    V->>H: health_check()
+    H-->>E: status_update(healthy)
+  </div>
+</div>
+
+<!-- 5. HYDRA Stage Pipeline -->
+<div class="graph-section" data-category="flow">
+  <h2>HYDRA 6-Stage Pipeline</h2>
+  <p class="desc">HYDRA optimization stages with parallel branches</p>
+  <div class="mermaid">
+flowchart TB
+    subgraph Stage1["STAGE 1: INGEST"]
+        A1["Load Config"] --> A2["Parse Inputs"]
+    end
+    subgraph Stage2["STAGE 2: ANALYZE"]
+        B1["Profile Code"] --> B2["Detect Patterns"]
+        B2 --> B3["Score Complexity"]
+    end
+    subgraph Stage3["STAGE 3: PARALLEL"]
+        C1["Branch A: Optimize"] & C2["Branch B: Refactor"] & C3["Branch C: Document"]
+    end
+    subgraph Stage4["STAGE 4: MERGE"]
+        D1["Conflict Resolve"] --> D2["Unify Outputs"]
+    end
+    subgraph Stage5["STAGE 5: VALIDATE"]
+        E1["Test Suite"] --> E2["Benchmark"]
+    end
+    subgraph Stage6["STAGE 6: DEPLOY"]
+        F1["Finalize"] --> F2["Commit"]
+    end
+
+    Stage1 --> Stage2
+    Stage2 --> Stage3
+    Stage3 --> Stage4
+    Stage4 --> Stage5
+    Stage5 --> Stage6
+
+    style Stage1 fill:#0d0d24,stroke:#00f5ff,color:#00f5ff
+    style Stage2 fill:#0d0d24,stroke:#bf00ff,color:#bf00ff
+    style Stage3 fill:#0d0d24,stroke:#ff00aa,color:#ff00aa
+    style Stage4 fill:#0d0d24,stroke:#7c3aed,color:#7c3aed
+    style Stage5 fill:#0d0d24,stroke:#00ff88,color:#00ff88
+    style Stage6 fill:#0d0d24,stroke:#ffdd00,color:#ffdd00
+  </div>
+</div>
+
+<!-- 6. Class Diagram -->
+<div class="graph-section" data-category="class">
+  <h2>Core Class Hierarchy</h2>
+  <p class="desc">Simplified UML of the Azazael core execution classes</p>
+  <div class="mermaid">
+classDiagram
+    class WormBase {
+        +String name
+        +String status
+        +int priority
+        +crawl()
+        +report()
+        +execute()
+    }
+    class SystemzWorm {
+        +float cpu_usage
+        +float mem_usage
+        +monitor_cpu()
+        +monitor_memory()
+    }
+    class ProcesszWorm {
+        +List~Process~ processes
+        +spawn()
+        +kill()
+    }
+    class Metaworm {
+        +String target
+        +Pattern pattern
+        +analyze()
+        +optimize()
+    }
+    class ErrorzAgent {
+        +List~Anomaly~ anomalies
+        +detect()
+        +classify()
+    }
+    class TrimzAgent {
+        +optimize_imports()
+        +remove_dead_code()
+    }
+    class HydraPipeline {
+        +int stage_count
+        +List~Stage~ stages
+        +run()
+        +get_results()
+    }
+    class HorusRenderer {
+        +String format
+        +render_html()
+        +render_json()
+    }
+
+    WormBase <|-- SystemzWorm
+    WormBase <|-- ProcesszWorm
+    WormBase <|-- Metaworm
+    Metaworm <|-- ErrorzAgent
+    Metaworm <|-- TrimzAgent
+    HydraPipeline --> Metaworm : orchestrates
+    HorusRenderer --> HydraPipeline : renders
+  </div>
+</div>
+
+<!-- 7. State Diagram -->
+<div class="graph-section" data-category="state">
+  <h2>Worm Lifecycle State Machine</h2>
+  <p class="desc">States a worm transitions through during its lifecycle</p>
+  <div class="mermaid">
+stateDiagram-v2
+    [*] --> Idle
+    Idle --> Initializing : spawn()
+    Initializing --> Active : init_complete
+    Active --> Crawling : start_crawl()
+    Crawling --> Processing : data_collected
+    Processing --> Reporting : analysis_done
+    Reporting --> Active : report_sent
+    Active --> Paused : pause()
+    Paused --> Active : resume()
+    Active --> Error : exception
+    Error --> Idle : reset()
+    Error --> Active : retry()
+    Active --> Terminated : shutdown()
+    Terminated --> [*]
+  </div>
+</div>
+
+<!-- 8. ER Diagram -->
+<div class="graph-section" data-category="er">
+  <h2>Ecosystem Entity Relationships</h2>
+  <p class="desc">Core entities and their relationships across the system</p>
+  <div class="mermaid">
+erDiagram
+    ECOSYSTEM ||--o{ TIER : contains
+    TIER ||--o{ SYSTEM : hosts
+    SYSTEM ||--o{ WORM : deploys
+    WORM ||--o{ METRIC : collects
+    METAWORM ||--o{ PATTERN : detects
+    PATTERN ||--o{ FIX : generates
+    FIX ||--|| VALIDATION : requires
+    HYDRA ||--o{ STAGE : orchestrates
+    STAGE ||--o{ NODE : distributes
+    HORUS ||--o{ REPORT : renders
+    REPORT ||--o{ ANIMATION : includes
+    BIBL ||--o{ TERM : indexes
+    TERENCE ||--o{ FIX : verifies
+
+    ECOSYSTEM {
+        string name
+        string version
+        int tier_count
+    }
+    WORM {
+        string name
+        string type
+        float priority
+        string status
+    }
+    METAWORM {
+        string name
+        string target
+        int pattern_count
+    }
+    REPORT {
+        string format
+        datetime generated
+        int animation_count
+    }
+  </div>
+</div>
+
+<!-- 9. Gantt Timeline -->
+<div class="graph-section" data-category="flow">
+  <h2>Ecosystem Processing Timeline</h2>
+  <p class="desc">Parallel processing stages across the system (Gantt chart)</p>
+  <div class="mermaid">
+gantt
+    title Azazael Processing Timeline
+    dateFormat  ss
+    axisFormat %S s
+
+    section Discovery
+    WORMZ Crawl           :a1, 0, 3s
+    Resource Scan         :a2, after a1, 2s
+
+    section Analysis
+    METAWORMS Process     :b1, 3, 5s
+    HYDRAMETA Optimize    :b2, after b1, 4s
+
+    section Validation
+    TERENCE Verify        :c1, 5, 6s
+    HEALTHZ Monitor       :c2, 5, 8s
+
+    section Presentation
+    HORUS Render          :d1, 11, 3s
+    BIBL Index            :d2, 8, 4s
+    KLINK Compile         :d3, 11, 2s
+  </div>
+</div>
+
+<!-- 10. Mind Map -->
+<div class="graph-section" data-category="architecture">
+  <h2>Ecosystem Mind Map</h2>
+  <p class="desc">Radial overview of all Azazael subsystems</p>
+  <div class="mermaid">
+mindmap
+  root((Azazael))
+    Execution
+      WORMS
+        SYSTEMZ
+        PROCESSZ
+        DISKZ
+        NETWORXZ
+      CLUSTERWORMS
+      CONCURRENCY
+    Orchestration
+      METAWORMS
+        ERRORZ
+        TRIMZ
+        METAZ
+        DEPENDZ
+        VALIDZ
+        HEALTHZ
+      HYDRAMETA
+        GA Engine
+        ML Tuner
+    Presentation
+      HORUS
+        54 Animations
+        Live Monitor
+      CODEX
+        Video Gen
+        HTML Templates
+    Intelligence
+      TERENCE
+        26 Patterns
+        RL Agent
+      POINDEXTER
+        Statistics
+        Indexing
+    Utilities
+      KLINK
+      BIBL
+      SHORTY
+      PERSEPHONE
+      TARBABY
+  </div>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:var(--cyan)"></div> WORMS / Execution</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--purple)"></div> METAWORMS / Orchestration</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--pink)"></div> HORUS / Presentation</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div> TERENCE / Intelligence</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--gold)"></div> Utilities</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div> HYDRA</div>
+</div>
+
+<script>
+mermaid.initialize({
+  startOnLoad: true,
+  theme: 'dark',
+  themeVariables: {
+    primaryColor: '#0d0d24',
+    primaryTextColor: '#e0e0e0',
+    primaryBorderColor: '#00f5ff',
+    lineColor: '#bf00ff',
+    secondaryColor: '#1a1a3e',
+    tertiaryColor: '#0d0d24',
+    fontSize: '14px',
+  },
+});
+
+// Intersection Observer for scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.graph-section').forEach(el => observer.observe(el));
+
+// Tab filtering
+function filterGraphs(category) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+
+  document.querySelectorAll('.graph-section').forEach(section => {
+    if (category === 'all' || section.dataset.category === category) {
+      section.style.display = 'block';
+      setTimeout(() => section.classList.add('visible'), 50);
+    } else {
+      section.style.display = 'none';
+      section.classList.remove('visible');
+    }
+  });
+}
+</script>
+</body>
+</html>

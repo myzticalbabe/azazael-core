@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "azazael-core"
+version = "1.0.0"
+description = "Azazael portable core — installable extraction: src tree, test suite, and the persistent-memory (PAMS) subsystem"
+readme = "README.md"
+# FIX #1 + #6 — one requires-python, and it names the AGNOSTIC floor.
+# Free-threading is a runtime performance property (detected via
+# sys._is_gil_enabled, present since 3.13), never an install requirement.
+# Stock CPython 3.13+ installs and runs; free-threaded builds go faster.
+requires-python = ">=3.13"
+dependencies = [
+  "psutil>=7.2.2,<8",
+]
+
+[project.optional-dependencies]
+# FIX #2 — the runnable-everywhere test surface, declared instead of assumed.
+# All pure-Python; installs on stock 3.13/3.14 as well as free-threaded 3.15t/3.16t.
+test = [
+  "pytest>=8",
+  "pytest-xdist>=3",
+  "pytest-timeout>=2",
+  "hypothesis>=6",
+  "dill",
+  "pydantic>=2",
+]
+# Persistent-memory (PAMS) subsystem (src/persistent_ai_memory).
+memory = [
+  "aiohttp>=3.8.0",
+  "watchdog>=6.0.0",
+]
+# Heavy ML/scale surface. Host-specific builds (e.g. torch nightly) that have
+# no portable pin; install separately per host. Kept out of `test` on purpose:
+# a newcomer's first `pip install -e ".[test]"` must succeed, not negotiate CUDA.
+
+[project.scripts]
+azazael-ctl = "CORE.azazael_ctl:main"
+azazael-doctor = "CORE.doctor:cmd_doctor"
+azazael-maintain = "CORE.data_retention:cmd_maintain"
+azazael-observability = "CORE.metrics:cmd_metrics"
+azazael-backup = "CORE.backup:incremental_backup"
+azazael-doctor-full = "CORE.doctor:run_all"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.coverage.run]
+source = ["src"]
+omit = ["*/tests/*", "*/__pycache__/*", "*/META/*"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true

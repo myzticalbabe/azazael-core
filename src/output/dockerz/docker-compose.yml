@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  azazael:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - "./:/app"
+    environment:
+      - PYTHONPATH=/app
+    restart: unless-stopped
+
+  metaworms:
+    image: azazael/metaworms:latest
+    depends_on:
+      - azazael
+    restart: unless-stopped
+

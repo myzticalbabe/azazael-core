@@ -1,0 +1,133 @@
+{
+  "name": "DEADZ",
+  "success": true,
+  "files_processed": 76,
+  "items_found": 103,
+  "duration_ms": 859.1482639312744,
+  "output": {
+    "issues": {
+      "debug_prints": [
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\lm_studio_integration.py",
+          "line": 67
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\__init__.py",
+          "line": 58
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS.py",
+          "line": 271
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS_ENRICHED.py",
+          "line": 426
+        }
+      ],
+      "pycache_refs": [
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\HYDRA_10MIN_TEST.py",
+          "line": 46
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\TARBABY.py",
+          "line": 251
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\config.py",
+          "line": 114
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\config.py",
+          "line": 268
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\complete_module_analysis.py",
+          "line": 64
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\comprehensive_analysis.py",
+          "line": 105
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\generate_docstrings.py",
+          "line": 95
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\generate_docstrings.py",
+          "line": 96
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\run_tests.py",
+          "line": 119
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\run_tests.py",
+          "line": 160
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\PERSEPHONE\\persephone.py",
+          "line": 349
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\PERSEPHONE\\persephone.py",
+          "line": 418
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\PERSEPHONE\\persephone.py",
+          "line": 457
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\PERSEPHONE\\lib\\sync_manager.py",
+          "line": 78
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\WORMZ\\WORMZ.py",
+          "line": 86
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS.py",
+          "line": 74
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS.py",
+          "line": 265
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS.py",
+          "line": 266
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS.py",
+          "line": 267
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS_ENRICHED.py",
+          "line": 98
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS_ENRICHED.py",
+          "line": 429
+        }
+      ],
+      "TODO_comments": [
+        {
+          "file": "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS_ENRICHED.py",
+          "line": 432,
+          "text": "if \"# TODO\" in stripped:"
+        }
+      ],
+      "FIXME_comments": [
+        {
+          "file": "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS_ENRICHED.py",
+          "line": 437,
+          "text": "if \"# FIXME\" in stripped or \"# BUG\" in stripped:"
+        }
+      ],
+      "deprecated_patterns": []
+    },
+    "total_issues": 103
+  },
+  "errors": [],
+  "warnings": []
+}

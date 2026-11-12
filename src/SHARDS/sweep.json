@@ -1,0 +1,79 @@
+{
+ "generated_at": "2026-10-29T07:27:45.793932+00:00",
+ "n": 10,
+ "elapsed_s": 11.0,
+ "medians_ms": {
+  "python": 0.7,
+  "go": 146.1,
+  "rust": 122.2,
+  "javascript": 31.6,
+  "powershell": 248.6,
+  "bash": 92.2
+ },
+ "instant_medians_ms": {
+  "python": 0.0,
+  "go": 147.4,
+  "rust": 118.7,
+  "javascript": 32.4,
+  "powershell": 223.5,
+  "bash": 12.8
+ },
+ "versions": {
+  "node": "v24.14.0",
+  "pwsh": "7.6.9",
+  "bash": "GNU bash, version 5.2.37(1)-release (x86_64-pc-msys)",
+  "go": "go-present",
+  "rust": "rust-present",
+  "python": "3.14.7"
+ },
+ "rows": [
+  {
+   "lang": "python",
+   "status": "pass",
+   "n": 10,
+   "median_ms": 0.7,
+   "min_ms": 0.6,
+   "max_ms": 0.8
+  },
+  {
+   "lang": "go",
+   "status": "pass",
+   "n": 10,
+   "median_ms": 146.1,
+   "min_ms": 144.2,
+   "max_ms": 155.5
+  },
+  {
+   "lang": "rust",
+   "status": "pass",
+   "n": 10,
+   "median_ms": 122.2,
+   "min_ms": 119.9,
+   "max_ms": 124.7
+  },
+  {
+   "lang": "javascript",
+   "status": "pass",
+   "n": 10,
+   "median_ms": 31.6,
+   "min_ms": 30.8,
+   "max_ms": 33.2
+  },
+  {
+   "lang": "powershell",
+   "status": "pass",
+   "n": 10,
+   "median_ms": 248.6,
+   "min_ms": 246.2,
+   "max_ms": 255.2
+  },
+  {
+   "lang": "bash",
+   "status": "pass",
+   "n": 10,
+   "median_ms": 92.2,
+   "min_ms": 91.3,
+   "max_ms": 95.8
+  }
+ ]
+}

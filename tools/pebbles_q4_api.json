@@ -1,0 +1,62 @@
+{
+  "10": {
+    "class_type": "GGUFPathLoader",
+    "inputs": {
+      "gguf_path": "C:\\Users\\clint\\AppData\\Local\\Programs\\AI Playground\\resources\\models\\ComfyUI\\diffusion_models\\flux1-dev-Q4_K_S.gguf",
+      "dequant_dtype": "default",
+      "patch_dtype": "default",
+      "patch_on_device": true
+    }
+  },
+  "2": {
+    "class_type": "DualCLIPLoader",
+    "inputs": {
+      "clip_name1": "t5xxl_fp8_e4m3fn_scaled.safetensors",
+      "clip_name2": "clip_l.safetensors",
+      "type": "flux",
+      "device": "default"
+    }
+  },
+  "1": {
+    "class_type": "VAELoader",
+    "inputs": { "vae_name": "flux-vae-bf16.safetensors" }
+  },
+  "6": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "text": "A full-body cartoon portrait of a small prehistoric girl, Pebbles, rendered in the flat bold-colour Hanna-Barbera style of The Flintstones. Bright red hair pulled into a ponytail with a small white bone tied into it. Big round eyes, rosy cheeks, a wide happy smile. She wears a green loincloth covered in black spots and a teal diaper. Standing with one hand on her hip, the other arm raised as if giving an instruction. Simple flat colour, thick dark outline, mid-century cartoon design, plain pale background.",
+      "clip": ["2", 0]
+    }
+  },
+  "7": {
+    "class_type": "CLIPTextEncode",
+    "inputs": { "text": "", "clip": ["2", 0] }
+  },
+  "5": {
+    "class_type": "EmptySD3LatentImage",
+    "inputs": { "width": 896, "height": 1152, "batch_size": 1 }
+  },
+  "3": {
+    "class_type": "KSampler",
+    "inputs": {
+      "seed": 20260930,
+      "steps": 28,
+      "cfg": 2.5,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "denoise": 1.0,
+      "model": ["10", 0],
+      "positive": ["6", 0],
+      "negative": ["7", 0],
+      "latent_image": ["5", 0]
+    }
+  },
+  "8": {
+    "class_type": "VAEDecode",
+    "inputs": { "samples": ["3", 0], "vae": ["1", 0] }
+  },
+  "9": {
+    "class_type": "SaveImage",
+    "inputs": { "filename_prefix": "pebbles_q4", "images": ["8", 0] }
+  }
+}

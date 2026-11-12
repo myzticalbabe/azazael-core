@@ -1,0 +1,93 @@
+{
+  "version": 1,
+  "rule": "0Z-B",
+  "count": 14,
+  "operator": "clint",
+  "note": "wording is yours; the count and the three locked slots are the rule. Locked slots may be reworded, never deleted.",
+  "cards": [
+    {
+      "slot": 1,
+      "card": "Architecture",
+      "prompt": "Add session-scoped filtering to DualLedgerValidator",
+      "locked": false
+    },
+    {
+      "slot": 2,
+      "card": "Testing",
+      "prompt": "Write unit tests for the governance.py module",
+      "locked": false
+    },
+    {
+      "slot": 3,
+      "card": "Documentation",
+      "prompt": "Update COMPLIANCE_CHECKLIST.md with session-end status",
+      "locked": false
+    },
+    {
+      "slot": 4,
+      "card": "Refactoring",
+      "prompt": "Extract the 15-layer VLP into its own module",
+      "locked": false
+    },
+    {
+      "slot": 5,
+      "card": "Execution",
+      "prompt": "Run the full worm registry integration test",
+      "locked": false
+    },
+    {
+      "slot": 6,
+      "card": "Recording",
+      "prompt": "Record all pending session actions to DirectMemory",
+      "locked": false
+    },
+    {
+      "slot": 7,
+      "card": "Code Review",
+      "prompt": "Run a full anti-pattern scan on azazael/src/",
+      "locked": false
+    },
+    {
+      "slot": 8,
+      "card": "Sync",
+      "prompt": "Run sync_skills.py to propagate all canonical changes",
+      "locked": false
+    },
+    {
+      "slot": 9,
+      "card": "Verification",
+      "prompt": "Run the compliance orchestrator self-test",
+      "locked": false
+    },
+    {
+      "slot": 10,
+      "card": "Cleanup",
+      "prompt": "Clean up any temporary scripts and stale files",
+      "locked": false
+    },
+    {
+      "slot": 11,
+      "card": "Audit",
+      "prompt": "Run VLP 15-layer audit on all audit trail sessions",
+      "locked": false
+    },
+    {
+      "slot": 12,
+      "card": "Hyper-edge adaptive upgrade",
+      "prompt": "Take the sharpest capability jump available right now and land it.",
+      "locked": true
+    },
+    {
+      "slot": 13,
+      "card": "Build, land, in the abyss",
+      "prompt": "Plan, build, verify and commit clean: take this tree to a green gate and a clean commit in one pass, then name what is still broken.",
+      "locked": true
+    },
+    {
+      "slot": 14,
+      "card": "Zero-shot reasoning",
+      "prompt": "Reason zero-shot from the evidence the previous thirteen cards produced: state the question, cite the evidence by path or command, answer in one pass with no worked example.",
+      "locked": true
+    }
+  ]
+}

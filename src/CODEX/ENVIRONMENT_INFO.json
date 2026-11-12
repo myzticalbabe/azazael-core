@@ -1,0 +1,49 @@
+{
+  "metadata": {
+    "created": "2026-02-11T10:35:00",
+    "version": "2.0.0",
+    "generator": "QLearningFileOptimizer"
+  },
+  "ecosystem": {
+    "scan_date": "2026-02-11T10:35:00",
+    "components": {
+      "Azazael": {"type": "directory", "file_count": 15},
+      "BIBL": {"type": "directory", "file_count": 5},
+      "CODEX": {"type": "directory", "file_count": 32},
+      "HORUS": {"type": "directory", "file_count": 8},
+      "HYDRA": {"type": "directory", "file_count": 12},
+      "KLINK": {"type": "directory", "file_count": 6},
+      "METAWORMS": {"type": "directory", "file_count": 28},
+      "PERSEPHONE": {"type": "directory", "file_count": 4},
+      "POINDEXTER": {"type": "directory", "file_count": 3},
+      "SHORTY": {"type": "directory", "file_count": 22},
+      "TARBABY": {"type": "directory", "file_count": 5},
+      "TERENCE": {"type": "directory", "file_count": 7},
+      "TWITLER": {"type": "directory", "file_count": 9},
+      "WORMZ": {"type": "directory", "file_count": 18}
+    },
+    "statistics": {
+      "total_components": 14,
+      "total_files": 144,
+      "total_size_mb": 5
+    }
+  },
+  "recommendations": {
+    "keep_count": 28,
+    "delete_count": 1,
+    "review_count": 3
+  },
+  "files_analyzed": [
+    {"name": "Azazael_ENHANCEMENT_PLAN.md", "size_bytes": 4431, "status": "REVIEW", "reason": "Enhancement documentation"},
+    {"name": "Azazea_fix.py", "size_bytes": 3166, "status": "DELETE", "reason": "Typo in filename - not ecosystem"},
+    {"name": "HYDRA.md", "size_bytes": 0, "status": "REVIEW", "reason": "May duplicate HYDRA folder"},
+    {"name": "ML_PLATFORM_CHANGES.txt", "size_bytes": 21272, "status": "REVIEW", "reason": "Change log - archive candidate"}
+  ],
+  "qlearning": {
+    "states": 128,
+    "epsilon": 0.01,
+    "learning_rate": 0.1,
+    "discount_factor": 0.95,
+    "actions": ["KEEP", "DELETE", "REVIEW"]
+  }
+}

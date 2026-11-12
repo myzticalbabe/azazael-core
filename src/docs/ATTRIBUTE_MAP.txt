@@ -1,0 +1,622 @@
+================================================================================
+AZAZAEL ECOSYSTEM - COMPREHENSIVE ATTRIBUTE MAP
+================================================================================
+Purpose: All attributes and sub-attributes of the Azazael Ecosystem
+Created: 2026-02-13
+================================================================================
+
+TABLE OF CONTENTS:
+================================================================================
+1. CORE ATTRIBUTES
+   1.1 FUSION TIER SYSTEM
+   1.2 ORCHESTRATION LAYER
+   1.3 MODULE ARCHITECTURE
+
+2. DATA ATTRIBUTES
+   2.1 PYTHON ECOSYSTEM
+   2.2 INSTALLED FRAMEWORKS (22 verified)
+   2.3 DEPENDENCY MATRIX
+
+3. SYSTEM ATTRIBUTES  
+   3.1 SYSTEM OPERATIONS
+   3.2 PROCESS MANAGEMENT
+   3.3 NETWORK OPERATIONS
+   3.4 STORAGE OPERATIONS
+
+4. INTELLIGENCE ATTRIBUTES
+   4.1 ML ORCHESTRATION
+   4.2 NEURAL NETWORKS
+   4.3 OPTIMIZATION
+
+5. INTERFACE ATTRIBUTES
+   5.1 GUI COMPONENTS
+   5.2 CLI TOOLS
+   5.3 API LAYERS
+
+6. UTILITY ATTRIBUTES
+   6.1 LOGGING SYSTEM
+   6.2 DIAGNOSTIC TOOLS
+   6.3 PERSISTENCE LAYER
+
+================================================================================
+1. CORE ATTRIBUTES
+================================================================================
+
+1.1 FUSION TIER SYSTEM
+├── TIER.SYSTEM (Raw System Operations)
+│   ├── ProcessManager
+│   ├── DiskManager  
+│   ├── NetworkManager
+│   ├── PythonManager
+│   └── SystemManager
+│
+├── TIER.ASSISTANT (User Interaction)
+│   ├── GUI Framework
+│   ├── CLI Interface
+│   ├── API Interface
+│   └── UserContext
+│
+├── TIER.ML (Machine Learning)
+│   ├── TensorOperations
+│   ├── ModelTraining
+│   ├── InferenceEngine
+│   └── MLAnalytics
+│
+├── TIER.KNOWLEDGE (Learning & Context)
+│   ├── KnowledgeBase
+│   ├── ContextEngine
+│   ├── LearningSystem
+│   └── MemoryManagement
+│
+└── TIER.ORCHESTRATION (Coordination)
+    ├── TaskScheduler
+    ├── WormPool
+    ├── ClusterManagement
+    └── FusionEngine
+
+1.2 ORCHESTRATION LAYER
+├── EcosystemOptimizer
+├── MLOrchestrator
+├── TaskScheduler
+└── FusionCore
+
+1.3 MODULE ARCHITECTURE
+├── CORE/
+│   ├── FUSION/
+│   │   ├── ADFusionCore.py
+│   │   ├── ADFusionLogger.py
+│   │   ├── ADFusionKnowledge.py
+│   │   └── ADFusionML.py
+│   ├── PYTHON/
+│   │   ├── PythonManager.py
+│   │   ├── PythonMapper.py
+│   │   └── PythonOptimizer.py
+│   ├── SYSTEM/
+│   │   ├── SystemManager.py
+│   │   ├── ProcessManager.py
+│   │   ├── DiskManager.py
+│   │   └── NetworkManager.py
+│   └── WORMS/
+│       ├── WormBase.py
+│       ├── WormFactory.py
+│       └── WormPool.py
+│
+├── HYDRA/
+│   ├── ml_platforms/
+│   │   ├── HydraLauncher.py
+│   │   ├── HydraMeta.py
+│   │   ├── MLPlatforms/
+│   │   └── Improvements/
+│   └── State/
+│
+├── CODEX/
+│   ├── CORE/
+│   │   ├── azazael_pygame.py
+│   │   ├── AnimationProtocols.py
+│   │   ├── AutoDocGenerator.py
+│   │   └── ...
+│   ├── POPUPS/
+│   │   ├── POPUP_ALL_11.py
+│   │   ├── POPUP_BUGFREE.py
+│   │   └── ...
+│   └── TESTING/
+│       ├── INTEGRATION/
+│       ├── PERFORMANCE/
+│       └── UNIT/
+│
+├── META/
+├── ORCHESTRATION/
+└── UTILITIES/
+    ├── Loggers/
+    ├── BIBL/
+    ├── KLINK/
+    ├── PERSEPHONE/
+    ├── POINDEXTER/
+    ├── TARBABY/
+    └── TERENCE/
+
+================================================================================
+2. DATA ATTRIBUTES
+================================================================================
+
+2.1 PYTHON ECOSYSTEM
+├── Versions
+│   ├── Python 3.14.3 (Primary)
+│   └── Python 3.11 (Secondary)
+│
+├── Virtual Environments
+│   ├── .venv (Azazael Unified)
+│   │   ├── Lib/site-packages/
+│   │   └── Scripts/
+│   └── pyvenv.cfg
+│
+└── Package Management
+    ├── pip
+    ├── requirements.txt
+    └── setup.py
+
+2.2 INSTALLED FRAMEWORKS (22 Verified)
+├── ML/AI CORE
+│   ├── numpy v2.4.2
+│   ├── pandas v3.0.0
+│   ├── scipy v1.17.0
+│   ├── torch v2.10.0+cpu
+│   ├── sklearn v1.8.0
+│   ├── transformers v5.1.0
+│   ├── accelerate v1.12.0
+│   ├── optuna v4.7.0
+│   ├── datasets v4.5.0
+│   └── sentence_transformers v5.2.2
+│
+├── NLP
+│   ├── nltk v3.9.2
+│   └── spacy v3.8.11
+│
+├── COMPUTER VISION
+│   ├── cv2 v4.13.0
+│   └── PIL v12.1.1
+│
+├── WEB
+│   ├── requests v2.32.5
+│   ├── httpx v0.28.1
+│   ├── aiohttp v3.13.3
+│   ├── starlette v0.52.1
+│   └── selenium v4.40.0
+│
+└── OTHER
+    ├── cryptography v46.0.5
+    ├── grpc v1.78.0
+    ├── yaml v6.0.3
+    └── toml v0.10.2
+
+2.3 DEPENDENCY MATRIX
+├── Core Dependencies
+│   ├── python >= 3.10
+│   ├── numpy >= 1.20
+│   ├── pandas >= 1.3
+│   └── torch >= 2.0
+│
+├── Optional Dependencies
+│   ├── Computer Vision: [opencv-python, pillow]
+│   ├── NLP: [transformers, nltk, spacy]
+│   └── Web: [requests, httpx, aiohttp]
+│
+└── Dev Dependencies
+    ├── pytest
+    ├── pylint
+    ├── black
+    └── mypy
+
+================================================================================
+3. SYSTEM ATTRIBUTES
+================================================================================
+
+3.1 SYSTEM OPERATIONS
+├── SystemInfo
+│   ├── OS Detection
+│   ├── Hardware Inventory
+│   └── Performance Metrics
+│
+├── ProcessControl
+│   ├── Start/Stop
+│   ├── Priority Management
+│   └── Resource Limits
+│
+├── ServiceManagement
+│   ├── Service Discovery
+│   ├── Health Checks
+│   └── Restart Policies
+│
+└── SecurityContext
+    ├── User Permissions
+    ├── Token Management
+    └── Audit Logging
+
+3.2 PROCESS MANAGEMENT
+├── ProcessZ (WORM)
+│   ├── List Processes
+│   ├── Kill Process
+│   ├── Search Process
+│   └── Monitor Process
+│
+├── DiagnosticZ
+│   ├── CPU Usage
+│   ├── Memory Usage
+│   ├── I/O Stats
+│   └── Thread Analysis
+│
+└── HealingZ
+    ├── Auto-restart
+    ├── Resource Cleanup
+    └── Deadlock Detection
+
+3.3 NETWORK OPERATIONS
+├── NetworkZ (WORM)
+│   ├── Ping Sweep
+│   ├── Port Scan
+│   ├── Bandwidth Test
+│   └── Connection Pool
+│
+├── HTTP Client
+│   ├── GET/POST/PUT/DELETE
+│   ├── Session Management
+│   ├── Retry Logic
+│   └── Rate Limiting
+│
+└── Async Operations
+    ├── AioHTTP Client
+    ├── Concurrent Requests
+    └── WebSocket Support
+
+3.4 STORAGE OPERATIONS
+├── DiskZ (WORM)
+│   ├── Space Analysis
+│   ├── File Search
+│   ├── Duplicate Detection
+│   └── Clean-up Operations
+│
+├── FileOperations
+│   ├── Read/Write
+│   ├── Binary Processing
+│   ├── Compression
+│   └── Encryption
+│
+└── PathManagement
+    ├── Path Resolution
+    ├── Symlink Handling
+    └── Cross-Platform Paths
+
+================================================================================
+4. INTELLIGENCE ATTRIBUTES
+================================================================================
+
+4.1 ML ORCHESTRATION
+├── Training Pipeline
+│   ├── DataLoader
+│   ├── Model Definition
+│   ├── Optimizer Setup
+│   ├── Training Loop
+│   └── Validation
+│
+├── Model Management
+│   ├── Model Registry
+│   ├── Version Control
+│   ├── Hyperparameter Tuning
+│   └── Model Export
+│
+└── Inference
+    ├── Batch Inference
+    ├── Real-time Prediction
+    └── Model Serving
+
+4.2 NEURAL NETWORKS
+├── Architectures
+│   ├── Feedforward
+│   ├── Convolutional
+│   ├── Recurrent
+│   ├── Transformer
+│   └── Custom
+│
+├── Layers
+│   ├── Dense
+│   ├── Conv2D
+│   ├── LSTM/GRU
+│   ├── Attention
+│   └── Normalization
+│
+├── Activation Functions
+│   ├── ReLU
+│   ├── Sigmoid
+│   ├── Tanh
+│   ├── Softmax
+│   └── GELU
+│
+└── Loss Functions
+    ├── CrossEntropy
+    ├── MSE
+    ├── MAE
+    └── Custom
+
+4.3 OPTIMIZATION
+├── Hyperparameter Tuning (Optuna)
+│   ├── Bayesian Optimization
+│   ├── Grid Search
+│   ├── Random Search
+│   └── Pruning
+│
+├── Distributed Training (Accelerate)
+│   ├── Multi-GPU
+│   ├── Distributed Data Parallel
+│   ├── Mixed Precision
+│   └── DeepSpeed
+│
+└── Performance
+    ├── Quantization
+    ├── Pruning
+    ├── Knowledge Distillation
+    └── ONNX Export
+
+================================================================================
+5. INTERFACE ATTRIBUTES
+================================================================================
+
+5.1 GUI COMPONENTS
+├── Main Framework
+│   ├── tkinter (Built-in)
+│   ├── PyQt5/6 (Available)
+│   ├── pygame (Available)
+│   └── Custom Canvas
+│
+├── Display Systems
+│   ├── Matrix Animation
+│   ├── Dual Pane View
+│   ├── Popup Windows
+│   └── Terminal Emulator
+│
+├── Interactive Elements
+│   ├── Buttons
+│   ├── Input Fields
+│   ├── Progress Bars
+│   └── Status Indicators
+│
+└── Visualization
+    ├── System Metrics
+    ├── Network Graphs
+    ├── Process Trees
+    └── Log Streams
+
+5.2 CLI TOOLS
+├── Primary CLI
+│   ├── azazael_cli.py
+│   └── azazael_launcher.py
+│
+├── Management Commands
+│   ├── start
+│   ├── stop
+│   ├── status
+│   ├── config
+│   └── update
+│
+└── Worm Commands
+    ├── run <worm_name>
+    ├── list
+    ├── schedule
+    └── monitor
+
+5.3 API LAYERS
+├── REST API
+│   ├── /health
+│   ├── /status
+│   ├── /execute
+│   └── /metrics
+│
+├── WebSocket
+│   ├── Real-time Logs
+│   ├── Status Updates
+│   └── Command Stream
+│
+└── Internal APIs
+    ├── Module Interface
+    ├── Worm API
+    └── Fusion API
+
+================================================================================
+6. UTILITY ATTRIBUTES
+================================================================================
+
+6.1 LOGGING SYSTEM
+├── DynamicLogger
+│   ├── Real-time Console Output
+│   ├── File Persistence
+│   ├── In-Memory History
+│   └── Thread-Safe Queue
+│
+├── Log Levels
+│   ├── DEBUG
+│   ├── INFO
+│   ├── WARN
+│   ├── ERROR
+│   └── SUCCESS
+│
+└── Log Storage
+    ├── azazael_dynamic.log
+    ├── Session Logs
+    └── Error Logs
+
+6.2 DIAGNOSTIC TOOLS
+├── COMPREHENSIVE_FIX.py
+│   ├── LSP Error Detection
+│   ├── Shortcut Repair
+│   ├── GUI Diagnostics
+│   └── Platform Detection
+│
+├── REAL_FRAMEWORK_TEST.py
+│   ├── Import Verification
+│   ├── Version Checking
+│   └── Operation Tests
+│
+└── QL_ANALYSIS.py
+    ├── Q-Learning Analysis
+    ├── Solution Quality
+    └── Optimization Recommendations
+
+6.3 PERSISTENCE LAYER
+├── Environment Management
+│   ├── Virtual Environment
+│   ├── PYTHONPATH
+│   └── Environment Variables
+│
+├── Configuration Files
+│   ├── .env
+│   ├── .vscode/settings.json
+│   ├── pyproject.toml
+│   └── pyrightconfig.json
+│
+└── Registry (Windows)
+    ├── PATH Updates
+    ├── PYTHONPATH
+    └── Startup Settings
+
+================================================================================
+ATTRIBUTE COUNT SUMMARY
+================================================================================
+
+| Category | Attributes | Sub-Attributes | Total |
+|---------|------------|----------------|--------|
+| Core | 3 | 28 | 31 |
+| Data | 3 | 35 | 38 |
+| System | 4 | 26 | 30 |
+| Intelligence | 3 | 27 | 30 |
+| Interface | 3 | 24 | 27 |
+| Utility | 3 | 17 | 20 |
+|---------|------------|----------------|--------|
+| **TOTAL** | **19** | **157** | **176** |
+
+================================================================================
+VIDEO SCRIPT - AZAZAEL ECOSYSTEM ATTRIBUTE MAP
+(Dual Screen Format - 5 Minutes)
+================================================================================
+
+[SCENE 1: INTRODUCTION - 0:00-0:30]
+─────────────────────────────────────────
+LEFT SCREEN: Title Card
+RIGHT SCREEN: 3D rotating diagram of Azazael ecosystem
+
+SPEAKER:
+"Welcome to Azazael - a comprehensive ML/AI ecosystem with 176 documented 
+attributes across 19 core categories. Today we'll explore every component."
+
+[TEXT OVERLAY]:
+"AZAZAEL ECOSYSTEM"
+"176 Attributes | 19 Categories | 1 Vision"
+
+[SCENE 2: CORE TIER - 0:30-1:30]
+─────────────────────────────────────────
+LEFT SCREEN: Tier System Diagram
+RIGHT SCREEN: Code samples for each tier
+
+SPEAKER:
+"Azazael operates on 5 fusion tiers - from raw system operations to 
+high-level orchestration."
+
+[TIER VISUALIZATION]:
+- SYSTEM (bottom): Process, Disk, Network, Python management
+- ASSISTANT: GUI, CLI, API interfaces  
+- ML: Neural networks, training, inference
+- KNOWLEDGE: Base, context, learning, memory
+- ORCHESTRATION (top): Scheduling, worms, clusters
+
+[CODE DUAL VIEW]:
+LEFT: "class ProcessManager:"
+RIGHT: "manager = ProcessManager()"
+
+[SCENE 3: DATA ECOSYSTEM - 1:30-2:30]
+─────────────────────────────────────────
+LEFT SCREEN: Framework icons (22 packages)
+RIGHT SCREEN: Dependency matrix
+
+SPEAKER:
+"22 verified frameworks power Azazael's data capabilities - from NumPy 
+for array operations to Transformers for NLP."
+
+[FRAMEWORK GRID ANIMATION]:
+┌─────────────────────────────────────┐
+│ ML/AI    │ NLP       │ CV     │ WEB   │
+├──────────┼───────────┼────────┼───────┤
+│ NumPy    │ NLTK      │ OpenCV │Reqs   │
+│ Pandas   │ SpaCy      │ PIL    │HTTPX  │
+│ PyTorch │            │        │AioHTTP│
+│ Sklearn │            │        │Selenium│
+│ Transfmrs│           │        │Starlette│
+└─────────────────────────────────────┘
+
+[SCENE 4: SYSTEM OPERATIONS - 2:30-3:30]
+─────────────────────────────────────────
+LEFT SCREEN: WORM visualization
+RIGHT SCREEN: Process flow
+
+SPEAKER:
+"14 specialized WORMS automate system operations - from ProcessZ 
+for process management to DiskZ for storage analysis."
+
+[WORMS DISPLAY]:
+├── PROCESSZ     → CPU, Memory, I/O monitoring
+├── NETWORKZ     → Ping, Port, Bandwidth
+├── DISKZ        → Space, Duplicates, Cleanup
+├── ERRORZ       → Log scanning, Issue detection
+├── HEALINGZ     → Auto-restart, Resource cleanup
+├── MORPHZ       → Adaptive configuration
+└── CLUSTER     → Coordinated worm execution
+
+[SCENE 5: INTELLIGENCE LAYER - 3:30-4:30]
+─────────────────────────────────────────
+LEFT SCREEN: Neural network visualization
+RIGHT SCREEN: Training pipeline
+
+SPEAKER:
+"Full ML stack from PyTorch to Optuna hyperparameter optimization,
+with distributed training via Accelerate."
+
+[ML PIPELINE]:
+Data → Model → Loss → Optimizer → Validation → Export
+   ↓           ↓        ↓          ↓           ↓
+NumPy      Torch     CrossEnt  Adam        Metrics
+Pandas     Sklearn   MSE       SGD         ONNX
+Datasets   HF Trans  Custom    Optuna      TorchScript
+
+[SCENE 6: INTERFACES - 4:30-5:00]
+─────────────────────────────────────────
+LEFT SCREEN: GUI mockup
+RIGHT SCREEN: CLI terminal
+
+SPEAKER:
+"Three interface modes - GUI with matrix animations, CLI for 
+automation, REST API for integration."
+
+[INTERFACE TRIAD]:
+┌─────────┬─────────┬─────────┐
+│   GUI   │   CLI   │   API   │
+├─────────┼─────────┼─────────┤
+│ tkinter │ azazael │ REST    │
+│ PyGame  │  memory  │ WebSocket│
+│ Popups  │ wormctl │ Internal │
+└─────────┴─────────┴─────────┘
+
+[SCENE 7: CONCLUSION - 5:00]
+─────────────────────────────────────────
+LEFT SCREEN: Full ecosystem map
+RIGHT SCREEN: Stats summary
+
+SPEAKER:
+"Azazael - 176 attributes, 22 frameworks, 14 worms, 1 vision."
+
+[TEXT OVERLAY]:
+"═══════════════════════════════════════"
+"  AZAZAEL ECOSYSTEM"
+"  176 Attributes | 19 Categories | 22 Frameworks"
+"  14 Worms | 5 Tiers | Infinite Possibility"
+"═══════════════════════════════════════"
+
+================================================================================
+END OF ATTRIBUTE MAP DOCUMENT
+================================================================================

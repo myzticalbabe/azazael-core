@@ -1,0 +1,7 @@
+file 'intro.mp4'
+file 'architecture.mp4'
+file 'python.mp4'
+file 'worms.mp4'
+file 'ml.mp4'
+file 'llm.mp4'
+file 'outro.mp4'

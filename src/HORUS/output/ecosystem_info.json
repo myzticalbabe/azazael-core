@@ -1,0 +1,73 @@
+{
+  "ecosystem": {
+    "name": "Azazael",
+    "version": "5.0.0",
+    "architecture": "7-tier worm system",
+    "created": "2026-02-11",
+    "platform": "Windows",
+    "root_path": "C:/Users/clint/Desktop/Azazael"
+  },
+  "components": {
+    "WORMZ": {
+      "type": "worm",
+      "count": 10,
+      "health": "healthy"
+    },
+    "METAWORMS": {
+      "type": "metaworm",
+      "count": 8,
+      "health": "healthy"
+    },
+    "HYDRA": {
+      "type": "cluster",
+      "count": 8,
+      "health": "healthy"
+    },
+    "TERENCE": {
+      "type": "resolver",
+      "patterns": 26,
+      "health": "healthy"
+    },
+    "HORUS": {
+      "type": "formatter",
+      "count": 4,
+      "health": "healthy"
+    },
+    "POINDEXTER": {
+      "type": "indexer",
+      "count": 2,
+      "health": "healthy"
+    },
+    "TARBABY": {
+      "type": "builder",
+      "count": 3,
+      "health": "warning"
+    },
+    "PERSEPHONE": {
+      "type": "cross-platform",
+      "count": 4,
+      "health": "healthy"
+    },
+    "BIBL": {
+      "type": "crawler",
+      "count": 2,
+      "health": "healthy"
+    },
+    "KLINK": {
+      "type": "cli",
+      "count": 9,
+      "health": "healthy"
+    },
+    "Azazael_CORE": {
+      "type": "core",
+      "count": 13,
+      "health": "healthy"
+    }
+  },
+  "statistics": {
+    "total_components": 11,
+    "total_files": 65,
+    "overall_health_score": 85,
+    "last_scan": "2026-02-11T05:15:15.742764"
+  }
+}

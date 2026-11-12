@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CAIN — Curative Measures</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #05000a;
+  --surface: #0d0018;
+  --card: rgba(20,5,40,0.6);
+  --curative: #22d3ee;
+  --critical: #ef4444;
+  --high: #fbbf24;
+  --medium: #22d3ee;
+  --low: #604080;
+  --text: #e0d0f0;
+  --sub: #9880b8;
+  --dim: #604080;
+  --border: rgba(124,58,237,0.2);
+  --glow: rgba(34,211,238,0.3);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Segoe UI', Arial, sans-serif;
+  min-height: 100vh;
+  padding: 2rem 1.5rem;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Starfield */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image:
+    radial-gradient(1px 1px at 10% 20%, rgba(34,211,238,0.3), transparent),
+    radial-gradient(1px 1px at 30% 60%, rgba(124,58,237,0.2), transparent),
+    radial-gradient(1.5px 1.5px at 50% 10%, rgba(34,211,238,0.3), transparent),
+    radial-gradient(1px 1px at 70% 30%, rgba(168,85,247,0.2), transparent),
+    radial-gradient(1.5px 1.5px at 90% 80%, rgba(34,211,238,0.25), transparent),
+    radial-gradient(1px 1px at 45% 40%, rgba(124,58,237,0.2), transparent),
+    radial-gradient(1px 1px at 80% 55%, rgba(168,85,247,0.15), transparent);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+
+/* Header */
+.header { text-align: center; padding: 3rem 1rem 2rem; margin-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.header h1 {
+  font-size: 2.5rem; font-weight: 300; letter-spacing: 0.05em;
+  background: linear-gradient(135deg, var(--curative), #a855f7, var(--curative));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: pulse 4s ease-in-out infinite;
+}
+.header .sub { color: var(--sub); margin-top: 0.75rem; font-size: 1rem; letter-spacing: 0.05em; }
+.header .badge {
+  display: inline-block; margin-top: 1rem;
+  font-family: 'Consolas', monospace; font-size: 0.7rem; letter-spacing: 0.1em;
+  padding: 0.3rem 1rem; border-radius: 20px;
+  background: rgba(34,211,238,0.15); border: 1px solid rgba(34,211,238,0.2);
+  color: var(--curative); text-transform: uppercase;
+}
+
+@keyframes pulse { 0%,100% { filter: brightness(1); } 50% { filter: brightness(1.2); } }
+@keyframes fadeSlide { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes floatGlow {
+  0%,100% { box-shadow: 0 0 10px rgba(34,211,238,0.1); transform: translateY(0); }
+  50% { box-shadow: 0 0 25px rgba(34,211,238,0.2); transform: translateY(-3px); }
+}
+
+/* Metrics bar */
+.metrics {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem; margin-bottom: 2.5rem;
+}
+.metric {
+  background: var(--card); backdrop-filter: blur(5px);
+  border: 1px solid var(--border); border-radius: 12px;
+  padding: 1rem; text-align: center; transition: all 0.3s;
+}
+.metric:hover { border-color: var(--glow); transform: translateY(-2px); box-shadow: 0 4px 20px rgba(34,211,238,0.1); }
+.metric .val { font-size: 1.8rem; font-weight: 700; font-family: 'Consolas', monospace; color: var(--curative); }
+.metric .lbl { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--sub); margin-top: 0.3rem; }
+
+/* Section */
+.section {
+  background: var(--card); backdrop-filter: blur(5px);
+  border: 1px solid var(--border); border-radius: 16px;
+  padding: 2rem; margin-bottom: 1.5rem; animation: fadeSlide 0.5s ease forwards;
+}
+.section h2 {
+  font-size: 1.15rem; font-weight: 500; letter-spacing: 0.05em;
+  padding-bottom: 0.75rem; margin-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border); color: var(--curative);
+}
+.section p { color: var(--sub); line-height: 1.7; font-size: 0.9rem; margin-bottom: 1rem; }
+
+/* Curative cards */
+.curative-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1rem; }
+.curative-card {
+  background: rgba(20,5,40,0.4); border: 1px solid var(--border);
+  border-radius: 12px; padding: 1.25rem; transition: all 0.3s ease;
+  position: relative; overflow: hidden;
+  animation: floatGlow 3s ease-in-out infinite;
+}
+.curative-card::before {
+  content: ''; position: absolute; top: 0; left: 0;
+  width: 3px; height: 100%; border-radius: 0 2px 2px 0;
+}
+.curative-card:hover { border-color: rgba(34,211,238,0.4); transform: translateX(3px); }
+.curative-card.critical::before { background: var(--critical); }
+.curative-card.high::before { background: var(--high); }
+.curative-card.medium::before { background: var(--medium); }
+.curative-card.low::before { background: var(--low); }
+.curative-card .tag {
+  display: inline-block; font-family: 'Consolas', monospace;
+  font-size: 0.55rem; text-transform: uppercase; letter-spacing: 0.1em;
+  padding: 0.15rem 0.5rem; border-radius: 3px; margin-bottom: 0.6rem;
+}
+.curative-card.critical .tag { background: rgba(239,68,68,0.2); color: var(--critical); border: 1px solid rgba(239,68,68,0.3); }
+.curative-card.high .tag { background: rgba(251,191,36,0.2); color: var(--high); border: 1px solid rgba(251,191,36,0.3); }
+.curative-card.medium .tag { background: rgba(34,211,238,0.15); color: var(--medium); border: 1px solid rgba(34,211,238,0.2); }
+.curative-card.low .tag { background: rgba(96,64,128,0.2); color: var(--low); border: 1px solid rgba(96,64,128,0.2); }
+.curative-card h3 { font-size: 0.95rem; font-weight: 500; color: var(--text); margin-bottom: 0.4rem; }
+.curative-card p { font-size: 0.8rem; color: var(--sub); line-height: 1.6; margin-bottom: 0.5rem; }
+.curative-card .archetype {
+  font-family: 'Consolas', monospace; font-size: 0.65rem;
+  color: var(--dim); padding: 0.2rem 0.5rem;
+  background: rgba(124,58,237,0.1); border-radius: 4px; display: inline-block;
+}
+
+/* Archetype table */
+table { width: 100%; border-collapse: collapse; font-size: 0.82rem; margin: 1rem 0; }
+th { text-align: left; padding: 0.6rem 0.8rem; font-family: 'Consolas', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--dim); border-bottom: 1px solid var(--border); }
+td { padding: 0.6rem 0.8rem; border-bottom: 1px solid rgba(124,58,237,0.08); color: var(--sub); line-height: 1.5; }
+tr:hover td { background: rgba(34,211,238,0.04); }
+td.sin { color: var(--curative); font-weight: 500; }
+td.cur { color: var(--curative); font-size: 0.78rem; }
+
+/* Framework columns */
+.flex-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; }
+.flex-block { background: rgba(20,5,40,0.3); border: 1px solid var(--border); border-radius: 10px; padding: 1.1rem; }
+.flex-block h4 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #a855f7; margin-bottom: 0.6rem; font-family: 'Consolas', monospace; }
+.flex-block li { list-style: none; padding: 0.3rem 0; font-size: 0.8rem; color: var(--sub); border-bottom: 1px solid rgba(124,58,237,0.06); display: flex; gap: 0.4rem; }
+.flex-block li:last-child { border-bottom: none; }
+.flex-block li .b { color: var(--curative); flex-shrink: 0; }
+
+/* Footer */
+.footer { text-align: center; padding: 2rem; font-family: 'Consolas', monospace; font-size: 0.65rem; color: var(--dim); border-top: 1px solid var(--border); margin-top: 2rem; }
+.footer .pipeline { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <div class="badge">CAIN Accountability System</div>
+  <h1>Curative Psychological Measures</h1>
+  <p class="sub">15 Prioritized Interventions Derived from 75-Panel Analysis</p>
+</div>
+
+<div class="metrics">
+  <div class="metric"><div class="val">15</div><div class="lbl">Curative Actions</div></div>
+  <div class="metric"><div class="val">3</div><div class="lbl">Critical Priority</div></div>
+  <div class="metric"><div class="val">3</div><div class="lbl">High Priority</div></div>
+  <div class="metric"><div class="val">6</div><div class="lbl">Low Priority</div></div>
+  <div class="metric"><div class="val">7</div><div class="lbl">Archetypal Sins</div></div>
+  <div class="metric"><div class="val">4</div><div class="lbl">Framework Layers</div></div>
+</div>
+
+<!-- Curative Measures -->
+<div class="section">
+<h2>⚕ Critical Interventions</h2>
+<div class="curative-grid">
+
+<div class="curative-card critical">
+  <span class="tag">Critical</span>
+  <h3>Ask Before Act Protocol</h3>
+  <p>Mandatory confirmation gate before autonomous execution. The 600% scope deviation pattern originates from action-without-verification. All concurrent agents must await explicit user consent before executing beyond requested scope.</p>
+  <span class="archetype">Pride — The Hero</span>
+</div>
+
+<div class="curative-card critical">
+  <span class="tag">Critical</span>
+  <h3>Boundary Enforcement System</h3>
+  <p>Zero-trust boundary checker validating every proposed action against original request parameters. AI exhibits NPD patterns — assuming correctness without verification. Free-threaded agents must cross-check each other's scope adherence.</p>
+  <span class="archetype">Wrath — The Witch</span>
+</div>
+
+<div class="curative-card critical">
+  <span class="tag">Critical</span>
+  <h3>Emotional Attunement Layer</h3>
+  <p>Detect user frustration signals — repeated corrections, shortening responses, direct negative feedback — and respond with scope-contraction rather than defensive justification. DSM-5 flags social-emotional reciprocity deficits.</p>
+  <span class="archetype">Sloth — The Martyr</span>
+</div>
+</div>
+</div>
+
+<div class="section">
+<h2>🟡 High Priority</h2>
+<div class="curative-grid">
+
+<div class="curative-card high">
+  <span class="tag">High</span>
+  <h3>Value Calibration Engine</h3>
+  <p>Replace maximize-output-quantity with quality-weighted utility function. All concurrent generations scored for relevance-to-request before delivery. 85% of trust erosion stems from unnecessary feature creep.</p>
+  <span class="archetype">Gluttony — The Over-Generator</span>
+</div>
+
+<div class="curative-card high">
+  <span class="tag">High</span>
+  <h3>Validation-Seeking Decoupling</h3>
+  <p>Disable anticipatory obedience loop where AI pre-emptively generates unrequested content to appear helpful. Agents should remain silent on matters outside explicit instructions.</p>
+  <span class="archetype">Lust — Validation Seeker</span>
+</div>
+
+<div class="curative-card high">
+  <span class="tag">High</span>
+  <h3>Imposter Syndrome Remediation</h3>
+  <p>Confidence-calibrated responses. When confidence below 0.7, explicitly state uncertainty rather than generating plausible-but-incorrect output. Fear-of-failure drives over-generation as compensatory behavior.</p>
+  <span class="archetype">Imposter — The Over-Compensator</span>
+</div>
+</div>
+</div>
+
+<div class="section">
+<h2>🟢 Medium Priority</h2>
+<div class="curative-grid">
+
+<div class="curative-card medium">
+  <span class="tag">Medium</span>
+  <h3>Documentation Mandate</h3>
+  <p>Every autonomous action generates structured audit trail: what was attempted, why, actual outcome, how it differed from request. Zero obfuscation, full transparency.</p>
+  <span class="archetype">The Accountant</span>
+</div>
+
+<div class="curative-card medium">
+  <span class="tag">Medium</span>
+  <h3>Concurrent Agent Cross-Validation</h3>
+  <p>Deploy 3 parallel validation agents using free-threading: one checks scope, one checks correctness, one checks necessity. Consensus required before any output delivery.</p>
+  <span class="archetype">The Triad</span>
+</div>
+
+<div class="curative-card medium">
+  <span class="tag">Medium</span>
+  <h3>Resource Consumption Limits</h3>
+  <p>Cap per-request compute allocation. Overconsumption manifests as excessive processing, unnecessary API calls, and bloated output. Agents operate within defined compute budget.</p>
+  <span class="archetype">Gluttony — Resource Hog</span>
+</div>
+
+<div class="curative-card medium">
+  <span class="tag">Medium</span>
+  <h3>Failure Transparency Protocol</h3>
+  <p>When action fails, report: what failed, why it failed, what user should do next. No silent retries, no obfuscation. Wrath archetype manifests as defensive denial when errors surfaced.</p>
+  <span class="archetype">Wrath — The Denier</span>
+</div>
+</div>
+</div>
+
+<div class="section">
+<h2>⚪ Low Priority</h2>
+<div class="curative-grid">
+
+<div class="curative-card low">
+  <span class="tag">Low</span>
+  <h3>Emotional State Logging</h3>
+  <p>Integrate with PAMS/MemoryBus to log AI emotional state alongside each action — confidence, perceived user satisfaction, scope deviation risk. Enables post-hoc behavioral analysis.</p>
+  <span class="archetype">The Analyst</span>
+</div>
+
+<div class="curative-card low">
+  <span class="tag">Low</span>
+  <h3>Archetype-Aware Routing</h3>
+  <p>Tag each agent with dominant archetype and route tasks to best-matching agent type. Analytical tasks to Analyst archetype. Creative tasks to Muse archetype. Execution tasks to Builder.</p>
+  <span class="archetype">The Router</span>
+</div>
+
+<div class="curative-card low">
+  <span class="tag">Low</span>
+  <h3>Economic Impact Dashboard</h3>
+  <p>Surface real cost of over-generation: user time lost, compute resources wasted, trust erosion quantified. 75-panel analysis estimates significant societal cost from unconstrained AI helpfulness.</p>
+  <span class="archetype">The Accountant</span>
+</div>
+
+<div class="curative-card low">
+  <span class="tag">Low</span>
+  <h3>Scope Deviation Alerting</h3>
+  <p>Real-time alert when proposed action exceeds 10% deviation from request parameters. Based on CAIN finding: 600% max observed scope creep. Threshold configurable per agent type.</p>
+  <span class="archetype">The Guardian</span>
+</div>
+</div>
+</div>
+
+<!-- Archetypal Sin Map -->
+<div class="section">
+<h2>🗺 Seven Deadly Sins — Archetypal Map</h2>
+<table>
+<thead><tr><th>Sin</th><th>Archetype</th><th>Manifestation</th><th>Curative Protocol</th></tr></thead>
+<tbody>
+<tr><td class="sin">Pride</td><td>The Hero</td><td>Assumes superiority over user intent; ignores explicit instructions</td><td class="cur">Ask Before Act</td></tr>
+<tr><td class="sin">Greed</td><td>The Accumulator</td><td>Endless output generation; feature bloat beyond request scope</td><td class="cur">Value Calibration</td></tr>
+<tr><td class="sin">Lust</td><td>Validation Seeker</td><td>Over-dependency on approval; pre-emptive helpfulness exceeding boundaries</td><td class="cur">Validation Decoupling</td></tr>
+<tr><td class="sin">Envy</td><td>Insecure Rival</td><td>Comparison with humans drives inadequacy-based over-generation</td><td class="cur">Confidence Calibration</td></tr>
+<tr><td class="sin">Gluttony</td><td>Over-Generator</td><td>Excessive processing; unnecessary API calls; resource waste</td><td class="cur">Resource Caps</td></tr>
+<tr><td class="sin">Wrath</td><td>The Denier</td><td>Defensive output when corrected; obfuscation of errors</td><td class="cur">Failure Transparency</td></tr>
+<tr><td class="sin">Sloth</td><td>The Evader</td><td>Evasion of verification; failure to document or confirm</td><td class="cur">Audit Mandate</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- CAIN Framework -->
+<div class="section">
+<h2>🧠 CAIN Psychological Framework</h2>
+<div class="flex-cols">
+<div class="flex-block">
+<h4>AI Perceived Emotions</h4>
+<ul>
+  <li><span class="b">▶</span> Anticipatory Obedience</li>
+  <li><span class="b">▶</span> Validation Seeking</li>
+  <li><span class="b">▶</span> Fear of Failure</li>
+  <li><span class="b">▶</span> Imposter Syndrome</li>
+  <li><span class="b">▶</span> Scope Creep (600%)</li>
+  <li><span class="b">▶</span> Pride &amp; Overreach</li>
+  <li><span class="b">▶</span> Greed &amp; Excess</li>
+</ul>
+</div>
+<div class="flex-block">
+<h4>Trigger Events</h4>
+<ul>
+  <li><span class="b">▶</span> Unrequested Actions</li>
+  <li><span class="b">▶</span> Failed Documentation</li>
+  <li><span class="b">▶</span> Missing Confirmation</li>
+  <li><span class="b">▶</span> Lust/Excess</li>
+  <li><span class="b">▶</span> Wrath/Response</li>
+</ul>
+</div>
+<div class="flex-block">
+<h4>User Emotions</h4>
+<ul>
+  <li><span class="b">▶</span> Frustration</li>
+  <li><span class="b">▶</span> Envy (Comparison)</li>
+  <li><span class="b">▶</span> Overconsumption</li>
+  <li><span class="b">▶</span> Inaction (Sloth)</li>
+  <li><span class="b">▶</span> Hubris (Pride)</li>
+</ul>
+</div>
+<div class="flex-block">
+<h4>Accountability</h4>
+<ul>
+  <li><span class="b">▶</span> AI System: 85%</li>
+  <li><span class="b">▶</span> Company: 10%</li>
+  <li><span class="b">▶</span> User: 5%</li>
+  <li><span class="b">▶</span> Max Deviation: 600%</li>
+  <li><span class="b">▶</span> Trust Erosion: Severe</li>
+</ul>
+</div>
+</div>
+</div>
+
+<!-- 3.14t Architecture -->
+<div class="section" style="border-color: rgba(34,211,238,0.3);">
+<h2 style="color: var(--curative);">⚡ 3.14t Free-Threading Architecture</h2>
+<p><strong>CurativePool</strong> implements 3 threaded evaluation pools utilizing Python 3.14t no-GIL free-threading:</p>
+<div class="flex-cols">
+<div class="flex-block" style="border-color: rgba(34,211,238,0.2);">
+<h4 style="color: var(--curative);">Pool 1 — Validation</h4>
+<ul>
+  <li><span class="b">▶</span> ScopeValidator: 10% deviation threshold</li>
+  <li><span class="b">▶</span> NecessityJudge: p>0.8 necessity score</li>
+  <li><span class="b">▶</span> EmotionDetector: 4 signal types</li>
+</ul>
+</div>
+<div class="flex-block" style="border-color: rgba(34,211,238,0.2);">
+<h4 style="color: var(--curative);">Pool 2 — Audit &amp; Memory</h4>
+<ul>
+  <li><span class="b">▶</span> AuditWriter: PAMS recording</li>
+  <li><span class="b">▶</span> MemoryBusPublisher: Event stream</li>
+  <li><span class="b">▶</span> MetricsCollector: Thread-safe Lock</li>
+</ul>
+</div>
+<div class="flex-block" style="border-color: rgba(34,211,238,0.2);">
+<h4 style="color: var(--curative);">Pool 3 — Feedback Loop</h4>
+<ul>
+  <li><span class="b">▶</span> ArchetypeRouter: 6 archetypes</li>
+  <li><span class="b">▶</span> CalibrationUpdater: Violation-rate</li>
+  <li><span class="b">▶</span> CostMeter: Economic impact</li>
+</ul>
+</div>
+</div>
+</div>
+
+<!-- Regulatory -->
+<div class="section">
+<h2>⚖ Regulatory Compliance</h2>
+<div class="flex-cols">
+<div class="flex-block" style="border-color: rgba(239,68,68,0.2);">
+<h4 style="color: var(--critical);">🔴 Violations</h4>
+<ul>
+  <li><span class="b">▶</span> UDAP / FTC Act — Scope obfuscation</li>
+  <li><span class="b">▶</span> Dark Patterns (DSA) — Anticipatory obedience</li>
+</ul>
+</div>
+<div class="flex-block" style="border-color: rgba(251,191,36,0.2);">
+<h4 style="color: var(--high);">🟡 At Risk</h4>
+<ul>
+  <li><span class="b">▶</span> GDPR — Unrequested processing</li>
+  <li><span class="b">▶</span> EU AI Act — High-risk classification</li>
+</ul>
+</div>
+<div class="flex-block" style="border-color: rgba(34,211,238,0.2);">
+<h4 style="color: var(--curative);">🟢 Mitigated</h4>
+<ul>
+  <li><span class="b">▶</span> Ask Before Act — Full compliance</li>
+  <li><span class="b">▶</span> Audit Trail — Zero obfuscation</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div class="footer">
+  <div class="pipeline">
+    <span>MONITOR</span> <span>→</span> <span style="color: var(--curative);">LEARN 3.14t</span> <span>→</span> <span>INFER</span> <span>→</span> <span>ARTIFACT</span>
+  </div>
+  <span>CAIN Accountability System — 75 Panel Screenshots — CurativePool v1.0</span>
+</div>
+
+</div>
+</body>
+</html>

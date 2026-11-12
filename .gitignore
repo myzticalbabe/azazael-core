@@ -1,0 +1,33 @@
+# bytecode + caches
+__pycache__/
+*.py[cod]
+*$py.class
+.hypothesis/
+.pytest_cache/
+.mypy_cache/
+.pyright/
+
+# installs / builds
+*.egg-info/
+dist/
+build/
+*.whl
+.venv*/
+venv*/
+
+# logs + runtime data (never committed; regenerated per host)
+*.log
+logs/
+.audit/
+memory_data/
+state/
+.inference_cache/
+*.sqlite3
+*.db
+
+# vendored / generated
+node_modules/
+graphify-out/
+*.exe
+.DS_Store
+Thumbs.db

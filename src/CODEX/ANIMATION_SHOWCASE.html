@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azazael Animation Showcase - All 50+ Visual Protocols</title>
+    <style>
+        :root {
+            --bg: #050510;
+            --surface: #0d0d28;
+            --cyan: #00f5ff;
+            --purple: #bf00ff;
+            --green: #00ff88;
+            --pink: #ff0066;
+            --gold: #ffd700;
+            --orange: #ff6b35;
+            --red: #ff4757;
+            --lime: #00ff00;
+            --blue: #4169E1;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--bg);
+            font-family: 'Segoe UI', 'Consolas', 'Courier New', monospace;
+            color: #e0e0e0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ── Matrix rain background ── */
+        #matrixBg {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.06;
+        }
+
+        /* ── Header ── */
+        .header {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 60px 20px 40px;
+        }
+
+        .header h1 {
+            font-size: 3.5em;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--cyan), var(--purple), var(--pink), var(--gold), var(--green));
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: auroraFlow 6s ease infinite;
+        }
+
+        @keyframes auroraFlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .header .tagline {
+            color: rgba(255,255,255,0.4);
+            letter-spacing: 6px;
+            margin-top: 8px;
+            animation: quantumFlicker 2s ease-in-out infinite;
+        }
+
+        @keyframes quantumFlicker {
+            0%, 100% { opacity: 0.7; }
+            25% { opacity: 0.2; }
+            50% { opacity: 0.9; }
+            75% { opacity: 0.3; }
+        }
+
+        /* ── Container ── */
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px 80px;
+        }
+
+        /* ── Category Section ── */
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid;
+            border-image: linear-gradient(90deg, var(--cyan), transparent) 1;
+        }
+
+        .section-icon {
+            font-size: 1.8em;
+            animation: orbitalRevolve 4s linear infinite;
+        }
+
+        @keyframes orbitalRevolve {
+            0% { transform: rotate(0deg) translateX(6px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(6px) rotate(-360deg); }
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            color: var(--cyan);
+            text-shadow: 0 0 15px rgba(0,245,255,0.3);
+        }
+
+        .section-count {
+            font-size: 0.75em;
+            color: rgba(255,255,255,0.3);
+        }
+
+        /* ── Animation Cards Grid ── */
+        .anim-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .anim-card {
+            background: rgba(13, 13, 40, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px;
+            padding: 30px 24px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            animation: dataStreamCascade 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes dataStreamCascade {
+            from { opacity: 0; transform: translateY(30px); filter: blur(4px); }
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+
+        .anim-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,245,255,0.05), transparent);
+            transition: left 0.6s;
+        }
+
+        .anim-card:hover::before {
+            left: 100%;
+        }
+
+        .anim-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            border-color: rgba(0,245,255,0.3);
+            box-shadow: 0 20px 50px rgba(0,245,255,0.15);
+        }
+
+        /* ── Animation Demo Area ── */
+        .anim-demo {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5em;
+            position: relative;
+        }
+
+        /* ── Individual Animation Classes ── */
+        .demo-neural { animation: neuralPulse 2s ease-in-out infinite; background: radial-gradient(circle, rgba(0,245,255,0.2), transparent); border: 2px solid var(--cyan); }
+        @keyframes neuralPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(0,245,255,0.6); }
+            50% { box-shadow: 0 0 30px 8px rgba(191,0,255,0.4), 0 0 60px 16px rgba(0,245,255,0.2); }
+        }
+
+        .demo-vortex { animation: vortexSpin 3s linear infinite; background: conic-gradient(var(--purple), var(--cyan), var(--pink), var(--purple)); }
+        @keyframes vortexSpin {
+            0% { transform: rotate(0deg) scale(1); filter: hue-rotate(0deg); }
+            50% { filter: hue-rotate(180deg); }
+            100% { transform: rotate(360deg) scale(1); filter: hue-rotate(360deg); }
+        }
+
+        .demo-holo { animation: holographicGlitch 3s ease-in-out infinite; background: linear-gradient(135deg, var(--cyan), var(--purple)); border: 2px solid var(--cyan); }
+        @keyframes holographicGlitch {
+            0%, 100% { transform: translate(0,0); opacity: 1; }
+            10% { transform: translate(-4px, 2px); opacity: 0.8; }
+            20% { transform: translate(3px, -1px); }
+            30% { transform: translate(0,0); }
+            75% { transform: translate(-2px, 1px); }
+            80% { transform: translate(1px, -1px); }
+            85% { transform: translate(0,0); }
+        }
+
+        .demo-quantum { animation: quantumFlicker 1.5s ease-in-out infinite; background: var(--cyan); opacity: 0.8; }
+        .demo-tree { animation: treeExpand 1.5s ease-out infinite; background: linear-gradient(180deg, var(--green), transparent); border-radius: 8px 8px 0 0; height: 80px; }
+        @keyframes treeExpand {
+            0% { transform: scaleY(0); }
+            60% { transform: scaleY(1.1); }
+            100% { transform: scaleY(1); }
+        }
+
+        .demo-force { animation: forceSettle 1.5s cubic-bezier(0.34,1.56,0.64,1) infinite; background: var(--purple); }
+        @keyframes forceSettle {
+            0% { transform: translate(30px, -30px) scale(0.5); opacity: 0; }
+            60% { transform: translate(3px, -3px) scale(1.05); opacity: 0.9; }
+            100% { transform: translate(0,0) scale(1); opacity: 1; }
+        }
+
+        .demo-aurora { animation: auroraBg 6s ease infinite; background: linear-gradient(135deg, var(--cyan), var(--purple), var(--green), var(--pink)); background-size: 300% 300%; }
+        @keyframes auroraBg {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .demo-stardust { animation: stardustDrift 2s ease-out infinite; background: var(--gold); width: 6px; height: 6px; }
+        @keyframes stardustDrift {
+            0% { transform: translate(0,0); opacity: 0; }
+            30% { opacity: 1; }
+            100% { transform: translate(30px, -20px); opacity: 0; }
+        }
+
+        .demo-plasma { animation: plasmaConvection 4s ease-in-out infinite; background: radial-gradient(circle, var(--cyan), var(--purple)); }
+        @keyframes plasmaConvection {
+            0%, 100% { filter: brightness(1) saturate(1) hue-rotate(0deg); }
+            50% { filter: brightness(1.4) saturate(2) hue-rotate(180deg); }
+        }
+
+        .demo-radial { animation: radialBurst 2s ease-out infinite; background: var(--cyan); border-radius: 50%; }
+        @keyframes radialBurst {
+            0% { transform: scale(0.3); opacity: 1; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+
+        .demo-ring { animation: nestedRing 2s ease-in-out infinite; border: 2px solid var(--cyan); background: transparent; }
+        @keyframes nestedRing {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(0,245,255,0.5), 0 0 0 0 rgba(191,0,255,0.3); }
+            50% { box-shadow: 0 0 0 10px rgba(0,245,255,0.1), 0 0 0 20px rgba(191,0,255,0.05); }
+        }
+
+        .demo-synaptic { animation: synapticFire 1.5s ease-in-out infinite; width: 120px; height: 4px; border-radius: 2px; background: linear-gradient(90deg, var(--cyan), var(--purple)); }
+        @keyframes synapticFire {
+            0%, 100% { filter: drop-shadow(0 0 2px currentColor); transform: scaleX(0.3); }
+            50% { filter: drop-shadow(0 0 10px currentColor); transform: scaleX(1); }
+        }
+
+        .demo-orbit { animation: orbital 3s linear infinite; background: var(--orange); width: 10px; height: 10px; }
+        @keyframes orbital {
+            0% { transform: rotate(0deg) translateX(40px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(40px) rotate(-360deg); }
+        }
+
+        .demo-depth { animation: depthShift 2.5s ease-in-out infinite; background: var(--blue); }
+        @keyframes depthShift {
+            0%, 100% { transform: perspective(600px) translateZ(0) rotateX(0deg); }
+            50% { transform: perspective(600px) translateZ(30px) rotateX(4deg); }
+        }
+
+        .demo-layer { animation: layerReveal 1.5s ease-out infinite; background: linear-gradient(180deg, var(--green), var(--cyan)); }
+        @keyframes layerReveal {
+            0% { transform: translateY(40px); opacity: 0; clip-path: inset(100% 0 0 0); }
+            100% { transform: translateY(0); opacity: 1; clip-path: inset(0 0 0 0); }
+        }
+
+        .demo-glitch { animation: glitch 2s ease-in-out infinite; background: var(--pink); }
+        @keyframes glitch {
+            0%, 100% { transform: translate(0,0) skewX(0); }
+            10% { transform: translate(-3px, 1px) skewX(-1deg); }
+            20% { transform: translate(2px, -1px) skewX(0.5deg); }
+            30% { transform: translate(0,0) skewX(0); }
+        }
+
+        .demo-matrix { animation: matrixRain 2s linear infinite; background: var(--green); width: 8px; height: 60px; border-radius: 0; }
+        @keyframes matrixRain {
+            0% { transform: translateY(-60px); opacity: 0; }
+            20% { opacity: 1; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(60px); opacity: 0; }
+        }
+
+        .demo-pulse { animation: neonPulse 1.5s ease-in-out infinite; background: var(--cyan); }
+        @keyframes neonPulse {
+            0%, 100% { box-shadow: 0 0 5px currentColor, 0 0 10px currentColor; }
+            50% { box-shadow: 0 0 20px currentColor, 0 0 40px currentColor, 0 0 60px currentColor; }
+        }
+
+        .demo-morph { animation: morph 3s ease-in-out infinite; background: var(--purple); }
+        @keyframes morph {
+            0%, 100% { border-radius: 50%; transform: scale(1); }
+            50% { border-radius: 20%; transform: scale(1.2) rotate(45deg); }
+        }
+
+        .demo-subspace { animation: subspaceRipple 2.5s ease-out infinite; background: transparent; border: 2px solid rgba(255,255,255,0.25); }
+        @keyframes subspaceRipple {
+            0% { box-shadow: 0 0 0 0 rgba(255,255,255,0.3), 0 0 0 0 rgba(255,255,255,0.1); transform: scale(0.8); }
+            50% { box-shadow: 0 0 0 12px rgba(255,255,255,0), 0 0 0 24px rgba(255,255,255,0); transform: scale(1); }
+            100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.3), 0 0 0 0 rgba(255,255,255,0.1); transform: scale(0.8); }
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        .demo-cascade { animation: cascadeReveal 1s ease-out infinite; background: var(--green); }
+        @keyframes cascadeReveal {
+            0% { opacity: 0; transform: translateY(20px); }
+            50% { opacity: 0.5; transform: translateY(-5px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .demo-bounce { animation: bounceDots 1.2s ease-in-out infinite; background: var(--gold); border-radius: 50%; }
+        @keyframes bounceDots {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-25px); }
+        }
+
+        /* ── Card Labels ── */
+        .anim-name {
+            font-size: 1em;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .anim-desc {
+            font-size: 0.78em;
+            color: rgba(255,255,255,0.45);
+        }
+
+        /* ── Controls ── */
+        .controls-bar {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            display: flex;
+            gap: 12px;
+        }
+
+        .ctrl-btn {
+            padding: 10px 22px;
+            border-radius: 25px;
+            border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(10,10,30,0.85);
+            backdrop-filter: blur(15px);
+            color: #ccc;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.85em;
+            transition: all 0.3s;
+        }
+
+        .ctrl-btn:hover {
+            border-color: var(--cyan);
+            color: var(--cyan);
+            box-shadow: 0 0 20px rgba(0,245,255,0.15);
+        }
+
+        .ctrl-btn.active {
+            border-color: var(--green);
+            color: var(--green);
+            background: rgba(0,255,136,0.1);
+        }
+
+        /* ── Stats ── */
+        .stats-strip {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            padding: 20px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 20px 30px;
+            background: rgba(13,13,40,0.6);
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.06);
+            min-width: 140px;
+            animation: neuralPulse 3s ease-in-out infinite;
+        }
+
+        .stat-box .number {
+            font-size: 2.5em;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--cyan), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-box .label {
+            font-size: 0.8em;
+            color: rgba(255,255,255,0.4);
+            margin-top: 4px;
+        }
+
+        /* ── Ether Wave (ambient keyframe consolidated) ── */
+        @keyframes etherWave {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* ── Elastic Scale (interactive keyframe consolidated) ── */
+        @keyframes elasticScale {
+            0% { transform: scale(0.8); opacity: 0; }
+            40% { transform: scale(1.1); }
+            70% { transform: scale(0.98); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* ── Hover Expand (interactive keyframe consolidated) ── */
+        @keyframes hoverExpand {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        .demo-ether { animation: etherWave 4s ease-in-out infinite; background: linear-gradient(180deg, transparent, rgba(0,245,255,0.3), transparent); }
+        .demo-elastic { animation: elasticScale 1s cubic-bezier(0.68,-0.55,0.265,1.55) infinite; background: var(--orange); }
+        .demo-hover-expand { animation: hoverExpand 2s ease-in-out infinite; background: var(--blue); }
+    </style>
+</head>
+<body>
+    <canvas id="matrixBg"></canvas>
+
+    <div class="header">
+        <h1>✦ Animation Showcase ✦</h1>
+        <div class="tagline">50+ VISUAL PROTOCOLS • AZAZAEL ECOSYSTEM v2.0</div>
+    </div>
+
+    <div class="container">
+        <div class="stats-strip">
+            <div class="stat-box"><div class="number">12</div><div class="label">Categories</div></div>
+            <div class="stat-box"><div class="number">50+</div><div class="label">Protocols</div></div>
+            <div class="stat-box"><div class="number">21</div><div class="label">Keyframes</div></div>
+            <div class="stat-box"><div class="number">∞</div><div class="label">Combinations</div></div>
+        </div>
+
+        <!-- STATUS ANIMATIONS -->
+        <div class="section">
+            <div class="section-header">
+                <span class="section-icon">●</span>
+                <span class="section-title">Status Animations</span>
+                <span class="section-count">3 protocols</span>
+            </div>
+            <div class="anim-grid">
+                <div class="anim-card" style="animation-delay:0s"><div class="anim-demo demo-glitch">⚡</div><div class="anim-name">Glitch Status</div><div class="anim-desc">Rapid jitter & hue-shift on status change</div></div>
+                <div class="anim-card" style="animation-delay:0.05s"><div class="anim-demo demo-pulse">💫</div><div class="anim-name">Neon Pulse</div><div class="anim-desc">Expanding glow rings around indicator</div></div>
+                <div class="anim-card" style="animation-delay:0.1s"><div class="anim-demo demo-ring">◎</div><div class="anim-name">Ring Pulse</div><div class="anim-desc">Nested ring expansion with opacity fade</div></div>
+            </div>
+        </div>
+
+        <!-- DATA FLOW ANIMATIONS (NEW) -->
+        <div class="section">
+            <div class="section-header">
+                <span class="section-icon">⬡</span>
+                <span class="section-title" style="color:var(--purple); text-shadow:0 0 15px rgba(191,0,255,0.3)">Data Flow Animations ★ NEW</span>
+                <span class="section-count">5 protocols</span>
+            </div>
+            <div class="anim-grid">
+                <div class="anim-card" style="animation-delay:0s"><div class="anim-demo demo-neural">🧠</div><div class="anim-name">Neural Network Pulse</div><div class="anim-desc">Propagating activation through network nodes</div></div>
+                <div class="anim-card" style="animation-delay:0.05s"><div class="anim-demo demo-cascade">📊</div><div class="anim-name">Data Stream Cascade</div><div class="anim-desc">Rows cascade in with blur-to-sharp reveal</div></div>
+                <div class="anim-card" style="animation-delay:0.1s"><div class="anim-demo demo-synaptic">➡</div><div class="anim-name">Packet Flow Trace</div><div class="anim-desc">Synaptic fire pulses along connection edges</div></div>
+                <div class="anim-card" style="animation-delay:0.15s"><div class="anim-demo demo-pulse" style="border-radius:0">〰</div><div class="anim-name">Sync Wave Propagation</div><div class="anim-desc">Wave ripple spreading across a node grid</div></div>
+                <div class="anim-card" style="animation-delay:0.2s"><div class="anim-demo demo-neural" style="background:radial-gradient(circle,rgba(0,255,136,0.2),transparent)">🔗</div><div class="anim-name">Node-to-Node Signal</div><div class="anim-desc">Point-to-point pulse travel with trail fade</div></div>
+            </div>
+        </div>
+
+        <!-- SPATIAL & DEPTH ANIMATIONS (NEW) -->
+        <div class="section">
+            <div class="section-header">
+                <span class="section-icon">🌌</span>
+                <span class="section-title" style="color:var(--pink); text-shadow:0 0 15px rgba(255,0,102,0.3)">Spatial & Depth Animations ★ NEW</span>
+                <span class="section-count">5 protocols</span>
+            </div>
+            <div class="anim-grid">
+                <div class="anim-card" style="animation-delay:0s"><div class="anim-demo demo-vortex">🌀</div><div class="anim-name">Vortex Spin</div><div class="anim-desc">720° spiral rotation with hue shift</div></div>
+                <div class="anim-card" style="animation-delay:0.05s"><div class="anim-demo demo-holo">📺</div><div class="anim-name">Holographic Glitch</div><div class="anim-desc">Chromatic aberration jitter & scanlines</div></div>
+                <div class="anim-card" style="animation-delay:0.1s"><div class="anim-demo demo-quantum">⚛</div><div class="anim-name">Quantum Flicker</div><div class="anim-desc">Probability-wave opacity oscillation</div></div>
+                <div class="anim-card" style="animation-delay:0.15s"><div class="anim-demo demo-orbit">🪐</div><div class="anim-name">Orbital Revolve</div><div class="anim-desc">Satellite circling around anchor point</div></div>
+                <div class="anim-card" style="animation-delay:0.2s"><div class="anim-demo demo-depth">🔭</div><div class="anim-name">Depth Parallax Shift</div><div class="anim-desc">Perspective transform with 3D translateZ</div></div>
+            </div>
+        </div>
+
+        <!-- STRUCTURE ANIMATIONS (NEW) -->
+        <div class="section">
+            <div class="section-header">
+                <span class="section-icon">🌳</span>
+                <span class="section-title" style="color:var(--green); text-shadow:0 0 15px rgba(0,255,136,0.3)">Structure & Hierarchy Animations ★ NEW</span>
+                <span class="section-count">5 protocols</span>
+            </div>
+            <div class="anim-grid">
+                <div class="anim-card" style="animation-delay:0s"><div class="anim-demo demo-tree">📐</div><div class="anim-name">Tree Expand</div><div class="anim-desc">ScaleY from origin, hierarchical reveal</div></div>
+                <div class="anim-card" style="animation-delay:0.05s"><div class="anim-demo demo-force">🕸</div><div class="anim-name">Force-Directed Settle</div><div class="anim-desc">Elastic bounce to final position in graph</div></div>
+                <div class="anim-card" style="animation-delay:0.1s"><div class="anim-demo demo-layer">📚</div><div class="anim-name">Layered Stack Reveal</div><div class="anim-desc">Clip-path unveil of each architectural layer</div></div>
+                <div class="anim-card" style="animation-delay:0.15s"><div class="anim-demo demo-radial">💥</div><div class="anim-name">Radial Burst</div><div class="anim-desc">Center-point explosion with opacity decay</div></div>
+                <div class="anim-card" style="animation-delay:0.2s"><div class="anim-demo demo-ring" style="border:3px solid var(--green)">◎</div><div class="anim-name">Nested Ring Pulse</div><div class="anim-desc">Multi-ring concentric expansion & collapse</div></div>
+            </div>
+        </div>
+
+        <!-- AMBIENT ANIMATIONS (NEW) -->
+        <div class="section">
+            <div class="section-header">
+                <span class="section-icon">✨</span>
+                <span class="section-title" style="color:var(--gold); text-shadow:0 0 15px rgba(255,215,0,0.3)">Ambient & Atmosphere Animations ★ NEW</span>
+                <span class="section-count">5 protocols</span>
+            </div>
+            <div class="anim-grid">
+                <div class="anim-card" style="animation-delay:0s"><div class="anim-demo demo-aurora">🌅</div><div class="anim-name">Aurora Flow</div><div class="anim-desc">Slow gradient drift across background surface</div></div>
+                <div class="anim-card" style="animation-delay:0.05s"><div class="anim-demo demo-stardust">⭐</div><div class="anim-name">Stardust Drift</div><div class="anim-desc">Individual particle floating with trajectory</div></div>
+                <div class="anim-card" style="animation-delay:0.1s"><div class="anim-demo demo-plasma">🔥</div><div class="anim-name">Plasma Convection</div><div class="anim-desc">Saturation & hue-rotate cycling like plasma</div></div>
+                <div class="anim-card" style="animation-delay:0.15s"><div class="anim-demo demo-ether">〰</div><div class="anim-name">Ether Wave</div><div class="anim-desc">Subtle sine-wave undulation across element</div></div>
+                <div class="anim-card" style="animation-delay:0.2s"><div class="anim-demo demo-subspace">🌊</div><div class="anim-name">Subspace Ripple</div><div class="anim-desc">Gravitational wave-style ring propagation</div></div>
+            </div>
+        </div>
+
+        <!-- CLASSIC ANIMATIONS -->
+        <div class="section">
+            <div class="section-header">
+                <span class="section-icon">🎨</span>
+                <span class="section-title">Classic & Interactive Protocols</span>
+                <span class="section-count">12+ protocols</span>
+            </div>
+            <div class="anim-grid">
+                <div class="anim-card" style="animation-delay:0s"><div class="anim-demo demo-morph">🔄</div><div class="anim-name">Flip 3D / Morph</div><div class="anim-desc">Shape-shift from circle to rounded square</div></div>
+                <div class="anim-card" style="animation-delay:0.05s"><div class="anim-demo demo-shimmer">✨</div><div class="anim-name">Shimmer Bar / Gradient</div><div class="anim-desc">Light sweep across surface at angle</div></div>
+                <div class="anim-card" style="animation-delay:0.1s"><div class="anim-demo demo-matrix">💧</div><div class="anim-name">Matrix Rain</div><div class="anim-desc">Classic vertical character cascade</div></div>
+                <div class="anim-card" style="animation-delay:0.15s"><div class="anim-demo demo-bounce">⚽</div><div class="anim-name">Bounce Dots</div><div class="anim-desc">Loading indicator dot bounce sequence</div></div>
+                <div class="anim-card" style="animation-delay:0.2s"><div class="anim-demo demo-cascade">📋</div><div class="anim-name">Typewriter / Cascade</div><div class="anim-desc">Staggered card/slide-in reveal effect</div></div>
+                <div class="anim-card" style="animation-delay:0.25s"><div class="anim-demo demo-elastic">🎈</div><div class="anim-name">Elastic Scale</div><div class="anim-desc">Overshoot bounce with cubic-bezier easing</div></div>
+                <div class="anim-card" style="animation-delay:0.3s"><div class="anim-demo demo-hover-expand">🔍</div><div class="anim-name">Hover Expand</div><div class="anim-desc">Scale up on interaction with shadow</div></div>
+                <div class="anim-card" style="animation-delay:0.35s"><div class="anim-demo demo-radial" style="background:rgba(255,255,255,0.2)">💧</div><div class="anim-name">Click Ripple</div><div class="anim-desc">Material-design radial ripple from click</div></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls-bar">
+        <button class="ctrl-btn active" onclick="toggleAll(true, event)">▶ Play All</button>
+        <button class="ctrl-btn" onclick="toggleAll(false, event)">⏸ Pause All</button>
+        <button class="ctrl-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">▲ Top</button>
+    </div>
+
+    <script>
+        // ── Matrix Rain Background ──
+        const mCanvas = document.getElementById('matrixBg');
+        const mCtx = mCanvas.getContext('2d');
+        function resizeM() { mCanvas.width = window.innerWidth; mCanvas.height = window.innerHeight; }
+        window.addEventListener('resize', resizeM); resizeM();
+
+        const drops = [];
+        for (let i = 0; i < 80; i++) drops.push({ x: Math.random() * mCanvas.width, y: Math.random() * mCanvas.height, speed: 1 + Math.random() * 3 });
+
+        function drawMatrix() {
+            mCtx.fillStyle = 'rgba(5,5,16,0.08)';
+            mCtx.fillRect(0, 0, mCanvas.width, mCanvas.height);
+            mCtx.fillStyle = '#00f5ff';
+            mCtx.font = '14px monospace';
+            drops.forEach(d => {
+                mCtx.fillText(String.fromCharCode(0x30A0 + Math.random() * 96), d.x, d.y);
+                d.y += d.speed;
+                if (d.y > mCanvas.height) { d.y = 0; d.x = Math.random() * mCanvas.width; }
+            });
+            requestAnimationFrame(drawMatrix);
+        }
+        drawMatrix();
+
+        // ── Pause / Play ──
+        function toggleAll(play, evt) {
+            document.querySelectorAll('.anim-card, .anim-demo').forEach(el => {
+                el.style.animationPlayState = play ? 'running' : 'paused';
+            });
+            document.querySelectorAll('.ctrl-btn').forEach(b => b.classList.remove('active'));
+            if (evt && evt.currentTarget) evt.currentTarget.classList.add('active');
+        }
+
+        // ── Stagger card entrance ──
+        document.querySelectorAll('.section').forEach((section, si) => {
+            section.querySelectorAll('.anim-card').forEach((card, ci) => {
+                card.style.animationDelay = (si * 0.05 + ci * 0.04) + 's';
+            });
+        });
+
+        // ── Card click to cycle animation ──
+        document.querySelectorAll('.anim-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const demo = this.querySelector('.anim-demo');
+                demo.style.animation = 'none';
+                demo.offsetHeight; // force reflow
+                demo.style.animation = '';
+                this.style.transform = 'translateY(-8px) scale(1.03)';
+                setTimeout(() => { this.style.transform = ''; }, 300);
+            });
+        });
+    </script>
+</body>
+</html>

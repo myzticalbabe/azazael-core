@@ -1,0 +1,18 @@
+[package]
+name = "azazael-video-wasm"
+version = "0.1.0"
+edition = "2024"
+description = "Four ways to put a music video through Rust/WASM: audio-reactive visuals, baked frame blob, per-frame processing, packed RGB unpack."
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+wasm-bindgen = "0.2"
+js-sys = "0.3"
+jpeg-decoder = { version = "0.3", default-features = false }
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1

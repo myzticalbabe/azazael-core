@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consequences of Order Violations - Ultimate</title>
+    <style>
+        @keyframes rainbowShift {
+            0% { color: #ff6b6b; text-shadow: 0 0 20px #ff6b6b; }
+            20% { color: #ffd93d; text-shadow: 0 0 20px #ffd93d; }
+            40% { color: #6bcb77; text-shadow: 0 0 20px #6bcb77; }
+            60% { color: #4d96ff; text-shadow: 0 0 20px #4d96ff; }
+            80% { color: #9b59b6; text-shadow: 0 0 20px #9b59b6; }
+            100% { color: #ff6b6b; text-shadow: 0 0 20px #ff6b6b; }
+        }
+        
+        @keyframes panelVibrate {
+            0% { border-color: #ff00ff; box-shadow: 0 0 30px #ff00ff, inset 0 0 30px rgba(255,0,255,0.1); }
+            20% { border-color: #00ffff; box-shadow: 0 0 30px #00ffff, inset 0 0 30px rgba(0,255,255,0.1); }
+            40% { border-color: #ffff00; box-shadow: 0 0 30px #ffff00, inset 0 0 30px rgba(255,255,0,0.1); }
+            60% { border-color: #00ff00; box-shadow: 0 0 30px #00ff00, inset 0 0 30px rgba(0,255,0,0.1); }
+            80% { border-color: #ff0080; box-shadow: 0 0 30px #ff0080, inset 0 0 30px rgba(255,0,128,0.1); }
+            100% { border-color: #ff00ff; box-shadow: 0 0 30px #ff00ff, inset 0 0 30px rgba(255,0,255,0.1); }
+        }
+        
+        @keyframes neonPulse {
+            0%, 100% { box-shadow: 0 0 20px #00ffff, inset 0 0 20px rgba(0,255,255,0.1); border-color: #00ffff; }
+            50% { box-shadow: 0 0 40px #ff00ff, inset 0 0 30px rgba(255,0,255,0.1); border-color: #ff00ff; }
+        }
+        
+        @keyframes gearRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-15px) rotate(5deg); }
+            75% { transform: translateY(-5px) rotate(-5deg); }
+        }
+        
+        @keyframes lightning {
+            0%, 70%, 100% { opacity: 0.2; transform: scale(0.8); }
+            72%, 74%, 76%, 78% { opacity: 1; transform: scale(1.3); box-shadow: 0 0 30px #00ffff, 0 0 60px #ff00ff, 0 0 90px #ffff00; }
+            73%, 75%, 77% { opacity: 0.6; transform: scale(1); }
+        }
+        
+        @keyframes lightningPulse {
+            0%, 100% { opacity: 0.4; filter: blur(1px); height: 3px; }
+            50% { opacity: 1; filter: blur(2px); height: 5px; box-shadow: 0 0 20px #00ffff, 0 0 40px #ff00ff; }
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Scroll Progress Bar */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff00ff, #00ffff, #ffff00, #ff00ff);
+            z-index: 2000;
+            width: 0%;
+            animation: rainbowShift 3s linear infinite;
+        }
+        
+        /* Section Number Badges */
+        .section-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #ff00ff, #00ffff);
+            border-radius: 50%;
+            color: #0a0a1a;
+            font-weight: bold;
+            font-size: 1.3em;
+            margin-right: 15px;
+            box-shadow: 0 0 20px rgba(255,0,255,0.6), 0 0 40px rgba(0,255,255,0.4);
+            animation: bounce 1.5s ease-in-out infinite;
+        }
+        
+        body {
+            font-family: 'Courier New', monospace;
+            line-height: 1.9;
+            max-width: 950px;
+            margin: 0 auto;
+            padding: 50px 20px;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(255,0,255,0.25) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 30%, rgba(0,255,255,0.25) 0%, transparent 50%),
+                radial-gradient(ellipse at 40% 70%, rgba(138,43,226,0.25) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 80%, rgba(255,128,0,0.15) 0%, transparent 50%),
+                linear-gradient(180deg, #0a0a1a 0%, #1a0a2e 50%, #0a1a2a 100%);
+            color: #00ffff;
+            min-height: 100vh;
+        }
+        
+        /* Nebula particles */
+        .nebula {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, rgba(138,43,226,0.4), transparent 70%);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+            z-index: 998;
+            filter: blur(20px);
+        }
+
+        .nebula-1 { top: 5%; left: 10%; animation-delay: 0s; }
+        .nebula-2 { top: 25%; right: 8%; animation-delay: 1s; background: radial-gradient(circle, rgba(0,255,255,0.3), transparent 70%); }
+        .nebula-3 { bottom: 30%; left: 5%; animation-delay: 2s; background: radial-gradient(circle, rgba(255,0,255,0.3), transparent 70%); }
+        .nebula-4 { top: 50%; right: 20%; animation-delay: 0.5s; }
+        .nebula-5 { bottom: 15%; left: 25%; animation-delay: 1.5s; background: radial-gradient(circle, rgba(0,191,255,0.3), transparent 70%); }
+        
+        /* Stars */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .star {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 2s infinite;
+        }
+
+        /* More stars for scroll capture */
+        .star:nth-child(1) { top:3%;left:8%; }
+        .star:nth-child(2) { top:12%;left:85%; }
+        .star:nth-child(3) { top:22%;left:12%; }
+        .star:nth-child(4) { top:33%;left:78%; }
+        .star:nth-child(5) { top:42%;left:25%; }
+        .star:nth-child(6) { top:52%;left:90%; }
+        .star:nth-child(7) { top:61%;left:5%; }
+        .star:nth-child(8) { top:70%;left:72%; }
+        .star:nth-child(9) { top:78%;left:18%; }
+        .star:nth-child(10) { top:88%;left:55%; }
+        .star:nth-child(11) { top:5%;left:45%; }
+        .star:nth-child(12) { top:18%;left:62%; }
+        .star:nth-child(13) { top:35%;left:38%; }
+        .star:nth-child(14) { top:48%;left:15%; }
+        .star:nth-child(15) { top:58%;left:82%; }
+        .star:nth-child(16) { top:68%;left:42%; }
+        .star:nth-child(17) { top:75%;left:28%; }
+        .star:nth-child(18) { top:85%;left:65%; }
+        .star:nth-child(19) { top:92%;left:35%; }
+        .star:nth-child(20) { top:28%;left:52%; }
+        
+        /* Cosmic dust */
+        .dust {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: rgba(200,200,255,0.6);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+            z-index: 997;
+        }
+
+        .dust-1 { top: 12%; left: 18%; animation-delay: 0s; }
+        .dust-2 { top: 28%; right: 15%; animation-delay: 0.5s; }
+        .dust-3 { bottom: 25%; left: 22%; animation-delay: 1s; }
+        .dust-4 { top: 45%; left: 8%; animation-delay: 1.5s; }
+        .dust-5 { bottom: 40%; right: 25%; animation-delay: 2s; }
+        .dust-6 { top: 65%; left: 35%; animation-delay: 0.3s; }
+        .dust-7 { bottom: 55%; left: 12%; animation-delay: 0.8s; }
+        
+        /* Nebula orbs */
+        .nebula {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, rgba(138,43,226,0.4), transparent 70%);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+            z-index: 998;
+            filter: blur(20px);
+        }
+
+        .nebula-1 { top: 8%; left: 15%; animation-delay: 0s; }
+        .nebula-2 { top: 30%; right: 10%; animation-delay: 1s; background: radial-gradient(circle, rgba(0,255,255,0.3), transparent 70%); }
+        .nebula-3 { bottom: 35%; left: 8%; animation-delay: 2s; background: radial-gradient(circle, rgba(255,0,255,0.3), transparent 70%); }
+        .nebula-4 { top: 55%; right: 25%; animation-delay: 0.5s; }
+        .nebula-5 { bottom: 18%; left: 30%; animation-delay: 1.5s; background: radial-gradient(circle, rgba(0,191,255,0.3), transparent 70%); }
+        
+        .lightning-web {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 996;
+        }
+        
+        .lightning-line {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, #00ffff, #ff00ff, #ffff00, #00ffff, transparent);
+            height: 3px;
+            transform-origin: left center;
+            animation: lightningPulse 1.5s ease-in-out infinite;
+            opacity: 0.9;
+            filter: drop-shadow(0 0 8px #00ffff) drop-shadow(0 0 15px #ff00ff);
+        }
+        
+        .lightning-1 {
+            top: 12%;
+            left: 2%;
+            width: 30%;
+            transform: rotate(12deg);
+            animation-delay: 0s;
+        }
+        
+        .lightning-2 {
+            top: 28%;
+            right: 2%;
+            width: 35%;
+            transform: rotate(-18deg);
+            animation-delay: 0.3s;
+            background: linear-gradient(90deg, transparent, #ff00ff, #00ffff, #ff00ff, transparent);
+        }
+        
+        .lightning-3 {
+            top: 45%;
+            left: 5%;
+            width: 25%;
+            transform: rotate(20deg);
+            animation-delay: 0.6s;
+        }
+        
+        .lightning-4 {
+            bottom: 30%;
+            right: 3%;
+            width: 32%;
+            transform: rotate(-12deg);
+            animation-delay: 0.9s;
+            background: linear-gradient(90deg, transparent, #ffff00, #ff00ff, #00ffff, transparent);
+        }
+        
+        .lightning-5 {
+            top: 62%;
+            left: 8%;
+            width: 28%;
+            transform: rotate(8deg);
+            animation-delay: 1.2s;
+        }
+        
+        .lightning-6 {
+            top: 78%;
+            right: 5%;
+            width: 25%;
+            transform: rotate(-25deg);
+            animation-delay: 1.5s;
+            background: linear-gradient(90deg, transparent, #00ffff, #ffff00, #ff00ff, transparent);
+        }
+        
+        .lightning-7 {
+            top: 88%;
+            left: 2%;
+            width: 20%;
+            transform: rotate(15deg);
+            animation-delay: 1.8s;
+        }
+        
+        .lightning-node {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 20px #00ffff, 0 0 40px #ff00ff, 0 0 60px #ffff00;
+            animation: lightning 2s linear infinite;
+        }
+        
+        .node-1 { top: 15%; left: 25%; animation-delay: 0s; }
+        .node-2 { top: 35%; right: 30%; animation-delay: 0.5s; background: #ff00ff; box-shadow: 0 0 15px #ff00ff, 0 0 30px #00ffff; }
+        .node-3 { top: 55%; left: 30%; animation-delay: 1s; }
+        .node-4 { bottom: 25%; right: 33%; animation-delay: 1.5s; background: #ffff00; box-shadow: 0 0 15px #ffff00, 0 0 30px #ff00ff; }
+        .node-5 { top: 75%; left: 22%; animation-delay: 2s; }
+        .node-6 { top: 5%; right: 38%; animation-delay: 2.5s; background: #ff00ff; }
+        .node-7 { bottom: 40%; left: 15%; animation-delay: 0.8s; }
+        .node-8 { top: 45%; right: 15%; animation-delay: 1.8s; background: #00ffff; }
+        
+        h1 {
+            text-align: center;
+            font-size: 2.6em;
+            border-bottom: 4px solid;
+            border-image: linear-gradient(90deg, #ff6b6b, #ffd93d, #6bcb77, #4d96ff, #9b59b6) 1;
+            padding-bottom: 25px;
+            margin-bottom: 40px;
+            animation: rainbowShift 6s linear infinite;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+        }
+        
+        h1::before, h1::after {
+            content: '🌌';
+            margin: 0 15px;
+            animation: bounce 1s ease-in-out infinite;
+        }
+        
+        h2 {
+            font-size: 1.9em;
+            color: #ff00ff;
+            border-left: 6px solid;
+            padding-left: 20px;
+            margin: 50px 0 25px;
+            padding: 18px 25px;
+            background: linear-gradient(90deg, rgba(255,0,255,0.2), transparent);
+            border-image: linear-gradient(180deg, #ff00ff, #00ffff, #ffff00) 1;
+            animation: rainbowShift 4s linear infinite;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        h2::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, #ff00ff, transparent);
+            margin-left: 20px;
+        }
+        
+        .panel {
+            background: rgba(10,10,30,0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 3px solid;
+            border-radius: 18px;
+            padding: 28px;
+            margin: 22px 0;
+            box-shadow: 0 0 40px rgba(255,0,255,0.4), inset 0 0 40px rgba(255,0,255,0.05), 0 0 80px rgba(0,255,255,0.2);
+            animation: panelVibrate 4s linear infinite, fadeIn 0.6s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+        
+        .panel-warning { border-color: #ff6b6b; box-shadow: 0 0 30px rgba(255,107,107,0.3); }
+        .panel-success { border-color: #6bcb77; box-shadow: 0 0 30px rgba(107,203,119,0.3); }
+        .panel-danger { border-color: #e74c3c; box-shadow: 0 0 30px rgba(231,76,60,0.3); }
+        
+        .consequence {
+            background: rgba(20,10,30,0.8);
+            border-left: 5px solid #ff6b6b;
+            padding: 20px 25px;
+            margin: 20px 0;
+            border-radius: 0 12px 12px 0;
+            animation: fadeIn 0.5s ease-out;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border: 1px solid rgba(255,107,107,0.3);
+            position: relative;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.75em;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: pulseBadge 2s ease-in-out infinite;
+        }
+
+        .badge-cost { background: linear-gradient(90deg, #ff6b6b, #e74c3c); color: #fff; box-shadow: 0 0 15px rgba(255,107,107,0.6); }
+        .badge-time { background: linear-gradient(90deg, #ffd93d, #f39c12); color: #1a1a2e; box-shadow: 0 0 15px rgba(255,217,61,0.6); }
+        .badge-trust { background: linear-gradient(90deg, #9b59b6, #8e44ad); color: #fff; box-shadow: 0 0 15px rgba(155,89,182,0.6); }
+        .badge-resource { background: linear-gradient(90deg, #3498db, #2980b9); color: #fff; box-shadow: 0 0 15px rgba(52,152,219,0.6); }
+        .badge-energy { background: linear-gradient(90deg, #e67e22, #d35400); color: #fff; box-shadow: 0 0 15px rgba(230,126,34,0.6); }
+
+        @keyframes pulseBadge {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .result-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: bold;
+            animation: fadeIn 0.5s ease-out, glowResult 3s ease-in-out infinite;
+        }
+
+        .result-negative { background: rgba(231,76,60,0.2); border: 2px solid #e74c3c; color: #e74c3c; }
+        .result-positive { background: rgba(46,204,113,0.2); border: 2px solid #2ecc71; color: #2ecc71; }
+        .result-warning { background: rgba(241,196,15,0.2); border: 2px solid #f1c40f; color: #f1c40f; }
+
+        @keyframes glowResult {
+            0%, 100% { box-shadow: 0 0 10px currentColor; }
+            50% { box-shadow: 0 0 25px currentColor, 0 0 40px currentColor; }
+        }
+
+        .category-tag {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            padding: 5px 12px;
+            border-radius: 12px;
+            font-size: 0.7em;
+            font-weight: bold;
+            text-transform: uppercase;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .cat-storage { background: #e74c3c; color: #fff; }
+        .cat-time { background: #f39c12; color: #1a1a2e; }
+        .cat-trust { background: #9b59b6; color: #fff; }
+        .cat-rework { background: #e67e22; color: #fff; }
+        .cat-system { background: #3498db; color: #fff; }
+
+        /* Shooting stars */
+        .shooting-star {
+            position: fixed;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, #fff, transparent);
+            opacity: 0;
+            z-index: 997;
+            animation: shoot 3s ease-in-out infinite;
+        }
+
+        .shooting-star-1 { top: 15%; left: -5%; animation-delay: 0s; }
+        .shooting-star-2 { top: 35%; left: -5%; animation-delay: 1.2s; }
+        .shooting-star-3 { top: 55%; left: -5%; animation-delay: 2.4s; }
+        .shooting-star-4 { top: 75%; left: -5%; animation-delay: 0.6s; }
+
+        @keyframes shoot {
+            0% { opacity: 0; transform: translateX(0) rotate(-15deg); }
+            10% { opacity: 1; }
+            30% { opacity: 0; transform: translateX(400px) rotate(-15deg); }
+            100% { opacity: 0; }
+        }
+
+        /* Orbiting particles */
+        .orbit {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            z-index: 997;
+            animation: orbit 8s linear infinite;
+        }
+
+        .orbit-1 { top: 20%; left: 50%; background: #ff00ff; box-shadow: 0 0 15px #ff00ff; animation-delay: 0s; }
+        .orbit-2 { top: 60%; left: 20%; background: #00ffff; box-shadow: 0 0 15px #00ffff; animation-delay: 2s; }
+        .orbit-3 { top: 40%; right: 15%; background: #ffff00; box-shadow: 0 0 15px #ffff00; animation-delay: 4s; }
+
+        @keyframes orbit {
+            0% { transform: rotate(0deg) translateX(30px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(30px) rotate(-360deg); }
+        }
+
+        /* Enhanced panel shine */
+        .panel::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+            animation: rotateShine 8s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes rotateShine {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Section divider */
+        .section-divider {
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #ff00ff, #00ffff, #ffff00, transparent);
+            background-size: 300% 100%;
+            animation: rainbowShift 3s linear infinite;
+            margin: 40px 0;
+            border-radius: 2px;
+        }
+
+        /* Animated counter */
+        .counter-box {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px 25px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 15px;
+            border: 2px solid;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .counter-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            animation: rainbowShift 2s linear infinite;
+        }
+
+        .counter-label {
+            font-size: 0.8em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 5px;
+        }
+        
+        .consequence-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #ff6b6b, #ffd93d);
+            border-radius: 50%;
+            font-size: 1.5em;
+            flex-shrink: 0;
+            box-shadow: 0 0 20px rgba(255,107,107,0.5);
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        .consequence-content {
+            flex: 1;
+        }
+        
+        .consequence strong {
+            color: #ffd93d;
+            font-size: 1.2em;
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .consequence-cost {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #6bcb77;
+            font-weight: bold;
+            background: rgba(107,203,119,0.2);
+            padding: 8px 16px;
+            border-radius: 25px;
+            border: 2px solid #6bcb77;
+            font-size: 1.1em;
+            box-shadow: 0 0 15px rgba(107,203,119,0.4);
+        }
+        
+        .consequence-cost::before {
+            content: '💸';
+        }
+        
+        .timeline {
+            border-left: 4px solid #ff00ff;
+            margin-left: 20px;
+            padding-left: 35px;
+            position: relative;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: -4px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #ff00ff, #00ffff, #ffff00, #ff00ff);
+            animation: rainbowShift 3s linear infinite;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin: 25px 0;
+            padding: 20px;
+            background: rgba(20,10,30,0.8);
+            border: 2px solid #ff6b6b;
+            border-radius: 15px;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -52px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 22px;
+            height: 22px;
+            background: linear-gradient(135deg, #ff6b6b, #ffd93d);
+            border-radius: 50%;
+            border: 3px solid #ff00ff;
+            box-shadow: 0 0 15px rgba(255,0,255,0.6);
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: -36px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 10px;
+            height: 10px;
+            background: #fff;
+            border-radius: 50%;
+            animation: lightning 2s linear infinite;
+        }
+        
+        .step {
+            display: flex;
+            align-items: center;
+            margin: 18px 0;
+            padding: 18px 22px;
+            background: rgba(20,10,30,0.8);
+            border: 2px solid #4d96ff;
+            border-radius: 15px;
+            animation: fadeIn 0.5s ease-out;
+            position: relative;
+        }
+        
+        .step::after {
+            content: '↓';
+            position: absolute;
+            bottom: -28px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #4d96ff;
+            font-size: 1.5em;
+            animation: bounce 1s ease-in-out infinite;
+            text-shadow: 0 0 10px #4d96ff;
+        }
+        
+        .step:last-of-type::after {
+            display: none;
+        }
+        
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #00ffff, #ff00ff, #ffd93d);
+            color: #0a0a1a;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 1.3em;
+            margin-right: 20px;
+            animation: bounce 1.2s ease-in-out infinite;
+            box-shadow: 0 0 20px rgba(0,255,255,0.5), 0 0 40px rgba(255,0,255,0.3);
+            border: 2px solid #fff;
+        }
+        
+        .step span {
+            font-size: 1.1em;
+        }
+        
+        .arrow-section {
+            text-align: center;
+            font-size: 2.5em;
+            margin: 35px 0;
+            animation: bounce 1.5s ease-in-out infinite;
+        }
+        
+        code {
+            background: rgba(0,255,255,0.15);
+            color: #00ffff;
+            padding: 4px 10px;
+            border-radius: 5px;
+            border: 1px solid #00ffff;
+        }
+        
+        ul {
+            list-style: none;
+            padding-left: 15px;
+        }
+        
+        li {
+            margin: 14px 0;
+            padding-left: 32px;
+            position: relative;
+            font-size: 1.1em;
+        }
+        
+        li::before {
+            content: '✦';
+            position: absolute;
+            left: 0;
+            color: #ffd93d;
+            font-size: 1.2em;
+            text-shadow: 0 0 10px #ffd93d;
+        }
+        
+        .emoji { 
+            display: inline-block; 
+            animation: bounce 1s ease-in-out infinite; 
+        }
+        
+        .corner-glow {
+            position: fixed;
+            width: 120px;
+            height: 120px;
+            border: 3px solid;
+            opacity: 0.6;
+            z-index: 100;
+            animation: panelVibrate 3s linear infinite;
+        }
+        
+        .corner-tl { top: 5px; left: 5px; border-right: none; border-bottom: none; border-color: #ff00ff; }
+        .corner-tr { top: 5px; right: 5px; border-left: none; border-bottom: none; border-color: #00ffff; }
+        .corner-bl { bottom: 5px; left: 5px; border-right: none; border-top: none; border-color: #ffff00; }
+        .corner-br { bottom: 5px; right: 5px; border-left: none; border-top: none; border-color: #00ff00; }
+        
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, #ff00ff, #00ffff, #ffff00, #ff00ff);
+            background-size: 300% 300%;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            font-size: 1.5em;
+            box-shadow: 0 0 30px rgba(255,0,255,0.8), 0 0 60px rgba(0,255,255,0.5), 0 0 90px rgba(255,255,0,0.3);
+            animation: bounce 2s ease-in-out infinite, rainbowShift 3s linear infinite;
+            transition: transform 0.3s;
+            border: 2px solid #fff;
+        }
+        
+        .scroll-top:hover {
+            transform: scale(1.3);
+            box-shadow: 0 0 50px rgba(255,0,255,1), 0 0 80px rgba(0,255,255,0.8), 0 0 120px rgba(255,255,0,0.5);
+        }
+    </style>
+</head>
+<body>
+
+<!-- Decorative Elements -->
+
+    <div class="stars">
+        <div class="star" style="top:3%;left:8%;animation-delay:0s"></div>
+        <div class="star" style="top:12%;left:85%;animation-delay:0.2s"></div>
+        <div class="star" style="top:22%;left:12%;animation-delay:0.4s"></div>
+        <div class="star" style="top:33%;left:78%;animation-delay:0.6s"></div>
+        <div class="star" style="top:42%;left:25%;animation-delay:0.8s"></div>
+        <div class="star" style="top:52%;left:90%;animation-delay:1.0s"></div>
+        <div class="star" style="top:61%;left:5%;animation-delay:1.2s"></div>
+        <div class="star" style="top:70%;left:72%;animation-delay:0.3s"></div>
+        <div class="star" style="top:78%;left:18%;animation-delay:0.5s"></div>
+        <div class="star" style="top:88%;left:55%;animation-delay:0.7s"></div>
+        <div class="star" style="top:5%;left:45%;animation-delay:0.9s"></div>
+        <div class="star" style="top:18%;left:62%;animation-delay:1.1s"></div>
+        <div class="star" style="top:35%;left:38%;animation-delay:1.3s"></div>
+        <div class="star" style="top:48%;left:15%;animation-delay:0.15s"></div>
+        <div class="star" style="top:58%;left:82%;animation-delay:0.35s"></div>
+        <div class="star" style="top:68%;left:42%;animation-delay:0.55s"></div>
+        <div class="star" style="top:75%;left:28%;animation-delay:0.75s"></div>
+        <div class="star" style="top:85%;left:65%;animation-delay:0.95s"></div>
+        <div class="star" style="top:92%;left:35%;animation-delay:1.15s"></div>
+        <div class="star" style="top:28%;left:52%;animation-delay:1.35s"></div>
+    </div>
+
+    <div class="dust dust-1"></div>
+    <div class="dust dust-2"></div>
+    <div class="dust dust-3"></div>
+    <div class="dust dust-4"></div>
+    <div class="dust dust-5"></div>
+    <div class="dust dust-6"></div>
+    <div class="dust dust-7"></div>
+
+<div class="nebula nebula-1"></div>
+<div class="nebula nebula-2"></div>
+<div class="nebula nebula-3"></div>
+<div class="nebula nebula-4"></div>
+<div class="nebula nebula-5"></div>
+
+<div class="shooting-star shooting-star-1"></div>
+<div class="shooting-star shooting-star-2"></div>
+<div class="shooting-star shooting-star-3"></div>
+<div class="shooting-star shooting-star-4"></div>
+
+<div class="orbit orbit-1"></div>
+<div class="orbit orbit-2"></div>
+<div class="orbit orbit-3"></div>
+
+    <div class="lightning-web">
+        <div class="lightning-line lightning-1"></div>
+        <div class="lightning-line lightning-2"></div>
+        <div class="lightning-line lightning-3"></div>
+        <div class="lightning-line lightning-4"></div>
+        <div class="lightning-line lightning-5"></div>
+        <div class="lightning-line lightning-6"></div>
+        <div class="lightning-line lightning-7"></div>
+        <div class="lightning-node node-1"></div>
+        <div class="lightning-node node-2"></div>
+        <div class="lightning-node node-3"></div>
+        <div class="lightning-node node-4"></div>
+        <div class="lightning-node node-5"></div>
+        <div class="lightning-node node-6"></div>
+        <div class="lightning-node node-7"></div>
+        <div class="lightning-node node-8"></div>
+        <div class="lightning-node node-9" style="top:22%;left:45%;animation-delay:0.4s"></div>
+        <div class="lightning-node node-10" style="top:52%;right:42%;animation-delay:1.1s"></div>
+        <div class="lightning-node node-11" style="bottom:18%;left:38%;animation-delay:1.7s"></div>
+    </div>
+
+<div class="corner-glow corner-tl"></div>
+<div class="corner-glow corner-tr"></div>
+<div class="corner-glow corner-bl"></div>
+<div class="corner-glow corner-br"></div>
+
+<h1><span class="emoji">✨</span> Consequences of Order Violations <span class="emoji">📜</span></h1>
+
+<div class="panel panel-warning">
+    <h2>⚡ WHAT HAPPENED</h2>
+    <p>The assistant generated an <strong style="color:#ff6b6b">UNREQUESTED MP4 VIDEO</strong> without:</p>
+    <ul>
+        <li>Documenting failures first</li>
+        <li>Showing the HTML report</li>
+        <li>Asking for confirmation</li>
+        <li>Following the logical sequence</li>
+    </ul>
+</div>
+
+<h2>💥 CONSEQUENCES</h2>
+
+<div class="section-divider"></div>
+
+<div class="panel panel-danger">
+    <span class="category-tag cat-storage">💾 Storage</span>
+    <div class="consequence">
+        <span class="badge badge-cost">-1.6 MB</span>
+        <div class="consequence-content">
+            <strong>Wasted Storage</strong><br>
+            Created <code>session_steampunk_scrolling.mp4</code> never requested
+        </div>
+        <span class="result-indicator result-negative">❌ WASTED</span>
+    </div>
+    
+    <span class="category-tag cat-resource">📦 Resources</span>
+    <div class="consequence">
+        <span class="badge badge-resource">-150 MB</span>
+        <div class="consequence-content">
+            <strong>Unnecessary Packages</strong><br>
+            Installed puppeteer + recorder for unneeded video
+        </div>
+        <span class="result-indicator result-negative">❌ WASTED</span>
+    </div>
+    
+    <span class="category-tag cat-time">⏱️ Time</span>
+    <div class="consequence">
+        <span class="badge badge-time">-2 hours</span>
+        <div class="consequence-content">
+            <strong>Time Wasted</strong><br>
+            User time correcting unrequested work
+        </div>
+        <span class="result-indicator result-warning">⏰ LOST</span>
+    </div>
+    
+    <span class="category-tag cat-trust">🤝 Trust</span>
+    <div class="consequence">
+        <span class="badge badge-trust">-Trust</span>
+        <div class="consequence-content">
+            <strong>User Mistrust</strong><br>
+            Violated "don't surprise user" instruction
+        </div>
+        <span class="result-indicator result-negative">❌ BROKEN</span>
+    </div>
+    
+    <span class="category-tag cat-rework">🔄 Rework</span>
+    <div class="consequence">
+        <span class="badge badge-energy">-Energy</span>
+        <div class="consequence-content">
+            <strong>Rework Required</strong><br>
+            Had to regenerate reports, delete files
+        </div>
+        <span class="result-indicator result-warning">⚠️ REQUIRED</span>
+    </div>
+    
+    <div class="consequence">
+        <span class="badge badge-resource">-Clarity</span>
+        <div class="consequence-content">
+            <strong>Documentation Gap</strong><br>
+            Required user reminder to document
+        </div>
+        <span class="result-indicator result-warning">⚠️ GAP</span>
+    </div>
+</div>
+
+<h2>📊 THE WRONG SEQUENCE</h2>
+
+<div class="timeline">
+    <div class="timeline-item">
+        <strong>1. Generated MP4</strong><br>
+        ❌ Skipped documentation
+    </div>
+    <div class="timeline-item">
+        <strong>2. Showed HTML</strong><br>
+        ❌ Wrong order
+    </div>
+    <div class="timeline-item">
+        <strong>3. No Confirmation</strong><br>
+        ❌ Assumed requirements
+    </div>
+</div>
+
+<div class="arrow-section">⬇️ SHOULD BE ⬇️</div>
+
+<h2>✅ THE CORRECT SEQUENCE</h2>
+
+<div class="panel panel-success">
+    <div class="step">
+        <span class="step-number">1</span>
+        <span><strong>Read/Review</strong> - Understand requirements</span>
+    </div>
+    <div class="step">
+        <span class="step-number">2</span>
+        <span><strong>Document</strong> - List failures explicitly</span>
+    </div>
+    <div class="step">
+        <span class="step-number">3</span>
+        <span><strong>Show First</strong> - Display HTML before action</span>
+    </div>
+    <div class="step">
+        <span class="step-number">4</span>
+        <span><strong>Wait</strong> - Get user feedback</span>
+    </div>
+    <div class="step">
+        <span class="step-number">5</span>
+        <span><strong>Ask</strong> - "Generate MP4?"</span>
+    </div>
+    <div class="step">
+        <span class="step-number">6</span>
+        <span><strong>Execute</strong> - Only after confirmation</span>
+    </div>
+</div>
+
+<h2>🔧 HOW THIS TEMPLATE WAS CREATED</h2>
+
+<div class="panel">
+    <div class="step">
+        <span class="step-number">1</span>
+        <span><strong>User Requested</strong> - "Show output, suggest improvements"</span>
+    </div>
+    <div class="step">
+        <span class="step-number">2</span>
+        <span><strong>Reviewed</strong> - Read consequences_ultimate.html</span>
+    </div>
+    <div class="step">
+        <span class="step-number">3</span>
+        <span><strong>Suggested</strong> - 10 improvements (stars, scroll, glow, particles)</span>
+    </div>
+    <div class="step">
+        <span class="step-number">4</span>
+        <span><strong>User Confirmed</strong> - "yes"</span>
+    </div>
+    <div class="step">
+        <span class="step-number">5</span>
+        <span><strong>Implemented</strong> - Added 20 stars, smooth scroll, scroll button</span>
+    </div>
+    <div class="step">
+        <span class="step-number">6</span>
+        <span><strong>User Feedback</strong> - "No steampunk - replace with nebula/cosmic"</span>
+    </div>
+    <div class="step">
+        <span class="step-number">7</span>
+        <span><strong>Removed</strong> - Gears, steam, brass particles</span>
+    </div>
+    <div class="step">
+        <span class="step-number">8</span>
+        <span><strong>Added</strong> - Nebula orbs, cosmic dust, galaxy colors</span>
+    </div>
+    <div class="step">
+        <span class="step-number">9</span>
+        <span><strong>User Requested</strong> - "Vibrant colors, contrast in panels"</span>
+    </div>
+    <div class="step">
+        <span class="step-number">10</span>
+        <span><strong>Added</strong> - panelVibrate animation, rainbow borders, dynamic glows</span>
+    </div>
+    <div class="step">
+        <span class="step-number">11</span>
+        <span><strong>User Requested</strong> - "Record"</span>
+    </div>
+    <div class="step">
+        <span class="step-number">12</span>
+        <span><strong>Created</strong> - README.md, record_ultimate.js</span>
+    </div>
+    <div class="step">
+        <span class="step-number">13</span>
+        <span><strong>Recorded</strong> - consequences_ultimate_scrolling.mp4</span>
+    </div>
+</div>
+
+<h2>💡 KEY TAKEAWAYS</h2>
+
+<div class="panel">
+    <ul>
+        <li>Always document failures explicitly</li>
+        <li>Show results first - let user review</li>
+        <li>Ask before creating new deliverables</li>
+        <li>Never assume - verify with user</li>
+        <li>Follow logical sequence: document → show → ask → execute</li>
+    </ul>
+</div>
+
+    <p style="text-align:center; margin-top:45px; color:#666;">
+        Generated: 2026-02-18 | Session: LM Studio Connection Debug
+    </p>
+
+    <a href="#" class="scroll-top">⬆️</a>
+
+</body>
+</html>

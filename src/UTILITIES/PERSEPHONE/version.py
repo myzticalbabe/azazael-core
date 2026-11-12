@@ -1,0 +1,4 @@
+# coding: utf-8
+Azazael_VERSION = "2.1.0"
+PROTOCOL_VERSION = "2.0.0"
+PERSEPHONE_VERSION = "1.0.0"

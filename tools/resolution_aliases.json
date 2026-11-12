@@ -1,0 +1,49 @@
+{
+  "schema": "azazael.resolution_aliases/1",
+  "declared": "2026-10-31",
+  "why": "The launcher layer was written against a layout that no longer exists: WORMZ/, HYDRA/, HORUS/, METAWORMS/, scripts/, ml_platforms/ and the three UTILITIES kernels sat at the repo root, and $PERSEPHONE_ROOT pointed at a copy with bin/ inside it. Each entry below is measured, not guessed -- every one was a tail or basename match in a 2026-10-31 census, and declaring it upgrades that match from inference to fact. At most one directory level has moved per entry, so the mapping is the layout change itself rather than a list of 67 files. A declaration that matches no reference is reported as stale_alias, so this table cannot outlive the layout it describes. AZAZAEL_SRC was declared speculatively on the first run and reported stale; it was removed rather than left in as noise, which is the mechanism working.",
+  "roots": {
+    "AZAZAEL_ROOT": ".",
+    "PERSEPHONE_ROOT": "src/UTILITIES/PERSEPHONE"
+  },
+  "prefixes": {
+    "WORMZ": "CORE/WORMS",
+    "HYDRA": "ORCHESTRATION",
+    "HORUS": "ORCHESTRATION",
+    "METAWORMS": "META",
+    "scripts": "ORCHESTRATION/scripts",
+    "ml_platforms": "ORCHESTRATION/ml_platforms",
+    "TERENCE": "UTILITIES/TERENCE",
+    "TARBABY": "UTILITIES/TARBABY",
+    "POINDEXTER": "UTILITIES/POINDEXTER"
+  },
+  "files": {
+    "ECOSYSTEM_OPTIMIZER.py": "ORCHESTRATION/ECOSYSTEM_OPTIMIZER.py",
+    "persephone.py": "UTILITIES/PERSEPHONE/persephone.py"
+  },
+  "decisions": {
+    "2026-10-31 ml_platforms -> ORCHESTRATION/ml_platforms": {
+      "choice": "a reference written as `ml_platforms/<file>` resolves to the ORCHESTRATION copy, not HYDRA's",
+      "evidence": [
+        "`ml_platforms` was a repo-root directory before the move; its module path from src is `ORCHESTRATION.ml_platforms`, which is also where the launchers' `ml_platforms\\x.py` form resolves",
+        "no python module imports either copy (measured: 0 inbound on all six files), so import evidence cannot break the tie",
+        "ORCHESTRATION/ml_platforms/health_monitor.py is 18,576 bytes against HYDRA's 1,767: HYDRA's is a stub of the same name, not the implementation",
+        "a bare `harness.py` next to a driver additionally resolves by the `nearest` rule, so HYDRA/run_hydra.bat still lands on HYDRA/ml_platforms/harness.py"
+      ],
+      "reversible": "delete the prefix to restore ambiguity; `stale_alias` will flag it if the directory moves again"
+    },
+    "2026-10-31 nearest tie-break": {
+      "choice": "when a bare name matches more than one file, accept the unique candidate under the referring script's own directory; otherwise stay ambiguous",
+      "evidence": [
+        "a bare `harness.py` beside a launcher means that launcher's copy -- the same directory agreement `tail` establishes, measured from the other end",
+        "`nearest` is a resolution labelled separately in resolved_by, so it can be counted, audited, or abolished without touching `tail`"
+      ]
+    }
+  },
+  "deliberately_absent": {
+    "HYDRAMETA.py": "src/HYDRAMETA.py and src/META/HYDRAMETA.py both exist; a launcher asking for it is ambiguous, not resolvable",
+    "AZAZAEL_INTEGRATION.py": "no such file anywhere in the tree: a launcher bug, not a resolution gap",
+    "BIBL/bibl.py": "the directory exists, the file is bibl_crawler.py: a launcher bug",
+    "METAWORMS/HYDROMETA.py": "HYDRAMETA.py exists, HYDROMETA.py does not: a spelling bug in the launcher"
+  }
+}

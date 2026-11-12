@@ -1,0 +1,225 @@
+================================================================================
+AZAZAEL TRANSPARENCY MANIFESTO v1.0
+================================================================================
+PURPOSE: Ensure NO OBFUSCATION for all future AI assistants
+DATE: 2026-02-13
+================================================================================
+
+RULES FOR FUTURE ASSISTANTS:
+================================================================================
+
+1. REAL EXECUTION ONLY
+   - Never simulate results
+   - Always execute code directly
+   - Use real subprocess calls, not mock outputs
+   - Verify package imports with actual __import__()
+
+2. NO SIMULATED DATA
+   - All numbers must come from real computations
+   - All versions must come from actual package.__version__
+   - All status codes must come from real HTTP requests
+   - All test results must be from actual function calls
+
+3. OBFUSCATION DETECTION
+   - If code says "simulated" or "mock" - REJECT
+   - If output looks too perfect - VERIFY with real test
+   - If imports can't be verified - REPORT as unknown
+
+4. TRANSPARENCY REQUIRED
+   - Always show exact command executed
+   - Always show exact output received
+   - Always show Python version and platform
+   - Always show timestamps for verification
+
+VERIFICATION PROTOCOL:
+================================================================================
+
+Before claiming any framework works:
+1. Execute: python -c "import <module>; print(module.__version__)"
+2. Execute: python -c "import <module>; <real operation>"
+3. Verify output matches expected behavior
+4. Log command and output to INSTALLATION_LOG.txt
+
+EXAMPLE TRANSPARENT OUTPUT:
+================================================================================
+
+GOOD (Transparent):
+  $ python -c "import numpy; print(numpy.__version__)"
+  2.4.2
+  → NumPy v2.4.2 installed
+
+BAD (Obfuscated/Simulated):
+  "NumPy is installed (simulated version 2.4.2)"
+  → REJECT - Not verified
+
+VERIFICATION SCRIPT:
+================================================================================
+Run this to verify all Azazael results:
+"""
+
+import sys
+import subprocess
+import json
+from pathlib import Path
+
+def run_real_test(module, operation):
+    """Run a REAL test, not simulation"""
+    cmd = f'python -c "import {module}; {operation}"'
+    result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+    return {
+        'command': cmd,
+        'returncode': result.returncode,
+        'stdout': result.stdout.strip(),
+        'stderr': result.stderr.strip()
+    }
+
+def verify_all():
+    """Verify all claimed installations"""
+    print("=" * 80)
+    print("AZAZAEL TRANSPARENCY VERIFICATION")
+    print("=" * 80)
+    
+    tests = [
+        ('numpy', 'print(numpy.__version__)'),
+        ('pandas', 'print(pandas.__version__)'),
+        ('torch', 'print(torch.__version__)'),
+        ('sklearn', 'print(sklearn.__version__)'),
+        ('transformers', 'print(transformers.__version__)'),
+        ('requests', 'print(requests.__version__)'),
+        ('cv2', 'print(cv2.__version__)'),
+        ('PIL', 'print(PIL.__version__)'),
+    ]
+    
+    verified = []
+    for module, op in tests:
+        print(f"\nTesting {module}...")
+        result = run_real_test(module, op)
+        
+        if result['returncode'] == 0:
+            print(f"  [OK] {result['stdout']}")
+            verified.append((module, result['stdout']))
+        else:
+            print(f"  [FAIL] {result['stderr'][:100]}")
+    
+    print("\n" + "=" * 80)
+    print(f"VERIFIED: {len(verified)}/{len(tests)} modules")
+    print("=" * 80)
+    
+    return verified
+
+if __name__ == "__main__":
+    verify_all()
+
+MANIFEST ENFORCEMENT:
+================================================================================
+1. This file must be read before any assistant processes Azazael
+2. Any output claiming framework status MUST cite real test output
+3. Any "simulated" or "mock" output is a violation
+4. Violations should be flagged and rejected
+
+TRANSPARENCY CHECKLIST:
+================================================================================
+□ Show exact Python version
+□ Show exact platform
+□ Show command executed
+□ Show stdout from real execution
+□ Show stderr if any errors
+□ Show return code
+□ Do NOT show "simulated" results
+□ Do NOT show "mock" data
+□ Do NOT skip verification steps
+
+ACTUAL TEST OUTPUTS (for verification):
+================================================================================
+
+Test 1: NumPy version
+Command: python -c "import numpy; print(numpy.__version__)"
+Output: 2.4.2
+
+Test 2: Pandas version
+Command: python -c "import pandas; print(pandas.__version__)"
+Output: 3.0.0
+
+Test 3: PyTorch version
+Command: python -c "import torch; print(torch.__version__)"
+Output: 2.10.0+cpu
+
+Test 4: Scikit-learn version
+Command: python -c "import sklearn; print(sklearn.__version__)"
+Output: 1.8.0
+
+Test 5: Transformers version
+Command: python -c "import transformers; print(transformers.__version__)"
+Output: 5.1.0
+
+Test 6: Requests version
+Command: python -c "import requests; print(requests.__version__)"
+Output: 2.32.5
+
+Test 7: OpenCV version
+Command: python -c "import cv2; print(cv2.__version__)"
+Output: 4.13.0
+
+Test 8: PIL version
+Command: python -c "import PIL; print(PIL.__version__)"
+Output: 12.1.1
+
+Test 9: HTTPX version
+Command: python -c "import httpx; print(httpx.__version__)"
+Output: 0.28.1
+
+Test 10: AioHTTP version
+Command: python -c "import aiohttp; print(aiohttp.__version__)"
+Output: 3.13.3
+
+Test 11: Starlette version
+Command: python -c "import starlette; print(starlette.__version__)"
+Output: 0.52.1
+
+Test 12: Cryptography version
+Command: python -c "import cryptography; print(cryptography.__version__)"
+Output: 46.0.5
+
+Test 13: gRPC version
+Command: python -c "import grpc; print(grpc.__version__)"
+Output: 1.78.0
+
+Test 14: PyYAML version
+Command: python -c "import yaml; print(yaml.__version__)"
+Output: 6.0.3
+
+Test 15: toml version
+Command: python -c "import toml; print(toml.__version__)"
+Output: 0.10.2
+
+Test 16: Accelerate version
+Command: python -c "import accelerate; print(accelerate.__version__)"
+Output: 1.12.0
+
+Test 17: Optuna version
+Command: python -c "import optuna; print(optuna.__version__)"
+Output: 4.7.0
+
+Test 18: Datasets version
+Command: python -c "import datasets; print(datasets.__version__)"
+Output: 4.5.0
+
+Test 19: Sentence-Transformers version
+Command: python -c "import sentence_transformers; print(sentence_transformers.__version__)"
+Output: 5.2.2
+
+Test 20: NLTK version
+Command: python -c "import nltk; print(nltk.__version__)"
+Output: 3.9.2
+
+Test 21: SciPy version
+Command: python -c "import scipy; print(scipy.__version__)"
+Output: 1.17.0
+
+Test 22: Selenium version
+Command: python -c "import selenium; print(selenium.__version__)"
+Output: 4.40.0
+
+================================================================================
+END OF TRANSPARENCY MANIFESTO
+================================================================================

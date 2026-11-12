@@ -1,0 +1,40 @@
+{
+  "name": "TARBABY Configuration",
+  "version": "2.0.0",
+  "description": "Binary compatibility and version management settings",
+  "paths": {
+    "base": "C:/Users/clint/Desktop/Azazael_UNIFIED/ORCHESTRATION_UNIFIED/ORCHESTRATION_UNIFIED/UTILITIES/TARBABY",
+    "output": "C:/Users/clint/Desktop/Azazael_UNIFIED/ORCHESTRATION_UNIFIED/ORCHESTRATION_UNIFIED/UTILITIES/TARBABY/output",
+    "temp": "C:/Users/clint/Desktop/Azazael_UNIFIED/ORCHESTRATION_UNIFIED/ORCHESTRATION_UNIFIED/UTILITIES/TARBABY/temp",
+    "metadata": "C:/Users/clint/Desktop/Azazael_UNIFIED/ORCHESTRATION_UNIFIED/ORCHESTRATION_UNIFIED/UTILITIES/TARBABY/metadata"
+  },
+  "python_versions": {
+    "3.12": {"name": "Python 3.12", "compatible": ["3.12", "3.13", "3.14"]},
+    "3.13": {"name": "Python 3.13", "compatible": ["3.13", "3.14"]},
+    "3.14": {"name": "Python 3.14", "compatible": ["3.14"]}
+  },
+  "formats": {
+    "supported": ["json", "yaml", "yml", "pickle", "parquet", "tar", "zip", "gz"],
+    "default_read": "json",
+    "default_write": "yaml"
+  },
+  "compatibility": {
+    "remove_pattern_matching": [],
+    "strict_type_hints": [],
+    "optional_type_hints": ["3.12", "3.13", "3.14"]
+  },
+  "migration": {
+    "default_target": "3.14",
+    "backup_enabled": true,
+    "checksum_algorithm": "sha256"
+  },
+  "features": {
+    "binary_conversion": true,
+    "version_compatibility": true,
+    "module_extraction": true,
+    "dependency_tracking": true,
+    "checksum_verification": true
+  }
+}
+
+

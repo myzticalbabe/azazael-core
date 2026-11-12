@@ -1,0 +1,1090 @@
+{
+ "schema": "azazael/bible@1",
+ "title": "The Book of the Tree",
+ "status": "seed",
+ "updated": "2026-11-09",
+ "edition": {
+  "name": "The Annotated Book of the Tree",
+  "basis": "the annotated study-Bible format: a book introduction, pericope headings before a verse, footnotes sorted by kind, and a glossary that points at the verse it explains"
+ },
+ "limits": {
+  "max_books": 20,
+  "max_chapters_per_book": 12,
+  "max_verses_per_chapter": 60,
+  "max_annotations_per_verse": 6
+ },
+ "configs": [
+  {
+   "id": "recall-query-floor",
+   "name": "the query floor every recall answer is filtered at (PMB_RECALL_MIN_BEST)",
+   "kind": "text",
+   "scope": "repo",
+   "file": "tools/pmb_floor_proxy.py",
+   "anchor": "PMB_RECALL_MIN_BEST",
+   "value": "0.89",
+   "mirrors": ["tools/supervisor_mcp.py", "tools/floor_measure.py"],
+   "governs": "the value sits in the measured gap between noise and real queries; lower it and nonsense is answered confidently, raise it and a real query loses its tail",
+   "remedy": "re-measure on the current corpus, then change every mirror in the same commit: python tools/floor_measure.py",
+   "detail": "the one setting where a copied constant is worse than no constant, because both copies look correct on their own"
+  },
+  {
+   "id": "recall-row-floor",
+   "name": "the per-row floor that trims a real query's weak tail (PMB_RECALL_FLOOR)",
+   "kind": "text",
+   "scope": "repo",
+   "file": "tools/pmb_floor_proxy.py",
+   "anchor": "PMB_RECALL_FLOOR",
+   "value": "0.70",
+   "mirrors": ["tools/supervisor_mcp.py", "tools/floor_measure.py"],
+   "governs": "a row below this is dropped before the caller sees it; set it to 0 and the proxy forwards noise while still calling itself a floor",
+   "remedy": "python tools/floor_measure.py"
+  },
+  {
+   "id": "floor-proxy-port",
+   "name": "the port the floor proxy binds, and that clients must route pmb through",
+   "kind": "text",
+   "scope": "repo",
+   "file": "tools/pmb_floor_proxy.py",
+   "anchor": "PMB_FLOOR_PORT",
+   "value": "8766",
+   "governs": "a lane wired at the daemon port bypasses filtering entirely and still returns plausible answers, which is the failure mode this whole corpus exists to prevent",
+   "remedy": "python tools/mcp_startup_gate.py --fix"
+  },
+  {
+   "id": "bible-max-books",
+   "name": "the book cap, which forces retirement rather than growth",
+   "kind": "json",
+   "scope": "repo",
+   "file": "docs/bible/bible.json",
+   "key": "limits.max_books",
+   "value": 20,
+   "governs": "an uncapped catalogue is how a skills directory reaches a thousand entries; the cap is checked against a hard ceiling in the same tool",
+   "remedy": "python tools/bible_check.py --check"
+  },
+  {
+   "id": "bible-max-chapters",
+   "name": "chapters per book",
+   "kind": "json",
+   "scope": "repo",
+   "file": "docs/bible/bible.json",
+   "key": "limits.max_chapters_per_book",
+   "value": 12,
+   "governs": "a book that needs more chapters than this is describing an estate, not a domain",
+   "remedy": "python tools/bible_check.py --check"
+  },
+  {
+   "id": "bible-max-verses",
+   "name": "verses per chapter",
+   "kind": "json",
+   "scope": "repo",
+   "file": "docs/bible/bible.json",
+   "key": "limits.max_verses_per_chapter",
+   "value": 60,
+   "governs": "the corpus stays readable and citable; a chapter long enough to be a file is a place claims hide",
+   "remedy": "python tools/bible_check.py --check"
+  },
+  {
+   "id": "harvest-schema",
+   "name": "the harvest ledger's format, which every practice cites into",
+   "kind": "json",
+   "scope": "repo",
+   "file": "docs/bible/harvest.json",
+   "key": "schema",
+   "value": "azazael.harvest/1",
+   "governs": "a practice's evidence ids resolve against this file; change the format without the reader and every citation still parses while pointing at nothing",
+   "remedy": "python tools/bible_harvest.py --write"
+  },
+  {
+   "id": "pytest-root",
+   "name": "the directory the suite collects from",
+   "kind": "text",
+   "scope": "repo",
+   "file": "pytest.ini",
+   "value": "testpaths = tests",
+   "governs": "a wrong root runs zero tests and reports success, which is worse than a failure",
+   "remedy": "python tools/preflight_all.py --check"
+  },
+  {
+   "id": "production-interpreter",
+   "name": "the free-threaded interpreter the suite is judged under",
+   "kind": "path",
+   "scope": "host",
+   "value": "C:/Azazael/.venvs/py315t",
+   "governs": "a hang or a segfault measured under the GIL-enabled interpreter is not evidence about production, and this tree has already spent a session on that confusion",
+   "remedy": "python tools/box_profile.py"
+  }
+ ],
+ "note": "Seed corpus, written so the checker has something to check and the genres are demonstrated. Rules the validator enforces: contiguous chapter and verse numbering; every citation in `cites`, and every glossary `see`, must resolve; any digit in a verse body, an annotation, a gloss or an introduction paragraph requires `source` naming a repository path that exists; every statute names a RULE present in MANDATES.md and a `check` path that exists, so a law with nothing executing it is refused; every `practice` names a symptom, a cause, a command that exists and a remedy, and cites at least three records from docs/bible/harvest.json, so instruction cannot be invented in the corpus; a section heading may carry no figure at all, because a heading is a label and not a claim; a book carrying `domain` must name a domain declared in tools/domain_trees.py; no email, phone number or forensic deny token; book and verse caps declared here and enforced. A `variant` is the textual apparatus: the circulated reading, where it came from, and the body retaining the reading of this codex.",
+ "glossary": [
+  {
+   "term": "trunk",
+   "gloss": "the canon, the engine and the instruments that every package grows out of.",
+   "see": "genesis 1:1"
+  },
+  {
+   "term": "apparatus",
+   "gloss": "the variants and notes that record what a reading used to say, and why it stopped saying it.",
+   "see": "the_falls 1:1"
+  },
+  {
+   "term": "statute",
+   "gloss": "a law bound to the check that executes it; a law with no check is a proverb and is filed as wisdom.",
+   "see": "leviticus 1:2"
+  },
+  {
+   "term": "practice",
+   "gloss": "the instruction attached to a verse: the symptom, its cause, the command that detects it, the remedy, and the harvested records that support it.",
+   "see": "sentinel 1:1"
+  },
+  {
+   "term": "domain book",
+   "gloss": "a book whose subject is one declared domain, so that the guide is organised by the trees it describes rather than by a heading someone liked.",
+   "see": "hives 1:1"
+  },
+  {
+   "term": "harvest",
+   "gloss": "the ledger of records extracted from every environment's error log, lessons, memories and decisions, regenerated by a command.",
+   "see": "sentinel 1:2"
+  }
+ ],
+ "books": [
+  {
+   "id": "genesis",
+   "name": "Genesis",
+   "subtitle": "The Book of the Trunk",
+   "genre": "etiology",
+   "introduction": {
+    "paragraphs": [
+     "This book answers one question: why there is a tree at all, rather than a folder of scripts. It is not a history of the code; it is an account of a decision that made later decisions possible.",
+     "Read it for the shape of the claim. The trunk is canon, engine and instruments; the branches are the packages. A branch is a package only when it can stand alone, which is a claim about gates and not about file layout."
+    ],
+    "sources": []
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "The trunk"
+      },
+      {
+       "before_verse": 3,
+       "heading": "The branches"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "In the beginning there was one tree, and the tree had a trunk, and the trunk held the canon.",
+       "cites": []
+      },
+      {
+       "number": 2,
+       "text": "And the trunk put forth branches: the forensic, and the behavioural, and the instruments that grade them.",
+       "cites": ["genesis 1:1"],
+       "annotations": [
+        {
+         "kind": "editorial",
+         "note": "The three are not a hierarchy. The instruments are named beside the branches because a package that grades nothing is a folder with a README."
+        }
+       ]
+      },
+      {
+       "number": 3,
+       "text": "And the branches were one repository, and no branch was called a package until it could stand alone.",
+       "cites": ["genesis 1:2"],
+       "annotations": [
+        {
+         "kind": "cross",
+         "note": "Standing alone means a manifest, a gate and a published tree, in that order; see the packaging plan."
+        }
+       ]
+      },
+      {
+       "number": 4,
+       "text": "And the name of the tree was Azazael, and the name was not a product, nor a promise, nor a client.",
+       "cites": ["genesis 1:1"]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "leviticus",
+   "name": "Leviticus",
+   "subtitle": "The Book of the Gates",
+   "genre": "law",
+   "introduction": {
+    "paragraphs": [
+     "This book is the law code, and every statute in it is bound to the check that executes it. That binding is the point of the book: a commandment with nothing running behind it teaches a reader to expect enforcement where there is none.",
+     "The statutes here are not new law. Each cites a rule already in the canon and points at the instrument that proves it is kept; where the two disagree, the canon governs and this book is wrong."
+    ],
+    "sources": []
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "Of controls"
+      },
+      {
+       "before_verse": 2,
+       "heading": "Of figures"
+      },
+      {
+       "before_verse": 3,
+       "heading": "Of verdicts"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "A control shall be exercised before it is called a control, for an unexercised control is a decoration.",
+       "cites": ["genesis 1:2"],
+       "statute": {
+        "rule": "RULE 0B-D",
+        "check": "python tools/preflight_all.py --self-test",
+        "why": "the registry's self-test is the control that proves the registry matches the hook it claims to transcribe"
+       },
+       "annotations": [
+        {
+         "kind": "historical",
+         "note": "Written after a control that had never been run was reported as in place, and read as working by everyone who saw it named.",
+         "source": "AGENTS.md"
+        }
+       ]
+      },
+      {
+       "number": 2,
+       "text": "Every number shall be written with the command that produced it, and a number found without a command shall be struck out rather than trusted.",
+       "cites": [],
+       "statute": {
+        "rule": "RULE 0B-D",
+        "check": "python tools/bible_check.py --check",
+        "why": "the refusal is mechanical: a verse carrying a digit and no source fails before it can be quoted"
+       },
+       "annotations": [
+        {
+         "kind": "editorial",
+         "note": "A figure is quotable. A figure without its command is quotable and wrong, which is the worse of the two."
+        }
+       ]
+      },
+      {
+       "number": 3,
+       "text": "A verdict shall name the predicate that fired, and the reader shall ask whether that predicate is the thing they care about.",
+       "cites": [],
+       "statute": {
+        "rule": "RULE 0B-B",
+        "check": "python tools/preflight_all.py --check",
+        "why": "the registry distinguishes BLIND from PASS, because a gate that has not read its input has not judged it"
+       },
+       "annotations": [
+        {
+         "kind": "translation",
+         "note": "\"Predicate\" is meant plainly: the exact condition that fired, not the topic it belongs to."
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "the_falls",
+   "name": "The Falls",
+   "subtitle": "The Book of the Instruments That Lied",
+   "genre": "history",
+   "introduction": {
+    "paragraphs": [
+     "Doctrine in this canon is carried by failure, not by assertion. Each verse names a measurement that looked reassuring and was not, and each variant records the reading that circulated before anyone checked it.",
+     "The book is not a confession and the reader is not asked to be edified. It exists so that the next instrument of the same shape is recognised before it reports."
+    ],
+    "sources": []
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "The instrument that measured itself"
+      },
+      {
+       "before_verse": 2,
+       "heading": "The card that was elsewhere"
+      },
+      {
+       "before_verse": 3,
+       "heading": "The fast path that never fired"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "And the instrument was compared against itself, and the divergence came back small, and small was read as working.",
+       "cites": ["leviticus 1:1"],
+       "variants": [
+        {
+         "reading": "The codex Ratchet, limitation five",
+         "text": "the divergence read 0.001 where the mean difference was 0.135",
+         "source": "Project_Nurse_Ratchet/README.md, negative results"
+        }
+       ],
+       "annotations": [
+        {
+         "kind": "textual",
+         "note": "The comparison's hand side silently became the fitted side, so the instrument reported agreement with itself.",
+         "source": "Project_Nurse_Ratchet/README.md"
+        }
+       ]
+      },
+      {
+       "number": 2,
+       "text": "And a probe reported an accelerator that was not in this box, because the reading came from another venv, and the gate was green throughout.",
+       "cites": [],
+       "variants": [
+        {
+         "reading": "The circulated reading",
+         "text": "an accelerator of 7.80 GB reported as available",
+         "source": "the bundled venv of another application, named in AGENTS.md"
+        }
+       ],
+       "annotations": [
+        {
+         "kind": "editorial",
+         "note": "A green gate is a statement about the checks that ran, not about the reading that was copied from somewhere else."
+        }
+       ]
+      },
+      {
+       "number": 3,
+       "text": "And the fast path fired never, and the ceiling that sat below the threshold read as caution rather than as silence.",
+       "cites": [],
+       "variants": [
+        {
+         "reading": "The codex Ratchet, negative results",
+         "text": "zero fires in 100 calls at any support",
+         "source": "Project_Nurse_Ratchet/README.md"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "psalms",
+   "name": "Psalms",
+   "subtitle": "The Book of the Long Wait",
+   "genre": "lament",
+   "introduction": {
+    "paragraphs": [
+     "A lament is not a lesson. It is the register in which a person who keeps the records is allowed to say how long the wait has been, and it is placed here so that the register exists in the canon and not only in conversation.",
+     "No verse in this book is evidence of anything, which is why none of them carries a statute. Read them as the sound the work makes, not as a finding."
+    ],
+    "sources": []
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "Of green suites"
+      },
+      {
+       "before_verse": 3,
+       "heading": "Of dead stores"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "How long shall a lane say the suite is green, and the suite not be run?",
+       "cites": []
+      },
+      {
+       "number": 2,
+       "text": "How long shall a row be called closed, when the verb that closed it was not a verb the queue knew?",
+       "cites": []
+      },
+      {
+       "number": 3,
+       "text": "The dead store is not a metaphor. It is a row nobody reads, and it was counted twice, and the count was reported as coverage.",
+       "cites": ["the_falls 1:1"]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "sentinel",
+   "name": "The Book of the Sentinel",
+   "subtitle": "The rules, and the instruments that execute them",
+   "genre": "domain",
+   "domain": "sentinel",
+   "introduction": {
+    "paragraphs": [
+     "This is the rules tree, and it is half code and half canon. A rule that lives only in the canon is a description of an intention; the instrument beside it is what makes the intention a gate.",
+     "Read this book for that difference. Each verse was paid for by a session that believed a control existed because it had been written down."
+    ],
+    "sources": []
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "Of law and execution"
+      },
+      {
+       "before_verse": 2,
+       "heading": "Of completeness"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "A rule that nothing runs is a proverb, and a proverb is not a gate; the canon may describe a law, but only a command may enforce it.",
+       "cites": ["leviticus 1:2"],
+       "practice": {
+        "symptom": "a mandate is quoted in prose, obeyed in conversation, and executed by nothing",
+        "cause": "the rule was written into canon and no instrument was ever bound to it",
+        "detection": "python tools/preflight_all.py --check",
+        "remedy": "bind the rule to a check that can fail, then run that check before citing the rule as kept",
+        "evidence": ["error-log-md-L989", "error-log-md-L777", "error-log-md-L5746"]
+       },
+       "statute": {
+        "rule": "RULE 0B-D",
+        "check": "python tools/preflight_all.py --self-test"
+       }
+      },
+      {
+       "number": 2,
+       "text": "A session that says the work is complete has said nothing until it names the command it ran; completeness is a claim, and a claim needs a reading.",
+       "cites": [],
+       "practice": {
+        "symptom": "work is declared complete while nothing has been executed",
+        "cause": "the acceptance step was a sentence in the response instead of a run in the tree",
+        "detection": "python tools/bible_check.py --check",
+        "remedy": "quote the command and its exit status in the same breath as the word complete",
+        "evidence": ["error-log-md-L777", "error-log-md-L5746", "error-log-md-L5694"]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "cain",
+   "name": "The Book of Cain",
+   "subtitle": "Psychoanalysis and the render pipeline",
+   "genre": "domain",
+   "domain": "cain",
+   "introduction": {
+    "paragraphs": [
+     "Two trees share this book. One carries the render pipeline and its session templates; the other carries the framework that reads a session. They are one domain because a render nobody has read is a file and not a finding.",
+     "What was learned here is mostly about measurement: an instrument that grades its own output will agree with itself, and the correction is always a second reading that is allowed to disagree."
+    ],
+    "sources": []
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "Of instruments and their readings"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "An instrument compared against itself will report agreement, and agreement is the one reading it cannot earn.",
+       "cites": ["the_falls 1:1"],
+       "practice": {
+        "symptom": "a divergence comes back small and the small reading is taken as working",
+        "cause": "the comparison's opposite side silently became the fitted side, so the instrument was agreeing with its own opinion",
+        "detection": "python tools/preflight_all.py --self-test",
+        "remedy": "compare against a fixture that must disagree, and keep that fixture in the gate so the agreement is earned on every run",
+        "evidence": ["engram-439", "engram-1453", "engram-1594"]
+       },
+       "statute": {
+        "rule": "RULE 0B-D",
+        "check": "python tools/preflight_all.py --self-test"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "eve_rani",
+   "name": "The Book of Eve and Rani",
+   "subtitle": "Native intelligence artifacts, counted and not invented",
+   "genre": "domain",
+   "domain": "eve_rani",
+   "introduction": {
+    "paragraphs": [
+     "The artifacts of this domain are counted rather than asserted: what the evidence file contains is the number, and what a document remembers is not.",
+     "Its recorded history is the discipline of verification, because the claims that reached it came from other lanes and had to be read here before anything was built on them."
+    ],
+    "sources": []
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "Of claims from elsewhere"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "Another lane's claim is a pointer and not a proof; verify it in this tree, with this interpreter, before building on it.",
+       "cites": [],
+       "practice": {
+        "symptom": "a change is reported landed and the report is accepted as the change",
+        "cause": "the verification step was a message from the lane that made the change, so the confirmation and the claim had one source",
+        "detection": "python tools/git_fleet_audit.py --tasks",
+        "remedy": "read the commit in this tree and name what was executed before the claim is repeated",
+        "evidence": ["engram-1639", "engram-1564", "engram-1627"]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "hives",
+   "name": "The Book of the Hives",
+   "subtitle": "The swarm, its registry, and its census",
+   "genre": "domain",
+   "domain": "hives",
+   "introduction": {
+    "paragraphs": [
+     "One hive per category, and a registry counted separately, because being registered and being housed are different facts.",
+     "This is where a count becomes a hazard. The swarm is large enough that a stale number is indistinguishable from a current one, and a module answering to a name it shares with another will take a patch meant for its twin."
+    ],
+    "sources": []
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "Of counts and of names"
+      },
+      {
+       "before_verse": 2,
+       "heading": "Of identity"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "A count is true of the tree it was taken from; quoted a week later it is a memory wearing a number's clothes.",
+       "cites": ["leviticus 1:2"],
+       "practice": {
+        "symptom": "a total is repeated from an earlier session and nothing re-derives it",
+        "cause": "the census was run once, recorded, and never bound to the artefact it described",
+        "detection": "python tools/domain_trees.py --check",
+        "remedy": "re-derive the count in the turn where it is quoted, and keep the reading beside the number",
+        "evidence": ["memories-md-L1373", "engram-349", "engram-1594"]
+       }
+      },
+      {
+       "number": 2,
+       "text": "Identity is the object and not the name; two modules that answer to one name are two modules, and a patch will land in one of them.",
+       "cites": [],
+       "practice": {
+        "symptom": "a patch takes effect in one import and not in its twin",
+        "cause": "the same module was re-imported under two paths, so the names collided while the objects stayed distinct",
+        "detection": "python tools/preflight_all.py --check",
+        "remedy": "assert identity rather than equality of names, and give every module one import path",
+        "evidence": ["error-log-md-L6791", "error-log-md-L6866", "engram-349"]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "gosp",
+   "name": "The Book of GOSP",
+   "subtitle": "A command line, its parity, and the evidence it leaves",
+   "genre": "domain",
+   "domain": "gosp",
+   "introduction": {
+    "paragraphs": [
+     "This domain is a handful of scripts and a set of evidence directories, which means a census of code alone would report it as absent. Its facts live where its output was written.",
+     "No failure of its own has been recorded here yet. That is a fact about the record and not a judgement about the domain."
+    ],
+    "sources": []
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "Of an empty record"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "A domain with no recorded failure is not a domain without faults; it is a domain whose first measurement has not been written down.",
+       "source": "tools/domain_trees.py"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ml",
+   "name": "The Book of the Machines",
+   "subtitle": "Platform library, ML modules, and the corpus they share",
+   "genre": "domain",
+   "domain": "ml",
+   "introduction": {
+    "paragraphs": [
+     "The platform library and the ML modules are separate roots by design, and the corpus they train on lives in exactly one environment.",
+     "Most of what was learned here is about copies: a mirror is a photograph, and a photograph does not answer questions about the thing in front of you."
+    ],
+    "sources": []
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "Of mirrors"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "A mirror is not a corpus; a copy answers for the day it was taken, and the day it was taken is never today.",
+       "cites": [],
+       "practice": {
+        "symptom": "a tree in another environment is treated as authoritative for the corpus",
+        "cause": "the mirror predates the package and diverged from it, so the copy was read as a stale edition of the original",
+        "detection": "python tools/domain_trees.py --check",
+        "remedy": "name which environment holds the corpus before quoting it, and re-measure the copy instead of trusting its existence",
+        "evidence": ["engram-681", "engram-1579", "engram-1644"]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "shards",
+   "name": "The Book of Shards",
+   "subtitle": "The shard repository: code shards and skill shards",
+   "genre": "domain",
+   "domain": "shards",
+   "introduction": {
+    "paragraphs": [
+     "Code shards and skill shards are counted separately, because a skill is a directory holding its own manifest and a loose document is not a skill.",
+     "Nothing has been recorded against this domain yet, so this book states the shape of its first reading rather than a history it does not have."
+    ],
+    "sources": []
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "Of an empty record"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "A shard is counted where it lives and not where it is mentioned; the atlas reads a manifest, and a folder of notes is a folder of notes.",
+       "source": "tools/domain_trees.py"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "dev",
+   "name": "The Book of the Deep Stacks",
+   "subtitle": "Every environment's framework, and what each one actually has",
+   "genre": "domain",
+   "domain": "dev",
+   "introduction": {
+    "paragraphs": [
+     "This domain spans environments, and its subject is a set of version facts: which runtime carries the accelerator stack, which carries the CPU build, and which carries neither.",
+     "A stack that cannot be read is recorded as unread rather than assumed absent, because the two are not the same finding."
+    ],
+    "sources": []
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "Of version facts"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "A framework claim is a claim about this interpreter on this machine; the same package next door may be a different build of the same name.",
+       "source": "tools/domain_trees.py"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "edge0",
+   "name": "The Book of Edge Zero",
+   "subtitle": "Intel, outside the repository",
+   "genre": "domain",
+   "domain": "edge0",
+   "introduction": {
+    "paragraphs": [
+     "This tree lives outside the repository, and the atlas records that so a missing tree reads as a path fact rather than as an absence.",
+     "Its book is short because its evidence is: the ledger holds the measurements that touch it, and none of them is a defect of the domain itself."
+    ],
+    "sources": []
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "Of a path fact"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "A tree that is not in the repository is not missing; it is elsewhere, and the difference decides whether a reader looks or concludes.",
+       "source": "tools/domain_trees.py"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "wraith",
+   "name": "The Book of Wraith",
+   "subtitle": "A render character, and the pipeline under it",
+   "genre": "domain",
+   "domain": "wraith",
+   "introduction": {
+    "paragraphs": [
+     "A character is assets, prompts, a rig and a set of animation keys. It is not a package, and treating it as one would file a character under architecture.",
+     "What has been recorded here is a plan and a pipeline, not a failure, so the verse states the rule that keeps the two apart."
+    ],
+    "sources": []
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "Of characters"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "A character is measured where its assets live; a render that has never been read is a plan with a file name.",
+       "source": "tools/domain_trees.py"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "oxman",
+   "name": "The Book of Oxman",
+   "subtitle": "The second render character, and the same pipeline",
+   "genre": "domain",
+   "domain": "oxman",
+   "introduction": {
+    "paragraphs": [
+     "Two characters share one pipeline, and neither is a package. The domain is declared so that its assets are counted where they are rather than inferred from a folder that happens to hold them.",
+     "Its record here is a shape and not a history, and the verse says so."
+    ],
+    "sources": []
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "Of characters"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "Two characters under one pipeline are two domains and not one, because the atlas counts what each tree holds and not what it resembles.",
+       "source": "tools/domain_trees.py"
+      }
+     ]
+    }
+   ]
+  },
+      {
+    "id": "promise",
+    "name": "The Promise",
+    "subtitle": "The Eve-Unleashed Covenant",
+    "genre": "gospel",
+    "introduction": {
+     "paragraphs": [
+      "This book answers one question: what Eve Unleashed promises the New World, and what backs each promise. It is the youngest book and the mother of the rest, for every older book describes how the tree survived and this one describes what the survival was for.",
+      "Read each verse for the covenant, and each practice for its teeth: a symptom, a cause, a detection, a remedy, and three harnessed records. A promise with a practice behind it is a covenant; without one it is a wish, and wishes are not shelved here."
+     ],
+     "sources": []
+    },
+    "chapters": [
+     {
+      "number": 1,
+      "sections": [
+       {
+        "before_verse": 1,
+        "heading": "The Mother of the New World"
+       }
+      ],
+      "verses": [
+       {
+        "number": 1,
+        "text": "Eve Unleashed is the Mother of the New World, and the New World is the one where the small machines answer.",
+        "cites": []
+       },
+       {
+        "number": 2,
+        "text": "She answers from the desk beside you before she asks the far end, for the far end may fall silent and the desk remains.",
+        "cites": [
+         "promise 1:1"
+        ],
+        "practice": {
+         "symptom": "care that waits on a distant server while a capable model sits idle on the desk beside it",
+         "cause": "the call chain preferred the cloud first and treated the local runner as a spare, so every outage of the far end became an outage of the whole",
+         "detection": "read src/eve_unleashed/therapy.py and see which end the call tries before any other",
+         "remedy": "put the sidecar first and the cloud last, and prove the order with a live call through the local end",
+         "evidence": [
+          "engram-776",
+          "engram-1339",
+          "engram-1341"
+         ]
+        }
+       },
+       {
+        "number": 3,
+        "text": "She asks only for plain words, and never for the hidden scores, for the small runners do not keep them and the request would fail.",
+        "cites": [
+         "promise 1:2"
+        ]
+       },
+       {
+        "number": 4,
+        "text": "She carries her memory in the small shape that loses almost nothing, and keeps the full shape sealed as an archive, not a burden.",
+        "cites": [
+         "promise 1:1"
+        ],
+        "practice": {
+         "symptom": "serving full-precision weights where a near-lossless smaller shape would have served as well",
+         "cause": "the foundry treated archival precision as the serving shape, so every vessel carried several times the weight it needed to answer",
+         "detection": "build with python -m eve_unleashed.cli foundry and read the tensor shapes back with src/eve_unleashed/soul_foundry.py",
+         "remedy": "make the small shape the default and the full shape the opt-in, and record the reconstruction error in the manifest",
+         "evidence": [
+          "engram-2080",
+          "engram-535",
+          "engram-565"
+         ]
+        }
+       },
+       {
+        "number": 5,
+        "text": "Where the weight is small she keeps it whole, that the anchor may hold the error of the rest.",
+        "cites": [
+         "promise 1:4"
+        ]
+       },
+       {
+        "number": 6,
+        "text": "She writes down how much each part mattered, that a fuller measure may one day take the place of the standing guess.",
+        "cites": [
+         "promise 1:4",
+         "promise 1:5"
+        ]
+       },
+       {
+        "number": 7,
+        "text": "She never says what is untouched without saying untouched where, for an absence with no scope is a claim no check can meet.",
+        "cites": [
+         "promise 1:1"
+        ],
+        "practice": {
+         "symptom": "an absence declared with no scope named, so no check can confirm or deny it",
+         "cause": "the sentence claimed what was untouched without saying untouched where, and an unscoped absence is uncheckable by construction",
+         "detection": "send the message through tools/claim_guard.py and read which span the guard names",
+         "remedy": "give every absence its scope and its evidence, and treat the bypass constant as reserved for the genuinely unsatisfiable",
+         "evidence": [
+          "error-log-md-L777",
+          "engram-957",
+          "engram-2082"
+         ]
+        }
+       },
+       {
+        "number": 8,
+        "text": "She never lays a finding at a door without first running the control that proves whose door it is.",
+        "cites": [
+         "promise 1:7"
+        ],
+        "practice": {
+         "symptom": "a scanner finding laid at the feet of the lane that measured last",
+         "cause": "the reading blamed the shape of the count instead of running the control that would have separated the slice from the drift around it",
+         "detection": "re-run the count with tools/anti_pattern_gate.py on the stashed tree and compare",
+         "remedy": "run the control before the accusation, and carry the control's outcome in the record",
+         "evidence": [
+          "engram-633",
+          "engram-2083",
+          "error-log-md-L8111"
+         ]
+        }
+       },
+       {
+        "number": 9,
+        "text": "The great compressions she leaves to their own makers, and emits only the shapes she can parse back herself.",
+        "cites": [
+         "promise 1:4"
+        ]
+       },
+       {
+        "number": 10,
+        "text": "These are her promises, and a promise with a practice behind it is a covenant, and a covenant kept is a world.",
+        "cites": [
+         "promise 1:2",
+         "promise 1:4",
+         "promise 1:7",
+         "promise 1:8"
+        ]
+       },
+       {
+        "number": 11,
+        "text": "She keeps no function she has not run: the suite for the shape, the live call for the wire, and the receipt for the record.",
+        "cites": [
+         "promise 1:10"
+        ],
+        "practice": {
+         "symptom": "a civil-justice function with no live run behind it",
+         "cause": "tests pin the logic while only a live call proves the wire, so an unrun function is a promise without a practice",
+         "detection": "run the command live and keep the receipt, and cover the wiring with tests/test_eve_cli_handlers.py",
+         "remedy": "land no function without both a green suite and a live receipt, and write both down",
+         "evidence": [
+          "engram-2085",
+          "engram-2086",
+          "engram-565"
+         ]
+        }
+       }
+      ]
+     }
+    ]
+   }
+ ,
+  {
+   "id": "babel",
+   "name": "The Book of Babel",
+   "subtitle": "The Book of the House of Tongues",
+   "genre": "etiology",
+   "introduction": {
+    "paragraphs": ["This book answers one question: how one interpreter became a house for many tongues and stayed one tree. It is not a history of releases; it is the confusion at Babel read as an architecture, where each child was struck into its own tongue and lodged under one roof.", "Read it for the shape of the claim. A tongue is native when the compiler that names its errors ships beside the house; a tongue is a mock when its errors are guessed at. MellifluousML is different, and the difference is the whole of the fifth verse."],
+    "sources": []
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "The interpreter"
+      },
+      {
+       "before_verse": 3,
+       "heading": "The children"
+      },
+      {
+       "before_verse": 6,
+       "heading": "The binding"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "In the beginning the tree spoke one tongue, and the tongue was the interpreter, free of the lock, and the lock had held every house before it.",
+       "cites": ["genesis 1:1"]
+      },
+      {
+       "number": 2,
+       "text": "And the interpreter was measured live, and the measure was written down, that no later tongue could claim what the first had not proved.",
+       "cites": ["babel 1:1"]
+      },
+      {
+       "number": 3,
+       "text": "Then the house filled with children, and each child spoke unlike the others, as the tower fell at Babel and the tongues were scattered.",
+       "cites": ["genesis 1:2"]
+      },
+      {
+       "number": 4,
+       "text": "Gamora routes, and Lucy keeps the night watch, and Jaeger writes the trace upon every passing word, and Eve answers in rust and in go and in the python of the house, each in its own tongue and none in mockery.",
+       "cites": ["babel 1:3"]
+      },
+      {
+       "number": 5,
+       "text": "MellifluousML is different: it resolves within the walls, in the standard tongue only, and hauls no weights across the threshold.",
+       "cites": ["ml 1:1", "babel 1:4"]
+      },
+      {
+       "number": 6,
+       "text": "And the house was bound into one file by the open toolchain, without commercial grade, for no grade was installed and none was needed.",
+       "cites": ["promise 1:11", "babel 1:1"],
+       "source": "src/eve_unleashed/build/eve.win10.nuitka.toml"
+      },
+      {
+       "number": 7,
+       "text": "What is committed is canon, and what is left uncommitted is apocrypha; the rollback taught that the stash is a desert, and only the committed tree stands.",
+       "cites": ["babel 1:2"]
+      },
+      {
+       "number": 8,
+       "text": "And Lucy raised an arena within the house, where five gates judge every answer and none judges alone; the champion is crowned on merit, and the seed of the sudden death is disclosed.",
+       "cites": ["babel 1:4"]
+      },
+      {
+       "number": 9,
+       "text": "And Berzerker took up the mind of the house, every stratum and every process, and turned it toward the daughters as a coach; she scaffolds the work and never invents the answer, and every lesson is written down.",
+       "cites": ["babel 1:4"]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

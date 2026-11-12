@@ -1,0 +1,17 @@
+{
+  "_readme": "TEMPLATE ONLY - committed on purpose. The LIVE file is state/evolved_rl_params.json (untracked, written by scripts/evolution_cycle.py). Do NOT track live genes: a git restore/checkout reverts them and bypasses the promotion streak -> holdout -> promote -> auto-canary gates in reverse (observed 2026-09-10, see EVOLUTION_PROCESS_AUDIT_20260910.md defect D-1 / item EV-1). Values below are the ScheduleConfig built-in defaults.",
+  "genes": {
+    "learning_rate": 0.29,
+    "epsilon": 0.11,
+    "discount": 0.91,
+    "epsilon_decay": 0.0
+  },
+  "fitness": null,
+  "fitness_detail": null,
+  "baseline": null,
+  "baseline_hash": null,
+  "holdout": null,
+  "wins": 0,
+  "promoted_at": null,
+  "run_seed": null
+}

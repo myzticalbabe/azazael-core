@@ -1,0 +1,14 @@
+{
+  "params": {
+    "mutation_rate": 0.4,
+    "crossover_rate": 0.7418765870174756,
+    "tournament_size": 5,
+    "early_stop_patience": 5,
+    "early_stop_tolerance": 0.01
+  },
+  "score_ema": 0.3681217066666667,
+  "runs": 281,
+  "candidate": null,
+  "candidate_runs": 0,
+  "candidate_sum": 0.0
+}

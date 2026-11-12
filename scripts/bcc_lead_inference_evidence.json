@@ -1,0 +1,34 @@
+{
+ "generated": "2026-09-05",
+ "method": "Cross-layer pass over already-collected public-record artifacts. No new data collection; no inferred/name-matched private-person edges (corpus rule, bcc_person_edges.json). Per-lead status is triage state only (OPEN / IN-PROGRESS / RESOLVED) — it does not change what any lead asserts.",
+ "layers_loaded": [
+  "bcc_990_series.json",
+  "bcc_bai_perron_results.json",
+  "BCC_KUZU_TEMPORAL_evidence.json",
+  "bcc_graphiti_temporal.json",
+  "bcc_network_sna_results_v3.json",
+  "bcc_person_edges.json",
+  "bcc_record_linkage.json",
+  "pa_campaign_finance_bcc.json",
+  "_gap_status.json"
+ ],
+ "n_leads": 1,
+ "leads": [
+  {
+   "id": "LEAD-08",
+   "class": "RESOLVED",
+   "title": "Name-consistency watchdog CLEAN: 61 name-bearing strings across SNA v3 labels/centrality/communities, record-linkage clusters, person_edges, and the temporal KG all use corpus-attested given names (Joseph Plageman Jr / John Robinson / Christine Axford / Missy Orlando / …). No 'Christopher Plageman'-class corruption remains in any machine layer.",
+   "basis": [
+    "bcc_network_sna_results_v3.json",
+    "bcc_record_linkage.json",
+    "bcc_person_edges.json",
+    "bcc_graphiti_temporal.json",
+    "BCC_KUZU_TEMPORAL_evidence.json"
+   ],
+   "gap_refs": [],
+   "action": "No action. Re-run after any regeneration of the SNA, linkage, person-edge, or KG layers to keep the machine layers honest.",
+   "integrity_note": "Name-consistency check across machine artifacts vs the human corpus's canonical given names.",
+   "status": "RESOLVED"
+  }
+ ]
+}

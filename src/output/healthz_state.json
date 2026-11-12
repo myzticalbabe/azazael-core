@@ -1,0 +1,11 @@
+{
+  "checks": 1,
+  "last_healthy": false,
+  "history": [
+    {
+      "timestamp": "2026-02-11T06:49:56.973089",
+      "healthy": false,
+      "issues": 1
+    }
+  ]
+}

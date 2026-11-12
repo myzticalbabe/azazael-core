@@ -1,0 +1,20 @@
+{
+  "worms": {
+    "SYSTEMZ": {"tier": 1, "domain": "system", "monitors": ["cpu", "memory", "disk_io", "network"], "interval_seconds": 5},
+    "PROCESSZ": {"tier": 1, "domain": "process", "monitors": ["pid", "cpu_percent", "memory_rss", "status"], "interval_seconds": 10},
+    "DISKZ": {"tier": 1, "domain": "storage", "monitors": ["usage_percent", "iops", "throughput", "inodes"], "interval_seconds": 30},
+    "NETWORKZ": {"tier": 1, "domain": "network", "monitors": ["bytes_sent", "bytes_recv", "connections", "latency_ms"], "interval_seconds": 10},
+    "CLOCKZ": {"tier": 1, "domain": "time", "monitors": ["ntp_offset_ms", "timezone", "uptime_seconds"], "interval_seconds": 60}
+  },
+  "meta_worms": {
+    "ERRORZ": {"tier": 3, "crawls": ["syntax", "import", "type", "attribute"], "target_dirs": ["/root/azazael/src"], "output": "errorz_report.json"},
+    "HEALTHZ": {"tier": 3, "crawls": ["cpu", "memory", "disk", "network"], "state_file": "healthz_state.json", "threshold_cpu_percent": 90},
+    "TRIMZ": {"tier": 3, "crawls": ["dead_code", "unused_imports", "duplicate_files"], "target_dirs": ["/root/azazael/src"]},
+    "DOCKERZ": {"tier": 3, "crawls": ["container_health", "image_size", "volume_usage"], "docker_socket": "unix:///var/run/docker.sock"}
+  },
+  "hydra": {
+    "stages": ["discovery", "analysis", "optimization", "validation", "deployment", "feedback"],
+    "max_parallel": 4,
+    "trial_count": 10
+  }
+}

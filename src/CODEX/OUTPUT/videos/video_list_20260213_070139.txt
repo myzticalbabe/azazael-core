@@ -1,0 +1,7 @@
+file 'C:/Azazael\CODEX\OUTPUT\videos\azazael_intro_20260213_070139.mp4'
+file 'C:/Azazael\CODEX\OUTPUT\videos\azazael_architecture_20260213_070139.mp4'
+file 'C:/Azazael\CODEX\OUTPUT\videos\azazael_python_20260213_070139.mp4'
+file 'C:/Azazael\CODEX\OUTPUT\videos\azazael_worms_20260213_070139.mp4'
+file 'C:/Azazael\CODEX\OUTPUT\videos\azazael_ml_20260213_070139.mp4'
+file 'C:/Azazael\CODEX\OUTPUT\videos\azazael_llm_20260213_070139.mp4'
+file 'C:/Azazael\CODEX\OUTPUT\videos\azazael_outro_20260213_070139.mp4'

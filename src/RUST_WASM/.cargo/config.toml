@@ -1,0 +1,17 @@
+# SIMD is a TARGET FEATURE, not a cargo feature.
+#
+# Measured 2026-11-01 on this crate: `Cargo.toml` declares `simd = []` under
+# `[features] default = ["simd"]`, which compiles to nothing — an empty feature
+# enables no code, sets no rustc flag. With no `.cargo/config.toml` there was also
+# no `target-feature`, so LLVM never saw `+simd128` and `cosine_similarity_simd`
+# was scalar code carrying a vector name. The two exported functions benchmarked
+# 14.43 us vs 14.79 us per 1536-dim call (ratio 1.02) — i.e. identical work.
+#
+# This file is the fix: tell rustc to enable the wasm SIMD proposal for the wasm32
+# target only. It is scoped by target so a native `cargo test` is unaffected.
+#
+# Verify, do not assume: `node bench.mjs pkg` prints max_dev (must stay at float32
+# noise, ~1e-7) and the simd_us/scalar_us ratio. A build with simd128 shows both a
+# smaller or equal ratio AND the same numerics; a build without it shows ratio ~1.
+[target.wasm32-unknown-unknown]
+rustflags = ["-C", "target-feature=+simd128"]

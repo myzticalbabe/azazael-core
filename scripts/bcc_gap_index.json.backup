@@ -1,0 +1,542 @@
+{
+ "1": {
+  "basis": "Routing package complete (Aug 1); route via PA AG Charitable Trusts / SAMHSA, never direct to BCC. Board-role as-of qualifier applied Sep 3.",
+  "date": "2026-09-11",
+  "disposition": "EXEC-READY",
+  "status": "EXEC_READY",
+  "title": "Conflict of Interest policy request",
+  "topic": "Governance"
+ },
+ "10": {
+  "basis": "Roster public with roles (Sep 2) but roles are post-990 reorg; term limits, selection and recusal still undisclosed.",
+  "date": "2026-09-11",
+  "disposition": "OPEN (advanced)",
+  "leads": [
+   "LEAD-03"
+  ],
+  "status": "OPEN",
+  "title": "Board member term limits and selection process",
+  "topic": "Governance"
+ },
+ "11": {
+  "basis": "Persists in FY2025 990 (re-verified Sep 2). Schedule J not public; direct request stands.",
+  "date": "2026-09-11",
+  "disposition": "OPEN",
+  "leads": [
+   "LEAD-01",
+   "LEAD-02"
+  ],
+  "status": "OPEN",
+  "title": "CFO other compensation $17,350",
+  "topic": "Financial"
+ },
+ "12": {
+  "basis": "No service-line breakdown in any filed 990. Unchanged.",
+  "date": "2026-09-11",
+  "disposition": "OPEN",
+  "status": "OPEN",
+  "title": "Single-program reporting in 990s",
+  "topic": "Financial"
+ },
+ "13": {
+  "basis": "Program inventory documented; Sep 5 county approval-record mining added the FY26 $16.24M fund-level budget and consent-docket voice-vote pattern. BCC-specific $ still requires the filed RTK (draft complete, unfiled).",
+  "date": "2026-09-11",
+  "disposition": "OPEN (advanced)",
+  "status": "OPEN",
+  "title": "County Human Services contract value",
+  "topic": "Funding"
+ },
+ "14": {
+  "basis": "Structurally opaque - all databases searched, manager not named. Sep 6: 403(b) plan provider nexus formally UNDETERMINABLE from public data (Schedule C exemption). Audited-statement request stands.",
+  "date": "2026-09-11",
+  "disposition": "OPEN (advanced Sep 6)",
+  "status": "OPEN",
+  "title": "Investment manager identity",
+  "topic": "Financial"
+ },
+ "15": {
+  "basis": "2 of 8 determinable by rule (24 CFR 578.49); 6 undetermined. Sep 4: 19-case MDJ eviction record is the property-relevant datapoint; unit-address matching is the documented next work.",
+  "date": "2026-09-11",
+  "disposition": "OPEN (advanced)",
+  "status": "OPEN",
+  "title": "HUD property ownership vs leasing",
+  "topic": "Housing"
+ },
+ "16": {
+  "basis": "Magnitude re-confirmed (76% drop). Sep 6: FY2018 Bai-Perron regime break plus the four-year failure-to-transmit pattern ($49.7K-$77.1K-$59.9K-$20.9K, C7) re-anchor the cause question; still unexplained.",
+  "date": "2026-09-11",
+  "disposition": "OPEN (advanced Sep 6)",
+  "status": "OPEN",
+  "title": "Why contributions collapsed to $204,333",
+  "topic": "Financial"
+ },
+ "17": {
+  "basis": "Procedural win only; underlying documentation issues never adjudicated. No public movement.",
+  "date": "2026-09-11",
+  "disposition": "OPEN",
+  "status": "OPEN",
+  "title": "Were the BCC v. Community Care deficiencies fixed?",
+  "topic": "Legal"
+ },
+ "18": {
+  "basis": "Not public. RTK draft ready (combined 13/18 package), unfiled. Unchanged.",
+  "date": "2026-09-11",
+  "disposition": "OPEN",
+  "status": "OPEN",
+  "title": "PA OMHSAS audit findings",
+  "topic": "Oversight"
+ },
+ "19": {
+  "basis": "Session 12 (HigherGov/USASpending narrative). GPRA/NOMS actuals remain a SAMHSA FOIA path (draft UNSENT).",
+  "date": "2026-09-11",
+  "disposition": "RESOLVED",
+  "status": "RESOLVED",
+  "title": "SAMHSA grant performance reports",
+  "topic": "Funding"
+ },
+ "2": {
+  "basis": "Central question unanswered. Sep 6 pension layer: not provable and not disprovable from public data; 403(b) Schedule C exemption; plan auditor identified; Little sole signer four years. Herbein/LBMC inquiry remains the execution path.",
+  "date": "2026-09-11",
+  "disposition": "OPEN (advanced Sep 6)",
+  "status": "OPEN",
+  "title": "Is Edward Jones actually managing BCC's portfolio?",
+  "topic": "Governance"
+ },
+ "20": {
+  "basis": "28/30 sampling context (A-02-21-02010) documented; BCC-specific applicability unanswered. Same records family as G-59.",
+  "date": "2026-09-11",
+  "disposition": "OPEN",
+  "status": "OPEN",
+  "title": "OIG subrecipient-monitoring relevance to BCC",
+  "topic": "Oversight"
+ },
+ "21": {
+  "basis": "Grant structure documented (MacKenzie Scott $678K channel + COVID). Latest UW review outcome and Orlando recusal unminuted - no public movement.",
+  "date": "2026-09-11",
+  "disposition": "OPEN (advanced)",
+  "status": "OPEN",
+  "title": "United Way grant compliance",
+  "topic": "Funding"
+ },
+ "22": {
+  "basis": "Annual amounts unknown. Sep 4: campaign-finance negative does not touch COCA institutional lines; Sep 5 OSF itemization added BCC direct rows ($172,220 budgeted).",
+  "date": "2026-09-11",
+  "disposition": "OPEN",
+  "leads": [
+   "LEAD-05"
+  ],
+  "status": "OPEN",
+  "title": "COCA grant detail (cumulative $3.3M, 5 grants)",
+  "topic": "Funding"
+ },
+ "23": {
+  "basis": "Structural conflict confirmed (COCA employment + Council votes); recusal record requires manual minutes review. Sep 4 campaign-finance clean for G-H also.",
+  "date": "2026-09-11",
+  "disposition": "OPEN (advanced)",
+  "status": "OPEN",
+  "title": "Goodman-Hinnershitz recusal record",
+  "topic": "Governance"
+ },
+ "24": {
+  "basis": "21 public MDJ records pulled (2 civil + 19 landlord/tenant evictions 2021-26; Merce x4). CP-civil NOT publicly searchable - CP records request drafted UNSENT. TIMING: county docket index relaunch slated mid-September 2026 - recheck now.",
+  "date": "2026-09-11",
+  "disposition": "OPEN (advanced Sep 4)",
+  "status": "OPEN",
+  "title": "UJS portal / court records",
+  "topic": "Opacity"
+ },
+ "25": {
+  "basis": "Not searched (manual county office path). Sep 4 founding-date corroboration only.",
+  "date": "2026-09-11",
+  "disposition": "OPEN",
+  "leads": [
+   "LEAD-06"
+  ],
+  "status": "OPEN",
+  "title": "Register of Wills / bequests",
+  "topic": "Opacity"
+ },
+ "26": {
+  "basis": "Registration retrievable (Cert 3306, expires 2027-05-15); DOS corporate record 658342 supplies the current officer/governor slate. BCO-10 PDFs still not publicly indexed - direct PA DOS records request (draft UNSENT).",
+  "date": "2026-09-11",
+  "disposition": "OPEN (advanced Sep 6)",
+  "status": "OPEN",
+  "title": "PA BCO registration / BCO-10 officer slate",
+  "topic": "Governance"
+ },
+ "27": {
+  "basis": "Sep 6 graded MEDIUM institutional AUDITOR_INDEPENDENCE with written escalation criteria; dual role not illegal; plan-level concern CONTAINED (plan auditor is Torrillo & Associates, not Herbein); criterion 1 (fee split) resolved below threshold - FY2025 accounting fees $44,118 = 0.33% of expenses; preparer of record now Cherry Bekaert Advisory LLC.",
+  "date": "2026-09-11",
+  "disposition": "OPEN (advanced Sep 6)",
+  "leads": [
+   "LEAD-04"
+  ],
+  "status": "OPEN",
+  "title": "Herbein auditor independence",
+  "topic": "Financial"
+ },
+ "28": {
+  "basis": "Re-probed Sep 3: still no DMARC record. Unchanged.",
+  "date": "2026-09-11",
+  "disposition": "OPEN",
+  "status": "OPEN",
+  "title": "readingpa.gov DMARC record",
+  "topic": "Opacity"
+ },
+ "29": {
+  "basis": "No direct emails published; web forms only.",
+  "date": "2026-09-11",
+  "disposition": "OPEN",
+  "leads": [
+   "LEAD-04",
+   "LEAD-05"
+  ],
+  "status": "OPEN",
+  "title": "Commissioner direct emails",
+  "topic": "Opacity"
+ },
+ "3": {
+  "basis": "Redacted complaint complete; recipient lists exclude BCC and now also exclude local officials (Sep 5 local-official-exclusion). Send gate holds.",
+  "date": "2026-09-11",
+  "disposition": "EXEC-READY",
+  "status": "EXEC_READY",
+  "title": "Has any complaint actually been filed?",
+  "topic": "Oversight"
+ },
+ "30": {
+  "basis": "Aug 1 - integrated, 6-year worm-fleet z-scores recomputed.",
+  "date": "2026-09-11",
+  "disposition": "RESOLVED",
+  "status": "RESOLVED",
+  "title": "FY2022 Form 990 data",
+  "topic": "Financial"
+ },
+ "31": {
+  "basis": "Statements themselves still not obtained. Sep 6 partial service: FY2025 990 Part IX fee split extracted, preparer of record identified, and the 403(b) plan asset series (PY2021-24) mined from DOL Schedule H.",
+  "date": "2026-09-11",
+  "disposition": "OPEN (advanced Sep 6)",
+  "leads": [
+   "LEAD-02",
+   "LEAD-07"
+  ],
+  "status": "OPEN",
+  "title": "Audited financial statements",
+  "topic": "Financial"
+ },
+ "32": {
+  "basis": "Session 11 - no public audit history; active 501(c)(3) since Feb 1979.",
+  "date": "2026-09-11",
+  "disposition": "RESOLVED",
+  "status": "RESOLVED",
+  "title": "IRS audit history",
+  "topic": "Financial"
+ },
+ "33": {
+  "basis": "Glassdoor/Indeed mined. Sep 4: UJS organization search found ZERO employment-suit records. Residual: Comparably platform; CP-civil slice needs a records request.",
+  "date": "2026-09-11",
+  "disposition": "OPEN (advanced)",
+  "status": "OPEN",
+  "title": "Employee reviews / whistleblower signals",
+  "topic": "Workforce"
+ },
+ "34": {
+  "basis": "Automated access blocked (anti-bot); manual searches only.",
+  "date": "2026-09-11",
+  "disposition": "OPEN",
+  "leads": [
+   "LEAD-06"
+  ],
+  "status": "OPEN",
+  "title": "LinkedIn / social profiles",
+  "topic": "Opacity"
+ },
+ "35": {
+  "basis": "Board roster with roles public (Sep 2) but post-990 reorg; staff directory still unpublished; as-of dating required corpus-wide.",
+  "date": "2026-09-11",
+  "disposition": "OPEN (advanced)",
+  "status": "OPEN",
+  "title": "Staff directory / board transparency",
+  "topic": "Transparency"
+ },
+ "36": {
+  "basis": "Present in the FY2025 filing; extraction pending manual copy. Unchanged.",
+  "date": "2026-09-11",
+  "disposition": "OPEN (advanced)",
+  "status": "OPEN",
+  "title": "990 Schedule O narrative",
+  "topic": "Transparency"
+ },
+ "37": {
+  "basis": "Below the $50K public threshold. Sep 6: FY2018 regime dating plus the board K10 structural datum re-contextualize Plageman's TPUC presidency; endowment and manager still unknown.",
+  "date": "2026-09-11",
+  "disposition": "OPEN (advanced Sep 6)",
+  "status": "OPEN",
+  "title": "TPUC IRS filings",
+  "topic": "Financial"
+ },
+ "38": {
+  "basis": "Status unknown. Sep 4 weak negative: all 21 public UJS records are Berks. Unchanged.",
+  "date": "2026-09-11",
+  "disposition": "OPEN",
+  "status": "OPEN",
+  "title": "Satellite sites (Chester County)",
+  "topic": "Opacity"
+ },
+ "39": {
+  "basis": "No public source.",
+  "date": "2026-09-11",
+  "disposition": "OPEN",
+  "leads": [
+   "LEAD-01",
+   "LEAD-03"
+  ],
+  "status": "OPEN",
+  "title": "Why Malley left (FY2019 transition)",
+  "topic": "Governance"
+ },
+ "4": {
+  "basis": "Re-verified live 2026-09-11: latest public filing remains FY2025 (filed 2026-05-08). No FY2026 return. ProPublica monitor stands (~May 2027).",
+  "date": "2026-09-11",
+  "disposition": "OPEN-MONITOR",
+  "status": "MONITOR",
+  "title": "FY2026 Form 990 not yet available",
+  "topic": "Financial"
+ },
+ "40": {
+  "basis": "Closed negative on the strongest available evidence: full official 2025-26 export (100% of state-reported contributions) - zero BCC-connected persons, entities or employers as donors; 8 recipient committee rolls (617 contributors) also clean. Channel closed as an evidentiary source.",
+  "date": "2026-09-11",
+  "disposition": "RESOLVED (Sep 4)",
+  "status": "RESOLVED",
+  "title": "PA campaign finance / governance-conflict donors",
+  "topic": "Governance"
+ },
+ "41": {
+  "basis": "Session 17 base-vs-total artifact reconciled; FY2025 verified.",
+  "date": "2026-09-11",
+  "disposition": "RESOLVED",
+  "leads": [
+   "LEAD-01",
+   "LEAD-02"
+  ],
+  "status": "RESOLVED",
+  "title": "CFO/CEO compensation",
+  "topic": "Financial"
+ },
+ "42": {
+  "basis": "Re-verified live 2026-09-11: work-plan project page still lists the series (announced 2025-11-17); no report posted; June 2026 work-plan update carries no BCC-specific action. Monitoring cycle current.",
+  "date": "2026-09-11",
+  "disposition": "OPEN-MONITOR",
+  "status": "MONITOR",
+  "title": "HHS OIG CCBHC audit (SRS-A-26-025)",
+  "topic": "Oversight"
+ },
+ "43": {
+  "basis": "Single-complainant first-hand account, privacy-protected; mitigation = redacted complaint. Corroboration continues (WITNESS_OUTREACH_STRATEGY, 8 actions). No identifiers attached.",
+  "date": "2026-09-11",
+  "disposition": "OPEN",
+  "status": "OPEN",
+  "title": "MMJ patient coercion (single source)",
+  "topic": "Patient harm"
+ },
+ "44": {
+  "basis": "Payer set documented from BCC's own pages (CCBH active); dollar breakdown unknown.",
+  "date": "2026-09-11",
+  "disposition": "OPEN (advanced)",
+  "status": "OPEN",
+  "title": "Insurance / payer mix detail",
+  "topic": "Funding"
+ },
+ "45": {
+  "basis": "Almost-certain recipient; compliance check needs taggs.hhs.gov manual portal access (agent-inaccessible).",
+  "date": "2026-09-11",
+  "disposition": "OPEN (advanced)",
+  "leads": [
+   "LEAD-05"
+  ],
+  "status": "OPEN",
+  "title": "HHS Provider Relief Fund reporting",
+  "topic": "Funding"
+ },
+ "46": {
+  "basis": "Active federal drawdowns imply active registration; no exclusion record. USASpending confirms live award total $1,965,700 (UEI VC1XNFDJTV33). NEW OBSERVATION 2026-09-11: CMS Medicare revalidation list shows BCC (NPI 1881620250, provider O20031218000279) with revalidation due 2025-11-30 - status unverified, needs a decision on whether to open a gap.",
+  "date": "2026-09-11",
+  "disposition": "OPEN (advanced)",
+  "status": "OPEN",
+  "title": "SAM.gov registration / exclusion",
+  "topic": "Oversight"
+ },
+ "47": {
+  "basis": "Aug 1 - clean, no large breaches on record.",
+  "date": "2026-09-11",
+  "disposition": "RESOLVED",
+  "status": "RESOLVED",
+  "title": "HIPAA breach portal",
+  "topic": "Oversight"
+ },
+ "48": {
+  "basis": "Session 22 - Event 4V0D11, in compliance on telephone investigation.",
+  "date": "2026-09-11",
+  "disposition": "RESOLVED",
+  "status": "RESOLVED",
+  "title": "December 2023 DDAP complaint outcome",
+  "topic": "Enforcement"
+ },
+ "49": {
+  "basis": "To be gathered (privacy-protected human outreach, not agent work). Redacted complaint mitigates interim. No new testimony.",
+  "date": "2026-09-11",
+  "disposition": "OPEN",
+  "status": "OPEN",
+  "title": "Patient testimony collection",
+  "topic": "Patient harm"
+ },
+ "5": {
+  "basis": "IRS e-file XML omits Schedule B; no unredaction path. Remaining: direct request / IRS FOIA 4506-A / RTK / Register of Wills.",
+  "date": "2026-09-11",
+  "disposition": "BLOCKED",
+  "status": "BLOCKED",
+  "title": "Schedule B major donors - structurally redacted",
+  "topic": "Financial"
+ },
+ "50": {
+  "basis": "Strongest direct harm evidence; DDAP record stands (709.34(c)(2), Event YQM512). No DDAP-public movement; RTK/DDAP-BPL action path unchanged.",
+  "date": "2026-09-11",
+  "disposition": "OPEN",
+  "status": "OPEN",
+  "title": "G-50 Unreported client deaths (4 of 6)",
+  "topic": "Patient harm"
+ },
+ "51": {
+  "basis": "523 vs 350 authorized, no 90-day notice (709.14(b)(5)). No new public source.",
+  "date": "2026-09-11",
+  "disposition": "OPEN",
+  "status": "OPEN",
+  "title": "G-51 149% over-capacity era",
+  "topic": "Patient harm"
+ },
+ "52": {
+  "basis": "Mar 2023 statutory revocation ground cited; no revocation action found. Unchanged.",
+  "date": "2026-09-11",
+  "disposition": "OPEN",
+  "status": "OPEN",
+  "title": "G-52 CAP non-compliance (709.17(a)(3))",
+  "topic": "Enforcement"
+ },
+ "53": {
+  "basis": "Allegations unsubstantiated but facility out of compliance (709.31(b)); subject matter requires DDAP records.",
+  "date": "2026-09-11",
+  "disposition": "OPEN",
+  "status": "OPEN",
+  "title": "G-53 2016 complaint subject matter (0NQG11)",
+  "topic": "Enforcement"
+ },
+ "54": {
+  "basis": "Post-2017 re-verification of the no-supervising-physician practice requires CCBH/DDAP records. Unchanged.",
+  "date": "2026-09-11",
+  "disposition": "OPEN",
+  "status": "OPEN",
+  "title": "G-54 CCBH provider-monitoring file on BCC",
+  "topic": "Oversight"
+ },
+ "55": {
+  "basis": "Needs peer-facility survey sets; free and decidable using the now-real bcc-ddap-portal-enumeration skill. Unchanged since Aug 3.",
+  "date": "2026-09-11",
+  "disposition": "OPEN",
+  "status": "OPEN",
+  "title": "G-55 Peer DDAP comparison (is 21/24 anomalous?)",
+  "topic": "Enforcement"
+ },
+ "56": {
+  "basis": "Snapshots confirmed; the pre-reorg about-us page (2025-07-22) replayed, so the board-roster purpose is substantially served. Residual: optional full-site preservation capture.",
+  "date": "2026-09-11",
+  "disposition": "OPEN (advanced)",
+  "status": "OPEN",
+  "title": "G-56 archive.org snapshots of berkscc.org",
+  "topic": "Transparency"
+ },
+ "57": {
+  "basis": "Reading Eagle / WFMZ sweep never run. Unchanged.",
+  "date": "2026-09-11",
+  "disposition": "OPEN",
+  "status": "OPEN",
+  "title": "G-57 Local news archive",
+  "topic": "Transparency"
+ },
+ "58": {
+  "basis": "Care-gap alert thresholds / treatment-duration settings - vendor or insider access only. Sep 4: portal vendor identified (OnCall Health) - no threshold data.",
+  "date": "2026-09-11",
+  "disposition": "OPEN",
+  "status": "OPEN",
+  "title": "G-58 Credible EHR configuration",
+  "topic": "Opacity"
+ },
+ "59": {
+  "basis": "USASpending re-confirmed live federal total and award dates; the SAMHSA-specific verification file requires the SAMHSA FOIA channel (draft UNSENT). Not re-probed this sweep.",
+  "date": "2026-09-11",
+  "disposition": "OPEN (UNVERIFIED source)",
+  "status": "OPEN",
+  "title": "G-59 SAMHSA verification file (was BCC one of 28/30?)",
+  "topic": "Oversight"
+ },
+ "6": {
+  "basis": "Session 11. Sep 4: DOS file 61108 - current Secretary/VP/Treasurer of Central Tire; Jeffrey Mogel President.",
+  "date": "2026-09-11",
+  "disposition": "RESOLVED",
+  "status": "RESOLVED",
+  "title": "Deborah Scull identity",
+  "topic": "Identity"
+ },
+ "60": {
+  "basis": "Not retrieved. Unchanged.",
+  "date": "2026-09-11",
+  "disposition": "OPEN",
+  "status": "OPEN",
+  "title": "G-60 DDAP advisory-committee rosters",
+  "topic": "Governance"
+ },
+ "61": {
+  "basis": "Jul 2020 survey cited 709.26(b)(3): last evaluation dated 2018-07-16. Currency requires a records request.",
+  "date": "2026-09-11",
+  "disposition": "OPEN",
+  "leads": [
+   "LEAD-07"
+  ],
+  "status": "OPEN",
+  "title": "G-61 CEO annual performance-evaluation gap",
+  "topic": "Governance"
+ },
+ "62": {
+  "basis": "Not obtained. Unchanged.",
+  "date": "2026-09-11",
+  "disposition": "OPEN",
+  "status": "OPEN",
+  "title": "G-62 Internal grievance file",
+  "topic": "Governance"
+ },
+ "7": {
+  "basis": "Session 11 (GSK, inferred). Sep 4: DOS 658342 lists Ralph as current Governor.",
+  "date": "2026-09-11",
+  "disposition": "RESOLVED",
+  "status": "RESOLVED",
+  "title": "Jeffrey Ralph identity",
+  "topic": "Identity"
+ },
+ "8": {
+  "basis": "Session 11/14 (DOS 3967553). Sep 4 re-pull: Active, last filing Decennial 2021-03-22, annual report OVER DUE.",
+  "date": "2026-09-11",
+  "disposition": "RESOLVED",
+  "status": "RESOLVED",
+  "title": "John Robinson's consulting firm",
+  "topic": "Governance"
+ },
+ "9": {
+  "basis": "No public movement. Aug 1 action path stands (IRC 6104(d) request via oversight body).",
+  "date": "2026-09-11",
+  "disposition": "OPEN",
+  "leads": [
+   "LEAD-07"
+  ],
+  "status": "OPEN",
+  "title": "Board meeting minutes - never requested",
+  "topic": "Governance"
+ }
+}

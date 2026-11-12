@@ -1,0 +1,48 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>bake spectrum</title>
+<script type="module">
+// Decode the clip's audio once and run the SAME Rust DFT the demo and the clip
+// renderer use, so the baked numbers and the drawn bars cannot disagree.
+import init, * as wasm from "../pkg/azazael_video_wasm.js";
+
+const FPS = 30, BANDS = 32, WIN = 2048;
+// Log power, 5 decades: stored 1.0 is the frame's peak band and 0.0 is 100 dB
+// below it. Storing LINEAR values at 3 dp erased every band under 0.0005 — 34%
+// of the cells read exactly 0 in the first bake (measured 2026-11-03), which is
+// what drew a black hole in the middle of the field. 3 dp in dB space is a 3.5%
+// amplitude step, so the JSON keeps 1 MB and its dynamics.
+const DECADES = 5;
+const toDb = (v) => +Math.max(0, Math.min(1, 1 + Math.log10(Math.max(v, 1e-9)) / DECADES)).toFixed(3);
+await init();
+
+window.__bake = async () => {
+  const raw = await (await fetch("assets/sample.mp4")).arrayBuffer();
+  const ac = new AudioContext();
+  let audio;
+  try {
+    audio = await ac.decodeAudioData(raw);
+  } finally { ac.close(); }
+  const ch = audio.getChannelData(0);      // mono analysis: bands are about energy
+  const rate = audio.sampleRate;
+  const total = Math.floor(audio.duration * FPS);
+  const frames = new Array(total);
+  for (let f = 0; f < total; f++) {
+    const centre = Math.round((f / FPS) * rate);
+    const start = Math.max(0, Math.min(ch.length - WIN, centre - (WIN >> 1)));
+    const win = ch.subarray(start, start + WIN);
+    let sum = 0;
+    for (let i = 0; i < win.length; i++) sum += win[i] * win[i];
+    frames[f] = {
+      b: Array.from(wasm.spectrum_bands(win, BANDS), toDb),
+      r: +Math.sqrt(sum / Math.max(1, win.length)).toFixed(4),
+    };
+  }
+  return {
+    rate, duration: +audio.duration.toFixed(3), fps: FPS, bands: BANDS, win: WIN,
+    scale: "log10 power", decades: DECADES, frames,
+  };
+};
+
+window.__ready = true;
+</script>

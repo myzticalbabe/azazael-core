@@ -1,0 +1,1563 @@
+{
+  "name": "DEPENDZ",
+  "success": true,
+  "files_processed": 76,
+  "items_found": 692,
+  "duration_ms": 924.9110221862793,
+  "output": {
+    "dependencies": {
+      "json": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\install_manager.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\enhanced_qlearning.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\generate_docs_index.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\qlearning_table.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\bat_analysis.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\cross_platform_analysis.py",
+          "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\config.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\comprehensive_analysis.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\validate_docs.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\HYDRA_10MIN_TEST.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\jax_analysis.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\mlflow_integration.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\complete_module_analysis.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\strategic_intelligence.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\run_tests.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\run_qanalysis.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\verify_moe.py",
+          "C:\\Users\\clint\\Desktop\\PERSEPHONE\\persephone.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\web_dashboard.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\deep_learning_qlearning.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\azazael_cli.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\weakness_testing.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\framework_activator.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\lm_studio_client.py",
+          "C:\\Users\\clint\\Desktop\\POINDEXTER\\POINDEXTER.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\INTEROPERABILITY_ANALYSIS.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\run_qanalysis_full.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\harness.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\HYDRA.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\HORUS.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\qualitative_improvements.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\ml_integration.py",
+          "C:\\Users\\clint\\Desktop\\PERSEPHONE\\lib\\sync_manager.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\changelog.py",
+          "C:\\Users\\clint\\Desktop\\WORMZ\\WORMZ.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\test_enhancements.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\metrics_tracker.py",
+          "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS_ENRICHED.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\run_qanalysis_multi.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\unified_analysis.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\universal_converter.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\health_monitor.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\TARBABY.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\azazael_wsa.py"
+        ],
+        "imports": [
+          "import json",
+          "import json",
+          "import json",
+          "import json",
+          "import json",
+          "import json",
+          "import json",
+          "import json",
+          "import json",
+          "import json"
+        ]
+      },
+      "os": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\PERSEPHONE\\lib\\path_manager.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\install_manager.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\consistency_checker.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\generate_docs_index.py",
+          "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\config.py",
+          "C:\\Users\\clint\\Desktop\\PERSEPHONE\\lib\\environment.py",
+          "C:\\Users\\clint\\Desktop\\PERSEPHONE\\bin\\persephone_cli.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\comprehensive_analysis.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\openinterpreter_startup.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\lm_studio_server.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\lm_studio_integration.py",
+          "C:\\Users\\clint\\Desktop\\WORMZ\\WORMZ_POPUP.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\validate_docs.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\mlflow_integration.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\complete_module_analysis.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\strategic_intelligence.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\run_tests.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\fix_syntax_errors.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\run_qanalysis.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\verify_moe.py",
+          "C:\\Users\\clint\\Desktop\\PERSEPHONE\\persephone.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\PERMANENT_LOAD.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\web_dashboard.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\azazael_cli.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\weakness_testing.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\framework_activator.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\run_qanalysis_full.py",
+          "C:\\Users\\clint\\Desktop\\PERSEPHONE\\lib\\sync_manager.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\harness.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\HORUS.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\qualitative_improvements.py",
+          "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS_POPUP.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\ml_integration.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\auto_install.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\changelog.py",
+          "C:\\Users\\clint\\Desktop\\WORMZ\\WORMZ.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\__init__.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\test_enhancements.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\installation_debug.py",
+          "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS_ENRICHED.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\run_qanalysis_multi.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\generate_docstrings.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\lm_studio_autoload.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\universal_converter.py",
+          "C:\\Users\\clint\\Desktop\\PERSEPHONE\\bin\\setup_wizard.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\TARBABY.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\azazael_wsa.py"
+        ],
+        "imports": [
+          "import os",
+          "import os",
+          "import os",
+          "import os",
+          "import os",
+          "import os",
+          "import os",
+          "import os",
+          "import os",
+          "import os"
+        ]
+      },
+      "webbrowser": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\HORUS.py",
+          "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS_ENRICHED.py"
+        ],
+        "imports": [
+          "import webbrowser",
+          "import webbrowser"
+        ]
+      },
+      "datetime": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\consistency_checker.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\generate_docs_index.py",
+          "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\config.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\comprehensive_analysis.py",
+          "C:\\Users\\clint\\Desktop\\WORMZ\\WORMZ_POPUP.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\validate_docs.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\HYDRA_10MIN_TEST.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\complete_module_analysis.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\strategic_intelligence.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\run_qanalysis.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\verify_moe.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\web_dashboard.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\azazael_cli.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\weakness_testing.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\framework_activator.py",
+          "C:\\Users\\clint\\Desktop\\POINDEXTER\\POINDEXTER.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\INTEROPERABILITY_ANALYSIS.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\run_qanalysis_full.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\harness.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\HYDRA.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\qualitative_improvements.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\HORUS.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\ml_integration.py",
+          "C:\\Users\\clint\\Desktop\\PERSEPHONE\\lib\\sync_manager.py",
+          "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS_POPUP.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\changelog.py",
+          "C:\\Users\\clint\\Desktop\\WORMZ\\WORMZ.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\metrics_tracker.py",
+          "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS_ENRICHED.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\run_qanalysis_multi.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\universal_converter.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\TARBABY.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\bat_analysis.py"
+        ],
+        "imports": [
+          "from datetime import datetime",
+          "from datetime import datetime",
+          "from datetime import datetime",
+          "from datetime import datetime",
+          "from datetime import datetime",
+          "from datetime import datetime",
+          "from datetime import datetime",
+          "from datetime import datetime",
+          "from datetime import datetime",
+          "from datetime import datetime"
+        ]
+      },
+      "pathlib": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\PERSEPHONE\\lib\\path_manager.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\install_manager.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\consistency_checker.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\enhanced_qlearning.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\generate_docs_index.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\qlearning_table.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\bat_analysis.py",
+          "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\config.py",
+          "C:\\Users\\clint\\Desktop\\PERSEPHONE\\lib\\environment.py",
+          "C:\\Users\\clint\\Desktop\\PERSEPHONE\\bin\\persephone_cli.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\comprehensive_analysis.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\improve_bat_files.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\validate_docs.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\HYDRA_10MIN_TEST.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\complete_module_analysis.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\strategic_intelligence.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\run_tests.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\fix_syntax_errors.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\run_qanalysis.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\verify_moe.py",
+          "C:\\Users\\clint\\Desktop\\PERSEPHONE\\persephone.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\web_dashboard.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\deep_learning_qlearning.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\azazael_cli.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\check_links.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\weakness_testing.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\framework_activator.py",
+          "C:\\Users\\clint\\Desktop\\POINDEXTER\\POINDEXTER.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\INTEROPERABILITY_ANALYSIS.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\run_qanalysis_full.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\harness.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\HYDRA.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\HORUS.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\qualitative_improvements.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\ml_integration.py",
+          "C:\\Users\\clint\\Desktop\\PERSEPHONE\\lib\\sync_manager.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\changelog.py",
+          "C:\\Users\\clint\\Desktop\\WORMZ\\WORMZ.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\test_enhancements.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\metrics_tracker.py",
+          "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS_ENRICHED.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\run_qanalysis_multi.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\generate_docstrings.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\universal_converter.py",
+          "C:\\Users\\clint\\Desktop\\PERSEPHONE\\bin\\setup_wizard.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\health_monitor.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\TARBABY.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\azazael_wsa.py"
+        ],
+        "imports": [
+          "from pathlib import Path",
+          "from pathlib import Path",
+          "from pathlib import Path",
+          "from pathlib import Path",
+          "from pathlib import Path",
+          "from pathlib import Path",
+          "from pathlib import Path",
+          "from pathlib import Path",
+          "from pathlib import Path",
+          "from pathlib import Path"
+        ]
+      },
+      "typing": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\tensor_utils.py",
+          "C:\\Users\\clint\\Desktop\\PERSEPHONE\\lib\\path_manager.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\install_manager.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\consistency_checker.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\enhanced_qlearning.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\qlearning_table.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\bat_analysis.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\cross_platform_analysis.py",
+          "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\config.py",
+          "C:\\Users\\clint\\Desktop\\PERSEPHONE\\lib\\environment.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\comprehensive_analysis.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\improve_bat_files.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\validate_docs.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\mlflow_integration.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\jax_analysis.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\complete_module_analysis.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\strategic_intelligence.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\run_tests.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\fix_syntax_errors.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\verify_moe.py",
+          "C:\\Users\\clint\\Desktop\\PERSEPHONE\\persephone.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\ray_integration.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\deep_learning_qlearning.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\vectorize_utils.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\azazael_cli.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\weakness_testing.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\framework_activator.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\lm_studio_client.py",
+          "C:\\Users\\clint\\Desktop\\POINDEXTER\\POINDEXTER.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\INTEROPERABILITY_ANALYSIS.py",
+          "C:\\Users\\clint\\Desktop\\PERSEPHONE\\lib\\sync_manager.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\HYDRA.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\HORUS.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\qualitative_improvements.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\ml_integration.py",
+          "C:\\Users\\clint\\Desktop\\WORMZ\\WORMZ.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\installation_debug.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\metrics_tracker.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\onnx_integration.py",
+          "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS_ENRICHED.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\generate_docstrings.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\unified_analysis.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\universal_converter.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\health_monitor.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\TARBABY.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\azazael_wsa.py"
+        ],
+        "imports": [
+          "from typing import Dict, List, Any, Optional, Literal",
+          "from typing import Dict, List, Optional, Any, Callable",
+          "from typing import Dict, List, Set, Tuple, Optional",
+          "from typing import Dict, List, Optional, Any, Callable",
+          "from typing import Optional, Dict, List, Any",
+          "from typing import Optional",
+          "from typing import Dict, List, Optional, Any, Tuple",
+          "from typing import Dict, List, Optional, Any, Tuple, Callable",
+          "from typing import Dict, Tuple, List, Optional, Any",
+          "from typing import Dict, List, Optional, Tuple, Any"
+        ]
+      },
+      "dataclasses": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\PERSEPHONE\\lib\\path_manager.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\install_manager.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\consistency_checker.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\enhanced_qlearning.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\qlearning_table.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\bat_analysis.py",
+          "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS.py",
+          "C:\\Users\\clint\\Desktop\\PERSEPHONE\\lib\\environment.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\comprehensive_analysis.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\complete_module_analysis.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\strategic_intelligence.py",
+          "C:\\Users\\clint\\Desktop\\PERSEPHONE\\persephone.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\deep_learning_qlearning.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\weakness_testing.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\framework_activator.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\lm_studio_client.py",
+          "C:\\Users\\clint\\Desktop\\POINDEXTER\\POINDEXTER.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\INTEROPERABILITY_ANALYSIS.py",
+          "C:\\Users\\clint\\Desktop\\PERSEPHONE\\lib\\sync_manager.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\HYDRA.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\HORUS.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\qualitative_improvements.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\ml_integration.py",
+          "C:\\Users\\clint\\Desktop\\WORMZ\\WORMZ.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\test_enhancements.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\installation_debug.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\metrics_tracker.py",
+          "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS_ENRICHED.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\universal_converter.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\health_monitor.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\TARBABY.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\azazael_wsa.py"
+        ],
+        "imports": [
+          "from dataclasses import dataclass, field",
+          "from dataclasses import dataclass, field",
+          "from dataclasses import dataclass, field",
+          "from dataclasses import dataclass, field",
+          "from dataclasses import dataclass, field",
+          "from dataclasses import dataclass, field",
+          "from dataclasses import dataclass, field",
+          "from dataclasses import dataclass, field",
+          "from dataclasses import dataclass",
+          "from dataclasses import dataclass, field, asdict"
+        ]
+      },
+      "enum": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\install_manager.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\installation_debug.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\enhanced_qlearning.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\qlearning_table.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\bat_analysis.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\HYDRA.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\azazael_cli.py",
+          "C:\\Users\\clint\\Desktop\\PERSEPHONE\\persephone.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\framework_activator.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\universal_converter.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\health_monitor.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\HORUS.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\azazael_wsa.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\TARBABY.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\ml_integration.py"
+        ],
+        "imports": [
+          "from enum import Enum",
+          "from enum import Enum",
+          "from enum import Enum",
+          "from enum import Enum",
+          "from enum import Enum",
+          "from enum import Enum",
+          "from enum import Enum",
+          "from enum import Enum",
+          "from enum import Enum",
+          "from enum import Enum"
+        ]
+      },
+      "threading": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\WORMZ\\WORMZ.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\test_enhancements.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\health_monitor.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\HORUS.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\TARBABY.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\azazael_wsa.py"
+        ],
+        "imports": [
+          "import threading",
+          "import threading",
+          "import threading",
+          "import threading",
+          "import threading",
+          "import threading",
+          "import threading"
+        ]
+      },
+      "time": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\install_manager.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\enhanced_qlearning.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\qlearning_table.py",
+          "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\config.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\lm_studio_integration.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\HYDRA_10MIN_TEST.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\complete_module_analysis.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\strategic_intelligence.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\run_qanalysis.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\verify_moe.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\deep_learning_qlearning.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\vectorize_utils.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\weakness_testing.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\run_qanalysis_full.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\HYDRA.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\HORUS.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\qualitative_improvements.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\ml_integration.py",
+          "C:\\Users\\clint\\Desktop\\WORMZ\\WORMZ.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\test_enhancements.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\metrics_tracker.py",
+          "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS_ENRICHED.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\run_qanalysis_multi.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\universal_converter.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\health_monitor.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\TARBABY.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\azazael_wsa.py"
+        ],
+        "imports": [
+          "import time",
+          "import time",
+          "import time",
+          "import time",
+          "import time",
+          "import time",
+          "import time",
+          "import time",
+          "import time",
+          "import time"
+        ]
+      },
+      "tkinter": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\WORMZ\\WORMZ.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\HYDRA.py",
+          "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS_ENRICHED.py",
+          "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS.py",
+          "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS_POPUP.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\HORUS.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\TARBABY.py",
+          "C:\\Users\\clint\\Desktop\\WORMZ\\WORMZ_POPUP.py"
+        ],
+        "imports": [
+          "import tkinter as tk",
+          "from tkinter import ttk, scrolledtext",
+          "import tkinter as tk",
+          "from tkinter import ttk, scrolledtext",
+          "import tkinter as tk",
+          "from tkinter import ttk, scrolledtext",
+          "import tkinter as tk",
+          "from tkinter import ttk, scrolledtext",
+          "import tkinter as tk",
+          "from tkinter import ttk, scrolledtext"
+        ]
+      },
+      "ml_platforms": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\launcher.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\strategic_intelligence.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\metrics_tracker.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\HYDRA.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\azazael_cli.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\weakness_testing.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\HORUS.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\ml_integration.py"
+        ],
+        "imports": [
+          "from ml_platforms.config import discover_modules",
+          "from ml_platforms.config import discover_modules",
+          "from ml_platforms.config import (",
+          "from ml_platforms.diagnostics import print_platform_status, list_workflows",
+          "from ml_platforms.config import discover_modules",
+          "from ml_platforms.improvements.ml_integration import (",
+          "from ml_platforms.improvements.strategic_intelligence import AzazaelIntelligence",
+          "from ml_platforms.improvements.qualitative_improvements import MemoryManager",
+          "from ml_platforms.improvements.strategic_intelligence import (",
+          "from ml_platforms.improvements.qualitative_improvements import ("
+        ]
+      },
+      "argparse": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\validate_docs.py",
+          "C:\\Users\\clint\\Desktop\\WORMZ\\WORMZ.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\consistency_checker.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\metrics_tracker.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\HYDRA.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\check_links.py",
+          "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS_ENRICHED.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\verify_moe.py",
+          "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\framework_activator.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\universal_converter.py",
+          "C:\\Users\\clint\\Desktop\\PERSEPHONE\\lib\\sync_manager.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\harness.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\HORUS.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\TARBABY.py"
+        ],
+        "imports": [
+          "import argparse",
+          "import argparse",
+          "import argparse",
+          "import argparse",
+          "import argparse",
+          "import argparse",
+          "import argparse",
+          "import argparse",
+          "import argparse",
+          "import argparse"
+        ]
+      },
+      "subprocess": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\install_manager.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\comprehensive_analysis.py",
+          "C:\\Users\\clint\\Desktop\\WORMZ\\WORMZ_POPUP.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\validate_docs.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\HYDRA_10MIN_TEST.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\complete_module_analysis.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\run_tests.py",
+          "C:\\Users\\clint\\Desktop\\PERSEPHONE\\persephone.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\web_dashboard.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\azazael_cli.py",
+          "C:\\Users\\clint\\Desktop\\PERSEPHONE\\lib\\sync_manager.py",
+          "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS_POPUP.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\HYDRA.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\auto_install.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\installation_debug.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\install_light.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\health_monitor.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\azazael_wsa.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\TARBABY.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\install_improvements.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\bat_analysis.py"
+        ],
+        "imports": [
+          "import subprocess",
+          "import subprocess",
+          "import subprocess",
+          "import subprocess",
+          "import subprocess",
+          "import subprocess",
+          "import subprocess",
+          "import subprocess",
+          "import subprocess",
+          "import subprocess"
+        ]
+      },
+      "sys": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\PERSEPHONE\\lib\\path_manager.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\install_manager.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\consistency_checker.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\bat_analysis.py",
+          "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\config.py",
+          "C:\\Users\\clint\\Desktop\\PERSEPHONE\\lib\\environment.py",
+          "C:\\Users\\clint\\Desktop\\PERSEPHONE\\bin\\persephone_cli.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\comprehensive_analysis.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\openinterpreter_startup.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\lm_studio_server.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\lm_studio_integration.py",
+          "C:\\Users\\clint\\Desktop\\WORMZ\\WORMZ_POPUP.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\validate_docs.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\HYDRA_10MIN_TEST.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\complete_module_analysis.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\run_tests.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\autoload.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\run_qanalysis.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\verify_moe.py",
+          "C:\\Users\\clint\\Desktop\\PERSEPHONE\\persephone.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\PERMANENT_LOAD.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\web_dashboard.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\azazael_cli.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\check_links.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\weakness_testing.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\framework_activator.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\run_qanalysis_full.py",
+          "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS_POPUP.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\harness.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\HYDRA.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\ml_integration.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\auto_install.py",
+          "C:\\Users\\clint\\Desktop\\WORMZ\\WORMZ.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\__init__.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\test_enhancements.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\installation_debug.py",
+          "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS_ENRICHED.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\run_qanalysis_multi.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\install_light.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\lm_studio_autoload.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\universal_converter.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\health_monitor.py",
+          "C:\\Users\\clint\\Desktop\\PERSEPHONE\\bin\\setup_wizard.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\TARBABY.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\install_improvements.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\azazael_wsa.py"
+        ],
+        "imports": [
+          "import sys",
+          "import sys",
+          "import sys",
+          "import sys",
+          "import sys",
+          "import sys",
+          "import sys",
+          "import sys",
+          "import sys",
+          "import sys"
+        ]
+      },
+      "HORUS": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\HYDRA.py"
+        ],
+        "imports": [
+          "from HORUS import run_ml_analysis"
+        ]
+      },
+      "math": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\POINDEXTER\\POINDEXTER.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\INTEROPERABILITY_ANALYSIS.py"
+        ],
+        "imports": [
+          "import math",
+          "import math"
+        ]
+      },
+      "collections": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\comprehensive_analysis.py",
+          "C:\\Users\\clint\\Desktop\\WORMZ\\WORMZ.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\jax_analysis.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\complete_module_analysis.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\qlearning_table.py",
+          "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS_ENRICHED.py",
+          "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\unified_analysis.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\INTEROPERABILITY_ANALYSIS.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\health_monitor.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\bat_analysis.py"
+        ],
+        "imports": [
+          "from collections import defaultdict",
+          "from collections import deque",
+          "from collections import defaultdict",
+          "from collections import defaultdict, Counter",
+          "from collections import deque",
+          "from collections import defaultdict",
+          "from collections import defaultdict",
+          "from collections import defaultdict",
+          "from collections import defaultdict",
+          "from collections import defaultdict"
+        ]
+      },
+      "zipfile": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\TARBABY.py"
+        ],
+        "imports": [
+          "import zipfile"
+        ]
+      },
+      "shutil": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\TARBABY.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\universal_converter.py"
+        ],
+        "imports": [
+          "import shutil",
+          "import shutil"
+        ]
+      },
+      "hashlib": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\WORMZ\\WORMZ.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\install_manager.py",
+          "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS_ENRICHED.py",
+          "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\config.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\framework_activator.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\universal_converter.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\TARBABY.py"
+        ],
+        "imports": [
+          "import hashlib",
+          "import hashlib",
+          "import hashlib",
+          "import hashlib",
+          "import hashlib",
+          "import hashlib",
+          "import hashlib",
+          "import hashlib"
+        ]
+      },
+      "tempfile": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\validate_docs.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\mlflow_integration.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\TARBABY.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\universal_converter.py"
+        ],
+        "imports": [
+          "import tempfile",
+          "import tempfile",
+          "import tempfile",
+          "import tempfile"
+        ]
+      },
+      "concurrent": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\WORMZ\\WORMZ.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\TARBABY.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\azazael_wsa.py"
+        ],
+        "imports": [
+          "from concurrent.futures import ThreadPoolExecutor, as_completed",
+          "from concurrent.futures import ThreadPoolExecutor",
+          "from concurrent.futures import ThreadPoolExecutor, as_completed"
+        ]
+      },
+      "lm_studio_integration": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\autoload.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\lm_studio_autoload.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\PERMANENT_LOAD.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\openinterpreter_startup.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\lm_studio_integration.py"
+        ],
+        "imports": [
+          "from lm_studio_integration import (",
+          "from lm_studio_integration import (",
+          "from lm_studio_integration import *",
+          "from lm_studio_integration import (",
+          "from lm_studio_integration import ("
+        ]
+      },
+      "re": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\validate_docs.py",
+          "C:\\Users\\clint\\Desktop\\WORMZ\\WORMZ.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\complete_module_analysis.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\consistency_checker.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\qlearning_table.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\fix_syntax_errors.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\check_links.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\config.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\framework_activator.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\generate_docstrings.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\comprehensive_analysis.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\improve_bat_files.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\bat_analysis.py"
+        ],
+        "imports": [
+          "import re",
+          "import re",
+          "import re",
+          "import re",
+          "import re",
+          "import re",
+          "import re",
+          "import re",
+          "import re",
+          "import re"
+        ]
+      },
+      "ast": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\WORMZ\\WORMZ.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\complete_module_analysis.py",
+          "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS_ENRICHED.py",
+          "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\config.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\generate_docstrings.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\comprehensive_analysis.py"
+        ],
+        "imports": [
+          "import ast",
+          "import ast",
+          "import ast",
+          "import ast",
+          "import ast",
+          "import ast",
+          "import ast"
+        ]
+      },
+      "logging": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\verify_moe.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\config.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\universal_converter.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\azazael_wsa.py"
+        ],
+        "imports": [
+          "import logging",
+          "import logging",
+          "import logging",
+          "import logging"
+        ]
+      },
+      "watchdog": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\config.py"
+        ],
+        "imports": [
+          "from watchdog.observers import Observer",
+          "from watchdog.events import FileSystemEventHandler"
+        ]
+      },
+      "": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\diagnostics.py",
+          "C:\\Users\\clint\\Desktop\\PERSEPHONE\\lib\\__init__.py"
+        ],
+        "imports": [
+          "from .config import _get_config",
+          "from .path_manager import PathManager",
+          "from .sync_manager import SyncManager",
+          "from .environment import EnvironmentManager"
+        ]
+      },
+      "importlib": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\validate_docs.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\strategic_intelligence.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\installation_debug.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\azazael_cli.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\framework_activator.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\health_monitor.py"
+        ],
+        "imports": [
+          "import importlib",
+          "import importlib",
+          "import importlib",
+          "import importlib",
+          "import importlib",
+          "import importlib.util"
+        ]
+      },
+      "random": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\qlearning_table.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\framework_activator.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\enhanced_qlearning.py"
+        ],
+        "imports": [
+          "import random",
+          "import random",
+          "import random"
+        ]
+      },
+      "torch": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\tensor_utils.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\installation_debug.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\onnx_integration.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\run_qanalysis.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\run_qanalysis_multi.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\framework_activator.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\run_qanalysis_full.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\universal_converter.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\health_monitor.py"
+        ],
+        "imports": [
+          "import torch",
+          "import torch.nn as nn",
+          "import torch",
+          "import torch",
+          "import torch",
+          "import torch",
+          "import torch",
+          "import torch",
+          "import torch",
+          "import torch"
+        ]
+      },
+      "tensorflow": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\tensor_utils.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\installation_debug.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\onnx_integration.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\run_qanalysis.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\run_qanalysis_multi.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\framework_activator.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\run_qanalysis_full.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\universal_converter.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\health_monitor.py"
+        ],
+        "imports": [
+          "import tensorflow as tf",
+          "import tensorflow as tf",
+          "import tensorflow as tf",
+          "import tensorflow as tf",
+          "import tensorflow as tf",
+          "import tensorflow as tf",
+          "import tensorflow as tf",
+          "import tensorflow as tf",
+          "import tensorflow as tf",
+          "import tensorflow as tf"
+        ]
+      },
+      "run_qanalysis": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\harness.py"
+        ],
+        "imports": [
+          "from run_qanalysis import run_q_analysis"
+        ]
+      },
+      "universal_converter": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\harness.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\verify_moe.py"
+        ],
+        "imports": [
+          "from universal_converter import UniversalConverter",
+          "from universal_converter import MoERouter, TaskContext, ExpertSelection"
+        ]
+      },
+      "improvements": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\harness.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\lm_studio_server.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\verify_moe.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\__init__.py"
+        ],
+        "imports": [
+          "from improvements.qlearning_table import AdaptivePlatformSelector, TaskType",
+          "from improvements.tensor_utils import to_tensor, from_tensor, TensorConverter",
+          "from improvements.vectorize_utils import vmap, jit, grad",
+          "from improvements.onnx_integration import ONNXExporter, load_onnx_model",
+          "from improvements.mlflow_integration import MLflowLogger",
+          "from improvements.ray_integration import RayIntegration",
+          "from improvements.qlearning_table import (",
+          "from improvements.qlearning_table import AdaptivePlatformSelector, TaskType"
+        ]
+      },
+      "health_monitor": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\harness.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\verify_moe.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\__init__.py"
+        ],
+        "imports": [
+          "from health_monitor import PlatformHealthMonitor",
+          "from health_monitor import PlatformHealthMonitor",
+          "from health_monitor import PlatformHealthMonitor"
+        ]
+      },
+      "verify_moe": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\harness.py"
+        ],
+        "imports": [
+          "from verify_moe import verify_system"
+        ]
+      },
+      "psutil": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\health_monitor.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\azazael_wsa.py"
+        ],
+        "imports": [
+          "import psutil",
+          "import psutil"
+        ]
+      },
+      "warnings": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\health_monitor.py"
+        ],
+        "imports": [
+          "import warnings"
+        ]
+      },
+      "tensorboard": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\installation_debug.py"
+        ],
+        "imports": [
+          "import tensorboard"
+        ]
+      },
+      "sys;sys": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\lm_studio_autoload.py"
+        ],
+        "imports": [
+          "import sys;sys.path.insert(0,r\"C:\\Users\\clint\\Desktop\\Azazael\");from lm_studio_integration import*"
+        ]
+      },
+      "requests": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\lm_studio_client.py"
+        ],
+        "imports": [
+          "import requests"
+        ]
+      },
+      "tensor_utils": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\tensor_utils.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\lm_studio_integration.py"
+        ],
+        "imports": [
+          "from tensor_utils import to_tensor, from_tensor, TensorConverter",
+          "from tensor_utils import to_tensor, from_tensor, TensorLike"
+        ]
+      },
+      "vectorize_utils": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\vectorize_utils.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\lm_studio_integration.py"
+        ],
+        "imports": [
+          "from vectorize_utils import vmap, jit, grad",
+          "from vectorize_utils import vmap, jit, grad"
+        ]
+      },
+      "onnx_integration": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\lm_studio_integration.py"
+        ],
+        "imports": [
+          "from onnx_integration import ONNXExporter, load_onnx_model"
+        ]
+      },
+      "mlflow_integration": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\lm_studio_integration.py"
+        ],
+        "imports": [
+          "from mlflow_integration import MLflowLogger"
+        ]
+      },
+      "ray_integration": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\lm_studio_integration.py"
+        ],
+        "imports": [
+          "from ray_integration import RayIntegration"
+        ]
+      },
+      "flask": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\lm_studio_server.py"
+        ],
+        "imports": [
+          "from flask import Flask, request, jsonify"
+        ]
+      },
+      "numpy": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\tensor_utils.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\enhanced_qlearning.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\qlearning_table.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\lm_studio_server.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\mlflow_integration.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\strategic_intelligence.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\run_qanalysis.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\verify_moe.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\ray_integration.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\web_dashboard.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\deep_learning_qlearning.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\vectorize_utils.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\weakness_testing.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\run_qanalysis_full.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\qualitative_improvements.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\ml_integration.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\test_enhancements.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\onnx_integration.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\run_qanalysis_multi.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\universal_converter.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\bat_analysis.py"
+        ],
+        "imports": [
+          "import numpy as np",
+          "import numpy as np",
+          "import numpy as np",
+          "import numpy as np",
+          "import numpy as np",
+          "import numpy as np",
+          "import numpy as np",
+          "import numpy as np",
+          "import numpy as np",
+          "import numpy as jnp_np"
+        ]
+      },
+      "traceback": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\complete_module_analysis.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\weakness_testing.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\universal_converter.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\PERMANENT_LOAD.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\comprehensive_analysis.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\lm_studio_server.py"
+        ],
+        "imports": [
+          "import traceback",
+          "import traceback",
+          "import traceback",
+          "import traceback",
+          "import traceback",
+          "import traceback"
+        ]
+      },
+      "jax": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\tensor_utils.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\run_qanalysis.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\run_qanalysis_multi.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\universal_converter.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\run_qanalysis_full.py"
+        ],
+        "imports": [
+          "import jax",
+          "import jax.numpy as jnp",
+          "import jax",
+          "import jax.numpy as jnp",
+          "import jax",
+          "import jax.numpy as jnp",
+          "import jax",
+          "import jax",
+          "import jax.numpy as jnp",
+          "import jax"
+        ]
+      },
+      "scipy": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\run_qanalysis_multi.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\run_qanalysis_full.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\run_qanalysis.py"
+        ],
+        "imports": [
+          "import scipy",
+          "import scipy",
+          "from scipy import stats",
+          "from scipy import stats",
+          "import scipy",
+          "from scipy import stats"
+        ]
+      },
+      "struct": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\universal_converter.py"
+        ],
+        "imports": [
+          "import struct",
+          "import struct"
+        ]
+      },
+      "gguf": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\universal_converter.py"
+        ],
+        "imports": [
+          "import gguf"
+        ]
+      },
+      "llama_cpp": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\universal_converter.py"
+        ],
+        "imports": [
+          "import llama_cpp",
+          "import llama_cpp",
+          "import llama_cpp",
+          "import llama_cpp"
+        ]
+      },
+      "safetensors": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\universal_converter.py"
+        ],
+        "imports": [
+          "from safetensors.torch import save_file"
+        ]
+      },
+      "optimum": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\universal_converter.py"
+        ],
+        "imports": [
+          "from optimum.onnxruntime import ORTModelForCausalLM"
+        ]
+      },
+      "transformers": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\universal_converter.py"
+        ],
+        "imports": [
+          "from transformers import AutoTokenizer"
+        ]
+      },
+      "flax": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\universal_converter.py"
+        ],
+        "imports": [
+          "import flax.linen as nn"
+        ]
+      },
+      "config": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\verify_moe.py"
+        ],
+        "imports": [
+          "from config import ExpertRegistry, get_registry, ExpertDomain"
+        ]
+      },
+      "diagnostics": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\verify_moe.py"
+        ],
+        "imports": [
+          "from diagnostics import check_platform_status"
+        ]
+      },
+      "numba": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\enhanced_qlearning.py"
+        ],
+        "imports": [
+          "from numba import jit, prange"
+        ]
+      },
+      "optuna": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\enhanced_qlearning.py"
+        ],
+        "imports": [
+          "import optuna"
+        ]
+      },
+      "statistics": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\metrics_tracker.py"
+        ],
+        "imports": [
+          "from statistics import mean, stdev"
+        ]
+      },
+      "mlflow_utils": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\mlflow_integration.py"
+        ],
+        "imports": [
+          "from mlflow_utils import MLflowLogger, log_params, log_metrics"
+        ]
+      },
+      "mlflow": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\mlflow_integration.py"
+        ],
+        "imports": [
+          "import mlflow"
+        ]
+      },
+      "sklearn": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\mlflow_integration.py"
+        ],
+        "imports": [
+          "from sklearn.ensemble import RandomForestClassifier"
+        ]
+      },
+      "onnx_utils": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\onnx_integration.py"
+        ],
+        "imports": [
+          "from onnx_utils import export_to_onnx, load_onnx_model"
+        ]
+      },
+      "onnx": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\onnx_integration.py"
+        ],
+        "imports": [
+          "import onnx"
+        ]
+      },
+      "onnxruntime": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\onnx_integration.py"
+        ],
+        "imports": [
+          "import onnxruntime as ort",
+          "from onnxruntime.transformers import optimizer",
+          "from onnxruntime.tools import optimizer as ort_optimizer"
+        ]
+      },
+      "tf2onnx": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\onnx_integration.py"
+        ],
+        "imports": [
+          "import tf2onnx"
+        ]
+      },
+      "scripts": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\qlearning_table.py"
+        ],
+        "imports": [
+          "from scripts.validate_docs import DocumentationValidator",
+          "from scripts.validate_docs import DocumentationValidator"
+        ]
+      },
+      "ray_utils": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\ray_integration.py"
+        ],
+        "imports": [
+          "from ray_utils import DistributedTrainer, parallel_map, ray_remote"
+        ]
+      },
+      "ray": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\ray_integration.py"
+        ],
+        "imports": [
+          "import ray",
+          "import ray"
+        ]
+      },
+      "functools": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\vectorize_utils.py"
+        ],
+        "imports": [
+          "import functools"
+        ]
+      },
+      "colorama": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\azazael_cli.py"
+        ],
+        "imports": [
+          "from colorama import Fore, Style, init"
+        ]
+      },
+      "rich": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\azazael_cli.py"
+        ],
+        "imports": [
+          "from rich.progress import (",
+          "from rich.console import Console",
+          "from rich.table import Table"
+        ]
+      },
+      "harness": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\azazael_cli.py"
+        ],
+        "imports": [
+          "from harness import main as harness_main"
+        ]
+      },
+      "launcher": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\azazael_cli.py"
+        ],
+        "imports": [
+          "from launcher import main as launcher_main"
+        ]
+      },
+      "socket": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\azazael_wsa.py"
+        ],
+        "imports": [
+          "import socket"
+        ]
+      },
+      "adb_shell": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\azazael_wsa.py"
+        ],
+        "imports": [
+          "import adb_shell",
+          "from adb_shell import AdbDevice",
+          "from adb_shell.adb_device import AdbDeviceTcp"
+        ]
+      },
+      "fastapi": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\azazael_wsa.py"
+        ],
+        "imports": [
+          "from fastapi import FastAPI",
+          "from fastapi.middleware.cors import CORSMiddleware"
+        ]
+      },
+      "uvicorn": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\azazael_wsa.py"
+        ],
+        "imports": [
+          "import uvicorn"
+        ]
+      },
+      "base64": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\azazael_wsa.py"
+        ],
+        "imports": [
+          "import base64"
+        ]
+      },
+      "matplotlib": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\web_dashboard.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\bat_analysis.py"
+        ],
+        "imports": [
+          "import matplotlib.pyplot as plt",
+          "import matplotlib.pyplot as plt"
+        ]
+      },
+      "networkx": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\bat_analysis.py"
+        ],
+        "imports": [
+          "import networkx as nx"
+        ]
+      },
+      "urllib": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\check_links.py"
+        ],
+        "imports": [
+          "from urllib.parse import urlparse"
+        ]
+      },
+      "inspect": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\comprehensive_analysis.py",
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\validate_docs.py"
+        ],
+        "imports": [
+          "import inspect",
+          "import inspect"
+        ]
+      },
+      "hypothesis": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\test_enhancements.py"
+        ],
+        "imports": [
+          "from hypothesis import given, strategies as st, settings, Verbosity"
+        ]
+      },
+      "fuzzingbook": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\test_enhancements.py"
+        ],
+        "imports": [
+          "import fuzzingbook"
+        ]
+      },
+      "enhanced_qlearning": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\test_enhancements.py"
+        ],
+        "imports": [
+          "from enhanced_qlearning import SumTree",
+          "from enhanced_qlearning import MultiAgentQLearning"
+        ]
+      },
+      "streamlit": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\web_dashboard.py"
+        ],
+        "imports": [
+          "import streamlit as st"
+        ]
+      },
+      "pandas": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\web_dashboard.py"
+        ],
+        "imports": [
+          "import pandas as pd"
+        ]
+      },
+      "altair": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\web_dashboard.py"
+        ],
+        "imports": [
+          "import altair as alt"
+        ]
+      },
+      "version": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\PERSEPHONE\\persephone.py"
+        ],
+        "imports": [
+          "from version import ("
+        ]
+      },
+      "win32com": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\PERSEPHONE\\persephone.py"
+        ],
+        "imports": [
+          "import win32com.client"
+        ]
+      },
+      "lib": {
+        "files": [
+          "C:\\Users\\clint\\Desktop\\PERSEPHONE\\bin\\persephone_cli.py",
+          "C:\\Users\\clint\\Desktop\\PERSEPHONE\\bin\\setup_wizard.py"
+        ],
+        "imports": [
+          "from lib.path_manager import PathManager",
+          "from lib.sync_manager import SyncManager",
+          "from lib.environment import EnvironmentManager",
+          "from lib.path_manager import PathManager",
+          "from lib.sync_manager import SyncManager",
+          "from lib.environment import EnvironmentManager"
+        ]
+      }
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

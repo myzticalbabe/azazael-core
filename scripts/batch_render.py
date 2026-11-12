@@ -1,0 +1,518 @@
+#!/usr/bin/env python3
+"""
+Batch Render — Generate CAIN-standard scrolling MP4s for all unrendered templates.
+
+Scans the SESSION_TEMPLATE/templates/ directory, finds templates that haven't
+been rendered to scrolling MP4s, and generates puppeteer recorder scripts
+with CAIN standard encoding (HEVC, CRF 26, medium preset, ~0.8 Mbps).
+
+Also generates a first-level compress_video pass after recording.
+
+Usage:
+    python batch_render.py                       # Render all unrendered templates
+    python batch_render.py --list                # List what would be rendered
+    python batch_render.py --template firehorse  # Render specific template
+    python batch_render.py --dry-run             # Show what would be done
+    python batch_render.py --compress            # Also run compress_video after recording
+
+CAIN Standard (HEVC edition 2026-10-01, edge0 compact recipe as standard):
+    Framerate:  30 fps
+    Codec:      HEVC / libx265 (capture lib records; distribution is HEVC)
+    CRF:        26
+    GOP:        300 frames (~10s keyframe interval)
+    Preset:     medium
+    Bitrate:    ~800 kbps (target for 1080p@30fps)
+See LESSONS_MASTER.md #64-67 for full analysis.
+"""
+
+import argparse
+import os
+import shutil
+import subprocess
+import sys
+import time
+from pathlib import Path
+from typing import List, Optional, Set
+
+# ─── Paths ─────────────────────────────────────────────────────────
+
+AZAZAEL_ROOT = Path(__file__).resolve().parent.parent
+CODEX_DIR = AZAZAEL_ROOT / "src" / "CODEX"
+TEMPLATES_DIR = CODEX_DIR / "SESSION_TEMPLATE" / "templates"
+RECORDERS_DIR = CODEX_DIR / "SESSION_TEMPLATE" / "recorders"
+VIDEOS_DIR = CODEX_DIR / "SESSION_TEMPLATE" / "videos"
+
+# CAIN Standard encoding (HEVC edition 2026-10-01, edge0 compact recipe)
+CAIN_FPS = 30
+CAIN_CRF = 26
+CAIN_PROFILE = "high"  # x264 only; encode stage (compress_video) omits for HEVC
+CAIN_GOP = 300
+CAIN_PRESET = "medium"
+CAIN_VIEWPORT_WIDTH = 1280
+CAIN_VIEWPORT_HEIGHT = 720
+
+# Templates already rendered (skip these)
+ALREADY_RENDERED: Set[str] = {
+    "consequences_ultimate",
+    "failure_report",
+    "session_report",
+    "session_steampunk",
+    "output_cain",
+    # The 3 we just created scripts for:
+    "output_firehorse",
+    "session_complete_web",
+    "session_explicit_web",
+}
+
+# Template-specific scroll overrides (DEPRECATED — polling pattern handles this)
+# SCROLL_OVERRIDES was replaced by the scrollComplete polling loop
+
+
+def find_unrendered_templates() -> List[Path]:
+    """Find all HTML templates not yet rendered to scrolling MP4.
+
+    Scans SESSION_TEMPLATE/templates/, CODEX/OLD_PROJECT/, and CODEX/CAPABILITIES/.
+    """
+    if not TEMPLATES_DIR.exists():
+        print(f"  [FAIL] Templates directory not found: {TEMPLATES_DIR}")
+        return []
+
+    unrendered = []
+
+    # Scan SESSION_TEMPLATE templates
+    for f in sorted(TEMPLATES_DIR.glob("*.html")):
+        name = f.stem
+        has_video = (
+            (VIDEOS_DIR / f"{name}_scrolling.mp4").exists()
+            or name in ALREADY_RENDERED
+        )
+        if not has_video:
+            unrendered.append(f)
+
+    # Scan OLD_PROJECT content
+    old_dir = CODEX_DIR / "OLD_PROJECT"
+    if old_dir.exists():
+        for f in sorted(old_dir.glob("*.html")):
+            name = f.stem
+            has_video = (VIDEOS_DIR / f"{name}_scrolling.mp4").exists()
+            if not has_video:
+                unrendered.append(f)
+
+    # Scan CAPABILITIES content
+    cap_dir = CODEX_DIR / "CAPABILITIES"
+    if cap_dir.exists():
+        for f in sorted(cap_dir.glob("*.html")):
+            name = f.stem
+            has_video = (VIDEOS_DIR / f"{name}_scrolling.mp4").exists()
+            if not has_video:
+                unrendered.append(f)
+
+    return unrendered
+
+
+def generate_recorder_script(template_path: Path, dry_run: bool = False) -> Optional[Path]:
+    """Generate a puppeteer recorder script with CAIN standard config.
+
+    Args:
+        template_path: Path to the HTML template
+        dry_run: If True, only print what would be done
+
+    Returns:
+        Path to the generated recorder script, or None if dry run
+    """
+    name = template_path.stem
+    script_path = RECORDERS_DIR / f"record_{name}.js"
+    output_video = VIDEOS_DIR / f"{name}_scrolling.mp4"
+    html_path = template_path.resolve()
+
+    if dry_run:
+        print(f"  [DRY-RUN] Would generate: {script_path.name}")
+        print(f"            HTML:  {html_path}")
+        print(f"            Video: {output_video}")
+        print(f"            Config: videoCrf={CAIN_CRF}, "
+              f"videoPreset={CAIN_PRESET}, videoBitrate=800")
+        return None
+
+    # Scroll duration is handled by the scrollComplete polling loop in the JS
+    # No need to calculate timeout — the JS detects completion dynamically
+
+    script_content = f"""const puppeteer = require('puppeteer');
+const {{ PuppeteerScreenRecorder }} = require('puppeteer-screen-recorder');
+
+// CAIN Standard: HEVC CRF 26, medium preset (~0.8 Mbps target)
+// Generated by batch_render.py — {name}
+// See LESSONS_MASTER.md #01-#02 for encoding rationale, #04 for scroll polling pattern
+(async () => {{
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+
+  await page.setViewport({{ width: {CAIN_VIEWPORT_WIDTH}, height: {CAIN_VIEWPORT_HEIGHT} }});
+
+  const recorder = new PuppeteerScreenRecorder(page, {{
+    videoCrf: {CAIN_CRF},
+    videoPreset: '{CAIN_PRESET}',
+    videoPixelFormat: 'yuv420p',
+    videoBitrate: 800,
+  }});
+
+  await page.goto('file:///{html_path.as_posix()}');
+  await recorder.start('{output_video.as_posix()}');
+
+  let scrollComplete = false;
+
+  await page.evaluate(() => {{
+    const scrollStep = 30;
+    const scrollDelay = 600;
+
+    const scrollInterval = setInterval(() => {{
+      if (window.scrollY + window.innerHeight >= document.body.scrollHeight - 50) {{
+        scrollComplete = true;
+        clearInterval(scrollInterval);
+        return;
+      }}
+      window.scrollBy(0, scrollStep);
+    }}, scrollDelay);
+  }});
+
+  // Wait for scroll to complete (with safety timeout)
+  while (!scrollComplete) {{
+    await new Promise(r => setTimeout(r, 500));
+    const isComplete = await page.evaluate(() => {{
+      return window.scrollY + window.innerHeight >= document.body.scrollHeight - 50;
+    }});
+    if (isComplete) break;
+  }}
+
+  // Hold at end for a moment
+  await new Promise(r => setTimeout(r, 2000));
+
+  await recorder.stop();
+  await browser.close();
+
+  console.log('Video saved: {name}_scrolling.mp4');
+}})();
+"""
+
+    script_path.parent.mkdir(parents=True, exist_ok=True)
+    script_path.write_text(script_content, encoding="utf-8")
+    print(f"  [OK] Recorder script: {script_path.name}")
+    print(f"       HTML:  {html_path.name}")
+    print(f"       Video: {output_video.name}")
+    print(f"       Scroll: scrollComplete polling pattern")
+
+    return script_path
+
+
+def run_recorder(script_path: Path, dry_run: bool = False) -> bool:
+    """Execute a puppeteer recorder script.
+
+    Args:
+        script_path: Path to the .js recorder script
+        dry_run: If True, only print the command
+
+    Returns:
+        True if recording succeeded or dry run
+    """
+    name = script_path.stem.replace("record_", "")
+
+    if dry_run:
+        print(f"  [DRY-RUN] Would run: node \"{script_path}\"")
+        return True
+
+    print(f"  Recording: {name} ...")
+    start = time.time()
+    result = subprocess.run(
+        ["node", str(script_path)],
+        capture_output=True, text=True, timeout=600,  # 10 min max
+        cwd=str(RECORDERS_DIR), encoding="utf-8", errors="replace"
+    )
+    elapsed = time.time() - start
+
+    if result.returncode == 0:
+        output_video = VIDEOS_DIR / f"{name}_scrolling.mp4"
+        if output_video.exists():
+            size_mb = output_video.stat().st_size / (1024 * 1024)
+            print(f"  [OK] Recorded in {elapsed:.0f}s: {output_video.name} ({size_mb:.1f} MB)")
+        return True
+    else:
+        print(f"  [FAIL] Recording error: {result.stderr[:300]}")
+        return False
+
+
+def compress_video(template_name: str, dry_run: bool = False) -> bool:
+    """Compress a recorded video using compress_video.py with cain profile.
+
+    Args:
+        template_name: Name of the template (without extension)
+        dry_run: If True, only print the command
+
+    Returns:
+        True if compression succeeded or dry run
+    """
+    input_path = VIDEOS_DIR / f"{template_name}_scrolling.mp4"
+    if not input_path.exists():
+        if not dry_run:
+            print(f"  [SKIP] No video to compress: {input_path}")
+        return False
+
+    compress_script = CODEX_DIR / "VIDEOS" / "compress_video.py"
+    if not compress_script.exists():
+        print(f"  [SKIP] compress_video.py not found")
+        return False
+
+    output_prefix = VIDEOS_DIR / f"{template_name}_compressed"
+
+    if dry_run:
+        print(f"  [DRY-RUN] Would compress: {input_path.name} "
+              f"-> cain profile")
+        return True
+
+    print(f"  Compressing: {input_path.name} ...")
+    cmd = [
+        sys.executable, str(compress_script), "compress",
+        "--input", str(input_path),
+        "--output", str(output_prefix),
+        "--profile", "cain",
+    ]
+    start = time.time()
+    result = subprocess.run(cmd, capture_output=True, text=True, timeout=600, encoding="utf-8", errors="replace")
+    elapsed = time.time() - start
+
+    compressed_path = output_prefix.with_suffix(".mp4")
+    if result.returncode == 0 and compressed_path.exists():
+        input_mb = input_path.stat().st_size / (1024 * 1024)
+        output_mb = compressed_path.stat().st_size / (1024 * 1024)
+        savings = (1 - output_mb / input_mb) * 100 if input_mb > 0 else 0
+        print(f"  [OK] Compressed in {elapsed:.0f}s: "
+              f"{input_mb:.1f} MB -> {output_mb:.1f} MB ({savings:.0f}% saved)")
+        return True
+    else:
+        print(f"  [FAIL] Compression error: {result.stderr[:200]}")
+        return False
+
+
+def render_template(template_path: Path, dry_run: bool = False,
+                    do_compress: bool = False) -> bool:
+    """Run the full render pipeline for a single template.
+
+    Steps: Generate recorder script -> Run puppeteer -> Compress (optional)
+
+    Args:
+        template_path: Path to the HTML template
+        dry_run: If True, only print what would be done
+        do_compress: If True, also run compress_video
+
+    Returns:
+        True if all steps succeeded or dry run
+    """
+    name = template_path.stem
+    print(f"\n  {'='*60}")
+    print(f"  Rendering: {name}.html")
+    print(f"  {'='*60}")
+
+    # Step 1: Generate recorder script
+    script = generate_recorder_script(template_path, dry_run)
+    if not script and not dry_run:
+        return False
+
+    # Step 2: Run the recording
+    if not run_recorder(script or Path(""), dry_run):
+        return False
+
+    # Step 3: Compress (optional)
+    if do_compress:
+        compress_video(name, dry_run)
+
+    return True
+
+
+def render_all(dry_run: bool = False, do_compress: bool = False,
+               limit: Optional[int] = None) -> int:
+    """Render all unrendered templates.
+
+    Args:
+        dry_run: If True, only print what would be done
+        do_compress: If True, also run compress_video after recording
+        limit: Maximum number of templates to render (None = all)
+
+    Returns:
+        Number of templates successfully rendered
+    """
+    print()
+    print("=" * 68)
+    print("  BATCH RENDER — CAIN Standard Scrolling MP4 Generation")
+    print("=" * 68)
+    print(f"  Template dir: {TEMPLATES_DIR}")
+    print(f"  Videos dir:   {VIDEOS_DIR}")
+    print(f"  CAIN:         {CAIN_FPS}fps | HEVC | "
+          f"CRF {CAIN_CRF} | GOP {CAIN_GOP}")
+    print(f"  Dry run:      {dry_run}")
+    print(f"  Compress:     {do_compress}")
+    print()
+
+    unrendered = find_unrendered_templates()
+    if not unrendered:
+        print("  All templates already rendered!")
+        return 0
+
+    print(f"  Found {len(unrendered)} unrendered template(s):")
+    for t in unrendered[:limit]:
+        size_kb = t.stat().st_size // 1024
+        print(f"    - {t.name} ({size_kb} KB)")
+    if limit and len(unrendered) > limit:
+        print(f"    ... and {len(unrendered) - limit} more")
+
+    print()
+    if dry_run:
+        print("  [DRY-RUN] Would generate recorder scripts + run puppeteer")
+        print()
+
+    success = 0
+    to_render = unrendered if limit is None else unrendered[:limit]
+
+    for i, template in enumerate(to_render, 1):
+        print(f"\n  [{i}/{len(to_render)}]")
+        if render_template(template, dry_run, do_compress):
+            success += 1
+        # Small delay between renders to avoid resource contention
+        if not dry_run:
+            time.sleep(2)
+
+    print()
+    print(f"  {'='*60}")
+    print(f"  Results: {success}/{len(to_render)} templates rendered")
+    print(f"  Remaining: {len(unrendered) - success} still pending")
+    if do_compress:
+        print(f"  Compression: enabled (CAIN profile)")
+    print(f"  {'='*60}")
+
+    return success
+
+
+def list_templates():
+    """List all templates and their render status."""
+    if not TEMPLATES_DIR.exists():
+        print(f"  [FAIL] Template directory not found: {TEMPLATES_DIR}")
+        return
+
+    print()
+    print(f"  {'='*68}")
+    print(f"  TEMPLATE RENDER STATUS")
+    print(f"  {'='*68}")
+    print(f"  {'Template':<30} {'Size':>6} {'Status':<15}")
+    print(f"  {'-'*30} {'-'*6} {'-'*15}")
+
+    rendered_count = 0
+    unrendered_count = 0
+
+    # List SESSION_TEMPLATE templates
+    for f in sorted(TEMPLATES_DIR.glob("*.html")):
+        name = f.stem
+        size_kb = f.stat().st_size // 1024
+        has_video = (VIDEOS_DIR / f"{name}_scrolling.mp4").exists()
+        has_compress = (VIDEOS_DIR / f"{name}_compressed.mp4").exists()
+
+        if has_video:
+            status = "RENDERED"
+            rendered_count += 1
+        elif name in ALREADY_RENDERED:
+            status = "HAS_SCRIPT"
+            rendered_count += 1
+        else:
+            status = "PENDING"
+            unrendered_count += 1
+
+        if has_compress:
+            status += "+COMPR"
+
+        print(f"  {name:<30} {size_kb:>6}K {status}")
+
+    # List OLD_PROJECT templates
+    old_dir = CODEX_DIR / "OLD_PROJECT"
+    if old_dir.exists():
+        print(f"  {'-'*30} {'-'*6} {'-'*15}")
+        print(f"  OLD_PROJECT Content:")
+        for f in sorted(old_dir.glob("*.html")):
+            name = f.stem
+            size_kb = f.stat().st_size // 1024
+            has_video = (VIDEOS_DIR / f"{name}_scrolling.mp4").exists()
+            status = "RENDERED" if has_video else "PENDING"
+            if has_video:
+                rendered_count += 1
+            else:
+                unrendered_count += 1
+            print(f"  {name:<30} {size_kb:>6}K {status}")
+
+    # List CAPABILITIES templates
+    cap_dir = CODEX_DIR / "CAPABILITIES"
+    if cap_dir.exists():
+        print(f"  {'-'*30} {'-'*6} {'-'*15}")
+        print(f"  CAPABILITIES Content:")
+        for f in sorted(cap_dir.glob("*.html")):
+            name = f.stem
+            size_kb = f.stat().st_size // 1024
+            has_video = (VIDEOS_DIR / f"{name}_scrolling.mp4").exists()
+            status = "RENDERED" if has_video else "PENDING"
+            if has_video:
+                rendered_count += 1
+            else:
+                unrendered_count += 1
+            print(f"  {name:<30} {size_kb:>6}K {status}")
+
+    print(f"  {'-'*30} {'-'*6} {'-'*15}")
+    print(f"  Total: {rendered_count + unrendered_count}  "
+          f"Rendered: {rendered_count}  Pending: {unrendered_count}")
+
+
+# ─── CLI ───────────────────────────────────────────────────────────
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Batch Render — CAIN-standard MP4 generation for all templates",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  python batch_render.py                        # Render all pending templates
+  python batch_render.py --list                 # Show render status
+  python batch_render.py --dry-run              # Preview what would render
+  python batch_render.py --template firehorse   # Render specific template
+  python batch_render.py --compress             # Also compress after recording
+  python batch_render.py --limit 5              # Render first 5 only
+        """,
+    )
+
+    parser.add_argument("--list", action="store_true",
+                        help="List all templates with render status")
+    parser.add_argument("--template",
+                        help="Render a specific template by name")
+    parser.add_argument("--dry-run", action="store_true",
+                        help="Show what would be done without executing")
+    parser.add_argument("--compress", action="store_true",
+                        help="Also run compress_video --profile cain after recording")
+    parser.add_argument("--limit", type=int,
+                        help="Maximum number of templates to render")
+
+    args = parser.parse_args()
+
+    if args.list:
+        list_templates()
+        return
+
+    if args.template:
+        template_file = TEMPLATES_DIR / f"{args.template}.html"
+        if not template_file.exists():
+            print(f"  [FAIL] Template not found: {template_file}")
+            print(f"  Use --list to see available templates")
+            return
+        render_template(template_file, args.dry_run, args.compress)
+        return
+
+    render_all(
+        dry_run=args.dry_run,
+        do_compress=args.compress,
+        limit=args.limit,
+    )
+
+
+if __name__ == "__main__":
+    main()

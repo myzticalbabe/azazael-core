@@ -1,0 +1,65 @@
+{
+  "timestamp": "2026-02-16T03:36:29.426128",
+  "summary": {
+    "bom_files_found": 0,
+    "failed_imports": 9,
+    "bad_syspath_files": 0,
+    "circular_deps": 0
+  },
+  "details": {
+    "timestamp": "2026-02-16T03:36:29.426128",
+    "bom_files": [],
+    "syntax_issues": [],
+    "failed_imports": {
+      "HYDRA.hydra_launcher": {
+        "description": "HYDRA Launcher",
+        "success": false,
+        "error": "[Errno 2] No such file or directory: '/mnt/c/Azazael/Azazael_UNIFIED/CORE/WORMS/.venv/Scripts/python.exe'"
+      },
+      "HYDRA.hydra_protocols": {
+        "description": "HYDRA Protocols",
+        "success": false,
+        "error": "[Errno 2] No such file or directory: '/mnt/c/Azazael/Azazael_UNIFIED/CORE/WORMS/.venv/Scripts/python.exe'"
+      },
+      "META.HYDRA_CONTAINER": {
+        "description": "HYDRA Container",
+        "success": false,
+        "error": "[Errno 2] No such file or directory: '/mnt/c/Azazael/Azazael_UNIFIED/CORE/WORMS/.venv/Scripts/python.exe'"
+      },
+      "META.HYDRAMETA": {
+        "description": "HYDRA Meta",
+        "success": false,
+        "error": "[Errno 2] No such file or directory: '/mnt/c/Azazael/Azazael_UNIFIED/CORE/WORMS/.venv/Scripts/python.exe'"
+      },
+      "CORE.WORMS.WORMZ": {
+        "description": "WORMZ",
+        "success": false,
+        "error": "[Errno 2] No such file or directory: '/mnt/c/Azazael/Azazael_UNIFIED/CORE/WORMS/.venv/Scripts/python.exe'"
+      },
+      "CORE.WORMS.SYSTEMZ": {
+        "description": "SYSTEMZ",
+        "success": false,
+        "error": "[Errno 2] No such file or directory: '/mnt/c/Azazael/Azazael_UNIFIED/CORE/WORMS/.venv/Scripts/python.exe'"
+      },
+      "CORE.WORMS.CLUSTERWORMS": {
+        "description": "CLUSTERWORMS",
+        "success": false,
+        "error": "[Errno 2] No such file or directory: '/mnt/c/Azazael/Azazael_UNIFIED/CORE/WORMS/.venv/Scripts/python.exe'"
+      },
+      "UTILITIES.TERENCE.TERENCE": {
+        "description": "TERENCE",
+        "success": false,
+        "error": "[Errno 2] No such file or directory: '/mnt/c/Azazael/Azazael_UNIFIED/CORE/WORMS/.venv/Scripts/python.exe'"
+      },
+      "UTILITIES.TARBABY.TARBABY": {
+        "description": "TARBABY",
+        "success": false,
+        "error": "[Errno 2] No such file or directory: '/mnt/c/Azazael/Azazael_UNIFIED/CORE/WORMS/.venv/Scripts/python.exe'"
+      }
+    },
+    "dead_imports": [],
+    "circular_deps": [],
+    "bad_syspath": []
+  },
+  "fixes_applied": []
+}

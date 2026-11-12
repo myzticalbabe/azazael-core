@@ -1,0 +1,146 @@
+{
+  "id": "highend-duel@sha256:ca17c49ddb6e06694384f1468b4482255ae95d7c17e922e5aca3fd4fc180aec8",
+  "version": "0.1.0",
+  "genre": "arena",
+  "tier": "highend",
+  "sim_hz": 60,
+  "files": [
+    {
+      "path": "main.wasm",
+      "sha256": "0d6e4079e36703ebd37c00722f5891d28b0e2811dc114b129215123adcce3605",
+      "role": "code",
+      "size_bytes": 65536
+    },
+    {
+      "path": "assets/stage_00.ktx2",
+      "sha256": "cffb39700a27e2e72c65afa3bd967dff7ecdd0367c78e90e925ddbcfd3f1fe38",
+      "role": "asset",
+      "size_bytes": 4194304
+    },
+    {
+      "path": "assets/stage_01.ktx2",
+      "sha256": "8039dee39733fbc3fb47085742683c99070993126b792617e35e38b0ede4b12f",
+      "role": "asset",
+      "size_bytes": 4194304
+    },
+    {
+      "path": "assets/stage_02.ktx2",
+      "sha256": "afae7c9954560276cd9bea9bfe46918bc12bffa6665b3fa9b6b146e7c54b5f97",
+      "role": "asset",
+      "size_bytes": 4194304
+    },
+    {
+      "path": "assets/stage_03.ktx2",
+      "sha256": "040503c359153a4e44768382f294f8e34b14406f223e0c6dbb5cfa08c7c15ae5",
+      "role": "asset",
+      "size_bytes": 4194304
+    },
+    {
+      "path": "assets/stage_04.ktx2",
+      "sha256": "83f26ddd793db44fa8adcd3ea716f39092a326c61f539b8dd42b2d74f43aa536",
+      "role": "asset",
+      "size_bytes": 4194304
+    },
+    {
+      "path": "assets/stage_05.ktx2",
+      "sha256": "6573693e5f45fa7d2d005d2ccdb15b3dd323e979673a4bba6875b1c3fc7ab68b",
+      "role": "asset",
+      "size_bytes": 4194304
+    },
+    {
+      "path": "assets/stage_06.ktx2",
+      "sha256": "24106d371df8b86c7f8a14fdd720006c962bf6e8e50aa72251b66d053fdb28fc",
+      "role": "asset",
+      "size_bytes": 4194304
+    },
+    {
+      "path": "assets/stage_07.ktx2",
+      "sha256": "44195be35642b90a29b0adf13dce938564e945f3ff6653b453f74044a1ac9d29",
+      "role": "asset",
+      "size_bytes": 4194304
+    },
+    {
+      "path": "assets/stage_08.ktx2",
+      "sha256": "49eac67676050519712c44f5e82adf878337109fdcd0375722bf184abdd56c30",
+      "role": "asset",
+      "size_bytes": 4194304
+    },
+    {
+      "path": "assets/stage_09.ktx2",
+      "sha256": "08893c89d7bd4bc0f9f54dbce2e5195dcde76727a795078ceb40ffdf52fc1343",
+      "role": "asset",
+      "size_bytes": 4194304
+    },
+    {
+      "path": "assets/stage_10.ktx2",
+      "sha256": "cc91d7c3fd67c962fc3631834d40df403fd3386e442d874965827560fa2520d2",
+      "role": "asset",
+      "size_bytes": 4194304
+    },
+    {
+      "path": "arena-kernel.hubref",
+      "sha256": "98d623f4dcd72ac445e7002d9c11ede11a634bf6cf97d6c78025343d50dd8720",
+      "role": "hub-ref",
+      "size_bytes": 128
+    }
+  ],
+  "entrypoint": "main.wasm",
+  "loader": "wasm3-det",
+  "golden_run": {
+    "input": "AAECAwQFBgcICQ==",
+    "ticks": 360,
+    "state_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "token": "AZAZAEL-GOLDEN-OK",
+    "headless": true
+  },
+  "capabilities": [
+    {
+      "id": "rollback-netcode",
+      "affects": "sim",
+      "determinism": "exact",
+      "note": "GGRS-style rollback; the sim is integer-only so a rewind is exact"
+    },
+    {
+      "id": "fixed-point-rng",
+      "affects": "sim",
+      "determinism": "exact"
+    },
+    {
+      "id": "volumetric-fog",
+      "affects": "presentation",
+      "determinism": "approximate"
+    }
+  ],
+  "hubs": [
+    {
+      "name": "arena-kernel",
+      "version": "1.0.0",
+      "sha256": "98d623f4dcd72ac445e7002d9c11ede11a634bf6cf97d6c78025343d50dd8720",
+      "capability": "collision + tick loop",
+      "declared_by": [
+        "arena-kernel.hubref"
+      ]
+    }
+  ],
+  "budget": {
+    "payload_bytes_max": 67108864,
+    "tick_budget_ms": {
+      "p50": 6.0,
+      "p99": 15.2,
+      "scene": "duel-4p"
+    }
+  },
+  "licence": "MIT",
+  "author_pubkey": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+  "execution_model": "resident_host",
+  "env_allowlist": [
+    "METTHEW_HOME"
+  ],
+  "tick_budget": {
+    "p50_ms": 6.0,
+    "p99_ms": 15.2,
+    "scene": "duel-4p"
+  },
+  "competitive": true,
+  "provenance": []
+}

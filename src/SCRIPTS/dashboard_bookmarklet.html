@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>RULE 0Z-F Dashboard Bookmarklet</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0d1117; color: #c9d1d9; padding: 24px; max-width: 640px; margin: 0 auto; }
+  h1 { color: #58a6ff; font-size: 20px; margin-bottom: 8px; }
+  p { color: #8b949e; font-size: 14px; line-height: 1.6; }
+  .bookmarklet { display: inline-block; background: #1f6feb; color: #fff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-size: 16px; font-weight: 600; margin: 16px 0; cursor: move; }
+  .bookmarklet:hover { background: #388bfd; }
+  .instructions { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px; margin: 16px 0; }
+  .instructions code { display: block; background: #21262d; padding: 12px; border-radius: 6px; margin: 8px 0; font-size: 12px; word-break: break-all; color: #c9d1d9; }
+  code { background: #21262d; padding: 2px 6px; border-radius: 4px; font-size: 12px; }
+  .footer { color: #484f58; font-size: 12px; text-align: center; margin-top: 24px; padding-top: 16px; border-top: 1px solid #21262d; }
+</style>
+</head>
+<body>
+  <h1>RULE 0Z-F Dashboard Bookmarklet</h1>
+  <p>Drag this bookmarklet to your browser's bookmarks bar. Click it when viewing the compliance report to load live telemetry data from <code>telemetry.json</code>.</p>
+
+  <a class="bookmarklet" href="javascript:(function(){var s=document.createElement('script');s.textContent='fetch(\"telemetry.json\").then(r=>r.json()).then(d=>{if(d.status===\"ok\"){document.getElementById(\"report-time\").textContent=d.timestamp;document.getElementById(\"parallel-val\").textContent=d.parallel_batches;document.getElementById(\"sequential-val\").textContent=d.sequential_violations;var r=d.compliance_ratio;document.getElementById(\"ratio-val\").textContent=r.toFixed?r.toFixed(1)+\"%\":r+\"%\";document.getElementById(\"edits-val\").textContent=d.edit_count;var m=document.getElementById(\"compliance-meter\");m.style.width=r+\"%\";var st=document.getElementById(\"meter-status\");if(d.sequential_violations===0&&d.parallel_batches>0){st.textContent=\"PERFECT\";st.style.color=\"#3fb950\"}else if(d.sequential_violations<=2){st.textContent=\"WARNING: \"+d.sequential_violations+\" violation(s)\";st.style.color=\"#d29922\"}else{st.textContent=\"CRITICAL: \"+d.sequential_violations+\" violations\";st.style.color=\"#da3633\"}document.getElementById(\"footer-time\").textContent=new Date().toLocaleString()}}).catch(e=>alert(\"Could not load telemetry.json: \"+e.message));})();">RULE 0Z-F Live Telemetry</a>
+
+  <div class="instructions">
+    <strong>Installation:</strong>
+    <ol>
+      <li>Open your browser's bookmarks manager</li>
+      <li>Drag the blue button above to your bookmarks bar</li>
+      <li>Open <code>compliance_report.html</code> in your browser</li>
+      <li>Click the bookmarklet to load live data from <code>telemetry.json</code></li>
+    </ol>
+    <strong>Or copy this code as a new bookmark URL:</strong>
+    <code>javascript:(function(){fetch("telemetry.json").then(r=&gt;r.json()).then(d=&gt;{if(d.status==="ok"){document.getElementById("report-time").textContent=d.timestamp;document.getElementById("parallel-val").textContent=d.parallel_batches;document.getElementById("sequential-val").textContent=d.sequential_violations;var r=d.compliance_ratio;document.getElementById("ratio-val").textContent=r.toFixed?r.toFixed(1)+"%":r+"%";document.getElementById("edits-val").textContent=d.edit_count;var m=document.getElementById("compliance-meter");m.style.width=r+"%";var st=document.getElementById("meter-status");if(d.sequential_violations===0&amp;&amp;d.parallel_batches&gt;0){st.textContent="PERFECT";st.style.color="#3fb950"}else if(d.sequential_violations&lt;=2){st.textContent="WARNING: "+d.sequential_violations+" violation(s)";st.style.color="#d29922"}else{st.textContent="CRITICAL: "+d.sequential_violations+" violations";st.style.color="#da3633"}document.getElementById("footer-time").textContent=new Date().toLocaleString()}}).catch(e=&gt;alert("Could not load telemetry.json: "+e.message));})();</code>
+  </div>
+
+  <div class="footer">
+    RULE 0Z-F | Requires telemetry.json in same directory | Works from HTTP server or file://
+  </div>
+</body>
+</html>

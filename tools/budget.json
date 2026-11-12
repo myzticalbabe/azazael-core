@@ -1,0 +1,76 @@
+{
+  "generated_at": "2026-11-02T04:56:07.447993+00:00",
+  "python_version": "3.14.7",
+  "shards": [
+    {
+      "file_count": 2,
+      "file_list": [
+        {
+          "path": "main.py",
+          "role": "code",
+          "size_bytes": 7994
+        },
+        {
+          "path": "SHARD.md",
+          "role": "data",
+          "size_bytes": 3852
+        }
+      ],
+      "files_ok": true,
+      "fingerprint": "ea100737aa98196ecd0430bf56bbb1fb17d21d3db2134f9af3cfc49d678e3e14",
+      "id": "highend-duel@sha256:ea100737aa98196ecd0430bf56bbb1fb17d21d3db2134f9af3cfc49d678e3e14",
+      "manifest_path": "C:\\Azazael\\azazael\\docs\\METTHEW\\reference-shards\\highend_duel\\shard.json",
+      "measure_error": null,
+      "measured": true,
+      "measured_at": "2026-11-02T04:56:07.440657+00:00",
+      "payload_bytes": 11846,
+      "payload_ok": true,
+      "peak_rss_bytes": 26746880,
+      "tick_budget": {
+        "p50_ms": 0.001154,
+        "p99_ms": 0.001397,
+        "repeats": 5,
+        "ticks": 360
+      },
+      "tier": "highend"
+    },
+    {
+      "file_count": 2,
+      "file_list": [
+        {
+          "path": "main.py",
+          "role": "code",
+          "size_bytes": 11540
+        },
+        {
+          "path": "SHARD.md",
+          "role": "data",
+          "size_bytes": 3804
+        }
+      ],
+      "files_ok": true,
+      "fingerprint": "6dd0485d35f76a8a0f15ed0eefc036091230fd5f4e972fdc9bf7ba9bf40ce920",
+      "id": "highend-ladder@sha256:6dd0485d35f76a8a0f15ed0eefc036091230fd5f4e972fdc9bf7ba9bf40ce920",
+      "manifest_path": "C:\\Azazael\\azazael\\docs\\METTHEW\\reference-shards\\highend_ladder\\shard.json",
+      "measure_error": null,
+      "measured": true,
+      "measured_at": "2026-11-02T04:56:07.447947+00:00",
+      "payload_bytes": 15344,
+      "payload_ok": true,
+      "peak_rss_bytes": 27017216,
+      "tick_budget": {
+        "p50_ms": 0.001055,
+        "p99_ms": 0.001309,
+        "repeats": 5,
+        "ticks": 600
+      },
+      "tier": "highend"
+    }
+  ],
+  "summary": {
+    "files_ok": 2,
+    "measured": 2,
+    "payload_ok": 2,
+    "total_shards": 2
+  }
+}

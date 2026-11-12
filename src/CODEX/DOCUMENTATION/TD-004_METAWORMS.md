@@ -1,0 +1,676 @@
+﻿# TD-004: METAWORMS Orchestration System Technical Specification
+
+**Document ID:** TD-004  
+**Component:** METAWORMS (`METAWORMS.py`, Tier 3-4 Metaworms)  
+**Classification:** Technical Specification  
+**Version:** 1.0.0  
+**Date:** 2026-02-11  
+
+---
+
+## Abstract
+
+This document presents a comprehensive technical specification for the METAWORMS Orchestration System, implementing Tier 3 (11 metaworms) and Tier 4 (HYDRAMETA ML optimization) of the Azazael Ecosystem. The system provides higher-level orchestration capabilities including metadata extraction, dependency mapping, syntax validation, dead code detection, metrics collection, log analysis, change tracking, and genetic algorithm-based ML optimization through HYDRAMETA.
+
+**Keywords:** metaworm orchestration, static analysis, code metrics, genetic algorithms, ML optimization, code quality analysis
+
+---
+
+## 1. Introduction
+
+### 1.1 Theoretical Foundation
+
+METAWORMS extends the WORMZ execution layer by implementing **static analysis** techniques [1] combined with **evolutionary computation** for parameter optimization [2]. The architecture employs:
+
+1. **Meta-Programming**: Self-referential code analysis
+2. **Static Analysis**: AST-based code examination without execution
+3. **Genetic Algorithms**: Population-based optimization (Tier 4)
+4. **Pattern Recognition**: Structural code pattern detection
+
+### 1.2 Metaworm Taxonomy
+
+| Worm | Type | Function | Output | Tier |
+|------|------|----------|--------|------|
+| ERRORZ | Analyzer | Error pattern detection | `errors.json` | 3 |
+| TRIMZ | Cleaner | Content trimming | `trim_results.json` | 3 |
+| METAZ | Extractor | Metadata extraction | `metadata.json` | 3 |
+| DEPENDZ | Mapper | Dependency mapping | `dependencies.json` | 3 |
+| VALIDZ | Validator | Syntax validation | `validation.json` | 3 |
+| DEADZ | Detector | Dead code detection | `dead_code.json` | 3 |
+| METRICZ | Collector | Code metrics | `metrics.json` | 3 |
+| LOGZ | Analyzer | Log analysis | `log_analysis.json` | 3 |
+| CHANGEZ | Tracker | Change tracking | `changes.json` | 3 |
+| OPTIMIZ | Optimizer | Performance optimization | `optimization.json` | 3 |
+| HEALTHZ | Monitor | Health checks | `health.json` | 3 |
+| HYDRAMETA | ML Optimizer | Genetic algorithm tuning | Parameter sets | 4 |
+
+---
+
+## 2. Architecture
+
+### 2.1 System Overview
+
+```
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚                    METAWORMS Orchestration                         â”‚
+â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
+â”‚                                                                  â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚
+â”‚  â”‚                    Tier 3: Metaworms                        â”‚  â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”          â”‚  â”‚
+â”‚  â”‚  â”‚ METAZ   â”‚ â”‚ DEPENDZ â”‚ â”‚ VALIDZ  â”‚ â”‚ DEADZ   â”‚          â”‚  â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜          â”‚  â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”          â”‚  â”‚
+â”‚  â”‚  â”‚METRICZ  â”‚ â”‚  LOGZ   â”‚ â”‚CHANGEZ  â”‚ â”‚OPTIMIZ  â”‚          â”‚  â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜          â”‚  â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”                      â”‚  â”‚
+â”‚  â”‚  â”‚HEALTHZ  â”‚ â”‚ ERRORZ  â”‚ â”‚ TRIMZ  â”‚                      â”‚  â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜                      â”‚  â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚
+â”‚                                                                  â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚
+â”‚  â”‚                    Tier 4: HYDRAMETA                       â”‚  â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”               â”‚  â”‚
+â”‚  â”‚  â”‚ Genetic Algorithmâ”‚  â”‚  UV Integration â”‚               â”‚  â”‚
+â”‚  â”‚  â”‚   Optimizer     â”‚  â”‚   (HYDRAMETA_UV) â”‚               â”‚  â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜               â”‚  â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚
+â”‚                                                                  â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+```
+
+### 2.2 Core Data Structures
+
+#### 2.2.1 WormResult
+
+```python
+@dataclass
+class WormResult:
+    """
+    Result from a meta worm execution.
+    
+    Standardized output container for all metaworm operations.
+    """
+    name: str                    # Metaworm identifier
+    success: bool               # Execution outcome
+    files_processed: int = 0    # Files analyzed
+    items_found: int = 0        # Items detected
+    duration_ms: float = 0.0    # Execution time
+    output: Dict[str, Any]     # Results payload
+    errors: List[str] = []      # Error messages
+```
+
+#### 2.2.2 MetaWormConfig
+
+```python
+@dataclass
+class MetaWormConfig:
+    """Configuration for meta worms."""
+    
+    TARGET_FOLDERS = [
+        "C:/Users/clint/Desktop/Azazael_UNIFIED/ORCHESTRATION_UNIFIED/ORCHESTRATION",
+        "C:/Users/clint/Desktop/Azazael_UNIFIED/ORCHESTRATION_UNIFIED/HYDRA.py",
+        "C:/Users/clint/Desktop/HORUS.py",
+        "C:/Users/clint/Desktop/Azazael_UNIFIED/ORCHESTRATION_UNIFIED/ORCHESTRATION_UNIFIED/UTILITIES/TARBABY.py",
+        "C:/Users/clint/Desktop/Azazael_UNIFIED/ORCHESTRATION_UNIFIED/UTILITIES/POINDEXTER",
+        "C:/Users/clint/Desktop/Azazael_UNIFIED/ORCHESTRATION_UNIFIED/UTILITIES/PERSEPHONE",
+        "C:/Users/clint/Desktop/Azazael_UNIFIED/ORCHESTRATION_UNIFIED/ORCHESTRATION_UNIFIED/CORE/WORMS",
+        "C:/Users/clint/Desktop/Azazael_UNIFIED/ORCHESTRATION_UNIFIED/META",
+    ]
+    
+    OUTPUT_PATH = "C:/Users/clint/Desktop/Azazael_UNIFIED/ORCHESTRATION_UNIFIED/META/output"
+    
+    skip_patterns = {
+        "__pycache__", ".git", ".venv", "venv",
+        "node_modules", ".tox", "dist", "build",
+        "*.egg-info", "Windows", "Program Files", "AppData"
+    }
+```
+
+---
+
+## 3. Tier 3 Metaworms
+
+### 3.1 METAZ - Metadata Extractor
+
+```python
+class METAZ:
+    """
+    METAZ - Metadata Extractor Worm.
+    
+    Extracts comprehensive metadata from source files:
+    - File properties (size, dates, permissions)
+    - Code structure (classes, functions, imports)
+    - Documentation patterns (docstrings, comments)
+    """
+    
+    VERSION = "1.0.0"
+    
+    def run(self) -> WormResult:
+        """Execute metadata extraction."""
+        start = time.time()
+        metadata = defaultdict(list)
+        files = 0
+        
+        for folder in MetaWormConfig.TARGET_FOLDERS:
+            path = Path(folder)
+            if path.exists():
+                for py_file in path.rglob("*.py"):
+                    if self._should_skip(py_file):
+                        continue
+                    
+                    file_meta = self._extract_metadata(py_file)
+                    metadata["files"].append(file_meta)
+                    files += 1
+        
+        return WormResult(
+            name="METAZ",
+            success=True,
+            files_processed=files,
+            items_found=len(metadata["files"]),
+            duration_ms=(time.time() - start) * 1000,
+            output=dict(metadata)
+        )
+    
+    def _extract_metadata(self, file_path: Path) -> Dict:
+        """Extract metadata from single file."""
+        stat = file_path.stat()
+        return {
+            "path": str(file_path),
+            "size": stat.st_size,
+            "modified": datetime.fromtimestamp(stat.st_mtime).isoformat(),
+            "lines": self._count_lines(file_path),
+            "classes": self._count_classes(file_path),
+            "functions": self._count_functions(file_path),
+        }
+```
+
+### 3.2 DEPENDZ - Dependency Mapper
+
+```python
+class DEPENDZ:
+    """
+    DEPENDZ - Dependency Mapping Worm.
+    
+    Maps internal and external dependencies:
+    - Import statements
+    - Module references
+    - Cross-file dependencies
+    """
+    
+    def run(self) -> WormResult:
+        """Execute dependency mapping."""
+        dependencies = {
+            "imports": defaultdict(list),
+            "modules": defaultdict(set),
+            "graph": defaultdict(set)
+        }
+        
+        for folder in MetaWormConfig.TARGET_FOLDERS:
+            path = Path(folder)
+            if path.exists():
+                self._map_dependencies(path, dependencies)
+        
+        return WormResult(
+            name="DEPENDZ",
+            success=True,
+            output=dict(dependencies)
+        )
+    
+    def _map_dependencies(self, path: Path, dependencies: Dict):
+        """Build dependency graph for files."""
+        for py_file in path.rglob("*.py"):
+            if self._should_skip(py_file):
+                continue
+            
+            content = py_file.read_text()
+            imports = re.findall(r'^import\s+(\w+)', content, re.MULTILINE)
+            from_imports = re.findall(r'^from\s+(\w+)', content, re.MULTILINE)
+            
+            module = py_file.stem
+            dependencies["modules"][module].update(imports)
+            dependencies["modules"][module].update(from_imports)
+            
+            for imp in imports:
+                dependencies["graph"][module].add(imp)
+```
+
+### 3.3 VALIDZ - Syntax Validator
+
+```python
+class VALIDZ:
+    """
+    VALIDZ - Syntax Validation Worm.
+    
+    Performs static syntax validation:
+    - Python syntax errors
+    - Import resolution
+    - Type annotation checking
+    """
+    
+    def run(self) -> WormResult:
+        """Execute syntax validation."""
+        validation = {
+            "valid": [],
+            "errors": [],
+            "warnings": []
+        }
+        
+        for folder in MetaWormConfig.TARGET_FOLDERS:
+            path = Path(folder)
+            if path.exists():
+                self._validate_files(path, validation)
+        
+        return WormResult(
+            name="VALIDZ",
+            success=len(validation["errors"]) == 0,
+            files_processed=len(validation["valid"]) + len(validation["errors"]),
+            items_found=len(validation["warnings"]),
+            output=validation
+        )
+    
+    def _validate_files(self, path: Path, validation: Dict):
+        """Validate Python files in path."""
+        for py_file in path.rglob("*.py"):
+            if self._should_skip(py_file):
+                continue
+            
+            try:
+                with open(py_file, 'r') as f:
+                    ast.parse(f.read())
+                validation["valid"].append(str(py_file))
+            except SyntaxError as e:
+                validation["errors"].append({
+                    "file": str(py_file),
+                    "line": e.lineno,
+                    "error": e.msg
+                })
+```
+
+### 3.4 DEADZ - Dead Code Detector
+
+```python
+class DEADZ:
+    """
+    DEADZ - Dead Code Detection Worm.
+    
+    Identifies unreachable or unused code:
+    - Unused imports
+    - Uncalled functions
+    - Unreachable code paths
+    """
+    
+    def run(self) -> WormResult:
+        """Execute dead code detection."""
+        dead_code = {
+            "unused_imports": [],
+            "uncalled_functions": [],
+            "unreachable_code": []
+        }
+        
+        for folder in MetaWormConfig.TARGET_FOLDERS:
+            path = Path(folder)
+            if path.exists():
+                self._find_dead_code(path, dead_code)
+        
+        return WormResult(
+            name="DEADZ",
+            success=True,
+            items_found=sum(len(v) for v in dead_code.values()),
+            output=dead_code
+        )
+```
+
+### 3.5 METRICZ - Code Metrics
+
+```python
+class METRICZ:
+    """
+    METRICZ - Code Metrics Collector.
+    
+    Calculates comprehensive code metrics:
+    - Cyclomatic complexity
+    - Halstead metrics
+    - Maintainability index
+    - Lines of code (LOC)
+    """
+    
+    def run(self) -> WormResult:
+        """Execute metrics collection."""
+        metrics = {
+            "files": [],
+            "totals": {
+                "loc": 0,
+                "cloc": 0,
+                "comments": 0,
+                "complexity": 0
+            }
+        }
+        
+        for folder in MetaWormConfig.TARGET_FOLDERS:
+            path = Path(folder)
+            if path.exists():
+                self._collect_metrics(path, metrics)
+        
+        return WormResult(
+            name="METRICZ",
+            success=True,
+            files_processed=len(metrics["files"]),
+            output=metrics
+        )
+    
+    def _calculate_cyclomatic_complexity(self, content: str) -> int:
+        """Calculate McCabe cyclomatic complexity."""
+        decision_points = re.findall(
+            r'\b(if|elif|while|for|and|or|except|finally|with|assert)\b',
+            content
+        )
+        return len(decision_points) + 1
+```
+
+### 3.6 LOGZ - Log Analyzer
+
+```python
+class LOGZ:
+    """
+    LOGZ - Log Analysis Worm.
+    
+    Analyzes application logs:
+    - Error pattern detection
+    - Performance indicators
+    - Anomaly detection
+    """
+    
+    def run(self) -> WormResult:
+        """Execute log analysis."""
+        log_analysis = {
+            "errors": [],
+            "warnings": [],
+            "info": [],
+            "patterns": defaultdict(int)
+        }
+        
+        log_files = [
+            Path("C:/Users/clint/Desktop/Azazael_UNIFIED/ORCHESTRATION_UNIFIED/ORCHESTRATION/logs"),
+            Path("C:/Users/clint/Desktop/Azazael_UNIFIED/ORCHESTRATION_UNIFIED/ORCHESTRATION_UNIFIED/CORE/WORMS/logs")
+        ]
+        
+        for log_dir in log_files:
+            if log_dir.exists():
+                self._analyze_logs(log_dir, log_analysis)
+        
+        return WormResult(
+            name="LOGZ",
+            success=True,
+            items_found=len(log_analysis["errors"]) + len(log_analysis["warnings"]),
+            output=log_analysis
+        )
+```
+
+### 3.7 HEALTHZ - Health Monitor
+
+```python
+class HEALTHZ:
+    """
+    HEALTHZ - Health Check Worm.
+    
+    Performs system health assessments:
+    - File integrity verification
+    - Configuration validation
+    - Dependency resolution
+    """
+    
+    def run(self) -> WormResult:
+        """Execute health checks."""
+        health = {
+            "status": "healthy",
+            "checks": [],
+            "issues": []
+        }
+        
+        checks = [
+            self._check_file_integrity,
+            self._check_config_validity,
+            self._check_dependencies
+        ]
+        
+        for check in checks:
+            result = check()
+            health["checks"].append(result)
+            if result["status"] != "ok":
+                health["issues"].append(result)
+                health["status"] = "degraded"
+        
+        return WormResult(
+            name="HEALTHZ",
+            success=health["status"] == "healthy",
+            items_found=len(health["checks"]),
+            output=health
+        )
+```
+
+---
+
+## 4. Tier 4: HYDRAMETA ML Optimization
+
+### 4.1 Genetic Algorithm Architecture
+
+```
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚                   HYDRAMETA Genetic Algorithm                      â”‚
+â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
+â”‚                                                                  â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚
+â”‚  â”‚                   Population Management                    â”‚   â”‚
+â”‚  â”‚  â”œâ”€â”€ Population Size: N = 50-100                         â”‚   â”‚
+â”‚  â”‚  â”œâ”€â”€ Chromosome: Parameter vector Î¸                       â”‚   â”‚
+â”‚  â”‚  â”œâ”€â”€ Fitness Function: J(Î¸)                              â”‚   â”‚
+â”‚  â”‚  â””â”€â”€ Selection: Tournament or Roulette Wheel              â”‚   â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚
+â”‚                                                                  â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚
+â”‚  â”‚                   Genetic Operators                       â”‚   â”‚
+â”‚  â”‚  â”œâ”€â”€ Crossover: Single-point (p_c = 0.8)                  â”‚   â”‚
+â”‚  â”‚  â”œâ”€â”€ Mutation: Gaussian (Ïƒ = 0.1, p_m = 0.1)              â”‚   â”‚
+â”‚  â”‚  â””â”€â”€ Elitism: Top 10% preserved                          â”‚   â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚
+â”‚                                                                  â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚
+â”‚  â”‚                   Fitness Evaluation                      â”‚   â”‚
+â”‚  â”‚  â”œâ”€â”€ Objective: Minimize execution time                  â”‚   â”‚
+â”‚  â”‚  â”œâ”€â”€ Constraint: Quality threshold                        â”‚   â”‚
+â”‚  â”‚  â””â”€â”€ Multi-objective: Speed vs Accuracy                  â”‚   â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚
+â”‚                                                                  â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+```
+
+### 4.2 Genetic Algorithm Implementation
+
+```python
+class HYDRAMETA:
+    """
+    HYDRAMETA - Hydratic Meta-Worms with ML Optimization.
+    
+    Implements genetic algorithm for optimizing worm parameters
+    based on historical performance data.
+    """
+    
+    VERSION = "1.0.0"
+    
+    def __init__(self):
+        self.population_size = 50
+        self.generations = 100
+        self.crossover_rate = 0.8
+        self.mutation_rate = 0.1
+        self.elitism_count = 5
+        self.output_path = Path("C:/Users/clint/Desktop/Azazael_UNIFIED/ORCHESTRATION_UNIFIED/META/output/hydrometa")
+    
+    def optimize(self) -> Dict:
+        """
+        Execute genetic algorithm optimization.
+        
+        Returns optimized parameter set.
+        """
+        # Initialize population
+        population = self._initialize_population()
+        
+        for generation in range(self.generations):
+            # Evaluate fitness
+            fitness = [self._evaluate_fitness(chromosome) for chromosome in population]
+            
+            # Selection
+            selected = self._tournament_selection(population, fitness)
+            
+            # Crossover
+            offspring = self._crossover(selected)
+            
+            # Mutation
+            mutated = self._mutate(offspring)
+            
+            # Elitism
+            population = self._preserve_elite(population, fitness, mutated)
+        
+        # Return best individual
+        best_idx = np.argmax([self._evaluate_fitness(c) for c in population])
+        return self._decode_chromosome(population[best_idx])
+    
+    def _initialize_population(self) -> List[np.ndarray]:
+        """Initialize random population."""
+        return [np.random.randn(self.param_dim) for _ in range(self.population_size)]
+    
+    def _evaluate_fitness(self, chromosome: np.ndarray) -> float:
+        """Evaluate fitness of chromosome."""
+        params = self._decode_chromosome(chromosome)
+        return self._run_trial(params)
+    
+    def _tournament_selection(self, population: List[np.ndarray], 
+                            fitness: List[float], k: int = 3) -> List[np.ndarray]:
+        """Tournament selection operator."""
+        selected = []
+        for _ in range(len(population)):
+            tournament = random.sample(list(zip(population, fitness)), k)
+            winner = max(tournament, key=lambda x: x[1])
+            selected.append(winner[0].copy())
+        return selected
+    
+    def _crossover(self, parents: List[np.ndarray]) -> List[np.ndarray]:
+        """Single-point crossover operator."""
+        offspring = []
+        for i in range(0, len(parents) - 1, 2):
+            if random.random() < self.crossover_rate:
+                point = random.randint(1, len(parents[0]) - 1)
+                child1 = np.concatenate([parents[i][:point], parents[i + 1][point:]])
+                child2 = np.concatenate([parents[i + 1][:point], parents[i][point:]])
+                offspring.extend([child1, child2])
+            else:
+                offspring.extend([parents[i].copy(), parents[i + 1].copy()])
+        return offspring
+    
+    def _mutate(self, offspring: List[np.ndarray]) -> List[np.ndarray]:
+        """Gaussian mutation operator."""
+        for chromosome in offspring:
+            if random.random() < self.mutation_rate:
+                mutation = np.random.randn(len(chromosome)) * 0.1
+                chromosome += mutation
+        return offspring
+```
+
+### 4.3 HYDRAMETA_UV - UV Integration
+
+```python
+class HYDRAMETA_UV:
+    """
+    HYDRAMETA_UV - UV-Powered Optimization.
+    
+    Extends HYDRAMETA with UV package management for
+    dependency-aware optimization trials.
+    """
+    
+    VERSION = "1.0.0"
+    
+    def __init__(self):
+        self.config = HYDRAMETA_UVConfig()
+    
+    def run_trials(self, n_trials: int = 10) -> List[UVTrialResult]:
+        """Execute optimization trials with UV isolation."""
+        results = []
+        
+        for i in range(n_trials):
+            trial = self._run_isolated_trial(i)
+            results.append(trial)
+        
+        return results
+    
+    def _run_isolated_trial(self, trial_id: int) -> UVTrialResult:
+        """Run trial in UV-isolated environment."""
+        # Create temporary environment
+        with tempfile.TemporaryDirectory() as tmpdir:
+            # Install dependencies via UV
+            subprocess.run(
+                ["uv", "pip", "install", "-r", "requirements.txt"],
+                cwd=tmpdir,
+                capture_output=True
+            )
+            
+            # Execute trial
+            start = time.time()
+            result = self._execute_with_params(tmpdir)
+            
+            return UVTrialResult(
+                trial_id=f"trial_{trial_id}",
+                worm_sequence=self._get_sequence(),
+                duration_ms=(time.time() - start) * 1000,
+                efficiency_score=self._calculate_score(result),
+                uv_install_time_ms=self._measure_uv_time(),
+                worm_execution_time_ms=self._measure_execution_time(),
+                packages_installed=self._count_packages(),
+                parameters=self.config.to_dict(),
+                success=True
+            )
+```
+
+---
+
+## 5. Performance Analysis
+
+### 5.1 Complexity Metrics
+
+| Metaworm | Time Complexity | Space Complexity |
+|----------|-----------------|------------------|
+| METAZ | $O(n \cdot f)$ | $O(n)$ |
+| DEPENDZ | $O(n \cdot f)$ | $O(n + e)$ |
+| VALIDZ | $O(n \cdot f)$ | $O(1)$ |
+| DEADZ | $O(n \cdot f)$ | $O(n)$ |
+| METRICZ | $O(n \cdot f)$ | $O(n)$ |
+| LOGZ | $O(L)$ | $O(L)$ |
+| HEALTHZ | $O(n)$ | $O(1)$ |
+| HYDRAMETA | $O(g \cdot p \cdot t)$ | $O(p)$ |
+
+where:
+- $n$ = number of files
+- $f$ = average file size
+- $e$ = number of edges in dependency graph
+- $L$ = log file size
+- $g$ = generations
+- $p$ = population size
+- $t$ = trial execution time
+
+---
+
+## 6. References
+
+[1] Ball, T., & Rajamani, S. K. (2002). The SLAM project: Debugging system software via static analysis. ACM POPL.
+
+[2] BÃ¤ck, T., & Schwefel, H. P. (1993). An overview of evolutionary algorithms for parameter optimization. Evolutionary Computation, 1(1), 1-23.
+
+[3] McCabe, T. J. (1976). A complexity measure. IEEE TSE, (4), 308-320.
+
+---
+
+*Document ID: TD-004*
+*Component: METAWORMS Orchestration System*
+*Classification: Technical Specification*
+*Version: 1.0.0*
+
+

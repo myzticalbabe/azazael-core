@@ -1,0 +1,703 @@
+{
+  "name": "METRICZ",
+  "success": true,
+  "files_processed": 76,
+  "items_found": 75,
+  "duration_ms": 942.8658485412598,
+  "output": {
+    "metrics": {
+      "totals": {
+        "lines": 29635,
+        "code_lines": 23912,
+        "comment_lines": 459,
+        "blank_lines": 5264,
+        "classes": 206,
+        "functions": 986,
+        "imports": 0
+      },
+      "by_file": [
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\HORUS.py",
+          "lines": 768,
+          "code_lines": 658,
+          "comment_lines": 0,
+          "blank_lines": 110,
+          "classes": 8,
+          "functions": 25
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\HYDRA.py",
+          "lines": 608,
+          "code_lines": 505,
+          "comment_lines": 0,
+          "blank_lines": 103,
+          "classes": 5,
+          "functions": 20
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\HYDRA_10MIN_TEST.py",
+          "lines": 223,
+          "code_lines": 176,
+          "comment_lines": 6,
+          "blank_lines": 41,
+          "classes": 0,
+          "functions": 3
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\INTEROPERABILITY_ANALYSIS.py",
+          "lines": 554,
+          "code_lines": 480,
+          "comment_lines": 11,
+          "blank_lines": 63,
+          "classes": 2,
+          "functions": 13
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\TARBABY.py",
+          "lines": 578,
+          "code_lines": 479,
+          "comment_lines": 0,
+          "blank_lines": 99,
+          "classes": 6,
+          "functions": 19
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\version.py",
+          "lines": 150,
+          "code_lines": 105,
+          "comment_lines": 3,
+          "blank_lines": 42,
+          "classes": 0,
+          "functions": 11
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\autoload.py",
+          "lines": 48,
+          "code_lines": 36,
+          "comment_lines": 1,
+          "blank_lines": 11,
+          "classes": 0,
+          "functions": 0
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\auto_install.py",
+          "lines": 163,
+          "code_lines": 132,
+          "comment_lines": 10,
+          "blank_lines": 21,
+          "classes": 0,
+          "functions": 3
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\changelog.py",
+          "lines": 132,
+          "code_lines": 100,
+          "comment_lines": 1,
+          "blank_lines": 31,
+          "classes": 0,
+          "functions": 9
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\config.py",
+          "lines": 500,
+          "code_lines": 411,
+          "comment_lines": 0,
+          "blank_lines": 89,
+          "classes": 3,
+          "functions": 30
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\cross_platform_analysis.py",
+          "lines": 217,
+          "code_lines": 191,
+          "comment_lines": 1,
+          "blank_lines": 25,
+          "classes": 0,
+          "functions": 3
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\diagnostics.py",
+          "lines": 124,
+          "code_lines": 98,
+          "comment_lines": 1,
+          "blank_lines": 25,
+          "classes": 0,
+          "functions": 3
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\framework_activator.py",
+          "lines": 935,
+          "code_lines": 717,
+          "comment_lines": 61,
+          "blank_lines": 157,
+          "classes": 5,
+          "functions": 27
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\harness.py",
+          "lines": 348,
+          "code_lines": 256,
+          "comment_lines": 11,
+          "blank_lines": 81,
+          "classes": 0,
+          "functions": 9
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\health_monitor.py",
+          "lines": 547,
+          "code_lines": 464,
+          "comment_lines": 1,
+          "blank_lines": 82,
+          "classes": 4,
+          "functions": 18
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\installation_debug.py",
+          "lines": 361,
+          "code_lines": 300,
+          "comment_lines": 1,
+          "blank_lines": 60,
+          "classes": 4,
+          "functions": 13
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\install_improvements.py",
+          "lines": 101,
+          "code_lines": 69,
+          "comment_lines": 9,
+          "blank_lines": 23,
+          "classes": 0,
+          "functions": 2
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\install_light.py",
+          "lines": 56,
+          "code_lines": 41,
+          "comment_lines": 1,
+          "blank_lines": 14,
+          "classes": 0,
+          "functions": 2
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\install_manager.py",
+          "lines": 375,
+          "code_lines": 318,
+          "comment_lines": 1,
+          "blank_lines": 56,
+          "classes": 4,
+          "functions": 12
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\jax_analysis.py",
+          "lines": 325,
+          "code_lines": 286,
+          "comment_lines": 1,
+          "blank_lines": 38,
+          "classes": 0,
+          "functions": 4
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\launcher.py",
+          "lines": 71,
+          "code_lines": 54,
+          "comment_lines": 1,
+          "blank_lines": 16,
+          "classes": 0,
+          "functions": 1
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\lm_studio_autoload.py",
+          "lines": 78,
+          "code_lines": 59,
+          "comment_lines": 1,
+          "blank_lines": 18,
+          "classes": 0,
+          "functions": 1
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\lm_studio_client.py",
+          "lines": 355,
+          "code_lines": 302,
+          "comment_lines": 0,
+          "blank_lines": 53,
+          "classes": 4,
+          "functions": 11
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\lm_studio_integration.py",
+          "lines": 130,
+          "code_lines": 101,
+          "comment_lines": 0,
+          "blank_lines": 29,
+          "classes": 0,
+          "functions": 5
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\lm_studio_server.py",
+          "lines": 239,
+          "code_lines": 198,
+          "comment_lines": 1,
+          "blank_lines": 40,
+          "classes": 0,
+          "functions": 8
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\openinterpreter_startup.py",
+          "lines": 66,
+          "code_lines": 48,
+          "comment_lines": 2,
+          "blank_lines": 16,
+          "classes": 0,
+          "functions": 1
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\PERMANENT_LOAD.py",
+          "lines": 129,
+          "code_lines": 100,
+          "comment_lines": 8,
+          "blank_lines": 21,
+          "classes": 0,
+          "functions": 2
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\run_qanalysis.py",
+          "lines": 269,
+          "code_lines": 225,
+          "comment_lines": 1,
+          "blank_lines": 43,
+          "classes": 0,
+          "functions": 0
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\run_qanalysis_full.py",
+          "lines": 266,
+          "code_lines": 211,
+          "comment_lines": 1,
+          "blank_lines": 54,
+          "classes": 0,
+          "functions": 1
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\run_qanalysis_multi.py",
+          "lines": 309,
+          "code_lines": 249,
+          "comment_lines": 7,
+          "blank_lines": 53,
+          "classes": 0,
+          "functions": 2
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\unified_analysis.py",
+          "lines": 758,
+          "code_lines": 634,
+          "comment_lines": 1,
+          "blank_lines": 123,
+          "classes": 0,
+          "functions": 13
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\universal_converter.py",
+          "lines": 1124,
+          "code_lines": 901,
+          "comment_lines": 1,
+          "blank_lines": 222,
+          "classes": 12,
+          "functions": 37
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\verify_moe.py",
+          "lines": 550,
+          "code_lines": 450,
+          "comment_lines": 1,
+          "blank_lines": 99,
+          "classes": 2,
+          "functions": 13
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\__init__.py",
+          "lines": 113,
+          "code_lines": 83,
+          "comment_lines": 2,
+          "blank_lines": 28,
+          "classes": 0,
+          "functions": 5
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\deep_learning_qlearning.py",
+          "lines": 624,
+          "code_lines": 548,
+          "comment_lines": 0,
+          "blank_lines": 76,
+          "classes": 7,
+          "functions": 28
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\enhanced_qlearning.py",
+          "lines": 711,
+          "code_lines": 585,
+          "comment_lines": 0,
+          "blank_lines": 126,
+          "classes": 7,
+          "functions": 41
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\metrics_tracker.py",
+          "lines": 283,
+          "code_lines": 243,
+          "comment_lines": 0,
+          "blank_lines": 40,
+          "classes": 5,
+          "functions": 19
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\mlflow_integration.py",
+          "lines": 323,
+          "code_lines": 256,
+          "comment_lines": 4,
+          "blank_lines": 63,
+          "classes": 2,
+          "functions": 14
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\ml_integration.py",
+          "lines": 787,
+          "code_lines": 673,
+          "comment_lines": 29,
+          "blank_lines": 85,
+          "classes": 7,
+          "functions": 9
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\onnx_integration.py",
+          "lines": 322,
+          "code_lines": 252,
+          "comment_lines": 3,
+          "blank_lines": 67,
+          "classes": 2,
+          "functions": 8
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\qlearning_table.py",
+          "lines": 1031,
+          "code_lines": 864,
+          "comment_lines": 1,
+          "blank_lines": 166,
+          "classes": 11,
+          "functions": 51
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\qualitative_improvements.py",
+          "lines": 489,
+          "code_lines": 390,
+          "comment_lines": 21,
+          "blank_lines": 78,
+          "classes": 6,
+          "functions": 19
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\ray_integration.py",
+          "lines": 282,
+          "code_lines": 212,
+          "comment_lines": 6,
+          "blank_lines": 64,
+          "classes": 3,
+          "functions": 17
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\strategic_intelligence.py",
+          "lines": 431,
+          "code_lines": 341,
+          "comment_lines": 16,
+          "blank_lines": 74,
+          "classes": 5,
+          "functions": 16
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\tensor_utils.py",
+          "lines": 286,
+          "code_lines": 218,
+          "comment_lines": 4,
+          "blank_lines": 64,
+          "classes": 1,
+          "functions": 8
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\vectorize_utils.py",
+          "lines": 188,
+          "code_lines": 143,
+          "comment_lines": 3,
+          "blank_lines": 42,
+          "classes": 1,
+          "functions": 9
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\weakness_testing.py",
+          "lines": 1177,
+          "code_lines": 976,
+          "comment_lines": 30,
+          "blank_lines": 171,
+          "classes": 4,
+          "functions": 31
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\improvements\\__init__.py",
+          "lines": 22,
+          "code_lines": 15,
+          "comment_lines": 1,
+          "blank_lines": 6,
+          "classes": 0,
+          "functions": 0
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\azazael_cli.py",
+          "lines": 790,
+          "code_lines": 669,
+          "comment_lines": 1,
+          "blank_lines": 120,
+          "classes": 4,
+          "functions": 59
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\azazael_wsa.py",
+          "lines": 856,
+          "code_lines": 671,
+          "comment_lines": 0,
+          "blank_lines": 185,
+          "classes": 5,
+          "functions": 30
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\bat_analysis.py",
+          "lines": 852,
+          "code_lines": 693,
+          "comment_lines": 1,
+          "blank_lines": 158,
+          "classes": 8,
+          "functions": 30
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\check_links.py",
+          "lines": 161,
+          "code_lines": 113,
+          "comment_lines": 9,
+          "blank_lines": 39,
+          "classes": 1,
+          "functions": 5
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\complete_module_analysis.py",
+          "lines": 619,
+          "code_lines": 487,
+          "comment_lines": 24,
+          "blank_lines": 108,
+          "classes": 8,
+          "functions": 16
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\comprehensive_analysis.py",
+          "lines": 709,
+          "code_lines": 528,
+          "comment_lines": 36,
+          "blank_lines": 145,
+          "classes": 10,
+          "functions": 25
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\consistency_checker.py",
+          "lines": 390,
+          "code_lines": 296,
+          "comment_lines": 19,
+          "blank_lines": 75,
+          "classes": 2,
+          "functions": 11
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\fix_syntax_errors.py",
+          "lines": 127,
+          "code_lines": 94,
+          "comment_lines": 7,
+          "blank_lines": 26,
+          "classes": 0,
+          "functions": 3
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\generate_docstrings.py",
+          "lines": 143,
+          "code_lines": 98,
+          "comment_lines": 6,
+          "blank_lines": 39,
+          "classes": 0,
+          "functions": 4
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\generate_docs_index.py",
+          "lines": 226,
+          "code_lines": 148,
+          "comment_lines": 15,
+          "blank_lines": 63,
+          "classes": 0,
+          "functions": 6
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\improve_bat_files.py",
+          "lines": 160,
+          "code_lines": 114,
+          "comment_lines": 7,
+          "blank_lines": 39,
+          "classes": 0,
+          "functions": 3
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\run_tests.py",
+          "lines": 255,
+          "code_lines": 185,
+          "comment_lines": 13,
+          "blank_lines": 57,
+          "classes": 0,
+          "functions": 5
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\test_enhancements.py",
+          "lines": 500,
+          "code_lines": 392,
+          "comment_lines": 0,
+          "blank_lines": 108,
+          "classes": 5,
+          "functions": 15
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\validate_docs.py",
+          "lines": 790,
+          "code_lines": 645,
+          "comment_lines": 2,
+          "blank_lines": 143,
+          "classes": 6,
+          "functions": 30
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\web_dashboard.py",
+          "lines": 484,
+          "code_lines": 375,
+          "comment_lines": 1,
+          "blank_lines": 108,
+          "classes": 0,
+          "functions": 12
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\POINDEXTER\\POINDEXTER.py",
+          "lines": 350,
+          "code_lines": 291,
+          "comment_lines": 0,
+          "blank_lines": 59,
+          "classes": 2,
+          "functions": 10
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\PERSEPHONE\\persephone.py",
+          "lines": 592,
+          "code_lines": 452,
+          "comment_lines": 13,
+          "blank_lines": 127,
+          "classes": 5,
+          "functions": 23
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\PERSEPHONE\\bin\\persephone_cli.py",
+          "lines": 120,
+          "code_lines": 92,
+          "comment_lines": 1,
+          "blank_lines": 27,
+          "classes": 0,
+          "functions": 7
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\PERSEPHONE\\bin\\setup_wizard.py",
+          "lines": 89,
+          "code_lines": 63,
+          "comment_lines": 1,
+          "blank_lines": 25,
+          "classes": 0,
+          "functions": 5
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\PERSEPHONE\\lib\\environment.py",
+          "lines": 95,
+          "code_lines": 76,
+          "comment_lines": 0,
+          "blank_lines": 19,
+          "classes": 2,
+          "functions": 9
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\PERSEPHONE\\lib\\path_manager.py",
+          "lines": 98,
+          "code_lines": 79,
+          "comment_lines": 0,
+          "blank_lines": 19,
+          "classes": 2,
+          "functions": 9
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\PERSEPHONE\\lib\\__init__.py",
+          "lines": 12,
+          "code_lines": 8,
+          "comment_lines": 0,
+          "blank_lines": 4,
+          "classes": 0,
+          "functions": 0
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\WORMZ\\WORMZ.py",
+          "lines": 720,
+          "code_lines": 583,
+          "comment_lines": 12,
+          "blank_lines": 125,
+          "classes": 4,
+          "functions": 24
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\WORMZ\\WORMZ_POPUP.py",
+          "lines": 99,
+          "code_lines": 73,
+          "comment_lines": 4,
+          "blank_lines": 22,
+          "classes": 0,
+          "functions": 3
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS.py",
+          "lines": 691,
+          "code_lines": 564,
+          "comment_lines": 4,
+          "blank_lines": 123,
+          "classes": 10,
+          "functions": 18
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS_ENRICHED.py",
+          "lines": 1073,
+          "code_lines": 890,
+          "comment_lines": 14,
+          "blank_lines": 169,
+          "classes": 12,
+          "functions": 25
+        },
+        {
+          "file": "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS_POPUP.py",
+          "lines": 108,
+          "code_lines": 80,
+          "comment_lines": 4,
+          "blank_lines": 24,
+          "classes": 0,
+          "functions": 3
+        }
+      ],
+      "complexity": {
+        "avg_functions_per_class": 4.79,
+        "max_nesting_depth": 0
+      }
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

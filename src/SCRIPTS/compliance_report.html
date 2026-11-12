@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RULE 0Z-F Compliance Report</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0d1117; color: #c9d1d9; padding: 24px; max-width: 960px; margin: 0 auto; }
+  h1 { font-size: 24px; color: #58a6ff; margin-bottom: 4px; }
+  .subtitle { color: #8b949e; font-size: 14px; margin-bottom: 24px; }
+  .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 24px; }
+  .card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 20px; text-align: center; }
+  .card h3 { color: #8b949e; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .card .val { font-size: 32px; font-weight: 700; color: #58a6ff; }
+  .card .val.danger { color: #da3633; }
+  .card .val.warn { color: #d29922; }
+  .card .val.good { color: #3fb950; }
+  .card .label { font-size: 12px; color: #8b949e; margin-top: 4px; }
+
+  .section { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 20px; margin-bottom: 16px; }
+  .section h2 { font-size: 16px; margin-bottom: 16px; color: #58a6ff; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; color: #8b949e; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; padding: 8px 12px; border-bottom: 1px solid #21262d; }
+  td { padding: 8px 12px; border-bottom: 1px solid #21262d; }
+  tr:hover { background: #1c2128; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+  .badge.pass { background: #1b3826; color: #3fb950; }
+  .badge.fail { background: #3d1a1a; color: #da3633; }
+  .badge.info { background: #1a2a3d; color: #58a6ff; }
+  .badge.warn { background: #3d2e1a; color: #d29922; }
+  .footer { text-align: center; color: #484f58; font-size: 12px; padding: 16px; border-top: 1px solid #21262d; }
+  .meter-wrap { background: #21262d; border-radius: 12px; height: 24px; overflow: hidden; margin: 12px 0; }
+  .meter-fill { height: 100%; border-radius: 12px; transition: width 0.5s; background: linear-gradient(90deg, #da3633, #d29922, #3fb950); }
+  .meter-label { display: flex; justify-content: space-between; font-size: 12px; color: #8b949e; margin-bottom: 4px; }
+  .findings-list { list-style: none; }
+  .findings-list li { padding: 6px 0; border-bottom: 1px solid #21262d; font-size: 13px; display: flex; justify-content: space-between; }
+  .findings-list li:last-child { border: none; }
+  .count { font-weight: 600; }
+  .count.actionable { color: #d29922; }
+  .count.intentional { color: #58a6ff; }
+</style>
+</head>
+<body>
+  <h1>RULE 0Z-F Compliance Report</h1>
+  <p class="subtitle">Self-contained telemetry summary — generated at <span id="report-time">--</span></p>
+
+  <div class="summary-grid" id="summary-cards">
+    <div class="card"><h3>Parallel Batches</h3><div class="val" id="parallel-val">--</div><div class="label">compliant spawn calls</div></div>
+    <div class="card"><h3>Sequential Violations</h3><div class="val danger" id="sequential-val">--</div><div class="label">sequential spawn calls</div></div>
+    <div class="card"><h3>Compliance Ratio</h3><div class="val warn" id="ratio-val">--</div><div class="label">parallel / total</div></div>
+    <div class="card"><h3>Total Edits</h3><div class="val" id="edits-val">--</div><div class="label">through PreActionGate</div></div>
+  </div>
+
+  <div class="section">
+    <h2>Compliance Meter</h2>
+    <div class="meter-label"><span>0% (all violations)</span><span>100% (perfect)</span></div>
+    <div class="meter-wrap"><div class="meter-fill" id="compliance-meter" style="width:0%"></div></div>
+    <p style="text-align:center;margin-top:8px;font-size:14px;font-weight:600;color:#8b949e" id="meter-status">--</p>
+  </div>
+
+  <div class="section">
+    <h2>Scanner Findings Summary</h2>
+    <ul class="findings-list">
+      <li><span>import_inside_function (intentional lazy imports)</span><span class="count intentional">262</span></li>
+      <li><span>unicode_emoji in source files</span><span class="count actionable">22</span></li>
+      <li><span>hardcoded_win_path</span><span class="count actionable">21</span></li>
+      <li><span>t_string</span><span class="count actionable">10</span></li>
+      <li><span>os_system calls</span><span class="count actionable">3</span></li>
+      <li><span>fstring_backslash</span><span class="count actionable">1</span></li>
+      <li style="font-weight:600;border-top:1px solid #30363d;padding-top:8px;margin-top:4px">
+        <span>Total Actionable</span><span class="count actionable">57</span></li>
+      <li style="font-weight:600">
+        <span>Total Intentional (lazy imports)</span><span class="count intentional">262</span></li>
+      <li style="font-weight:600;color:#c9d1d9">
+        <span>Grand Total</span><span class="count" style="color:#c9d1d9">319</span></li>
+    </ul>
+    <p style="font-size:12px;color:#8b949e;margin-top:8px">Actionable = non-import violations across 19 files. Intentional = lazy import patterns with try/except guards for circular dependency avoidance.</p>
+  </div>
+
+  <div class="section">
+    <h2>How to Fix Actionable Issues</h2>
+    <table>
+      <tr><th>Category</th><th>Count</th><th>Fix</th></tr>
+      <tr><td>unicode_emoji</td><td>22</td><td>Replace emoji (✓✗🔷⚡) with ASCII alternatives (OK/FAIL/*/>>)</td></tr>
+      <tr><td>hardcoded_win_path</td><td>21</td><td>Use <code>Path.home()</code> or <code>get_project_root()</code> instead of <code>C:\...</code></td></tr>
+      <tr><td>t_string</td><td>10</td><td>Replace <code>t\"...\"</code> prefix with f-string or regular string</td></tr>
+      <tr><td>os_system</td><td>3</td><td>Replace <code>os.system()</code> with <code>subprocess.run()</code></td></tr>
+      <tr><td>fstring_backslash</td><td>1</td><td>Pre-extract variable instead of backslash in f-string expression</td></tr>
+    </table>
+  </div>
+
+  <div class="footer">
+    RULE 0Z-F Compliance Report | PreActionGate Telemetry | <span id="footer-time">--</span>
+  </div>
+
+  <script>
+    // === EMBEDDED TELEMETRY DATA (generated by generate_telemetry.py) ===
+    // To update: run `python azazael/src/scripts/generate_telemetry.py` and paste output here
+    var TELEMETRY_DATA = {"parallel_batches": 0, "sequential_violations": 0, "edit_count": 0, "compliance_ratio": 0.0, "total_spawns": 0, "status": "ok"};
+
+    function render(data) {
+      document.getElementById('report-time').textContent = data.timestamp || new Date().toLocaleString();
+      document.getElementById('parallel-val').textContent = data.parallel_batches;
+      document.getElementById('sequential-val').textContent = data.sequential_violations;
+
+      var ratio = data.compliance_ratio;
+      document.getElementById('ratio-val').textContent = ratio.toFixed ? ratio.toFixed(1) + '%' : ratio + '%';
+      document.getElementById('edits-val').textContent = data.edit_count;
+
+      var meter = document.getElementById('compliance-meter');
+      meter.style.width = ratio + '%';
+
+      var status = document.getElementById('meter-status');
+      if (data.sequential_violations === 0 && data.parallel_batches > 0) {
+        status.textContent = 'PERFECT — All spawn calls are parallel';
+        status.style.color = '#3fb950';
+      } else if (data.sequential_violations <= 2) {
+        status.textContent = 'WARNING — ' + data.sequential_violations + ' sequential violation(s)';
+        status.style.color = '#d29922';
+      } else {
+        status.textContent = 'CRITICAL — ' + data.sequential_violations + ' sequential violations detected';
+        status.style.color = '#da3633';
+      }
+
+      if (data.sequential_violations === 0 && data.parallel_batches > 0) {
+        document.getElementById('ratio-val').className = 'val good';
+      } else if (ratio >= 80) {
+        document.getElementById('ratio-val').className = 'val warn';
+      } else {
+        document.getElementById('ratio-val').className = 'val danger';
+      }
+
+      document.getElementById('footer-time').textContent = new Date().toLocaleString();
+    }
+
+    render(TELEMETRY_DATA);
+  </script>
+</body>
+</html>

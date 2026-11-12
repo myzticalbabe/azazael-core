@@ -1,0 +1,151 @@
+{
+  "name": "METAZ",
+  "success": true,
+  "files_processed": 202,
+  "items_found": 202,
+  "duration_ms": 3526.3686180114746,
+  "output": {
+    "metadata": {
+      "total_size_bytes": 3724401,
+      "file_counts": {
+        ".md": 79,
+        ".py": 76,
+        ".png": 3,
+        ".bat": 9,
+        ".yaml": 2,
+        ".txt": 4,
+        ".pth": 1,
+        ".json": 19,
+        ".npy": 7,
+        ".sh": 2
+      },
+      "recent_files": [
+        {
+          "path": "C:\\Users\\clint\\Desktop\\Azazael\\Azazael_ENHANCEMENT_PLAN.md",
+          "mtime": "2026-02-10T18:41:11.318260"
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\Azazael\\CHANGELOG.md",
+          "mtime": "2026-02-10T22:20:22.793899"
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\Azazael\\CLI_ASSISTANT_BEST_PRACTICES.md",
+          "mtime": "2026-02-10T22:09:34.444354"
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\Azazael\\CURRENT_STATE.md",
+          "mtime": "2026-02-11T00:33:49.191880"
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\Azazael\\DOCUMENTATION_PROTOCOL.md",
+          "mtime": "2026-02-10T15:57:18.302175"
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\Azazael\\HORUS.py",
+          "mtime": "2026-02-11T01:49:52.933312"
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\Azazael\\HYDRA.py",
+          "mtime": "2026-02-11T01:51:30.430315"
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\Azazael\\HYDRA_10MIN_TEST.py",
+          "mtime": "2026-02-11T02:01:13.520647"
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\Azazael\\INDEX.md",
+          "mtime": "2026-02-11T02:41:12.019157"
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\Azazael\\INSTRUCTIONS.md",
+          "mtime": "2026-02-11T00:32:02.036635"
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\Azazael\\INTEROPERABILITY_ANALYSIS.py",
+          "mtime": "2026-02-11T02:15:59.113597"
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\Azazael\\interoperability_graph.png",
+          "mtime": "2026-02-10T17:19:57.211067"
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\Azazael\\LAUNCHER.bat",
+          "mtime": "2026-02-10T14:31:47.906467"
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\Azazael\\LAUNCH_QA.bat",
+          "mtime": "2026-02-10T15:27:32.480664"
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\Azazael\\model_config.yaml",
+          "mtime": "2026-02-10T15:06:35.099078"
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\Azazael\\module_network.png",
+          "mtime": "2026-02-10T17:19:57.683549"
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\Azazael\\OPTIMIZED_BAT_TEMPLATE.bat",
+          "mtime": "2026-02-10T17:19:57.683549"
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\Azazael\\qlearning_heatmap.png",
+          "mtime": "2026-02-10T17:19:57.516806"
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\Azazael\\README.md",
+          "mtime": "2026-02-11T00:32:42.828773"
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\Azazael\\requirements.txt",
+          "mtime": "2026-02-10T17:37:27.250816"
+        }
+      ],
+      "large_files": [],
+      "by_extension": {
+        ".md": {
+          "count": 79,
+          "size": 1731460
+        },
+        ".py": {
+          "count": 76,
+          "size": 945439
+        },
+        ".png": {
+          "count": 3,
+          "size": 729046
+        },
+        ".bat": {
+          "count": 9,
+          "size": 25213
+        },
+        ".yaml": {
+          "count": 2,
+          "size": 8038
+        },
+        ".txt": {
+          "count": 4,
+          "size": 16656
+        },
+        ".pth": {
+          "count": 1,
+          "size": 44
+        },
+        ".json": {
+          "count": 19,
+          "size": 241767
+        },
+        ".npy": {
+          "count": 7,
+          "size": 2576
+        },
+        ".sh": {
+          "count": 2,
+          "size": 24162
+        }
+      }
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

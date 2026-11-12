@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Azazael Scroll Video Generator</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Segoe UI', Consolas, monospace;
+  background: #06060f;
+  color: #e0e0e0;
+  overflow-x: hidden;
+}
+
+/* ─── Recording HUD ─── */
+#recording-hud {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: linear-gradient(180deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 100%);
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0,245,255,0.2);
+  transition: transform 0.3s ease;
+}
+#recording-hud.hidden { transform: translateY(-100%); }
+
+.hud-brand {
+  font-size: 1.4em;
+  font-weight: bold;
+  background: linear-gradient(90deg, #00f5ff, #bf00ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hud-controls { display: flex; gap: 12px; align-items: center; }
+.hud-btn {
+  padding: 8px 20px;
+  border: 1px solid rgba(0,245,255,0.4);
+  background: rgba(0,245,255,0.1);
+  color: #00f5ff;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: Consolas, monospace;
+  font-size: 0.85em;
+  transition: all 0.3s ease;
+}
+.hud-btn:hover { background: rgba(0,245,255,0.2); box-shadow: 0 0 20px rgba(0,245,255,0.3); }
+.hud-btn.recording {
+  background: rgba(255,0,100,0.2);
+  border-color: rgba(255,0,100,0.6);
+  color: #ff0064;
+  animation: recordPulse 1.5s ease-in-out infinite;
+}
+.hud-btn.recording:hover { background: rgba(255,0,100,0.3); }
+@keyframes recordPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255,0,100,0.4); }
+  50% { box-shadow: 0 0 20px 4px rgba(255,0,100,0.2); }
+}
+
+.record-dot {
+  width: 10px; height: 10px;
+  background: #ff0064;
+  border-radius: 50%;
+  animation: blink 0.8s step-end infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+.hud-timer { color: #888; font-size: 0.8em; min-width: 50px; }
+
+/* ─── Format selector ─── */
+.format-select {
+  padding: 6px 10px;
+  background: rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #ccc;
+  border-radius: 4px;
+  font-family: Consolas, monospace;
+  font-size: 0.8em;
+}
+.format-select:focus { outline: none; border-color: #00f5ff; }
+
+/* ─── Scroll Progress ─── */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #00f5ff, #bf00ff, #ff0064);
+  z-index: 1001;
+  transition: width 0.1s linear;
+}
+
+/* ─── Frame Counter Overlay ─── */
+#frame-counter {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(0,0,0,0.8);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.75em;
+  color: #888;
+  z-index: 500;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* ─── Hero Section ─── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(0,245,255,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(191,0,255,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse at 50% 80%, rgba(0,255,136,0.05) 0%, transparent 60%);
+  animation: heroBgPulse 8s ease-in-out infinite alternate;
+}
+@keyframes heroBgPulse {
+  0% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+.hero h1 {
+  font-size: clamp(2.5em, 8vw, 7em);
+  font-weight: 900;
+  background: linear-gradient(135deg, #00f5ff, #bf00ff, #ff00aa, #ffdd00, #00ff88);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientMove 6s ease infinite;
+  position: relative;
+  z-index: 1;
+}
+@keyframes gradientMove { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+.hero .subtitle {
+  font-size: 1.2em;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  margin-top: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── Scene Sections ─── */
+.scene {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 40px;
+  position: relative;
+  opacity: 0;
+  transform: translateY(60px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.scene.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scene-number {
+  font-size: 0.8em;
+  color: #00f5ff;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.scene h2 {
+  font-size: clamp(1.8em, 4vw, 3em);
+  margin-bottom: 20px;
+  background: linear-gradient(90deg, #fff, #00f5ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.scene p {
+  max-width: 700px;
+  font-size: 1.1em;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.7);
+  text-align: center;
+}
+
+/* ─── Canvas Render Target ─── */
+#render-canvas {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+/* ─── Recording Overlay (visible during recording) ─── */
+#recording-overlay {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 2000;
+  display: none;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,0,100,0.15);
+  border: 1px solid rgba(255,0,100,0.4);
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-family: Consolas, monospace;
+  font-size: 0.8em;
+  color: #ff0064;
+  backdrop-filter: blur(8px);
+}
+#recording-overlay.show { display: flex; }
+#recording-overlay .rec-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ff0064;
+  animation: recBlink 0.6s step-end infinite;
+}
+@keyframes recBlink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+/* ─── Matrix Rain Background Canvas ─── */
+#matrix-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  opacity: 0.12;
+  pointer-events: none;
+}
+
+/* ─── Cards Grid ─── */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+  max-width: 1100px;
+  width: 100%;
+  margin-top: 40px;
+}
+.card {
+  background: rgba(15,15,30,0.8);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 28px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+.card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 60%, rgba(0,245,255,0.04));
+  pointer-events: none;
+}
+.card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(0,245,255,0.3);
+  box-shadow: 0 20px 50px rgba(0,245,255,0.1);
+}
+.card-icon { font-size: 2.5em; margin-bottom: 12px; }
+.card h3 { font-size: 1.3em; margin-bottom: 8px; }
+.card .stat { font-size: 2.5em; font-weight: bold; background: linear-gradient(90deg,#00f5ff,#bf00ff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+
+/* ─── Tier Stack ─── */
+.tier-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 700px;
+  width: 100%;
+  margin-top: 30px;
+}
+.tier-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: rgba(15,15,30,0.6);
+  border-radius: 10px;
+  border-left: 4px solid;
+  transition: all 0.4s ease;
+}
+.tier-row:hover {
+  transform: translateX(12px);
+  background: rgba(25,25,50,0.9);
+}
+.tier-badge {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.9em;
+  flex-shrink: 0;
+}
+.tier-info h4 { font-size: 1em; }
+.tier-info p { font-size: 0.8em; color: #888; margin-top: 2px; }
+
+/* ─── Parallax Layer ─── */
+.parallax-bg {
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(circle at 25% 30%, rgba(0,245,255,0.03) 1px, transparent 1px),
+    radial-gradient(circle at 75% 60%, rgba(191,0,255,0.03) 1px, transparent 1px);
+  background-size: 60px 60px, 80px 80px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── Export Modal ─── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.modal-overlay.show { opacity: 1; pointer-events: all; }
+.modal {
+  background: #111130;
+  border: 1px solid rgba(0,245,255,0.3);
+  border-radius: 16px;
+  padding: 30px;
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+}
+.modal h3 { font-size: 1.5em; margin-bottom: 16px; color: #00f5ff; }
+.modal p { color: #888; margin-bottom: 20px; line-height: 1.6; }
+.modal .download-link {
+  display: inline-block;
+  padding: 12px 30px;
+  background: linear-gradient(135deg, #00f5ff, #bf00ff);
+  color: #000;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  margin: 6px;
+  transition: all 0.3s;
+}
+.modal .download-link:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(0,245,255,0.4); }
+</style>
+</head>
+<body>
+
+<!-- Matrix rain background -->
+<canvas id="matrix-bg"></canvas>
+
+<!-- Hidden render canvas for frame capture -->
+<canvas id="render-canvas" width="1920" height="1080"></canvas>
+
+<!-- Recording overlay indicator -->
+<div id="recording-overlay">
+  <div class="rec-indicator"></div>
+  <span id="recOverlayTimer">00:00</span>
+  <span id="recOverlayFrames">F:0</span>
+</div>
+
+<!-- Recording HUD -->
+<div id="recording-hud">
+  <span class="hud-brand">AZAZAEL VIDEO GEN</span>
+  <div class="hud-controls">
+    <select class="format-select" id="formatSelect">
+      <option value="mp4">MP4 (H.264)</option>
+      <option value="webm">WebM (VP9)</option>
+      <option value="wmv">WMV</option>
+    </select>
+    <span class="hud-timer" id="hudTimer">00:00</span>
+    <button class="hud-btn" id="btnRecord" onclick="toggleRecording()">▶ RECORD</button>
+    <button class="hud-btn" id="btnSnapshot" onclick="captureSnapshot()">📷 SNAP</button>
+    <button class="hud-btn" id="btnHudToggle" onclick="toggleHUD()">━</button>
+  </div>
+</div>
+
+<!-- Scroll progress -->
+<div id="scroll-progress"></div>
+
+<!-- Frame counter -->
+<div id="frame-counter">Frame: 0 | 0:00</div>
+
+<!-- Hero -->
+<section class="hero" id="hero">
+  <div class="parallax-bg"></div>
+  <h1>Azazael Ecosystem</h1>
+  <p class="subtitle">Scroll Video Generator • Frame Capture • Export</p>
+</section>
+
+<!-- Scene 1: Architecture -->
+<section class="scene" id="scene1" data-scene="1">
+  <span class="scene-number">Scene 1</span>
+  <h2>7-Tier Architecture</h2>
+  <p>From OS Congruency through WORMZ, Clusterworms, Metaworms, HYDRAMETA, to Distillation — each tier builds upon the last in a self-optimizing cascade.</p>
+  <div class="tier-stack">
+    <div class="tier-row" style="border-left-color:#a855f7"><div class="tier-badge" style="background:rgba(168,85,247,0.2);color:#a855f7">5</div><div class="tier-info"><h4 style="color:#a855f7">DISTILLATION</h4><p>Theoretical knowledge synthesis & pattern extraction</p></div></div>
+    <div class="tier-row" style="border-left-color:#7c3aed"><div class="tier-badge" style="background:rgba(124,58,237,0.2);color:#7c3aed">4</div><div class="tier-info"><h4 style="color:#7c3aed">HYDRAMETA</h4><p>ML optimization & genetic algorithm engine</p></div></div>
+    <div class="tier-row" style="border-left-color:#ff4757"><div class="tier-badge" style="background:rgba(255,71,87,0.2);color:#ff4757">3</div><div class="tier-info"><h4 style="color:#ff4757">METAWORMS</h4><p>11 orchestration agents: ERRORZ, TRIMZ, METAZ, DEPENDZ...</p></div></div>
+    <div class="tier-row" style="border-left-color:#ff6b35"><div class="tier-badge" style="background:rgba(255,107,53,0.2);color:#ff6b35">2</div><div class="tier-info"><h4 style="color:#ff6b35">CLUSTERWORMS</h4><p>Coordinated worm collectives for parallel ops</p></div></div>
+    <div class="tier-row" style="border-left-color:#00f5ff"><div class="tier-badge" style="background:rgba(0,245,255,0.2);color:#00f5ff">1</div><div class="tier-info"><h4 style="color:#00f5ff">WORMS</h4><p>6 functional agents: SYSTEMZ, PROCESSZ, DISKZ...</p></div></div>
+    <div class="tier-row" style="border-left-color:#00ff88"><div class="tier-badge" style="background:rgba(0,255,136,0.2);color:#00ff88">0</div><div class="tier-info"><h4 style="color:#00ff88">CONCURRENCY</h4><p>Parallel execution & thread management</p></div></div>
+    <div class="tier-row" style="border-left-color:#ffdd00"><div class="tier-badge" style="background:rgba(255,221,0,0.2);color:#ffdd00">-1</div><div class="tier-info"><h4 style="color:#ffdd00">OS CONGRUENCY</h4><p>Deep cross-platform OS integration</p></div></div>
+  </div>
+</section>
+
+<!-- Scene 2: Components -->
+<section class="scene" id="scene2" data-scene="2">
+  <span class="scene-number">Scene 2</span>
+  <h2>11 Core Systems</h2>
+  <p>Each system specializes in a unique aspect of the distributed computing framework.</p>
+  <div class="cards-grid">
+    <div class="card"><div class="card-icon">🚀</div><h3 style="color:#ff00aa">HYDRA</h3><div class="stat">6</div><p style="color:#888">Stages • 10 Nodes</p></div>
+    <div class="card"><div class="card-icon">👁️</div><h3 style="color:#00f5ff">HORUS</h3><div class="stat">24</div><p style="color:#888">Animations • Live Monitor</p></div>
+    <div class="card"><div class="card-icon">🐛</div><h3 style="color:#ff4757">WORMZ</h3><div class="stat">6</div><p style="color:#888">Worms • 5 Clusters</p></div>
+    <div class="card"><div class="card-icon">🎯</div><h3 style="color:#a855f7">METAWORMS</h3><div class="stat">11</div><p style="color:#888">Metaworms • HYDRAMETA</p></div>
+    <div class="card"><div class="card-icon">🔧</div><h3 style="color:#06b6d4">TERENCE</h3><div class="stat">26</div><p style="color:#888">Fix Patterns • RL</p></div>
+    <div class="card"><div class="card-icon">📦</div><h3 style="color:#00ff88">TARBABY</h3><div class="stat">—</div><p style="color:#888">Binary • Transform</p></div>
+    <div class="card"><div class="card-icon">📊</div><h3 style="color:#bf00ff">POINDEXTER</h3><div class="stat">—</div><p style="color:#888">Statistical • Indexing</p></div>
+    <div class="card"><div class="card-icon">🔄</div><h3 style="color:#ff6b35">PERSEPHONE</h3><div class="stat">—</div><p style="color:#888">Cross-Platform • Utils</p></div>
+    <div class="card"><div class="card-icon">📚</div><h3 style="color:#ffdd00">BIBL</h3><div class="stat">10K+</div><p style="color:#888">Terms • 69 Files</p></div>
+    <div class="card"><div class="card-icon">🔗</div><h3 style="color:#ec4899">KLINK</h3><div class="stat">25</div><p style="color:#888">Commands • CLI</p></div>
+    <div class="card"><div class="card-icon">⚡</div><h3 style="color:#22c55e">SHORTY</h3><div class="stat">20</div><p style="color:#888">Shortcuts • Batch</p></div>
+  </div>
+</section>
+
+<!-- Scene 3: Animation Protocols -->
+<section class="scene" id="scene3" data-scene="3">
+  <span class="scene-number">Scene 3</span>
+  <h2>54 Animation Protocols</h2>
+  <p>12 categories of visual effects for rich ecosystem feedback — from status glitch to quantum flicker.</p>
+  <div style="display:flex;flex-wrap:wrap;gap:10px;max-width:800px;justify-content:center;margin-top:30px">
+    <span style="padding:8px 16px;background:rgba(0,245,255,0.1);border:1px solid rgba(0,245,255,0.2);border-radius:20px;font-size:0.8em">Glitch Status</span>
+    <span style="padding:8px 16px;background:rgba(191,0,255,0.1);border:1px solid rgba(191,0,255,0.2);border-radius:20px;font-size:0.8em">Neon Pulse</span>
+    <span style="padding:8px 16px;background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.2);border-radius:20px;font-size:0.8em">Matrix Rain</span>
+    <span style="padding:8px 16px;background:rgba(255,0,170,0.1);border:1px solid rgba(255,0,170,0.2);border-radius:20px;font-size:0.8em">Vortex Spin</span>
+    <span style="padding:8px 16px;background:rgba(255,221,0,0.1);border:1px solid rgba(255,221,0,0.2);border-radius:20px;font-size:0.8em">Quantum Flicker</span>
+    <span style="padding:8px 16px;background:rgba(0,245,255,0.1);border:1px solid rgba(0,245,255,0.2);border-radius:20px;font-size:0.8em">Data Flow Stream</span>
+    <span style="padding:8px 16px;background:rgba(191,0,255,0.1);border:1px solid rgba(191,0,255,0.2);border-radius:20px;font-size:0.8em">Holographic Glitch</span>
+    <span style="padding:8px 16px;background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.2);border-radius:20px;font-size:0.8em">Tree Expand</span>
+    <span style="padding:8px 16px;background:rgba(255,107,53,0.1);border:1px solid rgba(255,107,53,0.2);border-radius:20px;font-size:0.8em">Aurora Flow</span>
+    <span style="padding:8px 16px;background:rgba(0,245,255,0.1);border:1px solid rgba(0,245,255,0.2);border-radius:20px;font-size:0.8em">Ring Pulse</span>
+  </div>
+</section>
+
+<!-- Scene 4: Stats -->
+<section class="scene" id="scene4" data-scene="4">
+  <span class="scene-number">Scene 4</span>
+  <h2>Ecosystem Statistics</h2>
+  <p>Real-time metrics from the distributed framework.</p>
+  <div class="cards-grid">
+    <div class="card"><div class="card-icon">📁</div><div class="stat">250+</div><h3>Python Modules</h3></div>
+    <div class="card"><div class="card-icon">📝</div><div class="stat">10,416</div><h3>BIBL Terms</h3></div>
+    <div class="card"><div class="card-icon">🎬</div><div class="stat">54</div><h3>Animations</h3></div>
+    <div class="card"><div class="card-icon">🔧</div><div class="stat">26</div><h3>Fix Patterns</h3></div>
+    <div class="card"><div class="card-icon">📊</div><div class="stat">25</div><h3>CLI Commands</h3></div>
+    <div class="card"><div class="card-icon">🏗️</div><div class="stat">7</div><h3>Tiers</h3></div>
+    <div class="card"><div class="card-icon">🐛</div><div class="stat">17</div><h3>Worms</h3></div>
+    <div class="card"><div class="card-icon">📄</div><div class="stat">15</div><h3>HTML Templates</h3></div>
+  </div>
+</section>
+
+<!-- Export Modal -->
+<div class="modal-overlay" id="exportModal">
+  <div class="modal">
+    <h3>Video Export Ready</h3>
+    <p id="exportDetails">Processing complete. Download your video below.</p>
+    <div id="exportLinks"></div>
+    <button class="hud-btn" onclick="closeModal()" style="margin-top:16px">Close</button>
+  </div>
+</div>
+
+<script>
+// ─── State ───
+let isRecording = false;
+let mediaRecorder = null;
+let recordedChunks = [];
+let recordStartTime = null;
+let frameCount = 0;
+let scrollY = 0;
+let streamIsCanvas = false;  // true when using canvas fallback instead of getDisplayMedia
+
+// ─── DOM refs ───
+const btnRecord = document.getElementById('btnRecord');
+const hudTimer = document.getElementById('hudTimer');
+const frameCounter = document.getElementById('frameCounter');
+const progressBar = document.getElementById('scroll-progress');
+const recordingHud = document.getElementById('recording-hud');
+const exportModal = document.getElementById('exportModal');
+const exportDetails = document.getElementById('exportDetails');
+const exportLinks = document.getElementById('exportLinks');
+const canvas = document.getElementById('render-canvas');
+const ctx = canvas.getContext('2d');
+const matrixCanvas = document.getElementById('matrix-bg');
+const matrixCtx = matrixCanvas.getContext('2d');
+
+// ─── Matrix Rain Background ───
+let matrixDrops = [];
+const MATRIX_CHARS = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+
+function initMatrix() {
+  matrixCanvas.width = window.innerWidth;
+  matrixCanvas.height = window.innerHeight;
+  const cols = Math.floor(matrixCanvas.width / 18);
+  matrixDrops = [];
+  for (let i = 0; i < cols; i++) {
+    matrixDrops.push({ x: i * 18, y: Math.random() * matrixCanvas.height * -1, speed: 1 + Math.random() * 3 });
+  }
+}
+
+function drawMatrix() {
+  matrixCtx.fillStyle = 'rgba(6,6,15,0.05)';
+  matrixCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+  matrixCtx.font = '14px Consolas, monospace';
+
+  for (let drop of matrixDrops) {
+    const char = MATRIX_CHARS[Math.floor(Math.random() * MATRIX_CHARS.length)];
+    matrixCtx.fillStyle = `rgba(0,245,255,${0.3 + Math.random() * 0.3})`;
+    matrixCtx.fillText(char, drop.x, drop.y);
+    drop.y += drop.speed;
+    if (drop.y > matrixCanvas.height) {
+      drop.y = Math.random() * -100;
+      drop.speed = 1 + Math.random() * 3;
+    }
+  }
+}
+
+// ─── Scroll Tracking ───
+window.addEventListener('scroll', () => {
+  scrollY = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = Math.min(scrollY / docHeight * 100, 100);
+  progressBar.style.width = progress + '%';
+});
+
+// ─── Intersection Observer for Scenes ───
+const sceneObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      if (isRecording) captureFrame();
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.scene').forEach(scene => {
+  sceneObserver.observe(scene);
+});
+
+// ─── Frame Capture ───
+function captureFrame() {
+  if (!isRecording) return;
+  // Skip canvas rendering when using getDisplayMedia (not the stream source)
+  if (!streamIsCanvas) {
+    frameCount++;
+    const elapsed = (Date.now() - recordStartTime) / 1000;
+    frameCounter.textContent = `Frame: ${frameCount} | ${formatTime(elapsed)}`;
+    document.getElementById('recOverlayFrames').textContent = `F:${frameCount}`;
+    document.getElementById('recOverlayTimer').textContent = formatTime(elapsed);
+    return;
+  }
+
+  // Render current viewport snapshot to canvas
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  // Draw background
+  ctx.fillStyle = '#06060f';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // Draw matrix rain overlay
+  ctx.drawImage(matrixCanvas, 0, 0);
+
+  // Draw scene title if any scene is visible
+  const visibleScene = document.querySelector('.scene.visible');
+  if (visibleScene) {
+    const h2 = visibleScene.querySelector('h2');
+    const sceneNum = visibleScene.querySelector('.scene-number');
+    ctx.save();
+    ctx.textAlign = 'center';
+    ctx.font = 'bold 28px Consolas, monospace';
+    ctx.fillStyle = '#00f5ff';
+    if (sceneNum) ctx.fillText(sceneNum.textContent, canvas.width / 2, canvas.height / 2 - 40);
+    ctx.font = 'bold 42px Consolas, monospace';
+    const grad = ctx.createLinearGradient(0, 0, canvas.width, 0);
+    grad.addColorStop(0, '#ffffff');
+    grad.addColorStop(1, '#00f5ff');
+    ctx.fillStyle = grad;
+    if (h2) ctx.fillText(h2.textContent, canvas.width / 2, canvas.height / 2 + 20);
+    ctx.restore();
+  }
+
+  frameCount++;
+  const elapsed = (Date.now() - recordStartTime) / 1000;
+  frameCounter.textContent = `Frame: ${frameCount} | ${formatTime(elapsed)}`;
+  document.getElementById('recOverlayFrames').textContent = `F:${frameCount}`;
+  document.getElementById('recOverlayTimer').textContent = formatTime(elapsed);
+}
+
+// ─── Recording ───
+async function toggleRecording() {
+  if (isRecording) {
+    stopRecording();
+    return;
+  }
+
+  try {
+    const format = document.getElementById('formatSelect').value;
+    let stream;
+
+    // Primary: getDisplayMedia for real screen capture
+    try {
+      stream = await navigator.mediaDevices.getDisplayMedia({
+        video: { frameRate: 30, width: { ideal: 1920 }, height: { ideal: 1080 } },
+        audio: false
+      });
+      // Stop when user clicks "Stop sharing"
+      stream.getVideoTracks()[0].addEventListener('ended', () => {
+        if (isRecording) stopRecording();
+      });
+    } catch (displayErr) {
+      // Fallback: render to canvas and stream from it
+      console.warn('getDisplayMedia failed, falling back to canvas stream:', displayErr.message);
+      canvas.style.display = 'block';
+      canvas.style.zIndex = '9999';
+      stream = canvas.captureStream(30);
+      streamIsCanvas = true;
+    }
+
+    let mimeType;
+    if (format === 'mp4') {
+      mimeType = 'video/webm;codecs=vp9';
+    } else if (format === 'webm' || format === 'wmv') {
+      // WMV not supported by browsers; use WebM and note that server-side
+      // conversion (ffmpeg) is needed for true .wmv output
+      mimeType = 'video/webm;codecs=vp9';
+    } else {
+      mimeType = 'video/webm;codecs=vp9';
+    }
+
+    // Fallback if codec not supported
+    if (!MediaRecorder.isTypeSupported(mimeType)) {
+      mimeType = 'video/webm;codecs=vp8';
+    }
+    if (!MediaRecorder.isTypeSupported(mimeType)) {
+      mimeType = 'video/webm';
+    }
+
+    recordedChunks = [];
+    mediaRecorder = new MediaRecorder(stream, {
+      mimeType: mimeType,
+      videoBitsPerSecond: 2500000 // 2.5 Mbps — ~16MB for 60s
+    });
+
+    mediaRecorder.ondataavailable = (e) => {
+      if (e.data.size > 0) recordedChunks.push(e.data);
+    };
+
+    mediaRecorder.onstop = () => {
+      exportVideo();
+      // Cleanup display media tracks
+      if (stream.getVideoTracks) {
+        stream.getTracks().forEach(t => t.stop());
+      }
+      canvas.style.display = 'none';
+      canvas.style.zIndex = '-1';
+      streamIsCanvas = false;
+    };
+
+    mediaRecorder.start(1000); // Capture every 1 second
+    isRecording = true;
+    recordStartTime = Date.now();
+    frameCount = 0;
+
+    btnRecord.textContent = '⏹ STOP';
+    btnRecord.classList.add('recording');
+    document.getElementById('recording-overlay').classList.add('show');
+    updateTimer();
+
+  } catch (err) {
+    alert('Recording failed: ' + err.message + '\n\nTip: Use Chrome/Edge for best MediaRecorder support.\nAllow screen sharing when prompted.');
+  }
+}
+
+function stopRecording() {
+  if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+    mediaRecorder.stop();
+  }
+  isRecording = false;
+  btnRecord.textContent = '▶ RECORD';
+  btnRecord.classList.remove('recording');
+  document.getElementById('recording-overlay').classList.remove('show');
+}
+
+function exportVideo() {
+  const blob = new Blob(recordedChunks, { type: mediaRecorder.mimeType });
+  const url = URL.createObjectURL(blob);
+  const sizeMB = (blob.size / (1024 * 1024)).toFixed(1);
+  const format = document.getElementById('formatSelect').value;
+  // Note: browser MediaRecorder produces WebM; .wmv requires ffmpeg conversion
+  // The compress_video.py CLI tool can convert WebM → WMV server-side
+  const ext = format === 'wmv' ? 'webm' : 'webm';
+  const noteWmv = format === 'wmv' ? '\n⚠ WMV output is WebM format — use compress_video.py for true .wmv conversion.' : '';
+
+  exportDetails.textContent = `Video generated: ${sizeMB} MB • ${frameCount} frames • ${formatTime((Date.now() - recordStartTime) / 1000)}${noteWmv}`;
+  exportLinks.innerHTML = `
+    <a class="download-link" href="${url}" download="azazael_scroll_video.${ext}">⬇ Download ${ext.toUpperCase()} (${sizeMB} MB)</a>
+    <p style="color:#888;font-size:0.75em;margin-top:10px">Right-click → Save As to download</p>
+  `;
+  exportModal.classList.add('show');
+}
+
+function closeModal() {
+  exportModal.classList.remove('show');
+}
+
+// ─── Snapshot ───
+function captureSnapshot() {
+  // Simple viewport snapshot via canvas
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  // Draw matrix background
+  ctx.fillStyle = '#06060f';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // Draw branding overlay
+  ctx.font = 'bold 48px Consolas, monospace';
+  const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+  gradient.addColorStop(0, '#00f5ff');
+  gradient.addColorStop(0.5, '#bf00ff');
+  gradient.addColorStop(1, '#ff0064');
+  ctx.fillStyle = gradient;
+  ctx.textAlign = 'center';
+  ctx.fillText('Azazael Ecosystem', canvas.width / 2, canvas.height / 2 - 20);
+
+  ctx.font = '18px Consolas, monospace';
+  ctx.fillStyle = '#888';
+  ctx.fillText(`Snapshot • ${new Date().toISOString()}`, canvas.width / 2, canvas.height / 2 + 30);
+
+  const dataUrl = canvas.toDataURL('image/png');
+  const link = document.createElement('a');
+  link.download = `azazael_snapshot_${Date.now()}.png`;
+  link.href = dataUrl;
+  link.click();
+}
+
+// ─── HUD Toggle ───
+function toggleHUD() {
+  recordingHud.classList.toggle('hidden');
+}
+
+// ─── Timer ───
+function updateTimer() {
+  if (!isRecording) return;
+  const elapsed = (Date.now() - recordStartTime) / 1000;
+  hudTimer.textContent = formatTime(elapsed);
+  requestAnimationFrame(() => {
+    if (isRecording) updateTimer();
+  });
+}
+
+function formatTime(seconds) {
+  const m = Math.floor(seconds / 60);
+  const s = Math.floor(seconds % 60);
+  return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+}
+
+// ─── Init ───
+window.addEventListener('resize', () => {
+  initMatrix();
+});
+
+initMatrix();
+setInterval(drawMatrix, 50);
+
+// Keyboard shortcuts
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'r' && e.ctrlKey) {
+    e.preventDefault();
+    toggleRecording();
+  }
+  if (e.key === 's' && e.ctrlKey) {
+    e.preventDefault();
+    captureSnapshot();
+  }
+});
+</script>
+</body>
+</html>

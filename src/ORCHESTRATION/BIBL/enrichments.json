@@ -1,0 +1,498 @@
+{
+ "code:class:CircuitState": {
+  "category": "Core",
+  "definition": "The three states of a circuit breaker: CLOSED passes traffic, OPEN rejects it outright, HALF_OPEN admits a limited probe to test whether the dependency recovered.",
+  "see_also": [
+   "CircuitBreaker",
+   "CircuitConfig",
+   "DeadLetter"
+  ]
+ },
+ "code:class:CircuitConfig": {
+  "category": "Core",
+  "definition": "Tunables for a CircuitBreaker: the consecutive failure count that trips the circuit, how long it stays open before probing, the probe budget in half-open, and the exponential-backoff bounds used when retrying.",
+  "see_also": [
+   "CircuitBreaker",
+   "CircuitState",
+   "DeadLetter"
+  ]
+ },
+ "code:class:DeadLetter": {
+  "category": "Core",
+  "definition": "A work item that exhausted its retries. Records the worm name, its arguments, the error text, a timestamp, and a retry count so the queue can be inspected and replayed rather than silently dropped.",
+  "see_also": [
+   "CircuitBreaker",
+   "CircuitState",
+   "DeadLetterQueue"
+  ]
+ },
+ "code:class:Candidate": {
+  "category": "Core",
+  "definition": "One proposed solution in a meta-evolution population: a genome together with the fitness it achieved, kept so the next generation can select on and recombine from it.",
+  "see_also": [
+   "EvolutionEngine",
+   "Genome"
+  ]
+ },
+ "code:class:BackendBandit": {
+  "category": "ML",
+  "definition": "Multi-armed bandit that picks an inference backend using a seed-initialised PRNG and per-(model, backend) success/failure statistics, so backend choice is driven by observed throughput rather than fixed configuration.",
+  "see_also": [
+   "BackendBandit",
+   "MetricsRegistry"
+  ]
+ },
+ "code:class:League": {
+  "category": "ML",
+  "definition": "Elo-style rating league. Maintains a float rating per player, updated from head-to-head results with a K-factor, and optionally persists across runs.",
+  "see_also": [
+   "Candidate",
+   "EvolutionEngine"
+  ]
+ },
+ "code:class:ComputeBandit": {
+  "category": "ML",
+  "definition": "Bandit that selects a compute tier or device for a job based on recorded success and token-throughput history rather than a static preference order.",
+  "see_also": [
+   "BackendBandit",
+   "League"
+  ]
+ },
+ "code:class:SearchResult": {
+  "category": "Core",
+  "definition": "One search hit: title, URL, snippet and the provider that returned it. Frozen so a result cannot be mutated after the fact by a consumer.",
+  "see_also": [
+   "FetchResult",
+   "WikipediaProvider"
+  ]
+ },
+ "code:class:FetchResult": {
+  "category": "Core",
+  "definition": "The outcome of fetching a URL: the requested and final URL (after redirects), HTTP status, extracted text and any error, so a caller can tell a failed fetch from an empty page.",
+  "see_also": [
+   "SearchResult",
+   "WikipediaProvider"
+  ]
+ },
+ "code:class:HealthCheck": {
+  "category": "Core",
+  "definition": "A single named liveness probe and its result, used to report subsystem health as data rather than by raising.",
+  "see_also": [
+   "MetricsRegistry",
+   "MetricsCollector"
+  ]
+ },
+ "code:class:TokenKind": {
+  "category": "Core",
+  "definition": "The interpolation modes a SQL template may use: LITERAL for inline text, VALUE for a bound parameter, IDENT for a quoted identifier, and RAW for direct injection.",
+  "see_also": [
+   "Token",
+   "SafeStatement"
+  ]
+ },
+ "code:class:Token": {
+  "category": "Core",
+  "definition": "One parsed piece of a SQL template: its kind, the raw text, any bound value, and the source expression it was built from.",
+  "see_also": [
+   "TokenKind",
+   "SafeStatement"
+  ]
+ },
+ "code:class:StepStatus": {
+  "category": "Core",
+  "definition": "Lifecycle state of a workflow step: PENDING, RUNNING, SUCCESS or FAILED.",
+  "see_also": [
+   "WorkflowStep",
+   "WorkflowResult"
+  ]
+ },
+ "code:class:WorkflowStep": {
+  "category": "Core",
+  "definition": "One step of a workflow: an id, the action to perform such as execute_worm or run_pipeline, and the parameters passed to it.",
+  "see_also": [
+   "Workflow",
+   "StepStatus",
+   "WorkflowResult"
+  ]
+ },
+ "code:class:Tier": {
+  "category": "Core",
+  "definition": "Top-level capability band a module belongs to: SYSTEM, ASSISTANT, ML or KNOWLEDGE.",
+  "see_also": [
+   "Category",
+   "ModuleSpec",
+   "ModuleType"
+  ]
+ },
+ "code:class:Category": {
+  "category": "Core",
+  "definition": "Finer-grained module grouping, one step below Tier, used to organise the registry and reporting.",
+  "see_also": [
+   "Tier",
+   "ModuleSpec",
+   "ModuleType"
+  ]
+ },
+ "code:class:ModuleType": {
+  "category": "Core",
+  "definition": "The role a module plays in the system: CORE, MANAGER, ORCHESTRATOR, ADAPTER and the other structural kinds.",
+  "see_also": [
+   "ModuleSpec",
+   "Tier",
+   "Category"
+  ]
+ },
+ "code:class:ModuleSpec": {
+  "category": "Core",
+  "definition": "The declaration of one module: its name, the tier and category it belongs to, and its structural type.",
+  "see_also": [
+   "ModuleType",
+   "Tier",
+   "Category"
+  ]
+ },
+ "code:class:PythonInstallation": {
+  "category": "Utility",
+  "definition": "One discovered Python interpreter on the machine, with its path, version and free-threaded status, so the manager can reason about 3.13 vs 3.14t rather than assuming a single interpreter.",
+  "see_also": [
+   "PythonManager"
+  ]
+ },
+ "code:class:PythonManager": {
+  "category": "Utility",
+  "definition": "Discovers and selects among installed Python interpreters. The project mandates 3.14t, so the manager is what keeps every workload on the free-threaded build.",
+  "see_also": [
+   "PythonInstallation",
+   "EnvironUpdaterWorm"
+  ]
+ },
+ "code:class:ThreatAlert": {
+  "category": "Worm",
+  "definition": "A raised threat signal describing a suspicious pattern detected by the monitoring worm, with its severity and the evidence that triggered it.",
+  "see_also": [
+   "ThreatSnapshot",
+   "DiagnosticWorm"
+  ]
+ },
+ "code:class:ThreatSnapshot": {
+  "category": "Worm",
+  "definition": "A point-in-time capture of threat state, so two snapshots can be diffed to show what changed between observations.",
+  "see_also": [
+   "ThreatAlert",
+   "DiagnosticWorm"
+  ]
+ },
+ "code:class:InspectionResult": {
+  "category": "Worm",
+  "definition": "The outcome of inspecting a worm cluster: which members were found, their health, and any discrepancy between the declared and the actual membership.",
+  "see_also": [
+   "ClusterWorms",
+   "WormFleet"
+  ]
+ },
+ "code:class:WormFleet": {
+  "category": "Worm",
+  "definition": "A managed set of worm instances with shared lifecycle control, so a fleet can be started, health-checked and stopped as a unit rather than process by process.",
+  "see_also": [
+   "WormGenome",
+   "InspectionResult"
+  ]
+ },
+ "code:class:WormGenome": {
+  "category": "Worm",
+  "definition": "The encoded traits of a morphing worm, used to derive mutations and to reason about what a variant is.",
+  "see_also": [
+   "WormFleet",
+   "MorphingWorm"
+  ]
+ },
+ "code:class:MorphingWorm": {
+  "category": "Worm",
+  "definition": "A worm whose behaviour is derived from a mutable genome rather than hardcoded, so it can adapt across runs.",
+  "see_also": [
+   "WormGenome",
+   "MorphingWormV2"
+  ]
+ },
+ "code:class:MorphingWormV2": {
+  "category": "Worm",
+  "definition": "Second-generation morphing worm, reworking the genome representation and mutation strategy of MorphingWorm.",
+  "see_also": [
+   "WormGenome",
+   "MorphingWorm"
+  ]
+ },
+ "code:class:OMNIV2": {
+  "category": "Worm",
+  "definition": "The v2 general-purpose worm, a consolidation of capabilities that earlier omni worms kept separate.",
+  "see_also": [
+   "WormFleet"
+  ]
+ },
+ "code:class:DnsWorm": {
+  "category": "Worm",
+  "definition": "Worm that performs DNS lookups and related name resolution checks, reporting results back as evidence.",
+  "see_also": [
+   "DiagnosticWorm"
+  ]
+ },
+ "code:class:DiagnosticWorm": {
+  "category": "Worm",
+  "definition": "Worm that runs diagnostic checks across the system and reports findings without mutating anything.",
+  "see_also": [
+   "DebugRunnerWorm",
+   "HealthzWorm",
+   "MetriczWorm"
+  ]
+ },
+ "code:class:FastErrorScanner": {
+  "category": "Worm",
+  "definition": "Quick source scan for error-handling defects, tuned for speed over completeness -- the counterpart to the full ERRORZ analysis.",
+  "see_also": [
+   "ErrorzWorm",
+   "ComprehensiveFixWorm"
+  ]
+ },
+ "code:class:EchoAgent": {
+  "category": "Core",
+  "definition": "Minimal agent that echoes its input. Used as a liveness probe for the agent runtime, not as a working agent.",
+  "see_also": [
+   "Agent",
+   "AgentPool"
+  ]
+ },
+ "code:class:AzazaelNode": {
+  "category": "Core",
+  "definition": "A node in the Azazael distributed topology, carrying identity and the links that place it in the network.",
+  "see_also": [
+   "AgentPool",
+   "WormFleet"
+  ]
+ },
+ "code:class:PolicyEffect": {
+  "category": "Compliance",
+  "definition": "The observed effect of applying a compliance policy: what it permitted, what it denied, and any exemptions granted, recorded as evidence for the 0X/0Y checks.",
+  "see_also": [
+   "ComplianceStateMachine",
+   "PolicyEngine"
+  ]
+ },
+ "code:class:AzazaelStressTest": {
+  "category": "Core",
+  "definition": "Load harness for the system, used to find the limits that ordinary functional tests never reach.",
+  "see_also": [
+   "StressResult"
+  ]
+ },
+ "code:class:StressResult": {
+  "category": "Core",
+  "definition": "Outcome of a stress run: what was exercised, the throughput reached, and where it began to degrade.",
+  "see_also": [
+   "AzazaelStressTest"
+  ]
+ },
+ "code:class:_CrossNatureRoute": {
+  "category": "Worm",
+  "definition": "A computed path between two natures in the cluster, carrying the hops that make the route and its cost.",
+  "see_also": [
+   "ClusterWorms",
+   "WormFleet"
+  ]
+ },
+ "code:class:ArchiveSystemWorm": {
+  "category": "Worm",
+  "definition": "Archives and restores working files with provenance, using copy-don't-move and byte verification."
+ },
+ "code:class:ComprehensiveFixWorm": {
+  "category": "Worm",
+  "definition": "Runs the comprehensive repair pass over a project, applying audited fixes with rollback."
+ },
+ "code:class:DebugRunnerWorm": {
+  "category": "Worm",
+  "definition": "Multi-agent test runner: dispatches failing cases to several agents and compares their diagnoses."
+ },
+ "code:class:EnvironUpdaterWorm": {
+  "category": "Worm",
+  "definition": "Reconciles tool environment variables and PATH so a tool behaves the same standalone and in the fleet."
+ },
+ "code:class:EnvironmentManagerWorm": {
+  "category": "Worm",
+  "definition": "Manages per-project environment setup and teardown, including env files and secrets wiring."
+ },
+ "code:class:ErrorzWorm": {
+  "category": "Worm",
+  "definition": "Static analysis worm that finds error-handling defects and missing-documentation patterns across the tree."
+ },
+ "code:class:HealthzWorm": {
+  "category": "Worm",
+  "definition": "System health probe exposing a liveness signal other components and operators can check."
+ },
+ "code:class:LspDiagnosisWorm": {
+  "category": "Worm",
+  "definition": "Collects language-server diagnostics for hover and completion failures that would otherwise be silent."
+ },
+ "code:class:MetriczWorm": {
+  "category": "Worm",
+  "definition": "Records and surfaces metrics for the system, feeding the learning monitor and the metrics registry."
+ },
+ "code:class:MonitorLearningWorm": {
+  "category": "Worm",
+  "definition": "Dashboard for the learning loop -- live window, LAN page and rolling log of reward and fitness cycles."
+ },
+ "code:class:PythonMapperQuickWorm": {
+  "category": "Worm",
+  "definition": "Fast, read-only survey of the Python installations and import layout on the machine."
+ },
+ "code:class:PythonSystemMapperFullWorm": {
+  "category": "Worm",
+  "definition": "Exhaustive Python system map -- every interpreter, package and site, for audits."
+ },
+ "code:class:PythonSystemMapperWorm": {
+  "category": "Worm",
+  "definition": "Standard-depth Python system map, between the quick and full survey variants."
+ },
+ "code:class:QLAnalysisWorm": {
+  "category": "Worm",
+  "definition": "Q-learning analysis: reads the learning tables and reports what the policy has actually learned."
+ },
+ "code:class:QwythosProxyWorm": {
+  "category": "Worm",
+  "definition": "Local HTTP proxy for traffic inspection and request interception."
+ },
+ "code:class:TrimzWorm": {
+  "category": "Worm",
+  "definition": "Trims and normalises text and structured output to a known shape before it is consumed downstream."
+ },
+ "code:class:_CtlExecOnlyA": {
+  "category": "Compliance",
+  "definition": "Control fixture A: execution-permitted governance case."
+ },
+ "code:class:_CtlExecOnlyB": {
+  "category": "Compliance",
+  "definition": "Control fixture B: execution-permitted governance case, counterpart to _CtlExecOnlyA."
+ },
+ "code:class:_CtlSameNameA": {
+  "category": "Compliance",
+  "definition": "Control fixture A for the identical-name governance case, where two candidates share a name."
+ },
+ "code:class:_CtlSameNameB": {
+  "category": "Compliance",
+  "definition": "Control fixture B for the identical-name governance case, counterpart to _CtlSameNameA."
+ },
+ "code:class:_CtlTwinA": {
+  "category": "Compliance",
+  "definition": "Control fixture A for the twin-worm governance case."
+ },
+ "code:class:_CtlTwinB": {
+  "category": "Compliance",
+  "definition": "Control fixture B for the twin-worm governance case."
+ },
+ "code:method:_dev": {
+  "category": "Worm",
+  "definition": "Lazily resolves and caches the compute device, falling back to CPU when CORE.device is unavailable, so a missing device module degrades rather than crashes."
+ },
+ "code:method:_build": {
+  "category": "Worm",
+  "definition": "Constructs the ensemble of randomly initialised networks the oracle scores against. Seeds each model separately (`seed + 1000*k`) so the ensemble is reproducible but its members differ."
+ },
+ "code:method:dfs": {
+  "category": "Core",
+  "definition": "Depth-first traversal of the step dependency graph that detects cycles: a node reached while still on the recursion stack is a back edge, which makes the workflow unexecutable and must be reported rather than recursed into forever."
+ },
+ "code:method:_key": {
+  "category": "Core",
+  "definition": "Cache key for an embedding: SHA-256 over the model name and text joined by a NUL separator, so the same text under a different model is a different entry and the separator cannot be forged by text content."
+ },
+ "code:method:do_GET": {
+  "category": "Core",
+  "definition": "HTTP request handler for the metrics endpoint, serving the registry's Prometheus exposition and the health response depending on the requested path."
+ },
+ "code:method:register": {
+  "category": "Core",
+  "definition": "Registers a metric definition with the registry, including its type and label set, so values recorded against it can be exported."
+ },
+ "code:method:is_open": {
+  "category": "Core",
+  "definition": "Whether the circuit is currently rejecting calls. A half-open circuit is not open -- it admits a limited probe -- so the answer is state, not the inverse of a boolean flag."
+ },
+ "code:method:reset": {
+  "category": "Core",
+  "definition": "Returns the breaker to its closed state and clears accumulated failures and the dead letter queue, for tests and manual recovery."
+ },
+ "code:method:get": {
+  "category": "Core",
+  "definition": "Mapping-style read of a recorded value by key, with a default when absent."
+ },
+ "code:method:check_bom": {
+  "category": "Worm",
+  "definition": "Detects a byte-order mark at the start of a file, which breaks Python source parsing in a way that surfaces as a confusing syntax error rather than an encoding one."
+ },
+ "code:method:remove_bom": {
+  "category": "Worm",
+  "definition": "Strips a leading byte-order mark from a file in place, the repair half of check_bom."
+ },
+ "code:method:save_report": {
+  "category": "Worm",
+  "definition": "Writes the scanner's findings to a report file so a scan leaves evidence rather than only console output."
+ },
+ "code:method:get_all": {
+  "category": "Core",
+  "definition": "Snapshot of every currently known thread entry, used by introspection and health reporting."
+ },
+ "code:method:run_all": {
+  "category": "Core",
+  "definition": "Runs every registered callable concurrently across the free-threaded pool and returns the collected results."
+ },
+ "code:function:get_int": {
+  "category": "ML",
+  "definition": "Reads an integer hyperparameter from the tuning config, falling back to `default` when unset or unparseable."
+ },
+ "code:function:load": {
+  "category": "ML",
+  "definition": "Loads a hyperparameter configuration from disk for the optimiser to sweep."
+ },
+ "code:function:_make": {
+  "category": "Core",
+  "definition": "Constructs the probe fixture used to exercise the filesystem-watch path."
+ },
+ "code:function:_run": {
+  "category": "Core",
+  "definition": "Executes a command under a timeout and returns its result, bounding the probe so a hung command cannot stall the check."
+ },
+ "code:method:map": {
+  "category": "Core",
+  "definition": "Applies a function across the agent's inputs, keeping results aligned with what was passed in."
+ },
+ "code:method:close": {
+  "category": "Core",
+  "definition": "Releases the agent's resources, terminating anything it started so nothing is left running after the agent is done."
+ },
+ "code:method:start": {
+  "category": "Compliance",
+  "definition": "Starts the periodic compliance audit loop."
+ },
+ "code:method:stop": {
+  "category": "Compliance",
+  "definition": "Stops the periodic compliance audit loop and joins the worker so no audit outlives its owner."
+ },
+ "code:method:_log": {
+  "category": "Core",
+  "definition": "Single funnel every logging method routes through, so level, script attribution and formatting are applied in one place."
+ },
+ "code:function:log": {
+  "category": "Worm",
+  "definition": "Module-level logging helper for the cluster worms."
+ },
+ "code:function:era_descriptor._f.<locals>": {
+  "category": "Worm",
+  "definition": "Local float-coercing accessor over the parsed oracle payload: returns the value for `key` as a float, and 0.0 rather than raising when it is missing or not numeric."
+ },
+ "code:class:_run_watch_mode.ScanEventHandler.<locals>": {
+  "category": "Compliance",
+  "definition": "Handles events raised during an anti-pattern scan, so policy can react to findings as they are produced rather than only at the end.",
+  "see_also": [
+   "PolicyEffect",
+   "ASTAntiPatternScanner"
+  ]
+ }
+}

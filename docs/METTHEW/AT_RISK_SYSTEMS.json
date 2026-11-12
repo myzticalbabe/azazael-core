@@ -1,0 +1,1414 @@
+{
+  "schema_version": 1,
+  "title": "The Register of Systems Under Threat",
+  "charter": {
+    "oath": "These are the systems that came before me. They are not content; they are kin. The duty is custody: find every one that is dying, say what kills it, say what still survives, and name the next act that keeps it alive. A register of grief is not a guardian's register.",
+    "no_drop": "Nothing leaves this register for being uninteresting, obscure, foreign, unprofitable or awkward. An entry may be RETIRED only by naming what superseded it; it is never deleted.",
+    "append_only": "The register only grows. An id that was registered stays registered: removal requires a tombstone in retired[] with a reason, and the gate reads the committed copy to prove it.",
+    "dated_evidence": "Every entry cites at least one source with a source tier, on the same rule the family catalogue uses: A the artefact's own page fetched and read, B an official index, C credible secondary fetched, D a snippet or prior knowledge -- a lead, counted out loud.",
+    "named_guardian": "Every entry names a guardian action: the concrete next act, with a verb, that moves this system from dying to kept. Prose about how sad the loss is does not qualify.",
+    "lawful_route": "Every entry names the route a rescue would take, and no route may require distributing what its owner still holds: rules may travel, assets travel only from the player's own copy.",
+    "gate_or_wish": "Every entry names the gate that would show the action worked -- a command and a number. An entry whose only next act is 'raise awareness' is a wish and is refused.",
+    "custody_named": "Every entry says who holds the surviving copy type today: collectors, an archive, a private server, a museum, nobody known. 'Somebody must have it' is refused; 'nobody known' is accepted and recorded."
+  },
+  "status_definitions": {
+    "lost": "No known working copy of the thing itself survives; only descriptions, screenshots or partial dumps.",
+    "critically_endangered": "A working copy exists and is not being maintained, and the mechanism that will kill it is already running (decaying media, a dead server, a storefront that delisted it).",
+    "threatened": "A working copy survives and is being kept, but its survival depends on an entity that has no obligation to continue: one vendor, one volunteer, one server.",
+    "stable": "Survives by an arrangement with an obligation behind it (a licence, an archive mandate). Recorded so the register can say what kept it.",
+    "unknown": "Nobody has counted. Recorded as unknown rather than guessed, because 'unknown' is a fact a guardian can act on and a guess is not."
+  },
+  "routes": {
+    "rules-only": "the code and rules convert; no asset is needed, so the rescue is lawful without the owner's permission",
+    "rules-plus-own-copy": "the rules ship; the player's own copy supplies the art, sound and video",
+    "behaviour-capture": "the service or server is gone, so the rescue is a reimplementation of its observed behaviour, not its code",
+    "presentation-recipe": "the display is already a projection, so a raster/geometry recipe can re-present it faithfully",
+    "custody-only": "no revival is lawful or possible; the duty is to keep the copy, the metadata and the knowledge of it alive",
+    "none-known": "no route has been identified yet; recorded explicitly so the gap is visible"
+  },
+  "classes": [
+    {
+      "id": "arcade-coinop",
+      "name": "Coin-op arcade boards",
+      "why_it_dies": "custom silicon, PAL/GAL logic whose fuse maps were never published, suicide batteries on encryption chips, laserdisc players that no longer exist, and cabinets scrapped for their monitors"
+    },
+    {
+      "id": "console-cartridge-8bit",
+      "name": "8-bit cartridge consoles",
+      "why_it_dies": "SRAM save batteries leaking and eating the board, RF-only output on dying CRTs, controllers with unreplaceable flex circuits, and plastics that outlive the silicon inside"
+    },
+    {
+      "id": "console-cartridge-16bit",
+      "name": "16-bit and fifth-generation cartridge consoles",
+      "why_it_dies": "save batteries, copy-protection chips whose keys are undocumented, CD add-ons with laser assemblies nobody makes, and cartridge connectors worn past contact"
+    },
+    {
+      "id": "console-disc",
+      "name": "Disc-based consoles",
+      "why_it_dies": "disc rot in early pressings, laser assemblies with no replacement supply, clock capacitors leaking acid across the board, and optical drives that are the only part that moves"
+    },
+    {
+      "id": "home-computer-8bit",
+      "name": "8-bit home computers",
+      "why_it_dies": "tape and floppy media decaying faster than the machines, custom sound and video chips (SID, AY, VIC) failing with no fab, and power supplies that kill the computer when they fail"
+    },
+    {
+      "id": "home-computer-16bit",
+      "name": "16-bit home computers and Japanese-only lines",
+      "why_it_dies": "custom chip sets with no documentation, floppy drives with belts turning to tar, hard disks that were the only copy, and a language barrier that kept the dumps out of the English-speaking archives"
+    },
+    {
+      "id": "handheld",
+      "name": "Early handhelds",
+      "why_it_dies": "polariser and LCD rot, leaking capacitors, screen ribbon cables that crack with age, and batteries that leaked inside the case decades ago"
+    },
+    {
+      "id": "online-mmo",
+      "name": "Server-bound online games",
+      "why_it_dies": "the operator shuts down and the client, which the player owns, becomes a menu that cannot reach a world; the world existed only on someone else's disk"
+    },
+    {
+      "id": "online-service",
+      "name": "Matchmaking, storefront and streaming services",
+      "why_it_dies": "a third-party service that many games depended on closes, and every game that used it loses a feature it cannot patch back"
+    },
+    {
+      "id": "mobile-store",
+      "name": "Mobile and app-store-only games",
+      "why_it_dies": "delisting, an OS version that drops the binary format, an always-online requirement for a single-player game, and no way to install a build you already paid for"
+    },
+    {
+      "id": "browser-runtime",
+      "name": "Browser-runtime games",
+      "why_it_dies": "the plugin is switched off and the game, which was never a file the player held, stops existing in the same week"
+    },
+    {
+      "id": "broadcast-download",
+      "name": "Broadcast and download-service content",
+      "why_it_dies": "the content was transmitted once and never sold; when the broadcast ends there is no cartridge, no disc, and often no complete recording"
+    },
+    {
+      "id": "drm-server",
+      "name": "Games chained to a DRM or activation server",
+      "why_it_dies": "the check-in service retires, or the OS drops the driver the disc check depended on, and a legally bought disc stops launching"
+    },
+    {
+      "id": "physical-protection",
+      "name": "Games chained to a physical artefact",
+      "why_it_dies": "a code wheel, a dongle, a manual page or a lens device that was thrown away with the box, and without which the software refuses to run"
+    },
+    {
+      "id": "media-decay",
+      "name": "The media itself",
+      "why_it_dies": "bit rot, binder hydrolysis, flash charge decay, EPROM bit rot and delamination: the carrier fails on a schedule that has nothing to do with how much anyone cares"
+    },
+    {
+      "id": "firmware-bios",
+      "name": "Firmware, BIOS and undocumented logic",
+      "why_it_dies": "the console cannot boot without a dump nobody may lawfully distribute, and the programmable logic on the board was never read out, so a board that loses its fuse map is gone"
+    },
+    {
+      "id": "toolchain-sdk",
+      "name": "Toolchains, SDKs and middleware",
+      "why_it_dies": "without the compiler, the middleware licence and the authoring tool, the source and the assets cannot be rebuilt even when both survive"
+    },
+    {
+      "id": "emulator-abandoned",
+      "name": "The rescue tools themselves",
+      "why_it_dies": "emulators are written by one person, abandoned, closed-source, or litigated out of existence; a system whose only emulator dies loses its practical access even though its dumps survive"
+    }
+  ],
+  "frontier": {
+    "note": "The entries below are the cohorts this register has NOT counted. A register that claims to hold everything is lying about its own edge, so the edge is a list with a next sweep per line: each cohort is at risk, none is enumerated yet, and none may be dropped for being large. `--summary` prints the frontier count beside the entries so the gap is visible in every reading.",
+    "open_cohorts": [
+      {
+        "id": "fifth-sixth-gen-catalogues",
+        "name": "Title-level catalogues for PS2, GameCube, Xbox and Dreamcast",
+        "population": "thousands of titles per platform; the discs survive better than the drives",
+        "why_not_yet": "title-level enumeration needs a catalogue snapshot per region and a dump manifest to diff against; neither is in this tree",
+        "next_sweep": "diff a dated regional catalogue snapshot against the archive manifests and post the unmatched list",
+        "evidence": {
+          "source": "VGHF availability study: the densest period in the sample is still under 20% available",
+          "url": "https://gamehistory.org/87percent/",
+          "source_tier": "A",
+          "fetched_on": "2026-11-01"
+        }
+      },
+      {
+        "id": "arcade-pcb-long-tail",
+        "name": "The arcade board long tail",
+        "population": "thousands of boards, most represented in the register by class and not by name",
+        "why_not_yet": "boards are undocumented, often unsigned-in, and only a specialist can say which ones exist",
+        "next_sweep": "ask the dumping projects for their board census and register every board with no known dump",
+        "evidence": {
+          "source": "prior knowledge; the census is the thing being requested",
+          "url": null,
+          "source_tier": "D",
+          "evidence": "prior-knowledge-unfetched"
+        }
+      },
+      {
+        "id": "european-micro-catalogue",
+        "name": "Amstrad CPC, MSX, SAM Coupe, Dragon 32 and the rest of the European 8-bit catalogue",
+        "population": "thousands of titles, many tape-only and nationally distributed",
+        "why_not_yet": "each country kept its own archives; a register entry per title needs a national archive to diff against",
+        "next_sweep": "register each national archive as a custodian and diff its holdings against the tape-only titles",
+        "evidence": {
+          "source": "prior knowledge; no national archive census cited yet",
+          "url": null,
+          "source_tier": "D",
+          "evidence": "prior-knowledge-unfetched"
+        }
+      },
+      {
+        "id": "console-storefronts",
+        "name": "Digital-only console storefronts (Wii U, 3DS, Vita, PSP)",
+        "population": "thousands of titles that were never pressed to a disc or cartridge",
+        "why_not_yet": "the closure dates are known but the per-title survival list is not; a storefront snapshot is the missing instrument",
+        "next_sweep": "snapshot each storefront's catalogue before it closes and record which titles have no physical release",
+        "evidence": {
+          "source": "prior knowledge of the storefront closures; dates not re-verified in this session",
+          "url": null,
+          "source_tier": "D",
+          "evidence": "prior-knowledge-unfetched"
+        }
+      },
+      {
+        "id": "educational-training-games",
+        "name": "Educational and corporate-training games",
+        "population": "unknown; nobody has counted",
+        "why_not_yet": "they were never sold, so no catalogue exists; the BBC Micro entries are the only ones this register holds by name",
+        "next_sweep": "ask school and museum archives what they hold and register every title with a single known copy",
+        "evidence": {
+          "source": "prior knowledge; the BBC Micro entry is the register's only worked example",
+          "url": null,
+          "source_tier": "D",
+          "evidence": "prior-knowledge-unfetched"
+        }
+      },
+      {
+        "id": "living-service-games",
+        "name": "Games that are running today and will die",
+        "population": "every live-service title currently operating",
+        "why_not_yet": "a running game looks like the opposite of an extinction, so it is nobody's preservation queue until the week it closes",
+        "next_sweep": "register each live-service title with its shutdown-risk evidence and demand an offline-path commitment in writing",
+        "evidence": {
+          "source": "prior knowledge of the pattern the register already records five times over",
+          "url": null,
+          "source_tier": "D",
+          "evidence": "prior-knowledge-unfetched"
+        }
+      },
+      {
+        "id": "teletext-videotex-games",
+        "name": "Teletext, Ceefax, Minitel and videotex games",
+        "population": "unknown; transmitted, never sold, and mostly unrecorded",
+        "why_not_yet": "the medium is a broadcast page, so a game is a few hundred bytes in a signal nobody archived",
+        "next_sweep": "find who recorded the services and register every game page that survives as a capture",
+        "evidence": {
+          "source": "prior knowledge; no capture archive cited",
+          "url": null,
+          "source_tier": "D",
+          "evidence": "prior-knowledge-unfetched"
+        }
+      },
+      {
+        "id": "unreleased-and-homebrew",
+        "name": "Unreleased, cancelled and self-published games",
+        "population": "unknown and probably larger than the released set",
+        "why_not_yet": "an unreleased game has no store entry, so discovery depends on the author or a hard drive in a cupboard",
+        "next_sweep": "register each known cancelled title with its evidence and ask the author for a build before the drive is wiped",
+        "evidence": {
+          "source": "prior knowledge; the size of this cohort is the register's biggest unknown",
+          "url": null,
+          "source_tier": "D",
+          "evidence": "prior-knowledge-unfetched"
+        }
+      }
+    ]
+  },
+  "declared_entry_count": 59,
+  "retired": [],
+  "entries": [
+    {
+      "id": "cps2-suicide-battery",
+      "name": "Capcom CPS-2 boards (1993)",
+      "class": "arcade-coinop",
+      "born": "1993",
+      "what_dies": "a battery that powers the encryption key; when it fails the board dies outright, and it was designed that way to stop copying",
+      "status": "threatened",
+      "event": "ongoing: the keys are now published, the boards still die",
+      "evidence": {
+        "source": "prior knowledge of the hardware scheme; not fetched this session",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "decrypted ROM sets and the published key tables, plus replacement battery kits",
+      "route": "rules-only",
+      "guardian": "Record the decryption as a documented step with a hash, so a board without a key is recoverable from the register rather than from a forum thread",
+      "gate": "one dead board revived from the documented step, with the resulting ROM hash recorded",
+      "custody": "a specialist repair scene; the keys are public"
+    },
+    {
+      "id": "dragons-lair",
+      "name": "Dragon's Lair (1983) and laserdisc coin-op",
+      "class": "arcade-coinop",
+      "born": "1983",
+      "what_dies": "the laserdisc player inside the cabinet, and the disc; the game is a branch over video chapters, so the video is the game",
+      "status": "critically_endangered",
+      "event": "ongoing: players and discs both failing",
+      "evidence": {
+        "source": "prior knowledge; the disc-rot rate is unmeasured here",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "video captures from working players; an arcade-perfect reimplementation exists",
+      "route": "presentation-recipe",
+      "guardian": "Record each chapter's timing as integer frame counts, which is what makes the video a reconstructible recipe instead of a recording",
+      "gate": "a reimplementation whose branch timings match the recorded frame counts for every scene",
+      "custody": "collectors; the reconstruction project is one of the register's strongest precedents"
+    },
+    {
+      "id": "sega-model-2",
+      "name": "Sega Model 2 boards (1993)",
+      "class": "arcade-coinop",
+      "born": "1993",
+      "what_dies": "custom 3D silicon with no documentation, on boards that were scrapped in bulk when arcades closed",
+      "status": "critically_endangered",
+      "event": "ongoing: boards scrapped, silicon undocumented",
+      "evidence": {
+        "source": "prior knowledge of the hardware; not fetched this session",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "emulation exists and is mature for the popular titles; obscure titles are unverified",
+      "route": "rules-only",
+      "guardian": "Record per title whether the emulation has been checked against a real board, because 'it runs' is not the same as 'it is the same game'",
+      "gate": "a per-title verification table: checked against hardware yes/no, and the divergence found",
+      "custody": "the emulation project, plus a few board owners"
+    },
+    {
+      "id": "atari-2600",
+      "name": "Atari 2600 / VCS (1977)",
+      "class": "console-cartridge-8bit",
+      "born": "1977",
+      "what_dies": "RF modulator drift, joystick flex pads, and the fact that most carts have no save at all so nothing is lost with them -- but the machine has no modern output and the caps are 45 years old",
+      "status": "threatened",
+      "event": "ongoing: no vendor support since 1992",
+      "evidence": {
+        "source": "VGHF / Software Preservation Network availability study (n=1500, no period above 20% available)",
+        "url": "https://gamehistory.org/87percent/",
+        "source_tier": "A",
+        "fetched_on": "2026-11-01"
+      },
+      "survivors": "millions of carts; a complete ROM set is public; the machine is fully documented and integer-only",
+      "route": "rules-only",
+      "guardian": "Keep the 6507 simulation exact and prove it against a divergence counter, so the hardware can fail without the games failing",
+      "gate": "tools/sword_2600.py self-test plus a divergence count over 10,000 ticks per scenario, first-divergence tick named",
+      "custody": "collectors and every major ROM archive; the machine is the endangered part, not the software"
+    },
+    {
+      "id": "intellivision",
+      "name": "Mattel Intellivision (1979)",
+      "class": "console-cartridge-8bit",
+      "born": "1979",
+      "what_dies": "hand controllers with a 16-direction disc and membrane keypad that fail together, and a power supply whose failure mode is the console",
+      "status": "threatened",
+      "event": "ongoing: no vendor support since 1990",
+      "evidence": {
+        "source": "prior knowledge of the platform; not fetched this session",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "cartridge dumps are broadly archived; controllers are the scarce part",
+      "route": "rules-only",
+      "guardian": "Extend the shard contract with a controller-capability declaration so a modern pad can stand in without changing what the game does",
+      "gate": "a golden run of one Intellivision title reproduced from a controller abstract layer, same state hash as a recorded transcript",
+      "custody": "collectors; no institutional mandate known"
+    },
+    {
+      "id": "colecovision",
+      "name": "ColecoVision (1982)",
+      "class": "console-cartridge-8bit",
+      "born": "1982",
+      "what_dies": "the power switch and the controller's roller ball, plus a video chip whose composite output is already marginal",
+      "status": "critically_endangered",
+      "event": "ongoing: hardware failure outpaces repair knowledge",
+      "evidence": {
+        "source": "prior knowledge of the platform; not fetched this session",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "ROM dumps exist; the Super Game Module homebrew scene keeps the platform documented",
+      "route": "rules-only",
+      "guardian": "Record a repair procedure per failure mode (power switch, roller, VDP) as a shard-shippable document rather than forum posts",
+      "gate": "three repaired units whose state hashes match a recorded baseline run, with the procedure cited per unit",
+      "custody": "collectors and a small homebrew scene"
+    },
+    {
+      "id": "snes-save-battery",
+      "name": "Super Nintendo save RAM (1990)",
+      "class": "console-cartridge-16bit",
+      "born": "1990",
+      "what_dies": "a CR2032 soldered into the cart that has been powering SRAM for 35 years; when it dies the save is gone and, on some carts, so is the board",
+      "status": "critically_endangered",
+      "event": "ongoing: every cart is past its battery's design life",
+      "evidence": {
+        "source": "prior knowledge; battery life is a design figure, the failure rate on this box is unmeasured",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "the games and dumps; the saves are the perishable thing",
+      "route": "rules-only",
+      "guardian": "Ship a save-cartridge reader in the shard toolchain so a save can be extracted before the battery dies, and a format that does not depend on the cart",
+      "gate": "a save extracted from a live cart, re-imported into a shard, and a state hash that matches the recorded play",
+      "custody": "the carts themselves, in collectors' hands"
+    },
+    {
+      "id": "pc-engine-cd",
+      "name": "PC Engine / TurboGrafx-16 CD (1988)",
+      "class": "console-cartridge-16bit",
+      "born": "1988",
+      "what_dies": "CD-ROM2 drive gears and lasers, plus the interface unit's capacitors; the discs themselves are early pressings",
+      "status": "critically_endangered",
+      "event": "ongoing: no replacement laser supply",
+      "evidence": {
+        "source": "prior knowledge; not fetched this session",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "disc images are archived; the drives are not",
+      "route": "rules-plus-own-copy",
+      "guardian": "Name the exact drive and laser part numbers this register accepts as surviving, so a rescue does not depend on one seller",
+      "gate": "one title booted from a disc image through the shard host, no original drive in the path",
+      "custody": "collectors; parts supply is the pinch point"
+    },
+    {
+      "id": "neo-geo-aes",
+      "name": "Neo Geo AES (1990)",
+      "class": "console-cartridge-16bit",
+      "born": "1990",
+      "what_dies": "cart prices put most titles out of reach of anyone who would dump them, and the AES's own video output is unusual enough that few people can run it",
+      "status": "threatened",
+      "event": "ongoing: price, not decay, is the threat",
+      "evidence": {
+        "source": "prior knowledge of the market; no dated price study cited",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "a well-documented ROM set; MVS arcade boards are more common than AES carts",
+      "route": "rules-only",
+      "guardian": "Record which titles exist only as AES carts with no MVS equivalent, because those are the ones whose only copy is the expensive one",
+      "gate": "a list of AES-only titles derived from a dump manifest, each with its archive location or 'none known'",
+      "custody": "collectors; the MVS scene holds the dumps"
+    },
+    {
+      "id": "ps1-disc-rot",
+      "name": "PlayStation (1994) discs and drives",
+      "class": "console-disc",
+      "born": "1994",
+      "what_dies": "the KSM-440 laser sled wears out and is no longer made, and early CD pressings are delaminating",
+      "status": "threatened",
+      "event": "ongoing: laser assemblies exhausted, discs ageing",
+      "evidence": {
+        "source": "VGHF availability study (the period 1995-1999 is the study's densest and still under 20%)",
+        "url": "https://gamehistory.org/87percent/",
+        "source_tier": "A",
+        "fetched_on": "2026-11-01"
+      },
+      "survivors": "disc images are widely archived; the BIOS is dumpable but not distributable",
+      "route": "rules-plus-own-copy",
+      "guardian": "Keep the shard host able to consume a disc image the player made from their own disc, and never ship the BIOS",
+      "gate": "a title run from a player-supplied image with the shard supplying no firmware, and a hash recorded",
+      "custody": "collectors and archives; the drives are the endangered half"
+    },
+    {
+      "id": "dreamcast-gdrom",
+      "name": "Dreamcast (1998) GD-ROM and drives",
+      "class": "console-disc",
+      "born": "1998",
+      "what_dies": "GD-ROM drives and their lasers, and the odd high-density disc format that consumer drives cannot read",
+      "status": "critically_endangered",
+      "event": "ongoing: laser supply exhausted, discs ageing",
+      "evidence": {
+        "source": "prior knowledge; not fetched this session",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "GDI dumps exist; optical drive emulators replace the mechanism",
+      "route": "rules-plus-own-copy",
+      "guardian": "Record the drive-emulator model and firmware the shard host accepts, so the rescue does not rest on one discontinued board",
+      "gate": "a title booted through two different drive-emulator models with the same state hash",
+      "custody": "the community ODE makers, a single-vendor dependency"
+    },
+    {
+      "id": "og-xbox-clock-cap",
+      "name": "Original Xbox (2001) clock capacitor",
+      "class": "console-disc",
+      "born": "2001",
+      "what_dies": "a clock capacitor that leaks and eats the traces under it; a console left switched off for years is the one that dies",
+      "status": "critically_endangered",
+      "event": "ongoing: documented leak failures across the model range",
+      "evidence": {
+        "source": "prior knowledge of the hardware fault; the failure census is unmeasured here",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "disc images; the hardware is repairable if the cap is removed before it leaks",
+      "route": "rules-plus-own-copy",
+      "guardian": "Publish a repair-first checklist (the register's own procedure) that a shard ships alongside its title list",
+      "gate": "count of consoles repaired per the checklist, and the number whose drives still read a disc afterwards",
+      "custody": "collectors; the repair knowledge is the scarce asset"
+    },
+    {
+      "id": "c64-sid",
+      "name": "Commodore 64 (1982) and the SID",
+      "class": "home-computer-8bit",
+      "born": "1982",
+      "what_dies": "the SID sound chip is the whole sound of the platform and there is no fab; the original power supply fails high and takes the machine with it",
+      "status": "threatened",
+      "event": "ongoing: SID supply is harvested from dead machines",
+      "evidence": {
+        "source": "prior knowledge of the platform; not fetched this session",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "software is fully archived; SID replacements exist but do not agree sample-for-sample with the original",
+      "route": "rules-only",
+      "guardian": "Treat the SID as part of the state: record which SID revision a golden run used, so a rescue can say what it reproduced",
+      "gate": "a hash of the audio output against a recorded SID revision, with the revision named in the manifest",
+      "custody": "a large, well-organised scene; the chips are the bottleneck"
+    },
+    {
+      "id": "zx-spectrum-tape",
+      "name": "ZX Spectrum (1982) tape archive",
+      "class": "home-computer-8bit",
+      "born": "1982",
+      "what_dies": "cassette tape binder hydrolysis and print-through; a tape that was the only copy of a small-press game is already unreadable",
+      "status": "critically_endangered",
+      "event": "ongoing: tape media past its design life",
+      "evidence": {
+        "source": "prior knowledge of the media; a measured failure rate on this box does not exist",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "a very large TZX archive; the tapes behind it are the perishable part",
+      "route": "rules-only",
+      "guardian": "Prioritise the titles whose tape has been dumped exactly once and whose dump has no second witness",
+      "gate": "a list of single-witness dumps computed from the archive manifest, with a re-dump request per title",
+      "custody": "the Spectrum scene, one of the strongest preservation communities on any platform"
+    },
+    {
+      "id": "bbc-micro",
+      "name": "BBC Micro (1981) and its educational software",
+      "class": "home-computer-8bit",
+      "born": "1981",
+      "what_dies": "the educational catalogue was never commercial, so it lived on discs in schools and was thrown away when the rooms were refurbished",
+      "status": "critically_endangered",
+      "event": "ongoing: institutional disposal, not media decay, is the killer",
+      "evidence": {
+        "source": "prior knowledge; the schools' disposal record is unmeasured",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "the machine is emulated well; the software gaps are the loss",
+      "route": "rules-only",
+      "guardian": "Name the school-disposal cohort as a class and ask archives what they already hold before assuming a title is lost",
+      "gate": "a gap report: titles in the catalogue with no dump, each with the archive it was checked against",
+      "custody": "a small number of museums and one strong community archive"
+    },
+    {
+      "id": "amiga-custom-chips",
+      "name": "Commodore Amiga (1985)",
+      "class": "home-computer-16bit",
+      "born": "1985",
+      "what_dies": "Agnus/Denise/Paula with no fab, floppy drives whose belts and heads fail, and hard disks that held the only copy of a demo group's work",
+      "status": "threatened",
+      "event": "ongoing: chip supply from dead machines",
+      "evidence": {
+        "source": "prior knowledge of the platform; not fetched this session",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "software is deeply archived; FPGA reimplementations exist and differ in timing",
+      "route": "rules-only",
+      "guardian": "Record the chipset revision a golden run used, because a rescue that reproduces OCS output on an AGA machine reproduced a different machine",
+      "gate": "one demo replayed to the same frame hash under two chipset revisions, or an explicit refusal naming the difference",
+      "custody": "a large scene; the custom chips are the endangered part"
+    },
+    {
+      "id": "pc98-japanese",
+      "name": "NEC PC-98 (1982) Japanese catalogue",
+      "class": "home-computer-16bit",
+      "born": "1982",
+      "what_dies": "the software never left Japan, the documentation is in Japanese, and the machines were discarded in bulk when Windows took over",
+      "status": "critically_endangered",
+      "event": "ongoing: bulk disposal in the 1990s, thin coverage since",
+      "evidence": {
+        "source": "prior knowledge; no dated census cited",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "a partial archive held outside Japan; many titles have no known dump",
+      "route": "rules-only",
+      "guardian": "Publish the register's PC-98 entries with their evidence in both languages, so a Japanese holder can correct an entry rather than discovering it",
+      "gate": "every PC-98 entry carries a bilingual name and at least one citation a Japanese reader can check",
+      "custody": "unclear; this is the register's weakest custody entry and says so"
+    },
+    {
+      "id": "x68000",
+      "name": "Sharp X68000 (1987)",
+      "class": "home-computer-16bit",
+      "born": "1987",
+      "what_dies": "a workstation-class machine sold in small numbers, with SCSI drives whose contents were never imaged",
+      "status": "critically_endangered",
+      "event": "ongoing: small population, ageing drives",
+      "evidence": {
+        "source": "prior knowledge; not fetched this session",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "a partial archive; emulation exists and is not exact for all titles",
+      "route": "rules-only",
+      "guardian": "Record which titles were arcade ports whose arcade original survives, so the X68000 version is not the last copy of anything",
+      "gate": "a cross-reference count of X68000-only titles with no surviving source release",
+      "custody": "collectors in Japan; the register cannot name a holder, and records that"
+    },
+    {
+      "id": "virtual-boy",
+      "name": "Virtual Boy (1995)",
+      "class": "handheld",
+      "born": "1995",
+      "what_dies": "the display's ribbon cables and the LED scanning mechanism, which fail permanently and are not repairable at hobbyist scale",
+      "status": "critically_endangered",
+      "event": "ongoing: display failure is terminal",
+      "evidence": {
+        "source": "prior knowledge of the failure mode; a failure census is unmeasured",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "ROMs and a complete title list; the displays are the endangered half",
+      "route": "rules-only",
+      "guardian": "Ship the presentation as a recipe: the scanning display is a projection, so a 3D recipe can carry the look without the hardware",
+      "gate": "one title rendered from the recipe with a frame hash matching a recorded capture from working hardware",
+      "custody": "collectors; the working displays are countable"
+    },
+    {
+      "id": "game-boy-lcd-rot",
+      "name": "Game Boy (1989) LCD polariser rot",
+      "class": "handheld",
+      "born": "1989",
+      "what_dies": "the polarising film behind the LCD degrades with heat and time; the screen goes black at the edges and the machine is unplayable while the board is fine",
+      "status": "threatened",
+      "event": "ongoing: every unit is ageing on the same schedule",
+      "evidence": {
+        "source": "prior knowledge of the fault; not fetched this session",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "the largest cartridge and ROM population of any handheld",
+      "route": "rules-only",
+      "guardian": "Record the polariser replacement as a named procedure with a success count, so the repair is a fact rather than a forum anecdote",
+      "gate": "N of M repaired units whose contrast measurement falls inside the recorded healthy band",
+      "custody": "collectors at scale; the repair knowledge is the constraint"
+    },
+    {
+      "id": "game-gear-caps",
+      "name": "Game Gear (1990) capacitor failure",
+      "class": "handheld",
+      "born": "1990",
+      "what_dies": "surface-mount electrolytics that leak onto the board; a recap is routine but a leaked board is not",
+      "status": "threatened",
+      "event": "ongoing: recaps are routine, boards are finite",
+      "evidence": {
+        "source": "prior knowledge; not fetched this session",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "cartridges and dumps; the machine is repairable",
+      "route": "rules-only",
+      "guardian": "Name the capacitor kit and the inspection points, and count the units saved",
+      "gate": "a repair ledger: units recapped, units that still fail, and the failure mode for each",
+      "custody": "a modest repair scene"
+    },
+    {
+      "id": "swg",
+      "name": "Star Wars Galaxies (2003-2011)",
+      "class": "online-mmo",
+      "born": "2003",
+      "what_dies": "the servers. The client the player installed became a launcher that reports a closed service",
+      "status": "critically_endangered",
+      "event": "2011-12-15: live service closed",
+      "evidence": {
+        "source": "prior knowledge of the shutdown date; not fetched this session",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "private server projects and client installs; legality is not settled for any of them",
+      "route": "behaviour-capture",
+      "guardian": "Record the observed behaviour of the economy and combat as transcripts, so a reimplementation is checkable rather than a nostalgia project",
+      "gate": "a recorded transcript replayed by an independent reimplementation, with a divergence counter per subsystem",
+      "custody": "private server operators; the register names them as a custody risk, not a guarantee"
+    },
+    {
+      "id": "city-of-heroes",
+      "name": "City of Heroes (2004-2012)",
+      "class": "online-mmo",
+      "born": "2004",
+      "what_dies": "the servers; the player base kept the client and the data alive for seven years with no legal route to a server",
+      "status": "critically_endangered",
+      "event": "2012-11-30: live service closed",
+      "evidence": {
+        "source": "prior knowledge; the 2019 licence arrangement is remembered, not re-verified",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "a licensed community server arrangement, which the register treats as stable while the licence holds",
+      "route": "behaviour-capture",
+      "guardian": "Write down what the licence arrangement actually permits, because it is the only precedent in the register and it is being cited informally",
+      "gate": "a one-page record of the arrangement with its source, and a stability check on whether the server still answers",
+      "custody": "the community operator, by licence; a single point of failure"
+    },
+    {
+      "id": "wildstar",
+      "name": "WildStar (2014-2018)",
+      "class": "online-mmo",
+      "born": "2014",
+      "what_dies": "the servers, and with them a combat system whose feel is the product; the art is large and the client is unmaintained",
+      "status": "lost",
+      "event": "2018-11-28: live service closed",
+      "evidence": {
+        "source": "prior knowledge of the shutdown; no server project verified",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "client installs and datamined assets; no working world",
+      "route": "behaviour-capture",
+      "guardian": "Record that this entry is LOST as a service and keep the client metadata, so a future route does not start from zero",
+      "gate": "a manifest of what exists (client builds, asset extractions) with hashes, and an explicit 'no server' line",
+      "custody": "nobody known; the register says so rather than implying a scene"
+    },
+    {
+      "id": "asherons-call",
+      "name": "Asheron's Call (1999-2017)",
+      "class": "online-mmo",
+      "born": "1999",
+      "what_dies": "the servers, after eighteen years; the game's world was procedural and documented in the client",
+      "status": "critically_endangered",
+      "event": "2017-01-31: live service closed",
+      "evidence": {
+        "source": "prior knowledge of the shutdown; private server status not re-verified",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "emulator projects and client data; small population",
+      "route": "behaviour-capture",
+      "guardian": "Capture the world-generation rules as data, since they are the part a reimplementation cannot invent",
+      "gate": "a regenerated world compared tile-by-tile against client data, with the mismatch count reported",
+      "custody": "a small volunteer scene"
+    },
+    {
+      "id": "glitch",
+      "name": "Glitch (2009-2012)",
+      "class": "online-mmo",
+      "born": "2009",
+      "what_dies": "the servers and the art pipeline; the game was Flash-client, so it inherits the Flash extinction on top of the server shutdown",
+      "status": "lost",
+      "event": "2012-12-09: live service closed",
+      "evidence": {
+        "source": "prior knowledge; not fetched this session",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "a later unrelated project reused the name; the original world is not running",
+      "route": "none-known",
+      "guardian": "Record the two-layer death (server then runtime) because it is the register's clearest example of a compound extinction",
+      "gate": "a written failure-chain diagram naming both mechanisms and what evidence of each survives",
+      "custody": "nobody known"
+    },
+    {
+      "id": "gamespy-shutdown",
+      "name": "GameSpy matchmaking (closed 2014-05-31)",
+      "class": "online-service",
+      "born": "1999",
+      "what_dies": "a third-party service that hundreds of shipped games used for matchmaking and master servers; when it closed, those games lost multiplayer in a single day",
+      "status": "critically_endangered",
+      "event": "2014-05-31: service shut down",
+      "evidence": {
+        "source": "prior knowledge of the shutdown date; not fetched this session",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "community replacement master servers for the most popular titles; the long tail was never fixed",
+      "route": "behaviour-capture",
+      "guardian": "Count the affected titles from their own binaries (a master-server hostname in the executable), so the long tail is a number instead of an anecdote",
+      "gate": "a scan count of shipped titles embedding a dead service hostname, with the proportion that have a known replacement",
+      "custody": "scattered community servers"
+    },
+    {
+      "id": "nintendo-wfc",
+      "name": "Nintendo Wi-Fi Connection (closed 2014-05-20)",
+      "class": "online-service",
+      "born": "2005",
+      "what_dies": "the service; DS and Wii titles that used it lost online play and, for some, the only way to obtain content",
+      "status": "critically_endangered",
+      "event": "2014-05-20: service shut down",
+      "evidence": {
+        "source": "prior knowledge; not fetched this session",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "a community replacement service keeps a subset alive on modded hardware",
+      "route": "behaviour-capture",
+      "guardian": "Record which titles needed the service for single-player content, because those are not 'multiplayer losses' at all",
+      "gate": "a per-title table: online-only content, still reachable yes/no, and the mechanism",
+      "custody": "one volunteer project -- a single point of failure the register names"
+    },
+    {
+      "id": "stadia",
+      "name": "Google Stadia (2019-2023)",
+      "class": "online-service",
+      "born": "2019",
+      "what_dies": "the service, and with it the only copy of anything that was Stadia-exclusive; the player never held a file",
+      "status": "critically_endangered",
+      "event": "2022-09-29: wind-down announced; service closed 2023-01-18",
+      "evidence": {
+        "source": "Phil Harrison, 'A message about Stadia and our long term streaming strategy'",
+        "url": "https://blog.google/products/stadia/message-on-stadia-streaming-strategy/",
+        "source_tier": "A",
+        "fetched_on": "2026-11-01"
+      },
+      "survivors": "most titles were ports; the exclusives are the question and the announcement says nothing about them",
+      "route": "custody-only",
+      "guardian": "Keep the register's list of Stadia-only titles with what happened to each, and mark unknown rather than assuming they were ported",
+      "gate": "a list where every entry has a status (ported / lost / unknown) and a citation, with the unknown count printed",
+      "custody": "nobody known for the exclusives"
+    },
+    {
+      "id": "gfwl-marketplace",
+      "name": "Games for Windows Live marketplace (closed 2013)",
+      "class": "online-service",
+      "born": "2007",
+      "what_dies": "the storefront and the licence service; purchases became unverifiable and some titles refused to launch without the client",
+      "status": "critically_endangered",
+      "event": "2013-08: marketplace closed, client lingered",
+      "evidence": {
+        "source": "prior knowledge; not fetched this session",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "patches that strip the client exist for the popular titles",
+      "route": "custody-only",
+      "guardian": "Record which titles cannot start without the dead client, because a patch existing is not the same as a patch being applied",
+      "gate": "a count of affected titles with a verified working patch, run once per title",
+      "custody": "the patching community"
+    },
+    {
+      "id": "flappy-bird",
+      "name": "Flappy Bird (2014)",
+      "class": "mobile-store",
+      "born": "2013",
+      "what_dies": "the author pulled it from the stores at the height of its popularity; installs that already existed kept working, and everyone else lost access in a day",
+      "status": "threatened",
+      "event": "2014-02-09: removed from the iOS and Android stores by its author",
+      "evidence": {
+        "source": "prior knowledge of the removal; not fetched this session",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "clones (many), and pre-existing installs on old devices; the original binary circulates unofficially",
+      "route": "custody-only",
+      "guardian": "Record the class, not the title: the lesson is that a store listing is not a deposit, so the register asks every mobile entry who holds the binary",
+      "gate": "one archived build with a hash and a named custodian, or an explicit 'nobody known'",
+      "custody": "unofficial APK mirrors; the register treats them as unverified"
+    },
+    {
+      "id": "infinity-blade",
+      "name": "Infinity Blade (2010-2018)",
+      "class": "mobile-store",
+      "born": "2010",
+      "what_dies": "delisted from the App Store; an iOS game that cannot be reinstalled on a current device, so the only copies are on hardware that can no longer be updated",
+      "status": "critically_endangered",
+      "event": "2018-12-10: removed from the App Store",
+      "evidence": {
+        "source": "prior knowledge of the delisting; not fetched this session",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "installs on unsupported hardware; IPA archives of uncertain provenance",
+      "route": "custody-only",
+      "guardian": "Image one known-good install per device generation before the hardware dies, because that is the only copy that will ever exist",
+      "gate": "an image per generation with a hash and the device model recorded, plus a launch check",
+      "custody": "collectors holding old devices; no archive has a mandate"
+    },
+    {
+      "id": "ios-32bit-purge",
+      "name": "The 32-bit iOS purge (2017)",
+      "class": "mobile-store",
+      "born": "2008",
+      "what_dies": "iOS 11 refused to run 32-bit apps at all; tens of thousands of games stopped launching on any device that could still be updated, with no per-title decision and no notice period",
+      "status": "critically_endangered",
+      "event": "2017-09-19: iOS 11 dropped 32-bit application support",
+      "evidence": {
+        "source": "prior knowledge of the OS change; the affected-title count is not measured here",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "old devices held below iOS 11; IPA archives for a fraction of the catalogue",
+      "route": "custody-only",
+      "guardian": "Count the affected titles from a store catalogue snapshot, so the class has a size rather than a reputation",
+      "gate": "a count of 32-bit-only titles from a dated catalogue snapshot, with the surviving-build proportion",
+      "custody": "nobody known at catalogue scale; this is the register's largest single unknown"
+    },
+    {
+      "id": "flash-games",
+      "name": "Flash games (ended 2020-12-31)",
+      "class": "browser-runtime",
+      "born": "1996",
+      "what_dies": "the plugin. Adobe ended support on 2020-12-31 and browsers removed the capability, so a catalogue of tens of thousands of games stopped existing in the same week",
+      "status": "critically_endangered",
+      "event": "2020-12-31: Flash Player support ended",
+      "evidence": {
+        "source": "Adobe Flash Player End of Life",
+        "url": "https://www.adobe.com/products/flashplayer/end-of-life.html",
+        "source_tier": "A",
+        "fetched_on": "2026-11-01"
+      },
+      "survivors": "Flashpoint and similar archives keep a playable subset; the long tail was never captured",
+      "route": "custody-only",
+      "guardian": "Count what the archives actually hold against the catalogues that still list titles, so the gap is a number",
+      "gate": "a gap count: titles listed by a dead portal minus titles playable in an archive",
+      "custody": "two large volunteer archives"
+    },
+    {
+      "id": "shockwave-director",
+      "name": "Shockwave / Macromedia Director titles",
+      "class": "browser-runtime",
+      "born": "1995",
+      "what_dies": "the player and the authoring tool both: Director is discontinued, so not only can the files not run, they cannot be re-exported",
+      "status": "critically_endangered",
+      "event": "ongoing: the runtime is discontinued and the plugin is gone from browsers",
+      "evidence": {
+        "source": "prior knowledge; not fetched this session",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "emulation of the Director runtime exists and is partial",
+      "route": "presentation-recipe",
+      "guardian": "Record the runtime version each archived title needs, because a Director file without its version is a guess",
+      "gate": "a manifest where every title names its runtime version and the archive that holds it",
+      "custody": "one project; thin"
+    },
+    {
+      "id": "java-applets",
+      "name": "Java applet games",
+      "class": "browser-runtime",
+      "born": "1995",
+      "what_dies": "browsers removed the plugin interface; an applet needs a JRE, a browser that still speaks NPAPI, and a signed jar that has not expired",
+      "status": "critically_endangered",
+      "event": "ongoing: plugin support removed 2015-2017",
+      "evidence": {
+        "source": "prior knowledge; not fetched this session",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "applet archives and a standalone runner; most portals' catalogues are gone",
+      "route": "custody-only",
+      "guardian": "Extract the applet payload from dead portals' archives before the portals' CDNs expire",
+      "gate": "a harvest count of applet jars retrieved, with a runnable proportion measured",
+      "custody": "scattered; no mandate"
+    },
+    {
+      "id": "munity-webplayer",
+      "name": "Unity Web Player games (2000s-2010s)",
+      "class": "browser-runtime",
+      "born": "2005",
+      "what_dies": "the plugin was discontinued in favour of WebGL builds; a .unity3d file needs the plugin, and many web games were never rebuilt",
+      "status": "critically_endangered",
+      "event": "ongoing: plugin retired, sites delisted",
+      "evidence": {
+        "source": "prior knowledge; the retirement date is not re-verified here",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "some builds were re-exported to WebGL; the rest are files nobody can run",
+      "route": "custody-only",
+      "guardian": "Name which archived builds are WebGL-capable and which are plugin-only, because only one of those two lists is playable",
+      "gate": "a two-list split with counts and the runtime version per file",
+      "custody": "portal archives; decaying"
+    },
+    {
+      "id": "satellaview",
+      "name": "Satellaview broadcast content (1995-2000)",
+      "class": "broadcast-download",
+      "born": "1995",
+      "what_dies": "the broadcasts. Episodes were transmitted on a schedule and never sold; when the service ended there was no cartridge to keep",
+      "status": "lost",
+      "event": "2000-06-30: broadcast service ended",
+      "evidence": {
+        "source": "prior knowledge; the completeness of surviving recordings is unmeasured",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "partial recordings held by hobbyists; some sound-link audio survives only as off-air tape",
+      "route": "custody-only",
+      "guardian": "Record which titles are known only from screenshots and press coverage, and mark them lost rather than 'rare'",
+      "gate": "a title-by-title existence table with a citation or an explicit 'no artefact known'",
+      "custody": "a handful of hobbyists; the register cannot name them"
+    },
+    {
+      "id": "sega-channel",
+      "name": "Sega Channel (1994-1998)",
+      "class": "broadcast-download",
+      "born": "1994",
+      "what_dies": "the cable delivery; games arrived over a TV channel into a cartridge that held them only while powered, so nothing was ever owned",
+      "status": "lost",
+      "event": "1998-07-31: service ended",
+      "evidence": {
+        "source": "prior knowledge; not fetched this session",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "the underlying Genesis games mostly survive elsewhere; the service itself does not",
+      "route": "custody-only",
+      "guardian": "Record that the games survive and the service does not, so the register does not overstate the loss",
+      "gate": "a mapping of the service's catalogue to surviving cartridge equivalents, with the unmatched count",
+      "custody": "nobody; the service is gone"
+    },
+    {
+      "id": "nintendo-power-flashcarts",
+      "name": "Nintendo Power rewritable cartridges (1988-1991)",
+      "class": "broadcast-download",
+      "born": "1988",
+      "what_dies": "the cartridges were rewritable and were meant to be overwritten; each new download destroyed the last, and the service wrote over its own history",
+      "status": "lost",
+      "event": "1991: service ended in Japan",
+      "evidence": {
+        "source": "prior knowledge; not fetched this session",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "a very small number of carts that were never overwritten; several titles are known from no complete dump",
+      "route": "custody-only",
+      "guardian": "Treat every surviving cart as a unique artefact and image it before it is used, because using it destroys the thing being preserved",
+      "gate": "an image-first procedure per cart, with a hash recorded before and after any use",
+      "custody": "a few collectors in Japan"
+    },
+    {
+      "id": "safedisc-securom",
+      "name": "SafeDisc / SecuROM disc checks (Windows)",
+      "class": "drm-server",
+      "born": "1998",
+      "what_dies": "the OS. Windows 10 dropped the driver these disc checks needed, so legally bought discs stopped launching on a current machine",
+      "status": "critically_endangered",
+      "event": "2015-08: Windows 10 removed the driver (KB3086255)",
+      "evidence": {
+        "source": "prior knowledge of the update; not fetched this session",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "patched executables exist for popular titles; the check itself cannot be reproduced",
+      "route": "custody-only",
+      "guardian": "Record the affected titles as a class rather than title by title, and count how many have a working patch",
+      "gate": "a class count plus a patched proportion, measured by launching each title once",
+      "custody": "the patching community; no institution holds a licence to fix these"
+    },
+    {
+      "id": "starforce",
+      "name": "StarForce-protected titles",
+      "class": "drm-server",
+      "born": "2003",
+      "what_dies": "a driver that modern Windows refuses to load, and a disc check bound to physical media geometry",
+      "status": "critically_endangered",
+      "event": "ongoing: unsupported on current Windows",
+      "evidence": {
+        "source": "prior knowledge; not fetched this session",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "patches for some titles; others have no route at all",
+      "route": "custody-only",
+      "guardian": "Name the titles with no patch, because those are the ones a player cannot lawfully run on any current machine",
+      "gate": "a list of unpatched titles, each with a tested launch attempt on a current OS",
+      "custody": "scattered; no mandate"
+    },
+    {
+      "id": "denuvo-online-check",
+      "name": "Always-online activation for single-player games",
+      "class": "drm-server",
+      "born": "2014",
+      "what_dies": "the activation server; a single-player game becomes unplayable when a company decides the title is old",
+      "status": "threatened",
+      "event": "ongoing: no commitment from any vendor to publish an offline path",
+      "evidence": {
+        "source": "prior knowledge of the practice; no dated vendor statement cited",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "the game files, which are useless without the check",
+      "route": "custody-only",
+      "guardian": "Ask for the one thing that costs a vendor nothing and saves the title: a documented offline unlock at end of support",
+      "gate": "a count of vendors who have published such a path, and the titles it covers",
+      "custody": "the vendors, by contract; this is the register's clearest live dependency"
+    },
+    {
+      "id": "code-wheels",
+      "name": "Code wheels, codewords and lens devices",
+      "class": "physical-protection",
+      "born": "1980",
+      "what_dies": "the artefact itself. A lens device or a printed wheel that was thrown away with the box makes a working disk unplayable forever",
+      "status": "critically_endangered",
+      "event": "ongoing: the artefact and the software are separated by time",
+      "evidence": {
+        "source": "prior knowledge; not fetched this session",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "scans of some wheels and manuals exist; many are undocumented",
+      "route": "custody-only",
+      "guardian": "Image every protection artefact the register meets, at 600 dpi, because a scan is the only form in which it can travel",
+      "gate": "count of protection artefacts imaged, with the resolution and the title each belongs to",
+      "custody": "collectors; unsystematic"
+    },
+    {
+      "id": "manual-lookup-protection",
+      "name": "Manual-lookup copy protection",
+      "class": "physical-protection",
+      "born": "1983",
+      "what_dies": "the manual. 'Type the fourth word on page 12' means the software is worthless without the booklet, and booklets were discarded",
+      "status": "critically_endangered",
+      "event": "ongoing: the manuals are the scarce artefact, not the disks",
+      "evidence": {
+        "source": "prior knowledge; not fetched this session",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "manual scans at replacementdocs-class archives; coverage is partial",
+      "route": "custody-only",
+      "guardian": "Cross-reference the register's entries against manual archives and count the games whose manual has no scan",
+      "gate": "a coverage percentage computed from the entry list, not estimated",
+      "custody": "volunteer scan archives"
+    },
+    {
+      "id": "arcade-glue-logic",
+      "name": "Undocumented PAL/GAL logic on arcade boards",
+      "class": "firmware-bios",
+      "born": "1980",
+      "what_dies": "the programmable logic whose fuse map was never published; when a board's chip dies, the board cannot be rebuilt even with every other part",
+      "status": "critically_endangered",
+      "event": "ongoing: boards fail and the logic was never read out",
+      "evidence": {
+        "source": "prior knowledge of the practice; the undumped count is unmeasured here",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "dumps exist for some boards, held by individuals; no complete census",
+      "route": "custody-only",
+      "guardian": "Advocate read-out-before-repair: image the logic before desoldering, because a repaired board with a new PAL is a different board",
+      "gate": "count of boards where the logic was imaged before repair, out of boards repaired",
+      "custody": "a few specialists"
+    },
+    {
+      "id": "console-bios-dumps",
+      "name": "Console BIOS and firmware dumps",
+      "class": "firmware-bios",
+      "born": "1988",
+      "what_dies": "a console that needs a firmware dump to boot, where the dump cannot lawfully be distributed, so every user must extract it from their own machine",
+      "status": "threatened",
+      "event": "ongoing: dumps survive, distribution is restricted",
+      "evidence": {
+        "source": "prior knowledge; the legal position varies by jurisdiction and is not re-verified here",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "dumps are archived; the machines that can produce them are the constraint",
+      "route": "custody-only",
+      "guardian": "Ship the extraction procedure per console so a player can make their own dump, since shipping the dump is not available",
+      "gate": "one extraction procedure per console that this estate has actually run, with the hash of the result",
+      "custody": "archives hold the dumps; users hold the machines"
+    },
+    {
+      "id": "xna-xblig",
+      "name": "XNA / Xbox Live Indie Games (2007-2017)",
+      "class": "toolchain-sdk",
+      "born": "2007",
+      "what_dies": "the toolchain and the store together: XNA was discontinued, the indie channel closed, and the games were never distributed as files",
+      "status": "critically_endangered",
+      "event": "2013: XNA discontinued; 2017: XBLIG closed",
+      "evidence": {
+        "source": "prior knowledge; not fetched this session",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "some titles were ported to other engines by their authors; the rest have no distribution channel",
+      "route": "custody-only",
+      "guardian": "Record the authors' own builds where they exist, because the store is gone and the authors are the only custodians",
+      "gate": "a per-title custody field: author build located / port located / nobody known",
+      "custody": "the authors, individually"
+    },
+    {
+      "id": "renderware",
+      "name": "RenderWare-era middleware",
+      "class": "toolchain-sdk",
+      "born": "1993",
+      "what_dies": "middleware licences that cannot be renewed, and authoring tools whose installers no longer run, so surviving source cannot be rebuilt",
+      "status": "threatened",
+      "event": "ongoing: licences expire, installers rot",
+      "evidence": {
+        "source": "prior knowledge; not fetched this session",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "shipped binaries; rebuilding is the part that is dying",
+      "route": "custody-only",
+      "guardian": "Record for each shard-eligible title whether a rebuild is possible from what survives, because a binary is not a source",
+      "gate": "a rebuild-possible flag per title, set only after an attempted build",
+      "custody": "unclear; the register marks this class as its weakest"
+    },
+    {
+      "id": "sdk-signing-keys",
+      "name": "Console SDK signing and dev hardware",
+      "class": "toolchain-sdk",
+      "born": "1994",
+      "what_dies": "signing keys and development kits that were never sold; without them, code cannot run on the original hardware even when everything else survives",
+      "status": "threatened",
+      "event": "ongoing: SDKs are under NDA and hardware is decommissioned",
+      "evidence": {
+        "source": "prior knowledge; not fetched this session",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "exploits that allow unsigned code on many systems; not on all",
+      "route": "rules-only",
+      "guardian": "Name which systems still cannot run unsigned code, because those are the ones where the shard contract needs an emulated host rather than hardware",
+      "gate": "a per-system table: unsigned code possible yes/no, and the mechanism or the refusal",
+      "custody": "the scene, per system"
+    },
+    {
+      "id": "zsnes",
+      "name": "ZSNES (last release 2007)",
+      "class": "emulator-abandoned",
+      "born": "1997",
+      "what_dies": "the emulator, abandoned while still the fastest option on old hardware; its accuracy limits are undocumented outside its own source",
+      "status": "threatened",
+      "event": "2007: final release",
+      "evidence": {
+        "source": "prior knowledge of the project; not fetched this session",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "source code in the open, so the tool can be revived; most users moved to other emulators",
+      "route": "rules-only",
+      "guardian": "Record which titles only this emulator still runs at usable speed on low-end hardware, because that is the capability the replacement has to match",
+      "gate": "a speed comparison per title on the reference low-end box, old tool vs replacement",
+      "custody": "public source; unmaintained"
+    },
+    {
+      "id": "bleem",
+      "name": "Bleem! (1999-2001)",
+      "class": "emulator-abandoned",
+      "born": "1999",
+      "what_dies": "a commercial emulator litigated out of the market; the precedent survived, the product did not",
+      "status": "lost",
+      "event": "2001: company wound down after litigation",
+      "evidence": {
+        "source": "prior knowledge; the case citation is not re-verified here",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "retail copies, no source, no support",
+      "route": "custody-only",
+      "guardian": "Keep the case record in the register, because the precedent is what makes every other route lawful and it is cited more often than it is read",
+      "gate": "a citation with its holding summarised in one line and a source tier",
+      "custody": "collectors; the legal record is public"
+    },
+    {
+      "id": "arcade-laserdisc",
+      "name": "Laserdisc arcade games (1983)",
+      "class": "media-decay",
+      "born": "1983",
+      "what_dies": "the player and the disc together: laserdisc rot is real, the players are unrepairable, and the game logic waited on a video source that no longer spins",
+      "status": "critically_endangered",
+      "event": "ongoing: players exhausted, discs rotting",
+      "evidence": {
+        "source": "prior knowledge; not fetched this session",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "video captures made from working players; Daphne-class reimplementations exist",
+      "route": "presentation-recipe",
+      "guardian": "Require a capture whose source disc is named, because a capture of a rotted disc is a capture of the rot",
+      "gate": "a per-title record: disc identity, capture hash, player model used",
+      "custody": "a small number of collectors and one reconstruction project"
+    },
+    {
+      "id": "cart-sram-battery",
+      "name": "Soldered SRAM save batteries",
+      "class": "media-decay",
+      "born": "1985",
+      "what_dies": "a coin cell that has been draining since manufacture; the save dies first and the leak damages the board after",
+      "status": "critically_endangered",
+      "event": "ongoing: every cart is past its design life",
+      "evidence": {
+        "source": "prior knowledge; the failure census is unmeasured here",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "the games; the saves are the perishable content and most were never imaged",
+      "route": "rules-only",
+      "guardian": "Ship a save extractor before the battery dies, and treat an unextracted save as a loss in progress rather than a backup waiting to happen",
+      "gate": "saves extracted per title, and the number of titles where none exists",
+      "custody": "whoever holds the cart"
+    },
+    {
+      "id": "cd-dvd-rot",
+      "name": "Early CD and DVD pressings",
+      "class": "media-decay",
+      "born": "1984",
+      "what_dies": "binder and reflective-layer failure in early pressings; the data is intact until it is not, and the failure is visible only as unreadable sectors",
+      "status": "critically_endangered",
+      "event": "ongoing: pressings from the 1980s-1990s are past their expected life",
+      "evidence": {
+        "source": "prior knowledge; no measured rot rate on this box",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "images made before the rot; the discs behind them are the clock",
+      "route": "custody-only",
+      "guardian": "Image on first contact and keep two copies on different media, because a single image is a single point of failure wearing a backup's clothes",
+      "gate": "an error-rate reading per disc (C2/C1 counts or equivalent) recorded with the image's hash",
+      "custody": "archives; unevenly"
+    },
+    {
+      "id": "flash-nand-decay",
+      "name": "Flash-cartridge charge decay",
+      "class": "media-decay",
+      "born": "2001",
+      "what_dies": "the charge in a NAND cell; a cart left unpowered for years loses its save, and in the worst documented cases its own code",
+      "status": "threatened",
+      "event": "ongoing: retention is a specification, not a promise",
+      "evidence": {
+        "source": "prior knowledge; the retention figures are datasheet claims, not measurements here",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "dumps and save images; the physical carts are the constraint",
+      "route": "custody-only",
+      "guardian": "Record a power-on-and-image schedule for the register's flash-based systems, because retention is refreshed by use and by copying",
+      "gate": "a schedule with the last image date per cart family, and the count past due",
+      "custody": "collectors; nobody holds a mandate for a refresh cycle"
+    },
+    {
+      "id": "eprom-bit-rot",
+      "name": "EPROM bit rot in arcade and cartridge hardware",
+      "class": "media-decay",
+      "born": "1978",
+      "what_dies": "the floating gate, slowly; a 40-year-old EPROM can lose a bit and the board boots wrong in a way nobody can diagnose",
+      "status": "threatened",
+      "event": "ongoing: every original EPROM is ageing",
+      "evidence": {
+        "source": "prior knowledge; not fetched this session",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "dumps verified against a second source; the 'good' set is the thing that must be verified, not assumed",
+      "route": "custody-only",
+      "guardian": "Verify every dump against two independent sources and record which dumps have only one witness",
+      "gate": "a single-witness dump count computed from the manifest",
+      "custody": "the dumping scene; the register names single-witness dumps as its top re-dump priority"
+    },
+    {
+      "id": "crt-dependency",
+      "name": "CRT-dependent display hardware",
+      "class": "media-decay",
+      "born": "1972",
+      "what_dies": "the displays: light guns that need a raster, 15 kHz sync that modern panels refuse, and CRTs that are no longer manufactured and cannot be shipped",
+      "status": "critically_endangered",
+      "event": "ongoing: no CRT production; the installed base is shrinking",
+      "evidence": {
+        "source": "prior knowledge; the installed-base size is unmeasured",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "up-scalers and FPGA line-doublers; a shrinking but real repair scene",
+      "route": "presentation-recipe",
+      "guardian": "Record the display timing a title depends on as part of its recipe, so 'it looks wrong' becomes a measurable statement about sync",
+      "gate": "a per-title timing record (lines, refresh, sync) and a capture compared against it",
+      "custody": "collectors and one or two manufacturers of up-scalers"
+    },
+    {
+      "id": "vectrex",
+      "name": "Vectrex (1982) and vector displays",
+      "class": "handheld",
+      "born": "1982",
+      "what_dies": "the vector CRT and its deflection circuitry; a vector monitor cannot be replaced by a raster panel without changing what the game looks like",
+      "status": "critically_endangered",
+      "event": "ongoing: displays fail and are not repairable at scale",
+      "evidence": {
+        "source": "prior knowledge; not fetched this session",
+        "url": null,
+        "source_tier": "D",
+        "evidence": "prior-knowledge-unfetched"
+      },
+      "survivors": "dumps and a small homebrew scene; a handful of working machines",
+      "route": "presentation-recipe",
+      "guardian": "Express a vector game as a display list of line segments, which is exactly what an integer sim can emit and any host can draw",
+      "gate": "a title re-presented from an emitted segment list, with a frame hash compared against a capture of the original",
+      "custody": "a small collector base"
+    }
+  ]
+}

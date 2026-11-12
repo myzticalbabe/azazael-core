@@ -1,0 +1,44 @@
+{
+  "name": "Azazael ML Datasets",
+  "version": "1.0.0",
+  "description": "Dataset metadata for ecosystem ML operations",
+  "datasets": {
+    "system_metrics": {
+      "source": "SYSTEMZ",
+      "type": "time_series",
+      "features": ["cpu_usage", "memory_usage", "disk_io", "network_throughput"],
+      "frequency": "1s",
+      "storage": "HYDRA/output/metrics"
+    },
+    "error_patterns": {
+      "source": "TERENCE",
+      "type": "categorical",
+      "categories": 26,
+      "fix_applied": true,
+      "storage": "HYDRA/output/errors"
+    },
+    "cluster_states": {
+      "source": "CLUSTERWORMS",
+      "type": "graph",
+      "nodes": ["SYSTEMZ", "PROCESSZ", "DISKZ", "NETWORXZ", "CLOCKZ"],
+      "edges": ["coordination", "sync", "heartbeat"],
+      "storage": "HYDRA/output/clusters"
+    },
+    "optimization_results": {
+      "source": "HYDRAMETA",
+      "type": "numerical",
+      "metrics": ["accuracy", "latency", "throughput"],
+      "storage": "HYDRA/output/optimization"
+    }
+  },
+  "preprocessing": {
+    "normalization": "z_score",
+    "handling_missing": "interpolate",
+    "outlier_detection": "iqr"
+  },
+  "storage": {
+    "format": "parquet",
+    "compression": "snappy",
+    "partitioning": ["date", "component"]
+  }
+}

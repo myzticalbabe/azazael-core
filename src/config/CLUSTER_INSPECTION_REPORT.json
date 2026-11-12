@@ -1,0 +1,25 @@
+{
+  "timestamp": "2026-02-13",
+  "files_scanned": 859,
+  "issues": 117,
+  "warnings": 3,
+  "valid": 818,
+  "by_type": {
+    ".txt": 609,
+    ".md": 168,
+    ".ps1": 15,
+    ".html": 67
+  },
+  "env_issues": [
+    {
+      "type": "MISSING_ENV_VAR",
+      "var": "PYTHONPATH",
+      "severity": "LOW"
+    },
+    {
+      "type": "PATH_MISSING_DIR",
+      "directory": "Azazael_UNIFIED",
+      "severity": "LOW"
+    }
+  ]
+}

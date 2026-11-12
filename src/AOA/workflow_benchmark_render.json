@@ -1,0 +1,67 @@
+{
+  "name": "AOA Full Pipeline - Benchmark & Render",
+  "description": "Collect metrics, record to PAMS, run Azazael cluster, render structure video",
+  "steps": [
+    {
+      "step_id": "collect_metrics",
+      "arm_id": "perfmon",
+      "capability": "get_metrics",
+      "payload": {},
+      "depends_on": []
+    },
+    {
+      "step_id": "record_metrics",
+      "arm_id": "pams",
+      "capability": "record_event",
+      "payload": {
+        "event": "aoa.benchmark.complete",
+        "data": {
+          "source": "perfmon",
+          "step": "collect_metrics"
+        },
+        "tags": [
+          "benchmark",
+          "pipeline"
+        ]
+      },
+      "depends_on": [
+        "collect_metrics"
+      ]
+    },
+    {
+      "step_id": "discover_worms",
+      "arm_id": "azazael",
+      "capability": "discover_worms",
+      "payload": {},
+      "depends_on": [
+        "record_metrics"
+      ]
+    },
+    {
+      "step_id": "run_cluster",
+      "arm_id": "azazael",
+      "capability": "run_cluster",
+      "payload": {
+        "nature": "monitor"
+      },
+      "depends_on": [
+        "discover_worms"
+      ]
+    },
+    {
+      "step_id": "render_video",
+      "arm_id": "codex",
+      "capability": "render_mermaid",
+      "payload": {
+        "html_file": "C:/Users/clint/Desktop/AOA/AOA_STRUCTURE.html",
+        "output": "C:/Users/clint/Desktop/AOA_Structure_Benchmark.mp4",
+        "fps": 25,
+        "duration": 120,
+        "resolution": "1920x1080"
+      },
+      "depends_on": [
+        "run_cluster"
+      ]
+    }
+  ]
+}

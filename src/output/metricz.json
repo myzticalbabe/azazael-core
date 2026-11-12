@@ -1,0 +1,19 @@
+{
+  "name": "METRICZ",
+  "success": true,
+  "files_processed": 74,
+  "items_found": 73,
+  "duration_ms": 1029.1519165039062,
+  "output": {
+    "metrics": {
+      "total_lines": 28806,
+      "code_lines": 23228,
+      "comment_lines": 441,
+      "blank_lines": 5137,
+      "classes": 194,
+      "functions": 957,
+      "imports": 0
+    }
+  },
+  "errors": []
+}

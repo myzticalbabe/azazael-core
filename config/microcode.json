@@ -1,0 +1,25 @@
+{
+  "_provenance": {
+    "applied": "2026-11-05T18:11:53+00:00",
+    "corpus": "f8c26bf6f6b99b45c9d24e3cc0630c193c62b09da39cbbceb3647e3110f9ce7c",
+    "digest": "7b9e66ca2c0cbc2e5a59d57213a458493d2833e3b4f8e9dba8959706fe51077a",
+    "env": "default",
+    "evidence": {
+      "command": "PYTHONPATH=src python -m HYPER_EDGE.cli selftest",
+      "digest": "f8c26bf6f6b99b45c9d24e3cc0630c193c62b09da39cbbceb3647e3110f9ce7c"
+    },
+    "knob": "undated",
+    "new": "blind",
+    "old": "skip",
+    "op": "0x09",
+    "patch": "f22beb08ea36a46ced82777299b55f90a08dc7af010e5d3bbf8020418c4feb56"
+  },
+  "policy": {
+    "0x09": {
+      "undated": "blind"
+    },
+    "0x0A": {
+      "undrawn": "skip"
+    }
+  }
+}

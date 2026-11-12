@@ -1,0 +1,47 @@
+[
+ {
+  "source": "person_plageman",
+  "target": "person_krause",
+  "type": "co_employment",
+  "detail": "Same Edward Jones branch/team \u2014 Plageman is Financial Advisor (918 Penn Ave, Wyomissing; CRD #5964768), Krause is his Sr. Branch Office Administrator on the same team",
+  "evidence": [
+   "PEOPLE_NETWORK_CARD.html",
+   "INVESTMENT_PEOPLE_REPORT.html",
+   "PEOPLE_DOSSIER.html"
+  ],
+  "grade": "D"
+ },
+ {
+  "source": "person_plageman",
+  "target": "person_bromley",
+  "type": "same_org_committee",
+  "detail": "TPUC \u2014 Plageman is President (elected April 2026); Bromley is the TPUC Financial Committee's designated advisor",
+  "evidence": [
+   "PEOPLE_DOSSIER.html",
+   "INVESTMENT_PEOPLE_REPORT.html"
+  ],
+  "grade": "D"
+ },
+ {
+  "source": "person_axford",
+  "target": "person_little",
+  "type": "co_executive",
+  "detail": "BCC executive team \u2014 Axford CEO/President and Little CFO, both in post since Jan 2019 (the Malley-out/Axford-Little-in transition)",
+  "evidence": [
+   "PEOPLE_DOSSIER.html",
+   "INVESTMENT_PEOPLE_REPORT.html"
+  ],
+  "grade": "D"
+ },
+ {
+  "source": "person_malley",
+  "target": "person_axford",
+  "type": "succession",
+  "detail": "CEO transition \u2014 Axford 'took over from Frances Malley in the FY2019 transition that preceded the asset explosion'",
+  "evidence": [
+   "PEOPLE_DOSSIER.html",
+   "INVESTMENT_PEOPLE_REPORT.html"
+  ],
+  "grade": "D"
+ }
+]

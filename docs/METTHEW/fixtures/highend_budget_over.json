@@ -1,0 +1,250 @@
+{
+  "id": "highend-slow@sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "version": "0.1.0",
+  "genre": "simulation",
+  "tier": "highend",
+  "sim_hz": 120,
+  "files": [
+    {
+      "path": "main.wasm",
+      "sha256": "0d6e4079e36703ebd37c00722f5891d28b0e2811dc114b129215123adcce3605",
+      "role": "code",
+      "size_bytes": 65536
+    },
+    {
+      "path": "assets/asset_00.ktx2",
+      "sha256": "cfbb55051399525e165377a834ba1af07a9a08f836356c61c64c24fa4621b823",
+      "role": "asset",
+      "size_bytes": 4194304
+    },
+    {
+      "path": "assets/asset_01.ktx2",
+      "sha256": "1c49a083a74ed4445c804cc9cb9ab63d9be7d9451073ab200bc41a2c7131afbb",
+      "role": "asset",
+      "size_bytes": 4194304
+    },
+    {
+      "path": "assets/asset_02.ktx2",
+      "sha256": "846f3dbe8b5c3b7e99b46fe666a745fa2fa9f6bb7fa95da033db3ad618b2a312",
+      "role": "asset",
+      "size_bytes": 4194304
+    },
+    {
+      "path": "assets/asset_03.ktx2",
+      "sha256": "cbd903eac3683739924d5708bc53fab3598800ff4727357f773fa5faa7dcb95a",
+      "role": "asset",
+      "size_bytes": 4194304
+    },
+    {
+      "path": "assets/asset_04.ktx2",
+      "sha256": "30b9f745550921250665487dd64a7df9d651822ede1432169b64289b3dc967e0",
+      "role": "asset",
+      "size_bytes": 4194304
+    },
+    {
+      "path": "assets/asset_05.ktx2",
+      "sha256": "75d66d436cfdfe8d0eaa8c6ddcf1b1f2a5a0a9e62c311c3a83d965323d28c6f7",
+      "role": "asset",
+      "size_bytes": 4194304
+    },
+    {
+      "path": "assets/asset_06.ktx2",
+      "sha256": "35eeba62ea013c36f3d13e02acdbe8f9c72bd6552b50289bd9b23bf93aa5a8ff",
+      "role": "asset",
+      "size_bytes": 4194304
+    },
+    {
+      "path": "assets/asset_07.ktx2",
+      "sha256": "e11370f94a155aaf6e96838e5519003440fd78a434312a8b1533f31cea0e1026",
+      "role": "asset",
+      "size_bytes": 4194304
+    },
+    {
+      "path": "assets/asset_08.ktx2",
+      "sha256": "f125b52de93a7c77e83a7a1652136d1d79857202704fd184b4f7a6e74250b2a3",
+      "role": "asset",
+      "size_bytes": 4194304
+    },
+    {
+      "path": "assets/asset_09.ktx2",
+      "sha256": "ddbd50036fdcd08c79b830c3a3ca8ad84a2364bc50070192f818e852e424efbc",
+      "role": "asset",
+      "size_bytes": 4194304
+    },
+    {
+      "path": "assets/asset_10.ktx2",
+      "sha256": "cb23ec335de578eff4c16c6bd48dfe1c56dce1cc637d9d028d3ba373fd624785",
+      "role": "asset",
+      "size_bytes": 4194304
+    },
+    {
+      "path": "assets/asset_11.ktx2",
+      "sha256": "d3f9009e8b0651ced7669bc7e837c9fcbe9316746ae942e4e618e39d08eb2325",
+      "role": "asset",
+      "size_bytes": 4194304
+    },
+    {
+      "path": "assets/asset_12.ktx2",
+      "sha256": "ff527c0798320cc4f77fb57d802e7789b0280e09fca2a24cc5e14e810ea36740",
+      "role": "asset",
+      "size_bytes": 4194304
+    },
+    {
+      "path": "assets/asset_13.ktx2",
+      "sha256": "4211073eeeada77347cbf97edffe14ac71bb5fa53090e900eb308cbf7d251744",
+      "role": "asset",
+      "size_bytes": 4194304
+    },
+    {
+      "path": "assets/asset_14.ktx2",
+      "sha256": "72ffb2aa93b3d1a523d8893ab5c4ccb5ddf210a9929d6654785c9500f671ea03",
+      "role": "asset",
+      "size_bytes": 4194304
+    },
+    {
+      "path": "assets/asset_15.ktx2",
+      "sha256": "e7aa49d5d95c5dc990e6c7c4142e754135e1f227826fa4c67a0bc99d543bfe4b",
+      "role": "asset",
+      "size_bytes": 4194304
+    },
+    {
+      "path": "assets/asset_16.ktx2",
+      "sha256": "fa7b6140aa3961caadf1bed1cea013acd1c7f65b87683fecee292ea70d351a9b",
+      "role": "asset",
+      "size_bytes": 4194304
+    },
+    {
+      "path": "assets/asset_17.ktx2",
+      "sha256": "6280ddf949a0e34845de1dc214962f1523c893e365914adfec5629dea31b6165",
+      "role": "asset",
+      "size_bytes": 4194304
+    },
+    {
+      "path": "assets/asset_18.ktx2",
+      "sha256": "1bc19fedb1f2b568819e509ef512bcd40636923bd6a51d624ed3cb31abb9eca5",
+      "role": "asset",
+      "size_bytes": 4194304
+    },
+    {
+      "path": "assets/asset_19.ktx2",
+      "sha256": "8e2faf576e1f0425949440586f5f75abe68572dd9fce59fc4c9014a5a8318ef0",
+      "role": "asset",
+      "size_bytes": 4194304
+    },
+    {
+      "path": "assets/asset_20.ktx2",
+      "sha256": "7db0cfba6b0e0b3ff8008ce06e926401d19becb92601222e1f3ae5d10968beb1",
+      "role": "asset",
+      "size_bytes": 4194304
+    },
+    {
+      "path": "assets/asset_21.ktx2",
+      "sha256": "a5aaecb262e91b6cfc5780bfba56989e3dcc0aab0e36e5f3499cb81a05f8e446",
+      "role": "asset",
+      "size_bytes": 4194304
+    },
+    {
+      "path": "assets/asset_22.ktx2",
+      "sha256": "14fadf088565d8064a8336d8efa6e7aa9c6882a3c2d1d3f8f927a578111f4f46",
+      "role": "asset",
+      "size_bytes": 4194304
+    },
+    {
+      "path": "assets/asset_23.ktx2",
+      "sha256": "c507208bda35400a198d7f542241b86d516a9c1c2777fbc63b1dbaf78208b7f4",
+      "role": "asset",
+      "size_bytes": 4194304
+    },
+    {
+      "path": "assets/asset_24.ktx2",
+      "sha256": "3ff76e9af47671ee8acde4549eb579f79abb019cd5d3425772072e3df0f95dd8",
+      "role": "asset",
+      "size_bytes": 4194304
+    },
+    {
+      "path": "assets/asset_25.ktx2",
+      "sha256": "c8cd4563a232771ee6a21f2e8eca56974752ebf6e2e4ae65b5b1eaaf2fbf35cf",
+      "role": "asset",
+      "size_bytes": 4194304
+    },
+    {
+      "path": "assets/asset_26.ktx2",
+      "sha256": "18df861940d706a3457daae2fa86ce60cec71793605c27698d802995773b8447",
+      "role": "asset",
+      "size_bytes": 4194304
+    },
+    {
+      "path": "assets/asset_27.ktx2",
+      "sha256": "e737bfb21fdb1717cba6c920846eb6be8e9223fb8b833114bced72aae89b16d4",
+      "role": "asset",
+      "size_bytes": 4194304
+    },
+    {
+      "path": "assets/asset_28.ktx2",
+      "sha256": "a60bc3b92955a519db8e082738ce6b6ad20c0edf058dfe320e715bc7b19832f8",
+      "role": "asset",
+      "size_bytes": 4194304
+    }
+  ],
+  "entrypoint": "main.wasm",
+  "loader": "wasm3-det",
+  "golden_run": {
+    "input": "AAECAwQFBgcICQ==",
+    "ticks": 600,
+    "state_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+    "token": "AZAZAEL-GOLDEN-OK",
+    "headless": true
+  },
+  "capabilities": [
+    {
+      "id": "fixed-point-steering",
+      "affects": "sim",
+      "determinism": "exact",
+      "note": "Q16.16 integer steering; no float in the authoritative state"
+    },
+    {
+      "id": "recorded-input-transcript",
+      "affects": "sim",
+      "determinism": "exact",
+      "note": "solo determinism from a fixed input log; no network"
+    },
+    {
+      "id": "path-tracing",
+      "affects": "presentation",
+      "determinism": "approximate",
+      "note": "one bounce + denoiser; never feeds light level back into sim"
+    },
+    {
+      "id": "neural-upscale",
+      "affects": "presentation",
+      "determinism": "seeded"
+    },
+    {
+      "id": "frame-generation",
+      "affects": "presentation",
+      "determinism": "approximate"
+    }
+  ],
+  "hubs": [],
+  "budget": {
+    "payload_bytes_max": 536870912,
+    "tick_budget_ms": {
+      "p50": 12.0,
+      "p99": 25.0,
+      "scene": "swarm-4096"
+    }
+  },
+  "licence": "MIT",
+  "author_pubkey": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+  "execution_model": "resident_host",
+  "env_allowlist": [
+    "METTHEW_HOME"
+  ],
+  "tick_budget": {
+    "p50_ms": 12.0,
+    "p99_ms": 25.0,
+    "scene": "swarm-4096"
+  },
+  "competitive": false,
+  "provenance": []
+}

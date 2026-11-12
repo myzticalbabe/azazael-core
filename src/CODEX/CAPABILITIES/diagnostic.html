@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AZAZAEL — Diagnostic Capability</title>
+  <style>
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      color: #e0e0f0;
+      font-family: 'Segoe UI', sans-serif;
+      min-height: 100vh;
+    }
+    .header { text-align: center; padding: 40px 20px 20px; }
+    .header h1 {
+      font-size: 2.5em; font-weight: 300;
+      color: #ffffff; text-shadow: 0 4px 20px rgba(255,255,255,0.1);
+    }
+    .header .subtitle { color: #88ccff; font-size: 1em; margin-top: 8px; letter-spacing: 3px; text-transform: uppercase; }
+    .metrics-bar { display: flex; justify-content: center; gap: 15px; margin: 25px auto; flex-wrap: wrap; }
+    .metric-card {
+      background: rgba(255,255,255,0.08); backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.15); border-radius: 16px;
+      padding: 14px 22px; min-width: 110px; text-align: center;
+    }
+    .metric-card:hover { background: rgba(255,255,255,0.12); }
+    .metric-card .value { font-size: 1.6em; font-weight: 600; color: #88ccff; }
+    .metric-card .label { font-size: 0.75em; color: #8899bb; margin-top: 4px; text-transform: uppercase; }
+    .content { max-width: 1000px; margin: 0 auto; padding: 20px; }
+    .description {
+      background: rgba(255,255,255,0.06); backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
+      padding: 22px; margin-bottom: 25px; line-height: 1.7;
+    }
+    .worm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+    .worm-card {
+      background: rgba(255,255,255,0.05); backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,0.08); border-radius: 12px;
+      padding: 16px; transition: all 0.3s;
+    }
+    .worm-card:hover { background: rgba(255,255,255,0.09); border-color: rgba(136,204,255,0.3); }
+    .worm-card .name { font-size: 1.05em; font-weight: 500; color: #88ccff; }
+    .worm-card .desc { font-size: 0.85em; color: #99aabb; margin-top: 6px; }
+    .worm-card .badge {
+      display: inline-block; background: rgba(136,204,255,0.1);
+      padding: 2px 8px; border-radius: 8px; font-size: 0.7em;
+      color: #88ccff; margin-top: 6px;
+    }
+    .footer { text-align: center; padding: 30px; color: #556677; font-size: 0.8em; }
+    
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>AZAZAEL — Diagnostic</h1>
+    <div class="subtitle">4 Worms &bull; Priority Range 3-10</div>
+  </div>
+
+  <div class="metrics-bar">
+    <div class="metric-card">
+      <div class="value">Real-time</div>
+      <div class="label">Scans</div>
+    </div>
+    <div class="metric-card">
+      <div class="value">Auto-detected</div>
+      <div class="label">Errors</div>
+    </div>
+    <div class="metric-card">
+      <div class="value">Self-healing</div>
+      <div class="label">Healing</div>
+    </div>
+    <div class="metric-card">
+      <div class="value"><30s</div>
+      <div class="label">Diagnosis</div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="description">
+      NetworkDiag, DiagnosticWorm, FastErrorScanner, MorphingWormV2 — Rapid diagnostics, error scanning, network diagnosis, and self-healing morphing for maintaining AZAZAEL system health.
+    </div>
+
+    <div class="worm-grid">
+    <div class="worm-card">
+      <div class="name">NetworkDiag</div>
+      <div class="desc">p=7, 30s — Network diagnostics, connectivity checks</div>
+      <div class="badge">diagnostic</div>
+    </div>
+    <div class="worm-card">
+      <div class="name">DiagnosticWorm</div>
+      <div class="desc">p=5, 60s — General diagnostics (v0.0.0 pre-release)</div>
+      <div class="badge">diagnostic</div>
+    </div>
+    <div class="worm-card">
+      <div class="name">FastErrorScanner</div>
+      <div class="desc">p=4, 45s — Rapid error scanning (v0.0.0 pre-release)</div>
+      <div class="badge">diagnostic</div>
+    </div>
+    <div class="worm-card">
+      <div class="name">MorphingWormV2</div>
+      <div class="desc">p=4, 45s — Self-healing morphing (v2.0.0)</div>
+      <div class="badge">diagnostic</div>
+    </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    AZAZAEL Ecosystem &bull; Diagnostic Capability &bull; CAIN Standard Recording &bull; Generated June 2026
+  </div>
+</body>
+</html>

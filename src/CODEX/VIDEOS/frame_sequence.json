@@ -1,0 +1,59 @@
+[
+  {
+    "name": "CONFLICTS_DETECTED",
+    "left_code": [
+      "import subprocess",
+      "path = \"/old/path\"",
+      "# ERROR: Not found"
+    ],
+    "right_code": [
+      "from hydra_protocols import",
+      "protocols = HydraProtocols()",
+      "# Resolved \u2713"
+    ],
+    "stats": {
+      "conflicts": 24,
+      "files": 12,
+      "time": "1.2s",
+      "score": "98.5%"
+    }
+  },
+  {
+    "name": "RESOLUTION",
+    "left_code": [
+      "conflicts = 252",
+      "# CRITICAL: 155 critical",
+      "analyze(file)"
+    ],
+    "right_code": [
+      "conflicts = 0",
+      "# All resolved \u2713",
+      "resolve(file)"
+    ],
+    "stats": {
+      "conflicts": 252,
+      "files": 45,
+      "time": "2.3s",
+      "score": "100%"
+    }
+  },
+  {
+    "name": "COMPLETE",
+    "left_code": [
+      "health = \"critical\"",
+      "score = 45",
+      "# Needs fix"
+    ],
+    "right_code": [
+      "health = \"optimal\"",
+      "score = 98.5",
+      "# Fixed \u2713"
+    ],
+    "stats": {
+      "conflicts": 0,
+      "files": 0,
+      "time": "0.5s",
+      "score": "100%"
+    }
+  }
+]

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AZAZAEL — Container Capability</title>
+  <style>
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #1a150e;
+      color: #c8b898;
+      font-family: 'Georgia', serif;
+      min-height: 100vh;
+    }
+    .header { text-align: center; padding: 40px 20px 20px; }
+    .header h1 {
+      font-size: 2.4em; font-weight: 400; color: #d4a857;
+      text-shadow: 0 2px 10px rgba(212,168,87,0.2);
+      letter-spacing: 2px;
+    }
+    .header .subtitle { color: #b89860; font-size: 0.95em; margin-top: 8px; letter-spacing: 3px; font-style: italic; }
+    .metrics-bar { display: flex; justify-content: center; gap: 15px; margin: 25px auto; flex-wrap: wrap; }
+    .metric-card {
+      background: #201a12; border: 1px solid #d4a85730;
+      border-radius: 2px; padding: 14px 22px; min-width: 110px; text-align: center;
+    }
+    .metric-card .value { font-size: 1.6em; font-weight: bold; color: #d4a857; }
+    .metric-card .label { font-size: 0.75em; color: #a09070; margin-top: 4px; text-transform: uppercase; letter-spacing: 1px; }
+    .content { max-width: 1000px; margin: 0 auto; padding: 20px; }
+    .description {
+      background: #201a12; border: 1px solid #d4a85720;
+      border-left: 3px solid #d4a857; padding: 20px; margin-bottom: 25px;
+      line-height: 1.7;
+    }
+    .worm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+    .worm-card {
+      background: #1a150e; border: 1px solid #2a2218; border-radius: 2px;
+      padding: 16px; transition: all 0.3s;
+    }
+    .worm-card:hover { border-color: #d4a85740; }
+    .worm-card .name { font-size: 1.05em; font-weight: 600; color: #d4a857; }
+    .worm-card .desc { font-size: 0.85em; color: #a89878; margin-top: 6px; }
+    .worm-card .badge { display: inline-block; background: rgba(212,168,87,0.1); padding: 2px 8px; border: 1px solid #d4a85720; font-size: 0.7em; color: #b89860; margin-top: 6px; }
+    .footer { text-align: center; padding: 30px; color: #5a4a3a; font-size: 0.8em; }
+    
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>AZAZAEL — Container</h1>
+    <div class="subtitle">5 Worms &bull; Priority Range 3-10</div>
+  </div>
+
+  <div class="metrics-bar">
+    <div class="metric-card">
+      <div class="value">Scanned</div>
+      <div class="label">Images</div>
+    </div>
+    <div class="metric-card">
+      <div class="value">Managed</div>
+      <div class="label">Clusters</div>
+    </div>
+    <div class="metric-card">
+      <div class="value">99.95%</div>
+      <div class="label">Uptime</div>
+    </div>
+    <div class="metric-card">
+      <div class="value">Automated</div>
+      <div class="label">Sync</div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="description">
+      DockerManager, K8sOrchestrator, ImageScanner, ContainerMonitor, RegistrySync — Container lifecycle management, Kubernetes orchestration, image scanning, and registry synchronization for containerized worm deployments.
+    </div>
+
+    <div class="worm-grid">
+    <div class="worm-card">
+      <div class="name">DockerManager</div>
+      <div class="desc">p=6, 30s — Docker container lifecycle</div>
+      <div class="badge">container</div>
+    </div>
+    <div class="worm-card">
+      <div class="name">K8sOrchestrator</div>
+      <div class="desc">p=6, 60s — Kubernetes pod orchestration</div>
+      <div class="badge">container</div>
+    </div>
+    <div class="worm-card">
+      <div class="name">ImageScanner</div>
+      <div class="desc">p=5, 120s — Container image vulnerability scan</div>
+      <div class="badge">container</div>
+    </div>
+    <div class="worm-card">
+      <div class="name">ContainerMonitor</div>
+      <div class="desc">p=4, 60s — Container health monitoring</div>
+      <div class="badge">container</div>
+    </div>
+    <div class="worm-card">
+      <div class="name">RegistrySync</div>
+      <div class="desc">p=4, 180s — Image registry synchronization</div>
+      <div class="badge">container</div>
+    </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    AZAZAEL Ecosystem &bull; Container Capability &bull; CAIN Standard Recording &bull; Generated June 2026
+  </div>
+</body>
+</html>

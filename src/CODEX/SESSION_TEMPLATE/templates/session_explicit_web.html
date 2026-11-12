@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>33 Steps - Explicit Interconnected Web</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { width: 100vw; min-height: 100vh; background: radial-gradient(ellipse at center, #0d1117 0%, #161b22 50%, #010409 100%); font-family: 'Consolas', monospace; overflow: auto; }
+        .container { width: 100%; padding: 10px; }
+        h1 { text-align: center; color: #58a6ff; font-size: 12px; margin: 3px 0; letter-spacing: 1px; }
+        .web-canvas { width: 100%; min-height: 98vh; position: relative; }
+        svg.connections { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+        
+        /* Connection types */
+        line.seq { stroke: #238636; stroke-width: 1.5; opacity: 0.7; }      /* Sequential */
+        line.dep { stroke: #f85149; stroke-width: 1.2; stroke-dasharray: 3,2; opacity: 0.6; }  /* Dependency */
+        line.feed { stroke: #d29922; stroke-width: 1; stroke-dasharray: 2,2; opacity: 0.5; }  /* Feedback */
+        line.sib { stroke: #8b949e; stroke-width: 0.8; opacity: 0.4; }         /* Sibling */
+        
+        .bubble { position: absolute; display: flex; align-items: center; justify-content: center; text-align: center; border-radius: 50%; font-size: 5px; font-weight: bold; color: #fff; border: 1px solid #fff; padding: 1px; z-index: 2; transition: all 0.3s; cursor: pointer; }
+        .bubble:hover { transform: scale(2); z-index: 100; box-shadow: 0 0 20px #fff; }
+        .bubble .tooltip { display: none; position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%); background: #0d1117; color: #58a6ff; padding: 4px 6px; border-radius: 3px; font-size: 7px; white-space: nowrap; z-index: 200; border: 1px solid #238636; min-width: 120px; }
+        .bubble:hover .tooltip { display: block; }
+        
+        /* 8 Phase colors */
+        .ph1 { background: linear-gradient(135deg, #da3633, #b62324); }
+        .ph2 { background: linear-gradient(135deg, #d29922, #9e6a03); }
+        .ph3 { background: linear-gradient(135deg, #58a6ff, #1f6feb); }
+        .ph4 { background: linear-gradient(135deg, #3fb950, #238636); }
+        .ph5 { background: linear-gradient(135deg, #a371f7, #8957e5); }
+        .ph6 { background: linear-gradient(135deg, #db61a2, #bf3989); }
+        .ph7 { background: linear-gradient(135deg, #79c0ff, #56d4dd); color: #000; }
+        .ph8 { background: linear-gradient(135deg, #7ee787, #56d364); color: #000; }
+        
+        .node-main { width: 28px; height: 28px; font-size: 5px; }
+        .node-sub { width: 22px; height: 22px; font-size: 4px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>33 STEPS - EXPLICIT INTERCONNECTED WEB</h1>
+        <div class="web-canvas">
+            <svg class="connections">
+                <!-- ========================================================================== -->
+                <!-- PHASE 1: INVESTIGATE (Steps 1-6) - Dependency web -->
+                <!-- ========================================================================== -->
+                <!-- Step 1 connects to 2,3,4 -->
+                <line class="seq" x1="6%" y1="8%" x2="10%" y2="12%"/>
+                <line class="seq" x1="6%" y1="8%" x2="14%" y2="12%"/>
+                <line class="seq" x1="6%" y1="8%" x2="18%" y2="12%"/>
+                <!-- Steps 2,3,4 connect to each other (siblings) -->
+                <line class="sib" x1="10%" y1="12%" x2="14%" y2="12%"/>
+                <line class="sib" x1="14%" y1="12%" x2="18%" y2="12%"/>
+                <!-- Steps 4 -> 5 (hosts file read) -->
+                <line class="seq" x1="18%" y1="12%" x2="22%" y2="16%"/>
+                <!-- Step 5 finds issue -> Step 6 -->
+                <line class="dep" x1="22%" y1="16%" x2="26%" y2="20%"/>
+                
+                <!-- PHASE 1 -> PHASE 2: Investigation to Hosts Fix -->
+                <line class="dep" x1="26%" y1="20%" x2="30%" y2="8%"/>
+                <line class="dep" x1="22%" y1="16%" x2="30%" y2="12%"/>
+                
+                <!-- ========================================================================== -->
+                <!-- PHASE 2: HOSTS FIX (Steps 7-13) - Parallel fixes -->
+                <!-- ========================================================================== -->
+                <!-- Step 7 (EPERM) -> Step 8 (create script) -->
+                <line class="seq" x1="30%" y1="8%" x2="34%" y2="12%"/>
+                <!-- Step 7 also connects to Step 9 -->
+                <line class="dep" x1="30%" y1="8%" x2="38%" y2="12%"/>
+                <!-- Step 8 -> 9 (PowerShell admin) -->
+                <line class="seq" x1="34%" y1="12%" x2="38%" y2="16%"/>
+                <!-- Step 9 -> 10 (Set-Content) -->
+                <line class="seq" x1="38%" y1="16%" x2="42%" y2="20%"/>
+                <!-- Steps 10 -> 11,12 (127.0.0.1 and ::1) -->
+                <line class="seq" x1="42%" y1="20%" x2="46%" y2="24%"/>
+                <line class="seq" x1="42%" y1="20%" x2="50%" y2="24%"/>
+                <!-- Step 11,12 both -> Step 13 -->
+                <line class="dep" x1="46%" y1="24%" x2="54%" y2="28%"/>
+                <line class="dep" x1="50%" y1="24%" x2="54%" y2="28%"/>
+                
+                <!-- PHASE 2 -> PHASE 3: Hosts Fix to Connection -->
+                <line class="dep" x1="54%" y1="28%" x2="58%" y2="8%"/>
+                <line class="dep" x1="42%" y1="20%" x2="58%" y2="12%"/>
+                
+                <!-- ========================================================================== -->
+                <!-- PHASE 3: CONNECTION (Steps 14-15) -->
+                <!-- ========================================================================== -->
+                <!-- Step 14 -> 15 -->
+                <line class="seq" x1="58%" y1="8%" x2="62%" y2="12%"/>
+                <!-- Also from hosts verification -->
+                <line class="dep" x1="54%" y1="28%" x2="62%" y2="12%"/>
+                
+                <!-- PHASE 3 -> PHASE 4: Connection to LiteLLM -->
+                <line class="dep" x1="62%" y1="12%" x2="66%" y2="8%"/>
+                <line class="dep" x1="58%" y1="12%" x2="66%" y2="12%"/>
+                <line class="feed" x1="58%" y1="8%" x2="70%" y2="8%"/>  <!-- Loop back from failed attempt -->
+                
+                <!-- ========================================================================== -->
+                <!-- PHASE 4: LITELLM (Steps 16-18) -->
+                <!-- ========================================================================== -->
+                <!-- Step 16 -> 17 -> 18 (chain) -->
+                <line class="seq" x1="66%" y1="8%" x2="70%" y2="12%"/>
+                <line class="seq" x1="70%" y1="12%" x2="74%" y2="16%"/>
+                <!-- All connect to verification -->
+                <line class="dep" x1="62%" y1="12%" x2="74%" y2="16%"/>
+                
+                <!-- PHASE 4 -> PHASE 5: LiteLLM to API Key -->
+                <line class="dep" x1="74%" y1="16%" x2="78%" y2="8%"/>
+                <line class="dep" x1="70%" y1="12%" x2="78%" y2="12%"/>
+                
+                <!-- ========================================================================== -->
+                <!-- PHASE 5: API KEY (Steps 19-21) -->
+                <!-- ========================================================================== -->
+                <!-- Step 19 -> 20 -> 21 -->
+                <line class="seq" x1="78%" y1="8%" x2="82%" y2="12%"/>
+                <line class="seq" x1="82%" y1="12%" x2="86%" y2="16%"/>
+                <!-- Feedback from LiteLLM -->
+                <line class="feed" x1="74%" y1="16%" x2="82%" y2="12%"/>
+                
+                <!-- PHASE 5 -> PHASE 6: API Key to LM Studio -->
+                <line class="dep" x1="86%" y1="16%" x2="90%" y2="8%"/>
+                <line class="dep" x1="82%" y1="12%" x2="90%" y2="12%"/>
+                
+                <!-- ========================================================================== -->
+                <!-- PHASE 6: LM STUDIO (Steps 22-25) -->
+                <!-- ========================================================================== -->
+                <!-- Step 22 -> 23 -> 24 -> 25 -->
+                <line class="seq" x1="90%" y1="8%" x2="94%" y2="12%"/>
+                <line class="seq" x1="94%" y1="12%" x2="90%" y2="16%"/>
+                <line class="seq" x1="90%" y1="16%" x2="86%" y2="20%"/>
+                <!-- Connect to earlier phases -->
+                <line class="feed" x1="86%" y1="16%" x2="90%" y2="12%"/>
+                
+                <!-- PHASE 6 -> PHASE 7: LM Studio to Azazael -->
+                <line class="dep" x1="86%" y1="20%" x2="6%" y2="35%"/>
+                <line class="dep" x1="90%" y1="16%" x2="10%" y2="35%"/>
+                
+                <!-- ========================================================================== -->
+                <!-- PHASE 7: AZAZAEL (Steps 26-29) -->
+                <!-- ========================================================================== -->
+                <!-- Step 26 -> 27 -> 28 -> 29 -->
+                <line class="seq" x1="6%" y1="35%" x2="10%" y2="39%"/>
+                <line class="seq" x1="10%" y1="39%" x2="14%" y2="43%"/>
+                <line class="seq" x1="14%" y1="43%" x2="18%" y2="47%"/>
+                <!-- Cross connects -->
+                <line class="sib" x1="10%" y1="39%" x2="14%" y2="39%"/>
+                <line class="sib" x1="6%" y1="35%" x2="18%" y2="43%"/>
+                
+                <!-- PHASE 7 -> PHASE 8: Azazael to Final -->
+                <line class="dep" x1="18%" y1="47%" x2="22%" y2="35%"/>
+                <line class="dep" x1="10%" y1="39%" x2="26%" y2="35%"/>
+                
+                <!-- ========================================================================== -->
+                <!-- PHASE 8: FINAL (Steps 30-33) -->
+                <!-- ========================================================================== -->
+                <!-- Step 30 -> 31 -> 32 -> 33 -->
+                <line class="seq" x1="22%" y1="35%" x2="26%" y2="39%"/>
+                <line class="seq" x1="26%" y1="39%" x2="30%" y2="43%"/>
+                <line class="seq" x1="30%" y1="43%" x2="34%" y2="47%"/>
+                
+                <!-- FEEDBACK LOOPS: Final connects back to Investigation -->
+                <line class="feed" x1="34%" y1="47%" x2="6%" y2="8%"/>
+                <line class="feed" x1="30%" y1="43%" x2="14%" y2="12%"/>
+                <line class="feed" x1="26%" y1="39%" x2="30%" y2="8%"/>
+                <line class="feed" x1="22%" y1="35%" x2="50%" y2="24%"/>
+                
+                <!-- Global interconnectivity -->
+                <line class="sib" x1="6%" y1="35%" x2="90%" y2="8%"/>
+                <line class="sib" x1="34%" y1="47%" x2="94%" y2="12%"/>
+            </svg>
+
+            <!-- ========================================================================== -->
+            <!-- PHASE 1: INVESTIGATE (Steps 1-6) -->
+            <!-- ========================================================================== -->
+            <div class="bubble ph1 node-main" style="left:5%;top:5%;">P1<div class="tooltip">PHASE 1: INVESTIGATE<br/>Diagnose localhost connection</div></div>
+            <div class="bubble ph1 node-sub" style="left:9%;top:11%;">1<div class="tooltip">Step 1: netstat -ano | findstr 1234<br/>Check port 1234 usage</div></div>
+            <div class="bubble ph1 node-sub" style="left:13%;top:11%;">2<div class="tooltip">Step 2: ping -n 1 localhost<br/>Test DNS resolution</div></div>
+            <div class="bubble ph1 node-sub" style="left:17%;top:11%;">3<div class="tooltip">Step 3: curl 127.0.0.1:1234/v1/models<br/>Test IPv4</div></div>
+            <div class="bubble ph1 node-sub" style="left:21%;top:11%;">4<div class="tooltip">Step 4: curl localhost:1234/v1/models<br/>Test hostname</div></div>
+            <div class="bubble ph1 node-sub" style="left:21%;top:15%;">5<div class="tooltip">Step 5: Read C:\Windows\System32\drivers\etc\hosts<br/>Find localhost entries</div></div>
+            <div class="bubble ph1 node-sub" style="left:25%;top:19%;">6<div class="tooltip">Step 6: Found localhost commented out (#)<br/>Root cause identified</div></div>
+
+            <!-- ========================================================================== -->
+            <!-- PHASE 2: HOSTS FIX (Steps 7-13) -->
+            <!-- ========================================================================== -->
+            <div class="bubble ph2 node-main" style="left:29%;top:5%;">P2<div class="tooltip">PHASE 2: HOSTS FIX<br/>Repair hosts file</div></div>
+            <div class="bubble ph2 node-sub" style="left:33%;top:11%;">7<div class="tooltip">Step 7: Try edit hosts - EPERM denied<br/>Permission error</div></div>
+            <div class="bubble ph2 node-sub" style="left:37%;top:11%;">8<div class="tooltip">Step 8: Create C:\Users\clint\fix_hosts.ps1<br/>PowerShell script</div></div>
+            <div class="bubble ph2 node-sub" style="left:41%;top:11%;">9<div class="tooltip">Step 9: PowerShell -Verb RunAs admin<br/>Elevate permissions</div></div>
+            <div class="bubble ph2 node-sub" style="left:37%;top:15%;">10<div class="tooltip">Step 10: Set-Content hosts file<br/>Write fix</div></div>
+            <div class="bubble ph2 node-sub" style="left:45%;top:23%;">11<div class="tooltip">Step 11: 127.0.0.1 -> localhost<br/>IPv4 mapping</div></div>
+            <div class="bubble ph2 node-sub" style="left:49%;top:23%;">12<div class="tooltip">Step 12: ::1 -> localhost<br/>IPv6 mapping</div></div>
+            <div class="bubble ph2 node-sub" style="left:53%;top:27%;">13<div class="tooltip">Step 13: Delete fix_hosts.ps1<br/>Cleanup temp script</div></div>
+
+            <!-- ========================================================================== -->
+            <!-- PHASE 3: CONNECTION (Steps 14-15) -->
+            <!-- ========================================================================== -->
+            <div class="bubble ph3 node-main" style="left:57%;top:5%;">P3<div class="tooltip">PHASE 3: CONNECTION TEST<br/>Verify LM Studio</div></div>
+            <div class="bubble ph3 node-sub" style="left:61%;top:11%;">14<div class="tooltip">Step 14: Python requests.get localhost:1234/v1/models<br/>Test HTTP</div></div>
+            <div class="bubble ph3 node-sub" style="left:65%;top:11%;">15<div class="tooltip">Step 15: HTTP 200 OK<br/>Connection verified</div></div>
+
+            <!-- ========================================================================== -->
+            <!-- PHASE 4: LITELLM (Steps 16-18) -->
+            <!-- ========================================================================== -->
+            <div class="bubble ph4 node-main" style="left:65%;top:5%;">P4<div class="tooltip">PHASE 4: LITELLM<br/>Install package</div></div>
+            <div class="bubble ph4 node-sub" style="left:69%;top:11%;">16<div class="tooltip">Step 16: pip uninstall lite-llm -y<br/>Remove old package</div></div>
+            <div class="bubble ph4 node-sub" style="left:73%;top:15%;">17<div class="tooltip">Step 17: pip uninstall litellm -y<br/>Clean install</div></div>
+            <div class="bubble ph4 node-sub" style="left:73%;top:19%;">18<div class="tooltip">Step 18: pip install litellm<br/>Install fresh</div></div>
+
+            <!-- ========================================================================== -->
+            <!-- PHASE 5: API KEY (Steps 19-21) -->
+            <!-- ========================================================================== -->
+            <div class="bubble ph5 node-main" style="left:77%;top:5%;">P5<div class="tooltip">PHASE 5: API KEY<br/>Configure authentication</div></div>
+            <div class="bubble ph5 node-sub" style="left:81%;top:11%;">19<div class="tooltip">Step 19: setx OPENAI_API_KEY sk-dummy<br/>Set dummy key</div></div>
+            <div class="bubble ph5 node-sub" style="left:85%;top:15%;">20<div class="tooltip">Step 20: setx KEY sk-lm-8iZKmzXN:37nU...<br/>Set real key</div></div>
+            <div class="bubble ph5 node-sub" style="left:85%;top:19%;">21<div class="tooltip">Step 21: Registry HKCU\Environment<br/>Persist in registry</div></div>
+
+            <!-- ========================================================================== -->
+            <!-- PHASE 6: LM STUDIO (Steps 22-25) -->
+            <!-- ========================================================================== -->
+            <div class="bubble ph6 node-main" style="left:89%;top:5%;">P6<div class="tooltip">PHASE 6: LM STUDIO<br/>Start server</div></div>
+            <div class="bubble ph6 node-sub" style="left:93%;top:11%;">22<div class="tooltip">Step 22: taskkill /IM LM Studio.exe /F<br/>Kill existing</div></div>
+            <div class="bubble ph6 node-sub" style="left:89%;top:15%;">23<div class="tooltip">Step 23: Start-Process LM Studio.exe<br/>Launch app</div></div>
+            <div class="bubble ph6 node-sub" style="left:85%;top:19%;">24<div class="tooltip">Step 24: Load llama-3.2-1b-instruct<br/>Load model</div></div>
+            <div class="bubble ph6 node-sub" style="left:81%;top:23%;">25<div class="tooltip">Step 25: Server localhost:1234/v1<br/>Start API server</div></div>
+
+            <!-- ========================================================================== -->
+            <!-- PHASE 7: AZAZAEL (Steps 26-29) -->
+            <!-- ========================================================================== -->
+            <div class="bubble ph7 node-main" style="left:5%;top:33%;">P7<div class="tooltip">PHASE 7: AZAZAEL CLEANUP<br/>Fix environment</div></div>
+            <div class="bubble ph7 node-sub" style="left:9%;top:38%;">26<div class="tooltip">Step 26: grep PATH Azazael<br/>Search for conflicts</div></div>
+            <div class="bubble ph7 node-sub" style="left:13%;top:42%;">27<div class="tooltip">Step 27: PYTHONPATH=Azazael_UNIFIED<br/>Found bad path</div></div>
+            <div class="bubble ph7 node-sub" style="left:17%;top:46%;">28<div class="tooltip">Step 28: setx PYTHONPATH ""<br/>Clear variable</div></div>
+            <div class="bubble ph7 node-sub" style="left:21%;top:50%;">29<div class="tooltip">Step 29: Remove from registry<br/>Permanent fix</div></div>
+
+            <!-- ========================================================================== -->
+            <!-- PHASE 8: FINAL (Steps 30-33) -->
+            <!-- ========================================================================== -->
+            <div class="bubble ph8 node-main" style="left:25%;top:33%;">P8<div class="tooltip">PHASE 8: FINAL TEST<br/>Verify integration</div></div>
+            <div class="bubble ph8 node-sub" style="left:29%;top:38%;">30<div class="tooltip">Step 30: os.environ[KEY] = sk-lm-...<br/>Set in code</div></div>
+            <div class="bubble ph8 node-sub" style="left:33%;top:42%;">31<div class="tooltip">Step 31: litellm.completion call<br/>Make API call</div></div>
+            <div class="bubble ph8 node-sub" style="left:37%;top:46%;">32<div class="tooltip">Step 32: model=openai/llama-3.2-1b<br/>Specify model</div></div>
+            <div class="bubble ph8 node-sub" style="left:41%;top:50%;">33<div class="tooltip">Step 33: Response: Hello! I'm Qwen...<br/>SUCCESS!</div></div>
+        </div>
+    </div>
+</body>
+</html>

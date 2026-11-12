@@ -1,0 +1,37 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Azazael Ecosystem - Interactive Visualization",
+  "width": 800,
+  "height": 600,
+  "background": "#0a0a15",
+  
+  "layer": [
+    {
+      "mark": {
+        "type": "circle",
+        "opacity": 0.3
+      },
+      "encoding": {
+        "x": {"field": "x", "type": "quantitative", "scale": {"domain": [0, 800]}},
+        "y": {"field": "y", "type": "quantitative", "scale": {"domain": [0, 600]}},
+        "size": {"field": "size", "type": "quantitative", "scale": {"range": [50, 200]}},
+        "color": {"field": "color", "type": "nominal", "scale": {"scheme": "tableau10"}}
+      },
+      "data": {
+        "values": [
+          {"name": "HYDRA", "x": 400, "y": 300, "size": 200, "color": "pink", "category": "Orchestration"},
+          {"name": "HORUS", "x": 400, "y": 150, "size": 150, "color": "cyan", "category": "Presentation"},
+          {"name": "TARBABY", "x": 550, "y": 200, "size": 120, "color": "green", "category": "Processing"},
+          {"name": "SHORTY", "x": 600, "y": 350, "size": 100, "color": "yellow", "category": "Integration"},
+          {"name": "POINDEXTER", "x": 550, "y": 450, "size": 100, "color": "purple", "category": "Analysis"},
+          {"name": "PERSEPHONE", "x": 400, "y": 500, "size": 100, "color": "orange", "category": "Utilities"},
+          {"name": "TWITLER", "x": 250, "y": 450, "size": 100, "color": "green", "category": "Monitoring"},
+          {"name": "WORMZ", "x": 200, "y": 350, "size": 150, "color": "red", "category": "Execution"},
+          {"name": "METAWORMS", "x": 250, "y": 200, "size": 120, "color": "violet", "category": "Orchestration"},
+          {"name": "TERENCE", "x": 400, "y": 250, "size": 100, "color": "blue", "category": "Error Resolution"},
+          {"name": "KLINK", "x": 400, "y": 350, "size": 80, "color": "pink", "category": "Integration"}
+        ]
+      }
+    }
+  ]
+}

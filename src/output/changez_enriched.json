@@ -1,0 +1,175 @@
+{
+  "name": "CHANGEZ",
+  "success": true,
+  "files_processed": 202,
+  "items_found": 202,
+  "duration_ms": 3004.321336746216,
+  "output": {
+    "changes": {
+      "recent": [
+        {
+          "path": "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS_ENRICHED.py",
+          "size_kb": 33.77,
+          "age_hours": 0.0
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\Azazael\\INDEX.md",
+          "size_kb": 6.02,
+          "age_hours": 0.1
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\azazael_cli.py",
+          "size_kb": 25.02,
+          "age_hours": 0.1
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\PERSEPHONE\\README.md",
+          "size_kb": 8.94,
+          "age_hours": 0.1
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS.py",
+          "size_kb": 19.86,
+          "age_hours": 0.1
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS_POPUP.py",
+          "size_kb": 2.77,
+          "age_hours": 0.1
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\METAWORMS\\output\\changez.json",
+          "size_kb": 32.94,
+          "age_hours": 0.1
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\METAWORMS\\output\\deadz.json",
+          "size_kb": 1.87,
+          "age_hours": 0.1
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\METAWORMS\\output\\dependz.json",
+          "size_kb": 19.18,
+          "age_hours": 0.1
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\METAWORMS\\output\\logz.json",
+          "size_kb": 0.18,
+          "age_hours": 0.1
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\METAWORMS\\output\\metaz.json",
+          "size_kb": 48.47,
+          "age_hours": 0.1
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\METAWORMS\\output\\metricz.json",
+          "size_kb": 0.37,
+          "age_hours": 0.1
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\METAWORMS\\output\\summary.json",
+          "size_kb": 0.83,
+          "age_hours": 0.1
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\METAWORMS\\output\\validz.json",
+          "size_kb": 0.39,
+          "age_hours": 0.1
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\0-9.md",
+          "size_kb": 0.25,
+          "age_hours": 0.2
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\A.md",
+          "size_kb": 18.4,
+          "age_hours": 0.2
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\B.md",
+          "size_kb": 50.8,
+          "age_hours": 0.2
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\C.md",
+          "size_kb": 91.18,
+          "age_hours": 0.2
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\D.md",
+          "size_kb": 15.08,
+          "age_hours": 0.2
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\E.md",
+          "size_kb": 240.76,
+          "age_hours": 0.2
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\F.md",
+          "size_kb": 19.85,
+          "age_hours": 0.2
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\G.md",
+          "size_kb": 17.87,
+          "age_hours": 0.2
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\H.md",
+          "size_kb": 5.43,
+          "age_hours": 0.2
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\I.md",
+          "size_kb": 41.23,
+          "age_hours": 0.2
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\INDEX.md",
+          "size_kb": 596.32,
+          "age_hours": 0.2
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\J.md",
+          "size_kb": 4.2,
+          "age_hours": 0.2
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\K.md",
+          "size_kb": 0.76,
+          "age_hours": 0.2
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\L.md",
+          "size_kb": 11.21,
+          "age_hours": 0.2
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\M.md",
+          "size_kb": 29.43,
+          "age_hours": 0.2
+        },
+        {
+          "path": "C:\\Users\\clint\\Desktop\\Azazael\\BIBL\\N.md",
+          "size_kb": 6.06,
+          "age_hours": 0.2
+        }
+      ],
+      "by_day": {
+        "0d ago": 202
+      },
+      "by_size": {
+        "tiny": 27,
+        "small": 106,
+        "medium": 64,
+        "large": 5,
+        "huge": 0
+      }
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

@@ -1,0 +1,18 @@
+# Configuration for Azazael Ecosystem Tests
+
+[tool.pytest.ini_options]
+testpaths = ["UNIT", "INTEGRATION", "PERFORMANCE"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short"
+
+[tool.coverage.run]
+source = ["Azazael", "HYDRA", "WORMZ", "METAWORMS", "HORUS", "TERENCE", "KLINK"]
+omit = ["*/TESTING/*", "*/__pycache__/*"]
+
+[tool.coverage.report]
+exclude_lines = ["pragma: no cover", "def __repr__", "raise NotImplementedError"]
+
+[tool.coverage.html]
+title = "Azazael Ecosystem Test Coverage"

@@ -1,0 +1,582 @@
+{
+  "schema_version": 2,
+  "tier": "highend",
+  "enforcement": {
+    "checker": "tools/metthew_families.py",
+    "status": "enforced",
+    "command": "python tools/metthew_families.py --check (also planted in .githooks/pre-commit as Check 6d)",
+    "task": "M-13",
+    "checks": [
+      "F1 capability-single-definition",
+      "F2 capability-domain",
+      "F3 family-required",
+      "F4 lineage-cited",
+      "F5 payload-no-invented-bytes",
+      "F6 reference-shard-proves",
+      "F7 enforcement-current"
+    ],
+    "still_open": "F1..F7 judge the SHAPE of each claim. None of them runs a family's gate, so a gate that was never executed still passes. Until a family gate is run and its output stored, the catalogue describes intent, not a measured capability."
+  },
+  "policy": {
+    "one_vocabulary": "A capability id is defined exactly once in this file (shared[] or a family's capabilities[]). A shard manifest may only declare ids listed here. Enforced by F1/F2 in tools/metthew_families.py, and by tests/test_metthew_families.py for the manifests that exist.",
+    "partition": "affects=sim work must be determinism=exact (validator V7, catalogue F2). affects=presentation may be approximate (V9 then forces golden_run.headless=true), and presentation work may still be exact when the selection itself is reproducible from integers.",
+    "tier_budget": "tier highend: up to 8 GiB and 1024 files (HIGHEND_PAYLOAD_CAP / HIGHEND_FILE_CAP in tools/metthew_validate.py). The low-end contract is 2 MiB and 24 files. The families below are chosen so that the shard's BYTES are recipes, latents and transcripts, not baked assets: a high-end shard should be small even when it looks enormous.",
+    "no_claim_without_a_gate": "Every family carries acceptance.gate (a command plus a number it prints) and acceptance.negative_control (an input that MUST fail). A family without both is a wish. F3 refuses it; neither the checker nor the tests can assert that a gate was ever run.",
+    "lineage_tiers": "Every lineage entry carries source_tier. A = the artefact's own page or paper, fetched and read (url + fetched_on, or a repo-relative path to this estate's own primary document); B = an official index or registry entry (url); C = credible secondary reporting, fetched (url + fetched_on); D = a search snippet, social post or unread link -- a LEAD, not evidence, and it must say which kind in evidence. --check prints how many entries are checkable and how many are leads.",
+    "payload_claim": "No byte figure without a measurement. payload_bytes_estimate is refused by name (F5); a family either says status=measured with bytes + command + measured_on, or status=unmeasured with a reason. An invented size is a wish with a unit."
+  },
+  "shared": [
+    {
+      "id": "fixed-point-steering",
+      "affects": "sim",
+      "determinism": "exact",
+      "note": "positions and velocities in integer millimetres; no float reaches the authoritative state"
+    },
+    {
+      "id": "integer-aim",
+      "affects": "sim",
+      "determinism": "exact",
+      "note": "aim resolved by integer sign comparison, never by atan2 -- an angle would import a platform libm into the hash"
+    },
+    {
+      "id": "recorded-input-transcript",
+      "affects": "sim",
+      "determinism": "exact",
+      "note": "the golden input is a fixed byte log decoded by a branch-free rule; no clock, no ambient entropy"
+    },
+    {
+      "id": "integer-hash",
+      "affects": "sim",
+      "determinism": "exact",
+      "note": "sha256 over one explicitly ordered string, never over a repr, a dict or a set"
+    },
+    {
+      "id": "fixed-point-rng",
+      "affects": "sim",
+      "determinism": "exact",
+      "note": "LCG on integers with the seed in the input transcript; the stream is part of the state"
+    },
+    {
+      "id": "volumetric-fog",
+      "affects": "presentation",
+      "determinism": "approximate",
+      "note": "declared, not implemented by the reference shards: the field marks where a renderer sits, and V9 forces the golden hash to be taken headless"
+    },
+    {
+      "id": "integer-occupancy-grid",
+      "affects": "sim",
+      "determinism": "exact",
+      "note": "collision read from a 1-bit integer grid so that captured or neural scenery can still be played exactly"
+    },
+    {
+      "id": "rollback-netcode",
+      "affects": "sim",
+      "determinism": "exact",
+      "note": "GGRS-style rewind and resimulate; only meaningful because the state is integer-only"
+    },
+    {
+      "id": "dual-rate-sim",
+      "affects": "sim",
+      "determinism": "exact",
+      "note": "the authoritative tick runs at sim_hz regardless of the presented frame rate"
+    },
+    {
+      "id": "720p-render",
+      "affects": "presentation",
+      "determinism": "exact",
+      "note": "a 1280x720 frame drawn from the integer state; a --headless run changes nothing in the hash"
+    },
+    {
+      "id": "integer-sim",
+      "affects": "sim",
+      "determinism": "exact",
+      "note": "positions, velocities and hit tests are integer; no float reaches the authoritative state"
+    },
+    {
+      "id": "procedural-sprites",
+      "affects": "presentation",
+      "determinism": "exact",
+      "note": "sprites are generated at run time from the integer state; no external image assets in the payload"
+    },
+    {
+      "id": "procedural-audio",
+      "affects": "presentation",
+      "determinism": "exact",
+      "note": "PCM tones are generated at run time; no external audio files in the payload"
+    },
+    {
+      "id": "single-level",
+      "affects": "sim",
+      "determinism": "exact",
+      "note": "one arena and its obstacles are encoded in the shard; no external level data"
+    },
+    {
+      "id": "deterministic-input",
+      "affects": "sim",
+      "determinism": "exact",
+      "note": "a fixed hex input log is decoded by a branchless rule; no clock, no ambient entropy"
+    },
+    {
+      "id": "canonical-hash",
+      "affects": "sim",
+      "determinism": "exact",
+      "note": "sha256 over one hand-written canonical string; dict and set order are never used"
+    }
+  ],
+  "families": [
+    {
+      "id": "glassland",
+      "name": "GLASSLAND -- virtualised geometry sandbox",
+      "pitch": "Ship the decomposition, not the model. The shard carries a cluster DAG and micro-tiles; the host cuts the visible set every frame from a trillion-triangle scene.",
+      "lineage": [
+        {
+          "source": "Epic, Nanite Virtualized Geometry in Unreal Engine (UE 5.8 documentation)",
+          "date": "2026-11-01",
+          "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/nanite-virtualized-geometry-in-unreal-engine",
+          "source_tier": "A",
+          "fetched_on": "2026-11-01",
+          "adaptation": "a cluster graph is data, so it can be content-addressed and diffed like any other shard file"
+        },
+        {
+          "source": "NVIDIA RTX Mega Geometry, GDC 2026 (BVH builds for cluster-based geometry)",
+          "date": "2026-03-10",
+          "url": "https://www.tomshardware.com/pc-components/gpus/testing-nvidias-rtx-mega-geometry-tech-vram-reducing-tech-a-leap-forward-for-path-traced-rendering",
+          "source_tier": "D",
+          "evidence": "search-snippet (Tom's Hardware, 2026-05-09, describes the GDC 2026 announcement); the vendor page itself was not fetched",
+          "adaptation": "the reference shard ships the geometry source, not the BVH: the BVH is rebuilt per host, so it never has to be shipped or trusted"
+        },
+        {
+          "source": "Arm, 'Mali and Unreal Engine's Nanite'",
+          "date": "2026-03-18",
+          "url": null,
+          "source_tier": "D",
+          "evidence": "not-located-in-this-session",
+          "adaptation": "GPU-driven culling runs on integrated silicon, so the high-end family is not a discrete-GPU-only family"
+        },
+        {
+          "source": "ACM, 'Real-time Path Tracing of Massive Dynamic Foliage'",
+          "date": "2026-06-29",
+          "url": null,
+          "source_tier": "D",
+          "evidence": "not-located-in-this-session",
+          "adaptation": "the cut is a function of the camera cell (integer), so two players in the same cell get the same cluster set -- reproducible selection, approximate pixels"
+        }
+      ],
+      "capabilities": [
+        {
+          "id": "cluster-cut",
+          "affects": "presentation",
+          "determinism": "exact",
+          "note": "visible cluster set computed from an integer camera cell and an integer LOD level; identical on any host that runs the same cut, which is what makes a peer's screenshot reviewable"
+        },
+        {
+          "id": "virtual-geometry",
+          "affects": "presentation",
+          "determinism": "approximate",
+          "note": "the rasterised result is vendor-approximate by design; it never enters the state hash"
+        }
+      ],
+      "payload_shape": "cluster DAG (quantised vertex/index blocks) + micro-UV tiles; the same scene as a shipped mesh set is 10-100x larger",
+      "payload_claim": {
+        "status": "unmeasured",
+        "reason": "no cluster DAG has been cut on this box; the builder for this family does not exist yet, so any number would be arithmetic about a file nobody made"
+      },
+      "host": {
+        "requires": "native",
+        "gpu": "mesh-shader or compute-capable; works on integrated silicon (Nanite-on-Mali class)",
+        "fallback": "the sim half of the shard still runs on python-resident; the geometry half degrades to flat-shaded boxes"
+      },
+      "acceptance": {
+        "gate": "two hosts run the same camera cell + LOD level and print the same cluster-cut hash, while the frame's pixel hash is allowed to differ",
+        "negative_control": "a shard whose cluster DAG was cut from a different scene must produce a different cluster-cut hash (a gate that returns the same answer for any DAG proves nothing)"
+      }
+    },
+    {
+      "id": "spectra",
+      "name": "SPECTRA -- neural-compressed material shard",
+      "pitch": "Ship a latent, not a texture set. The shard carries a small network plus a compressed feature grid; the host reconstructs the full PBR stack for the material it is asked for.",
+      "lineage": [
+        {
+          "source": "NVIDIA RTX Neural Texture Compression SDK, D3D12 Cooperative Vectors path",
+          "date": "2025-08-18",
+          "url": null,
+          "source_tier": "D",
+          "evidence": "not-located-in-this-session; the technique is corroborated by the HPG 2025 paper cited below, the SDK page is not",
+          "adaptation": "an all-PBR-at-once codec is exactly the unit a shard ships: one file, one material, one address"
+        },
+        {
+          "source": "Intel, Cooperative Vectors demo (PBR set compression)",
+          "date": "2025-06-03",
+          "url": null,
+          "source_tier": "D",
+          "evidence": "not-located-in-this-session",
+          "adaptation": "the technique is not vendor-locked, so the family is declared with a portable decode path and a native fast path"
+        },
+        {
+          "source": "Belcour & Benyoub, 'Hardware Accelerated Neural Block Texture Compression with Cooperative Vectors' (HPG 2025, arXiv 2506.06040)",
+          "date": "2025-06-06",
+          "url": "https://arxiv.org/abs/2506.06040",
+          "source_tier": "A",
+          "fetched_on": "2026-11-01",
+          "adaptation": "reconstruction quality is measured per material, which turns 'does it look right' into a number a gate can refuse; the abstract reports a 4k PBR set (9 channels) rendered with anisotropic filtering at 1080p in 28 MB, which is the kind of figure this family's gate has to beat or admit it lost to"
+        }
+      ],
+      "capabilities": [
+        {
+          "id": "neural-latent-material",
+          "affects": "presentation",
+          "determinism": "approximate",
+          "note": "reconstruction is vendor-approximate; the shard declares the tolerance it was validated at"
+        },
+        {
+          "id": "material-reconstruction-psnr",
+          "affects": "presentation",
+          "determinism": "approximate",
+          "note": "the gate's measuring stick: decoded material vs the reference set, per channel, at a declared resolution"
+        }
+      ],
+      "payload_shape": "MLP weights (quantised) + latent feature grid; the paper's own result is 28 MB for a 4k set, so a shard in the low tens of MB is plausible and has not been measured here",
+      "payload_claim": {
+        "status": "unmeasured",
+        "reason": "no latent has been trained; the 28 MB figure belongs to the cited paper's setup, not to anything this estate produced"
+      },
+      "host": {
+        "requires": "native",
+        "gpu": "cooperative-vector fast path; scalar fallback decode keeps the shard readable",
+        "fallback": "scalar decode at 1-4 fps per material, enough to verify a shard on a laptop"
+      },
+      "acceptance": {
+        "gate": "decoded material at the declared resolution reaches the declared per-channel PSNR against the reference set, and the latent file is under 5% of that set's bytes",
+        "negative_control": "a latent trained on a different material must MISS the PSNR threshold -- if it passes, the threshold is measuring the harness, not the shard"
+      }
+    },
+    {
+      "id": "fogcut",
+      "name": "FOGCUT -- path-traced, no bake",
+      "pitch": "Ship a lighting recipe instead of a lightmap. The shard carries a sampling sequence, a seed and a per-tier sample budget; the player's own GPU converges the image.",
+      "lineage": [
+        {
+          "source": "NVIDIA RTX innovations at GDC 2026 (path tracing, Shader Execution Reordering, Mega Geometry)",
+          "date": "2026-03-10",
+          "url": null,
+          "source_tier": "D",
+          "evidence": "search-snippet for the Mega Geometry announcement only; the SER material was not located",
+          "adaptation": "SER makes incoherent rays affordable, so a shard can declare 'unbaked, path traced' without demanding a halo product"
+        },
+        {
+          "source": "ACM, 'Real-time Path Tracing of Massive Dynamic Foliage'",
+          "date": "2026-06-29",
+          "url": null,
+          "source_tier": "D",
+          "evidence": "not-located-in-this-session",
+          "adaptation": "the recipe travels with the scene; foliage is no longer the reason a shard needs a baked atlas"
+        }
+      ],
+      "capabilities": [
+        {
+          "id": "pt-light-recipe",
+          "affects": "presentation",
+          "determinism": "approximate",
+          "note": "seed + low-discrepancy sequence + spp budget; the recipe is bytes, the image is the host's"
+        },
+        {
+          "id": "progressive-convergence",
+          "affects": "presentation",
+          "determinism": "approximate",
+          "note": "every frame is a valid image and every further frame is closer; a screenshot's spp is part of its claim"
+        }
+      ],
+      "payload_shape": "sky/lights description + sampling recipe + seed; the lightmap it replaces is measured in hundreds of megabytes",
+      "payload_claim": {
+        "status": "unmeasured",
+        "reason": "no recipe has been authored, and the 'hundreds of megabytes' it is compared against is a range about other projects' lightmaps, not a measurement of one here"
+      },
+      "host": {
+        "requires": "native",
+        "gpu": "hardware ray tracing; the shard degrades to a rasterised approximation below the declared tier",
+        "fallback": "headless CPU trace at low spp for verification only"
+      },
+      "acceptance": {
+        "gate": "at the declared spp, the converged frame is within a stated error of a 64-spp reference frame of the same recipe",
+        "negative_control": "a frame rendered with a different seed must fall OUTSIDE that error band -- otherwise the band is wider than the effect it is supposed to detect"
+      }
+    },
+    {
+      "id": "splatfield",
+      "name": "SPLATFIELD -- capture-derived playfield",
+      "pitch": "Nobody models the map: a circle member captures a real place and the shard carries a pruned splat set for scenery plus an integer occupancy grid for play.",
+      "lineage": [
+        {
+          "source": "Kerbl, Kopanas, Leimkuhler & Drettakis, '3D Gaussian Splatting for Real-Time Radiance Field Rendering' (arXiv 2308.04079, SIGGRAPH 2023)",
+          "date": "2023-08-08",
+          "url": "https://arxiv.org/abs/2308.04079",
+          "source_tier": "A",
+          "fetched_on": "2026-11-01",
+          "adaptation": "the abstract claims >= 30 fps novel-view synthesis at 1080p for unbounded scenes, which is the claim the second-life kit relies on; the '100-200x faster than 2020 NeRF baselines' figure this entry used to quote is a survey number and is NOT in the paper, so it is dropped rather than repeated"
+        },
+        {
+          "source": "Splat-based reconstruction in engine pipelines",
+          "date": "2025-2026",
+          "url": null,
+          "source_tier": "D",
+          "evidence": "not-located-in-this-session",
+          "adaptation": "splats render but do not collide, so the shard ships a second, integer artefact: the occupancy grid the sim actually uses"
+        }
+      ],
+      "capabilities": [
+        {
+          "id": "splat-scenery",
+          "affects": "presentation",
+          "determinism": "approximate",
+          "note": "sorted-by-depth rendering is approximate; the sort key is integer-quantised so the ORDER is stable"
+        },
+        {
+          "id": "integer-occupancy-grid",
+          "affects": "sim",
+          "determinism": "exact",
+          "note": "a 1-bit-per-voxel grid derived from the capture; collision is grid lookup, so a captured room plays identically on every host"
+        }
+      ],
+      "payload_shape": "pruned splat set (position/scale/rotation/colour, quantised) + occupancy grid RLE",
+      "payload_claim": {
+        "status": "unmeasured",
+        "reason": "no capture has been processed on this box; a splat count per room would be a guess with a byte suffix"
+      },
+      "host": {
+        "requires": "native",
+        "gpu": "splat rasteriser; the occupancy half runs anywhere",
+        "fallback": "grid-only: playable with box visuals"
+      },
+      "acceptance": {
+        "gate": "the occupancy grid reproduces the reference collision trace for 128 scripted probes, exactly",
+        "negative_control": "a grid derived from a different capture must fail at least one probe -- a grid that collides with everything passes every trace"
+      }
+    },
+    {
+      "id": "mirrorcast",
+      "name": "MIRRORCAST -- rollback netcode with a verification ledger",
+      "pitch": "Predict, resimulate, and prove. Rollback is affordable because the state is integers, and every claimed run carries a transcript any peer can replay.",
+      "lineage": [
+        {
+          "source": "GGRS / GGPO rollback netcode (gschup/ggrs)",
+          "date": "2023-2026",
+          "url": "https://github.com/gschup/ggrs",
+          "source_tier": "D",
+          "evidence": "not-fetched-this-session; the repository is named from prior knowledge, not from a page read today",
+          "adaptation": "rollback requires an exactly reproducible step, which is the same requirement the golden run already imposes -- so the two features share one gate"
+        },
+        {
+          "source": "LLM-42: Enabling Determinism in LLM Inference (arXiv 2601.17768); cited previously as 'verified speculation, SOSP 2026'",
+          "date": "2026-01-25",
+          "url": "https://arxiv.org/html/2601.17768v1",
+          "source_tier": "D",
+          "evidence": "search-snippet; the SOSP 2026 venue this entry used to claim could NOT be confirmed, so the venue is withdrawn and the arXiv preprint stands alone",
+          "adaptation": "the idea, not the code: speculate ahead, then verify against the authoritative input and roll back on mismatch -- applied to frames instead of tokens"
+        },
+        {
+          "source": "Deterministic simulation testing (2024-2026 practice)",
+          "date": "2026-10",
+          "url": null,
+          "source_tier": "D",
+          "evidence": "not-located-in-this-session; a practice, not a document",
+          "adaptation": "a shard's CI is a transcript replay, not a screenshot comparison"
+        }
+      ],
+      "capabilities": [
+        {
+          "id": "rollback-netcode",
+          "affects": "sim",
+          "determinism": "exact",
+          "note": "GGRS-style rewind and resimulate; only meaningful because the state is integer-only"
+        },
+        {
+          "id": "speculation-ledger",
+          "affects": "sim",
+          "determinism": "exact",
+          "note": "each speculative tick records the input it assumed; a mismatch invalidates from that tick forward, and the ledger is the evidence"
+        }
+      ],
+      "payload_shape": "code + golden transcript; the ledger is produced at play time, not shipped",
+      "payload_claim": {
+        "status": "unmeasured",
+        "reason": "code-only family and no rollback shard exists: there is no transcript to measure. The manifest that describes one (fixtures/valid_highend_rollback_duel.json) is a manifest, not a game"
+      },
+      "host": {
+        "requires": "python-resident",
+        "gpu": "none required",
+        "fallback": "n/a -- this is the family every host can run"
+      },
+      "acceptance": {
+        "gate": "two peers replaying the same transcript produce identical state hashes after a forced 12-tick rollback",
+        "negative_control": "an approximate value injected into the sim (a float position) must break hash equality; if it does not, the state is not being hashed"
+      }
+    },
+    {
+      "id": "persona",
+      "name": "PERSONA -- on-device characters, subordinate to the sim",
+      "pitch": "The shard ships a persona card, not a model. The host's small language model may propose, but only an enumerated intent can change the world, and that intent is written into the input log.",
+      "lineage": [
+        {
+          "source": "NVIDIA on-device small language model for game-character roleplay",
+          "date": "2024-08-20",
+          "url": null,
+          "source_tier": "D",
+          "evidence": "not-located-in-this-session",
+          "adaptation": "the model is a HOST capability; the shard's asset is the character definition, so a shard never carries gigabytes of weights"
+        },
+        {
+          "source": "Braas & Esterle, 'Fixed-Persona SLMs with Modular Memory: Scalable NPC Dialogue on Consumer Hardware' (arXiv 2511.10277)",
+          "date": "2025-11-13",
+          "url": "https://arxiv.org/abs/2511.10277",
+          "source_tier": "A",
+          "fetched_on": "2026-11-01",
+          "adaptation": "persona is a small bounded card + a runtime-swappable memory module; that is exactly the shape a content-addressed file can hold, and it is the paper's own structure rather than an inference from its title"
+        },
+        {
+          "source": "Arm, 'First Contact: a mobile architecture for LLM-powered game characters'",
+          "date": "2026-08-05",
+          "url": null,
+          "source_tier": "D",
+          "evidence": "not-located-in-this-session",
+          "adaptation": "the LLM is kept subordinate to game logic; prose never mutates state directly"
+        }
+      ],
+      "capabilities": [
+        {
+          "id": "persona-card",
+          "affects": "presentation",
+          "determinism": "approximate",
+          "note": "traits, refusal rules and memory schema; dialogue text is approximate and excluded from the hash"
+        },
+        {
+          "id": "intent-enum",
+          "affects": "sim",
+          "determinism": "exact",
+          "note": "the only channel from language to world: a fixed enumerated action set, recorded in the transcript, so replay needs no model at all"
+        }
+      ],
+      "payload_shape": "persona card (a few kB) + memory schema + intent table",
+      "payload_claim": {
+        "status": "unmeasured",
+        "reason": "no persona card has been authored; 'a few kB' is a shape, and the family ships no file to weigh"
+      },
+      "host": {
+        "requires": "native",
+        "gpu": "any on-device inference host; a 1-4B SLM is enough",
+        "fallback": "deterministic scripted lines when no model is present -- the shard must remain playable, which is what makes the model optional"
+      },
+      "acceptance": {
+        "gate": "replaying a recorded transcript with the language model DISABLED reproduces the identical state hash",
+        "negative_control": "an intent outside the enumerated set must be rejected and logged, not silently coerced -- a gate that accepts every intent cannot tell a jailbreak from a move"
+      }
+    },
+    {
+      "id": "neuralframe",
+      "name": "NEURALFRAME -- interpolation that lifts the low end",
+      "pitch": "The high-end feature is used downward: a 30 Hz deterministic sim is presented at 120 Hz by local frame interpolation, so a weak laptop feels smooth without changing what happened.",
+      "lineage": [
+        {
+          "source": "Frame generation / DLSS-class interpolation in shipped games",
+          "date": "2023-2026",
+          "url": null,
+          "source_tier": "D",
+          "evidence": "not-located-in-this-session; an industry practice rather than one document",
+          "adaptation": "because the sim is integer and dual-rate, interpolation can never desynchronise gameplay from what was simulated"
+        },
+        {
+          "source": "Thinking Machines Lab, 'Defeating Nondeterminism in LLM Inference' (2025-09-10); cited previously as arXiv 2609.25624, which could not be located",
+          "date": "2025-09-10",
+          "url": "https://thinkingmachines.ai/blog/defeating-nondeterminism-in-llm-inference/",
+          "source_tier": "D",
+          "evidence": "search-snippet; the arXiv id this entry used to cite (2609.25624) does not resolve to a locatable paper, so it is withdrawn",
+          "adaptation": "the same move at shard scale: declare the reduction/tile order in the manifest, so cost and result depend on shape, not on scheduling"
+        }
+      ],
+      "capabilities": [
+        {
+          "id": "reprojection-interp",
+          "affects": "presentation",
+          "determinism": "approximate",
+          "note": "n interpolated frames between two authoritative ticks; the declared n is part of the presentation claim"
+        },
+        {
+          "id": "dual-rate-sim",
+          "affects": "sim",
+          "determinism": "exact",
+          "note": "the authoritative tick runs at sim_hz regardless of the presented frame rate"
+        }
+      ],
+      "payload_shape": "code only; interpolation is a host technique with a declared parameter",
+      "payload_claim": {
+        "status": "unmeasured",
+        "reason": "code-only family and no interpolator has been written; there is no file to weigh"
+      },
+      "host": {
+        "requires": "native",
+        "gpu": "any compute-capable GPU; historically this is the family that ran on the weakest box",
+        "fallback": "no interpolation: 30 Hz presented as 30 Hz, with the same state hash"
+      },
+      "acceptance": {
+        "gate": "with interpolation on and off, the state hash after 600 ticks is identical; only the presented frame count differs",
+        "negative_control": "an interpolator fed a stale tick must be detected by the tick stamp check, not produce a plausible wrong frame"
+      }
+    },
+    {
+      "id": "ladder",
+      "name": "LADDER -- declared intensity tiers",
+      "pitch": "High-end is not only fidelity, it is frame-time discipline. The shard declares the tiers it ships, what each tier removes, and each tier has its own golden run.",
+      "lineage": [
+        {
+          "source": "Nanite-on-Mali and the mobile-GPU trend",
+          "date": "2026-03-18",
+          "url": null,
+          "source_tier": "D",
+          "evidence": "not-located-in-this-session; the same unlocated Arm material as GLASSLAND's third entry",
+          "adaptation": "the same content must scale from a handheld to a desktop, so the tier ladder is a shard artefact, not a settings menu bolted on later"
+        },
+        {
+          "source": "Measured hardware variance in this estate (Arc 140T, total_memory 7.80 GB via torch.xpu.get_device_properties)",
+          "date": "2026-11-01",
+          "url": "docs/platforms/intel-ultra-9-evo.md",
+          "source_tier": "A",
+          "evidence": "python -c \"import torch; print(torch.xpu.is_available(), torch.xpu.get_device_properties(0).total_memory/2**30)\"",
+          "adaptation": "tiers are declared against measured memory and frame budgets, not against marketing names"
+        }
+      ],
+      "capabilities": [
+        {
+          "id": "tier-ladder",
+          "affects": "presentation",
+          "determinism": "exact",
+          "note": "the tier is selected by integer comparison against a declared budget, so the same host picks the same tier every run"
+        },
+        {
+          "id": "tier-removal-contract",
+          "affects": "presentation",
+          "determinism": "approximate",
+          "note": "each tier states what it drops; dropping something undeclared is a contract violation, not an optimisation"
+        }
+      ],
+      "reference_shards": [
+        "highend_ladder"
+      ],
+      "payload_shape": "levels file + code; the ladder is the cheapest family to ship and the one that makes the others honest",
+      "payload_claim": {
+        "status": "measured",
+        "bytes": 15344,
+        "command": "python -c \"import json,pathlib; m=json.loads(pathlib.Path('docs/METTHEW/reference-shards/highend_ladder/shard.json').read_text()); print(sum(f['size_bytes'] for f in m['files']))\"",
+        "measured_on": "2026-11-01",
+        "note": "the reference shard IS this family's payload: main.py 11540 + SHARD.md 3804 bytes. This is the only family whose size is a measurement rather than a shape."
+      },
+      "host": {
+        "requires": "python-resident",
+        "gpu": "none required",
+        "fallback": "n/a -- the lowest tier is the fallback"
+      },
+      "acceptance": {
+        "gate": "every tier replays the same transcript to the SAME state hash, while the tier's presentation counters differ (proved by reference-shards/highend_ladder --verify)",
+        "negative_control": "a tier allowed to change the sim must break hash equality -- if it does not, the ladder is secretly mutating the game"
+      }
+    }
+  ]
+}

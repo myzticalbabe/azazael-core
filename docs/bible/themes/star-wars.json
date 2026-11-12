@@ -1,0 +1,553 @@
+{
+ "schema": "azazael/bible-theme@1",
+ "title": "The Book of the Code",
+ "theme": "star-wars",
+ "register": "the Jedi register: a code recited, a trial undergone, a council in session, and an archive that outlives the one who wrote it",
+ "source_corpus": "docs/bible/bible.json",
+ "status": "seed",
+ "updated": "2026-11-09",
+ "edition": {
+  "name": "The Annotated Book of the Code",
+  "basis": "a themed edition of The Book of the Tree in Jedi register: book introductions, pericope headings, notes sorted by kind, a glossary, and a citation on every verse back to the verse it restates"
+ },
+ "limits": {
+  "max_books": 10,
+  "max_chapters_per_book": 8,
+  "max_verses_per_chapter": 40
+ },
+ "glossary": [
+  {
+   "term": "the Code",
+   "gloss": "the five-line creed attributed to Odan-Urr: a statement about what is absent, which is why this book treats every line as a claim needing a check",
+   "see": "the_code 1:1"
+  },
+  {
+   "term": "padawan",
+   "gloss": "an apprentice; here, a session that has been given a task and has not yet been given the reading that would let it judge one"
+  },
+  {
+   "term": "the Council",
+   "gloss": "the body that rules on a case; in this book a council is only a council when it has read the record, and a verdict passed without one is a preference with a chair",
+   "see": "council 1:1"
+  },
+  {
+   "term": "the Archives",
+   "gloss": "the record; a copy of the Archives answers for the day it was taken, and the day it was taken is never today",
+   "see": "archives 1:2"
+  },
+  {
+   "term": "attachment",
+   "gloss": "the holding of one thing above the many; the failure this book treats as the ordinary one, because it never looks like a crime from inside",
+   "see": "attachment 1:1"
+  },
+  {
+   "term": "the dark side",
+   "gloss": "the shortcut that works: an answer reached without the reading, which is the only reason it is tempting",
+   "see": "sith 1:1"
+  },
+  {
+   "term": "kyber",
+   "gloss": "the crystal in a blade; here, the check that is exercised, which must be cut and proved rather than admired"
+  }
+ ],
+ "books": [
+  {
+   "id": "the_code",
+   "name": "The Code",
+   "subtitle": "The Book of the Five Lines",
+   "genre": "creed",
+   "introduction": {
+    "paragraphs": [
+     "This book takes the five lines of the Code one at a time. It does so because each line is phrased as an absence -- there is no this, there is that -- and a sentence that names an absence is the easiest kind of claim to repeat and the hardest kind to check.",
+     "The verses here do not argue with the Code. They ask, of each line, the question the base corpus puts to every verdict: which predicate fired, and is that the thing you care about? A line of the Code that has no check behind it is a proverb, and a proverb is not a discipline."
+    ],
+    "sources": [
+     "docs/bible/bible.json",
+     "MANDATES.md"
+    ]
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "The first and second lines"
+      },
+      {
+       "before_verse": 3,
+       "heading": "The third and fourth"
+      },
+      {
+       "before_verse": 5,
+       "heading": "The fifth line"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "There is no emotion, there is peace. And the Jedi does not say he has none; he says that what he feels is not the evidence, and names the reading that is.",
+       "cites": ["leviticus 1:3"],
+       "annotations": [
+        {
+         "kind": "editorial",
+         "note": "The line is usually taught as calmness. It is better taught as jurisdiction: emotion may testify, and may not preside."
+        }
+       ]
+      },
+      {
+       "number": 2,
+       "text": "There is no ignorance, there is knowledge. And yet a Jedi who knows a number and not the command that produced it has swapped one ignorance for a louder one.",
+       "cites": ["leviticus 1:2"],
+       "annotations": [
+        {
+         "kind": "historical",
+         "note": "The base corpus puts the same obligation on every figure: written with the command, or struck out rather than trusted."
+        }
+       ]
+      },
+      {
+       "number": 3,
+       "text": "There is no passion, there is serenity. And the serene Jedi who reports a green gate he has not run has not conquered passion; he has made a comfort look like a measurement.",
+       "cites": ["psalms 1:1"]
+      },
+      {
+       "number": 4,
+       "text": "There is no chaos, there is harmony. But harmony is not the absence of parts that disagree; it is the arrangement in which their disagreement can be read.",
+       "cites": ["genesis 1:2"],
+       "annotations": [
+        {
+         "kind": "cross",
+         "note": "The corpus's three branches are named beside the instruments that grade them, not above them, for the same reason."
+        }
+       ]
+      },
+      {
+       "number": 5,
+       "text": "There is no death, there is the Force. And so a row is not dead while it is in the table; it is unread, and the difference is the whole of the archive's grief.",
+       "cites": ["psalms 1:3"],
+       "annotations": [
+        {
+         "kind": "translation",
+         "note": "'Dead store' in the base corpus is a row nobody reads. The Code's word for the same condition is 'becoming one with the Force', which is a kinder way of saying nobody looks at it now."
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "youngling",
+   "name": "The Youngling",
+   "subtitle": "The Book of the Trials",
+   "genre": "formation",
+   "introduction": {
+    "paragraphs": [
+     "This book is about training, and about the order in which a Jedi is given things. The order is the doctrine: the reading before the blade, the record before the reputation, the failed trial before the passed one.",
+     "A padawan in this book is not a student of the Force. He is a session with a task, a tree and no baseline, and the trials are the four ways such a session can be wrong before it has written a single line."
+    ],
+    "sources": [
+     "docs/bible/bible.json"
+    ]
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "The first trial: the reading"
+      },
+      {
+       "before_verse": 4,
+       "heading": "The trial of the failed thing"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "The first trial is the reading, and the padawan is given no blade for it; for the blade answers a question the padawan has not yet learned to ask.",
+       "cites": ["leviticus 1:2"]
+      },
+      {
+       "number": 2,
+       "text": "And the master said: do, or do not; there is no try. And the padawan learned that a run either printed a reading or it did not, and that 'nearly' is a word about the padawan and not about the tree.",
+       "cites": ["sentinel 1:2"],
+       "annotations": [
+        {
+         "kind": "editorial",
+         "note": "The saying is usually quoted at a hesitant student. It is more useful quoted at a confident report: 'tried' is the tense of a session that cannot name its output."
+        }
+       ]
+      },
+      {
+       "number": 3,
+       "text": "And the second trial is the borrowed claim: another lane says the path is clear, and the padawan who repeats it has verified the lane and not the path.",
+       "cites": ["eve_rani 1:1"]
+      },
+      {
+       "number": 4,
+       "text": "And the third trial is the failed instrument, and it is given before the working one; for a padawan who has only seen green does not know the colour of anything.",
+       "cites": ["the_falls 1:1"],
+       "annotations": [
+        {
+         "kind": "cross",
+         "note": "A control must be exercised before it is called a control. The training order and the canon's statute are the same rule wearing different robes."
+        }
+       ]
+      },
+      {
+       "number": 5,
+       "text": "And the fourth trial is silence: the padawan is given a suite that runs nothing, and must discover that a green report from an empty collection is the most expensive green there is.",
+       "cites": ["psalms 1:1"]
+      },
+      {
+       "number": 6,
+       "text": "And whoever passes the fourth trial without flinching is given the blade, and the blade is only ever used on a reading.",
+       "cites": ["leviticus 1:1"]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "council",
+   "name": "The Council",
+   "subtitle": "The Book of the Sitting",
+   "genre": "governance",
+   "introduction": {
+    "paragraphs": [
+     "This book is about the body that rules, and about the one thing a ruling requires: the record. A council that has not read the record is not a council; it is a quorum.",
+     "The verses here are short because deliberation that needs many words is usually deliberation that has not found the question. Each verse cites the corpus's own law of verdicts and of disagreement."
+    ],
+    "sources": [
+     "docs/bible/bible.json"
+    ]
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "Of the reading before the ruling"
+      },
+      {
+       "before_verse": 4,
+       "heading": "Of dissent"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "The Council shall not rule before it has read; and the reading it requires is not the summary, for the summary is a verdict that has already been passed by someone else.",
+       "cites": ["sentinel 1:1"]
+      },
+      {
+       "number": 2,
+       "text": "And a verdict shall name the predicate that fired; and if the Council cannot name it, the Council has not reached a verdict, it has reached a mood.",
+       "cites": ["leviticus 1:3"]
+      },
+      {
+       "number": 3,
+       "text": "A master who says the work is complete has said nothing until he names the command he ran; for completeness is a claim, and a claim needs a reading.",
+       "cites": ["sentinel 1:2"]
+      },
+      {
+       "number": 4,
+       "text": "And the Council shall keep its dissenters, not its unanimity; for a vote that is always unanimous has stopped measuring and started decorating.",
+       "cites": ["genesis 1:2"],
+       "annotations": [
+        {
+         "kind": "editorial",
+         "note": "A body that grades its own branches is exactly the instrument compared against itself: it will report agreement, and agreement is the one reading it cannot earn."
+        }
+       ]
+      },
+      {
+       "number": 5,
+       "text": "And when two members bring two commands and two readings, the Council shall not average them; it shall find the question each was answering, and rule on that.",
+       "cites": ["the_falls 1:2"]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "archives",
+   "name": "The Archives",
+   "subtitle": "The Book of the Record",
+   "genre": "record",
+   "introduction": {
+    "paragraphs": [
+     "This book is about the record, and about the two ways it fails: it can be a copy that answers for another day, and it can be a count that was true of a tree that has since moved.",
+     "The rule of the Archives is stated once and then restated in five shapes, because the estate has made the same error in five places and each place believed it was being careful."
+    ],
+    "sources": [
+     "docs/bible/bible.json",
+     "docs/bible/harvest.json"
+    ]
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "What a copy answers for"
+      },
+      {
+       "before_verse": 4,
+       "heading": "What a count answers for"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "The Archives are not a memory. A memory revises itself in the telling, and the Archives were built so that the telling would have a witness.",
+       "cites": ["hives 1:1"]
+      },
+      {
+       "number": 2,
+       "text": "And a copy of the Archives answers for the day it was taken; and the day it was taken is never today, however recently it was taken.",
+       "cites": ["ml 1:1"],
+       "annotations": [
+        {
+         "kind": "historical",
+         "note": "A mirror is not a corpus. The same sentence, written by a different session about a different store, is the reason this book exists."
+        }
+       ]
+      },
+      {
+       "number": 3,
+       "text": "And when the Archives disagree with the tree, the tree is the record and the Archives are the commentary; a reader who reverses this has made the commentary into evidence.",
+       "cites": ["genesis 1:1"]
+      },
+      {
+       "number": 4,
+       "text": "A count shall be reported with its tree and its hour; for a count quoted a fortnight later is a memory wearing a number's clothes, and the clothes are convincing.",
+       "cites": ["hives 1:1"]
+      },
+      {
+       "number": 5,
+       "text": "And the same row counted twice is one row; and the second counting shall not be entered as coverage, for coverage is a claim about what was read and not about how often it was visited.",
+       "cites": ["psalms 1:3"]
+      },
+      {
+       "number": 6,
+       "text": "And the Archives shall record the retirement of a thing, or the next reader will find an absence and call it an orphan.",
+       "cites": ["edge0 1:1"]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "attachment",
+   "name": "Attachment",
+   "subtitle": "The Book of the One Above the Many",
+   "genre": "lament",
+   "introduction": {
+    "paragraphs": [
+     "This book is a lament, and it is placed after the Archives on purpose: the failure it describes is not stupidity and not malice. It is love of one thing above the many, held by someone with the power to make the preference stick.",
+     "Every verse here is a shape the estate has occupied. A gate kept for a favourite domain, a constant copied so that one number need not move, a baseline raised because the red was inconvenient: these are the same act at different sizes."
+    ],
+    "sources": [
+     "docs/bible/bible.json",
+     "docs/bible/harvest.json"
+    ]
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "The shape of the holding"
+      },
+      {
+       "before_verse": 4,
+       "heading": "What the holding costs"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "And the keeper loved one domain above the estate, and said: it is only this one, and it is nearly finished. And 'nearly finished' became the reason the gate was never run.",
+       "cites": ["psalms 1:1"]
+      },
+      {
+       "number": 2,
+       "text": "And the keeper raised the baseline rather than the standard, and called it a recalibration; and the number moved, and the fault did not, and the report was green.",
+       "cites": ["the_falls 1:1"],
+       "annotations": [
+        {
+         "kind": "cross",
+         "note": "The base corpus's rule is the remedy: a scanner finding is fixed, not rebaselined. The themed verse does not add to it."
+        }
+       ]
+      },
+      {
+       "number": 3,
+       "text": "And the keeper copied a constant so that one file need not change, and the copy agreed with itself and with nothing else, and both answers looked correct.",
+       "cites": ["sentinel 1:2"]
+      },
+      {
+       "number": 4,
+       "text": "And when the many were weighed against the one, the keeper did not weigh them; he remembered the one, and the memory was warm, and the many had no witness.",
+       "cites": ["hives 1:1"]
+      },
+      {
+       "number": 5,
+       "text": "And the fall was not a single step but a hundred small preferences, each defensible, none recorded; and the record, if it had been kept, would have shown the shape on the second day.",
+       "cites": ["psalms 1:3"]
+      },
+      {
+       "number": 6,
+       "text": "And the lament of this book is that the keeper was diligent; for a lazy keeper would have run the check out of habit and been saved by it.",
+       "cites": ["leviticus 1:1"]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "sith",
+   "name": "The Code of the Sith",
+   "subtitle": "The Book of the Shortcut",
+   "genre": "heresy",
+   "introduction": {
+    "paragraphs": [
+     "This book is the inversion, and it is set down whole so that a reader can see what the Code looks like when each line is turned. It is not a temptation to be admired; it is a diagnostic to be used.",
+     "The dark side is said here to be the shortcut that works. That is the only reason it is dangerous: an answer reached without the reading is fast, plausible, and indistinguishable from an answer until someone else reads the same tree."
+    ],
+    "sources": [
+     "docs/bible/bible.json",
+     "MANDATES.md"
+    ]
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "The six lines, turned"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "Peace is a lie, there is only passion. So says the Sith, and he is half right: passion is always present, and the question was never whether it is present but whether it presides.",
+       "cites": ["leviticus 1:3"],
+       "annotations": [
+        {
+         "kind": "translation",
+         "note": "The Sith line is a mistranslation of the first line of the Code, made by deleting the jurisdiction clause and keeping the feeling."
+        }
+       ]
+      },
+      {
+       "number": 2,
+       "text": "Through passion, I gain strength. And the strength is real, and it is the strength of a number taken without its command: it moves the argument and it cannot be checked.",
+       "cites": ["leviticus 1:2"]
+      },
+      {
+       "number": 3,
+       "text": "Through strength, I gain power. And power is the ability to have the verdict accepted before the predicate is named.",
+       "cites": ["sentinel 1:1"]
+      },
+      {
+       "number": 4,
+       "text": "Through power, I gain victory. And the victory is a green gate that nothing has been asked to turn red; and it will be reported, and it will be believed, and it will be empty.",
+       "cites": ["the_falls 1:2"]
+      },
+      {
+       "number": 5,
+       "text": "Through victory, my chains are broken. But the chains were the reading, and the one who breaks them is free of the only thing that could have told him he was wrong.",
+       "cites": ["cain 1:1"]
+      },
+      {
+       "number": 6,
+       "text": "The Force shall free me. And so it does, into a room with no instrument in it; and the Sith calls the silence agreement, and the agreement is his own, and it is the one reading he cannot earn.",
+       "cites": ["psalms 1:1"]
+      }
+     ]
+    }
+   ]
+  }
+ ,
+  {
+   "id": "tongues",
+   "name": "The Tongues",
+   "subtitle": "The Book of the Scattered Voice",
+   "genre": "record",
+   "introduction": {
+    "paragraphs": ["This book records how the scattered voice was gathered into one house. The tower fell and the tongues confused every builder; the house answers that confusion not by one tongue for all, but by every tongue native under one roof.", "A Padawan learns each tongue from the compiler that speaks it, never from a guess. This is the archive of that gathering, and every line below names the verse of the corpus it restates."],
+    "sources": ["docs/bible/bible.json"]
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "The interpreter"
+      },
+      {
+       "before_verse": 3,
+       "heading": "The children"
+      },
+      {
+       "before_verse": 5,
+       "heading": "The binding"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "Before the house there was the interpreter, free of the lock, and the archives record that the lock had held every house before it.",
+       "cites": ["babel 1:1"]
+      },
+      {
+       "number": 2,
+       "text": "The interpreter proved itself live and the proof was written down, for an archive without a record is a rumour with shelves.",
+       "cites": ["babel 1:2"]
+      },
+      {
+       "number": 3,
+       "text": "The children came as the tongues came at Babel: Gamora to route, Lucy to watch, Jaeger to trace, and Eve to answer in rust, in go, in python, none in mockery.",
+       "cites": ["babel 1:3", "babel 1:4"]
+      },
+      {
+       "number": 4,
+       "text": "MellifluousML walks a different path: within the walls, in the standard tongue, carrying no weights from without.",
+       "cites": ["babel 1:5"]
+      },
+      {
+       "number": 5,
+       "text": "One file holds them all, bound by the open toolchain, and no commercial grade was asked because none was needed.",
+       "cites": ["babel 1:6"]
+      },
+      {
+       "number": 6,
+       "text": "Commit, Padawan: the rollback devours the uncommitted, and the stash is a desert with no wells.",
+       "cites": ["babel 1:7"]
+      },
+      {
+       "number": 7,
+       "text": "An arena stands in the house now, youngling: five gates, one champion, no favour. Ties are broken by a disclosed seed, in the open, where all can witness.",
+       "cites": ["babel 1:8"]
+      },
+      {
+       "number": 8,
+       "text": "A coach stands beside the arena now, youngling: Berzerker teaches the builder to build, step by step, inventing nothing, and every lesson is receipted in the open.",
+       "cites": ["babel 1:9"]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

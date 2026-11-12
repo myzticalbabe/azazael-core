@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compliance Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#0d1117; color:#c9d1d9; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; padding:24px; }
+h1 { color:#58a6ff; margin-bottom:24px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:16px; margin-bottom:24px; }
+.card { background:#161b22; border:1px solid #21262d; border-radius:8px; padding:16px; }
+.card h2 { color:#8b949e; font-size:0.85em; text-transform:uppercase; margin-bottom:8px; }
+.card .value { font-size:2em; font-weight:600; }
+.card .value.green { color:#3fb950; }
+.card .value.red { color:#f85149; }
+.card .value.yellow { color:#d29922; }
+.chart-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px; }
+.chart-box { background:#161b22; border:1px solid #21262d; border-radius:8px; padding:16px; }
+.chart-box h2 { color:#8b949e; font-size:0.85em; text-transform:uppercase; margin-bottom:8px; }
+.chart-box.full { grid-column:1/-1; }
+@media(max-width:768px){ .chart-row { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<h1>Compliance Scanner Dashboard</h1>
+
+<div class="grid">
+  <div class="card"><h2>Files Scanned</h2><div class="value" id="filesScanned">-</div></div>
+  <div class="card"><h2>Total Findings</h2><div class="value" id="totalFindings">-</div></div>
+  <div class="card"><h2>Files with Findings</h2><div class="value" id="filesWithFindings">-</div></div>
+  <div class="card"><h2>Compliance Score</h2><div class="value" id="complianceScore">-</div></div>
+</div>
+
+<div class="chart-row">
+  <div class="chart-box full"><h2>Score Over Time</h2><canvas id="scoreChart"></canvas></div>
+</div>
+
+<div class="chart-row">
+  <div class="chart-box"><h2>Findings by Category</h2><canvas id="categoryChart"></canvas></div>
+  <div class="chart-box"><h2>Trend Direction</h2><canvas id="trendChart"></canvas></div>
+</div>
+
+<div class="chart-row">
+  <div class="chart-box full"><h2>Regressions</h2><pre id="regressions" style="color:#8b949e;font-size:0.85em;">Loading...</pre></div>
+</div>
+
+<script>
+async function loadData() {
+  try {
+    const [summary, history, trend, regressions] = await Promise.all([
+      fetch('/api/summary').then(r=>r.json()),
+      fetch('/api/history').then(r=>r.json()),
+      fetch('/api/trend').then(r=>r.json()),
+      fetch('/api/regressions').then(r=>r.json())
+    ]);
+
+    document.getElementById('filesScanned').textContent = summary.total_scans || '-';
+    document.getElementById('totalFindings').textContent = summary.total_findings_stored || 0;
+    document.getElementById('filesWithFindings').textContent = summary.unique_files_affected || 0;
+    const scoreEl = document.getElementById('complianceScore');
+    const lastHistory = history[0];
+    const score = lastHistory ? Math.round(lastHistory.compliance_score) : '-';
+    scoreEl.textContent = score;
+    scoreEl.className = 'value ' + (score >= 90 ? 'green' : score >= 50 ? 'yellow' : 'red');
+
+    if (history.length) {
+      new Chart(document.getElementById('scoreChart'), {
+        type: 'line',
+        data: {
+          labels: history.map(h => h.scanned_at.slice(0,16)).reverse(),
+          datasets: [{
+            label: 'Compliance Score',
+            data: history.map(h => h.compliance_score).reverse(),
+            borderColor: '#58a6ff',
+            backgroundColor: 'rgba(88,166,255,0.1)',
+            fill: true,
+            tension: 0.3
+          },{
+            label: 'Findings',
+            data: history.map(h => h.total_findings).reverse(),
+            borderColor: '#f85149',
+            backgroundColor: 'rgba(248,81,73,0.1)',
+            fill: true,
+            tension: 0.3,
+            yAxisID: 'y1'
+          }]
+        },
+        options: {
+          responsive: true,
+          interaction: { mode: 'index', intersect: false },
+          plugins: { legend: { labels: { color: '#8b949e' } } },
+          scales: {
+            x: { ticks: { color: '#8b949e' } },
+            y: { ticks: { color: '#8b949e' }, beginAtZero: true, max: 100 },
+            y1: { position: 'right', grid: { drawOnChartArea: false }, ticks: { color: '#f85149' } }
+          }
+        }
+      });
+    }
+
+    const cats = trend.categories || {};
+    if (Object.keys(cats).length) {
+      new Chart(document.getElementById('categoryChart'), {
+        type: 'doughnut',
+        data: {
+          labels: Object.keys(cats),
+          datasets: [{
+            data: Object.values(cats).map(c => c.last),
+            backgroundColor: ['#f85149','#d29922','#58a6ff','#3fb950','#bc8cff','#79c0ff','#ff7b72']
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { labels: { color: '#8b949e' } } }
+        }
+      });
+    }
+
+    const dirLabel = trend.overall ? (trend.overall.direction === 'up' ? 'Increasing ▲' : trend.overall.direction === 'down' ? 'Decreasing ▼' : 'Stable →') : 'N/A';
+    const dirColor = trend.overall ? (trend.overall.direction === 'up' ? '#f85149' : trend.overall.direction === 'down' ? '#3fb950' : '#8b949e') : '#8b949e';
+    new Chart(document.getElementById('trendChart'), {
+      type: 'bar',
+      data: {
+        labels: ['First', 'Last'],
+        datasets: [{
+          label: 'Total Findings',
+          data: [trend.overall?.first || 0, trend.overall?.last || 0],
+          backgroundColor: ['#8b949e', dirColor]
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { labels: { color: '#8b949e' } },
+          annotation: { annotations: { label: { type: 'label', content: dirLabel } } }
+        },
+        scales: { x: { ticks: { color: '#8b949e' } }, y: { ticks: { color: '#8b949e' } } }
+      }
+    });
+
+    const regEl = document.getElementById('regressions');
+    if (regressions.length) {
+      regEl.innerHTML = regressions.map(r =>
+        `<div style="margin:4px 0"><strong style="color:#f85149">${r.filepath}</strong>: ${r.findings_count} new finding(s) at ${r.detected_at}</div>`
+      ).join('');
+    } else {
+      regEl.textContent = 'No regressions detected';
+    }
+  } catch(e) {
+    document.getElementById('regressions').textContent = 'Error loading data: ' + e.message;
+  }
+}
+loadData();
+</script>
+</body>
+</html>

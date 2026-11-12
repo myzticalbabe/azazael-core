@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>33 Steps - Steampunk Web</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { width: 100vw; min-height: 100vh; background: radial-gradient(ellipse at center, #1a1206 0%, #2d1f0f 50%, #0d0a04 100%); font-family: 'Courier New', monospace; overflow: auto; }
+        .container { width: 100%; padding: 10px; }
+        h1 { text-align: center; color: #d4a855; font-size: 11px; margin: 5px 0; letter-spacing: 2px; text-shadow: 0 0 10px #d4a855; }
+        
+        .web-canvas { width: 100%; min-height: 95vh; position: relative; }
+        
+        /* SVG Connections */
+        svg.connections { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+        
+        /* Flow arrows */
+        .arrow-main { stroke: #b87333; stroke-width: 3; fill: none; marker-end: url(#arrowMain); }
+        .arrow-dep { stroke: #cd7f32; stroke-width: 2; stroke-dasharray: 5,3; }
+        .arrow-feed { stroke: #daa520; stroke-width: 1.5; stroke-dasharray: 3,3; }
+        
+        /* Steampunk glow */
+        .glow { filter: drop-shadow(0 0 8px #d4a855) drop-shadow(0 0 15px #b87333); }
+        
+        /* Gear decorations */
+        .gear { 
+            position: absolute; 
+            width: 20px; height: 20px; 
+            border: 2px solid #b87333; 
+            border-radius: 50%;
+            animation: rotate 10s linear infinite;
+            z-index: 5;
+        }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); }}
+        
+        /* Bubbles - steampunk rivets */
+        .bubble { 
+            position: absolute; 
+            display: flex; 
+            flex-direction: column;
+            align-items: center; 
+            justify-content: center; 
+            text-align: center; 
+            border-radius: 50%; 
+            font-size: 6px; 
+            font-weight: bold; 
+            color: #1a1206; 
+            background: radial-gradient(circle at 30% 30%, #daa520, #b87333 60%, #8b4513);
+            border: 3px solid #daa520;
+            box-shadow: inset -3px -3px 8px rgba(0,0,0,0.5), 0 0 10px #b87333;
+            z-index: 10;
+            transition: transform 0.3s;
+        }
+        .bubble:hover { transform: scale(1.2); box-shadow: inset -3px -3px 8px rgba(0,0,0,0.5), 0 0 20px #daa520; }
+        
+        /* Step number */
+        .bubble .num { font-size: 10px; font-weight: bold; color: #1a1206; text-shadow: 0 0 2px #daa520; }
+        .bubble .cmd { font-size: 5px; color: #2d1f0f; }
+        .bubble .desc { font-size: 4px; color: #4a3520; max-width: 40px; }
+        
+        /* Phase labels */
+        .phase-label {
+            position: absolute;
+            font-size: 7px;
+            color: #daa520;
+            text-shadow: 0 0 5px #d4a855;
+            border-bottom: 1px solid #b87333;
+            padding-bottom: 2px;
+        }
+        
+        /* Steam wisps */
+        .steam {
+            position: absolute;
+            width: 8px; height: 8px;
+            background: radial-gradient(circle, rgba(200,200,200,0.3), transparent);
+            border-radius: 50%;
+            animation: steam 3s ease-out infinite;
+            z-index: 15;
+        }
+        @keyframes steam {
+            0% { opacity: 0.8; transform: translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateY(-20px) scale(2); }
+        }
+        
+        /* Arrow labels */
+        .flow-label {
+            position: absolute;
+            font-size: 5px;
+            color: #cd7f32;
+            background: rgba(26,18,6,0.8);
+            padding: 2px 4px;
+            border: 1px solid #b87333;
+            z-index: 20;
+        }
+        
+        /* Detail panel */
+        .detail-panel {
+            position: absolute;
+            right: 5px;
+            top: 50px;
+            width: 180px;
+            background: linear-gradient(135deg, #2d1f0f, #1a1206);
+            border: 2px solid #b87333;
+            border-radius: 8px;
+            padding: 8px;
+            z-index: 100;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+        .detail-panel h3 { color: #daa520; font-size: 7px; text-align: center; border-bottom: 1px solid #b87333; padding-bottom: 4px; margin-bottom: 5px; }
+        .detail-panel .step { font-size: 5px; color: #cd7f32; line-height: 1.6; padding: 2px 0; border-bottom: 1px dotted #4a3520; }
+        
+        /* Rivets */
+        .rivet { position: absolute; width: 4px; height: 4px; background: radial-gradient(circle, #daa520, #8b4513); border-radius: 50%; z-index: 11; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚙ 33 STEPS STEAMPUNK WEB ⚙</h1>
+        
+        <!-- Gears decoration -->
+        <div class="gear" style="left:2%;top:2%;"></div>
+        <div class="gear" style="right:2%;top:2%;animation-direction:reverse;"></div>
+        <div class="gear" style="left:2%;bottom:2%;animation-direction:reverse;"></div>
+        <div class="gear" style="right:2%;bottom:2%;"></div>
+        
+        <div class="web-canvas">
+            <svg class="connections">
+                <!-- Definitions for arrow markers -->
+                <defs>
+                    <marker id="arrowMain" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <path d="M0,0 L0,6 L9,3 z" fill="#b87333" />
+                    </marker>
+                </defs>
+                
+                <!-- Main flow arrows -->
+                <!-- Phase 1: 1->2->3->4->5->6 -->
+                <line class="arrow-main" x1="10%" y1="12%" x2="16%" y2="16%"/>
+                <line class="arrow-main" x1="16%" y1="16%" x2="22%" y2="20%"/>
+                <line class="arrow-main" x1="22%" y1="20%" x2="28%" y2="24%"/>
+                <line class="arrow-main" x1="28%" y1="24%" x2="34%" y2="28%"/>
+                <line class="arrow-main" x1="34%" y1="28%" x2="40%" y2="32%"/>
+                
+                <!-- Phase 1 to Phase 2 -->
+                <line class="arrow-dep" x1="40%" y1="32%" x2="46%" y2="12%"/>
+                
+                <!-- Phase 2: 7->8->9->10->11->12->13 -->
+                <line class="arrow-main" x1="46%" y1="12%" x2="52%" y2="16%"/>
+                <line class="arrow-main" x1="52%" y1="16%" x2="58%" y2="20%"/>
+                <line class="arrow-main" x1="58%" y1="20%" x2="64%" y2="24%"/>
+                <line class="arrow-main" x1="64%" y1="24%" x2="70%" y2="28%"/>
+                <line class="arrow-main" x1="70%" y1="28%" x2="76%" y2="32%"/>
+                <line class="arrow-main" x1="76%" y1="32%" x2="82%" y2="36%"/>
+                
+                <!-- Phase 2 to Phase 3 -->
+                <line class="arrow-dep" x1="82%" y1="36%" x2="10%" y2="48%"/>
+                
+                <!-- Phase 3: 14->15 -->
+                <line class="arrow-main" x1="10%" y1="48%" x2="16%" y2="52%"/>
+                
+                <!-- Phase 3 to Phase 4 -->
+                <line class="arrow-dep" x1="16%" y1="52%" x2="22%" y2="12%"/>
+                
+                <!-- Phase 4: 16->17->18 -->
+                <line class="arrow-main" x1="22%" y1="12%" x2="28%" y2="16%"/>
+                <line class="arrow-main" x1="28%" y1="16%" x2="34%" y2="20%"/>
+                
+                <!-- Phase 4 to Phase 5 -->
+                <line class="arrow-dep" x1="34%" y1="20%" x2="40%" y2="12%"/>
+                
+                <!-- Phase 5: 19->20->21 -->
+                <line class="arrow-main" x1="40%" y1="12%" x2="46%" y2="16%"/>
+                <line class="arrow-main" x1="46%" y1="16%" x2="52%" y2="20%"/>
+                
+                <!-- Phase 5 to Phase 6 -->
+                <line class="arrow-dep" x1="52%" y1="20%" x2="58%" y2="12%"/>
+                
+                <!-- Phase 6: 22->23->24->25 -->
+                <line class="arrow-main" x1="58%" y1="12%" x2="64%" y2="16%"/>
+                <line class="arrow-main" x1="64%" y1="16%" x2="70%" y2="20%"/>
+                <line class="arrow-main" x1="70%" y1="20%" x2="76%" y2="24%"/>
+                
+                <!-- Phase 6 to Phase 7 -->
+                <line class="arrow-dep" x1="76%" y1="24%" x2="10%" y2="60%"/>
+                
+                <!-- Phase 7: 26->27->28->29 -->
+                <line class="arrow-main" x1="10%" y1="60%" x2="16%" y2="64%"/>
+                <line class="arrow-main" x1="16%" y1="64%" x2="22%" y2="68%"/>
+                <line class="arrow-main" x1="22%" y1="68%" x2="28%" y2="72%"/>
+                
+                <!-- Phase 7 to Phase 8 -->
+                <line class="arrow-dep" x1="28%" y1="72%" x2="34%" y2="60%"/>
+                
+                <!-- Phase 8: 30->31->32->33 -->
+                <line class="arrow-main" x1="34%" y1="60%" x2="40%" y2="64%"/>
+                <line class="arrow-main" x1="40%" y1="64%" x2="46%" y2="68%"/>
+                <line class="arrow-main" x1="46%" y1="68%" x2="52%" y2="72%"/>
+                
+                <!-- Feedback loops -->
+                <line class="arrow-feed" x1="52%" y1="72%" x2="10%" y2="12%"/>
+                <line class="arrow-feed" x1="46%" y1="68%" x2="28%" y2="20%"/>
+            </svg>
+
+            <!-- FLOW LABELS on arrows -->
+            <div class="flow-label" style="left:12%;top:14%;">port check</div>
+            <div class="flow-label" style="left:18%;top:18%;">DNS test</div>
+            <div class="flow-label" style="left:24%;top:22%;">IPv4</div>
+            <div class="flow-label" style="left:30%;top:26%;">hostname</div>
+            <div class="flow-label" style="left:36%;top:30%;">find issue</div>
+            <div class="flow-label" style="left:44%;top:18%;">fix hosts</div>
+            <div class="flow-label" style="left:50%;top:22%;">admin</div>
+            <div class="flow-label" style="left:56%;top:26%;">write</div>
+            <div class="flow-label" style="left:62%;top:30%;">persist</div>
+            <div class="flow-label" style="left:68%;top:34%;">verify</div>
+            <div class="flow-label" style="left:12%;top:50%;">http test</div>
+            <div class="flow-label" style="left:24%;top:14%;">install</div>
+            <div class="flow-label" style="left:30%;top:18%;">configure</div>
+            <div class="flow-label" style="left:42%;top:14%;">set key</div>
+            <div class="flow-label" style="left:48%;top:18%;">persist</div>
+            <div class="flow-label" style="left:60%;top:14%;">launch</div>
+            <div class="flow-label" style="left:66%;top:18%;">load model</div>
+            <div class="flow-label" style="left:72%;top:22%;">start API</div>
+            <div class="flow-label" style="left:12%;top:62%;">search</div>
+            <div class="flow-label" style="left:18%;top:66%;">find conflict</div>
+            <div class="flow-label" style="left:24%;top:70%;">clear</div>
+            <div class="flow-label" style="left:36%;top:58%;">execute</div>
+            <div class="flow-label" style="left:42%;top:62%;">call API</div>
+            <div class="flow-label" style="left:48%;top:66%;">get response</div>
+
+            <!-- PHASE LABELS -->
+            <div class="phase-label" style="left:10%;top:5%;">⚙ PHASE 1: INVESTIGATE</div>
+            <div class="phase-label" style="left:46%;top:5%;">⚙ PHASE 2: HOSTS FIX</div>
+            <div class="phase-label" style="left:10%;top:40%;">⚙ PHASE 3: CONNECTION</div>
+            <div class="phase-label" style="left:22%;top:5%;">⚙ PHASE 4: LITELLM</div>
+            <div class="phase-label" style="left:40%;top:5%;">⚙ PHASE 5: API KEY</div>
+            <div class="phase-label" style="left:58%;top:5%;">⚙ PHASE 6: LM STUDIO</div>
+            <div class="phase-label" style="left:10%;top:52%;">⚙ PHASE 7: AZAZAEL</div>
+            <div class="phase-label" style="left:34%;top:52%;">⚙ PHASE 8: FINAL TEST</div>
+
+            <!-- BUBBLES with details -->
+            <!-- Phase 1: 1-6 -->
+            <div class="bubble" style="width:45px;height:45px;left:8%;top:10%;">
+                <span class="num">1</span><span class="cmd">netstat</span><span class="desc">port 1234</span>
+            </div>
+            <div class="rivet" style="left:8.5%;top:10.5%;"></div><div class="rivet" style="left:10%;top:12%;"></div>
+            
+            <div class="bubble" style="width:45px;height:45px;left:16%;top:14%;">
+                <span class="num">2</span><span class="cmd">ping</span><span class="desc">localhost</span>
+            </div>
+            <div class="bubble" style="width:45px;height:45px;left:22%;top:18%;">
+                <span class="num">3</span><span class="cmd">curl</span><span class="desc">127.0.0.1</span>
+            </div>
+            <div class="bubble" style="width:45px;height:45px;left:28%;top:22%;">
+                <span class="num">4</span><span class="cmd">curl</span><span class="desc">localhost</span>
+            </div>
+            <div class="bubble" style="width:45px;height:45px;left:34%;top:26%;">
+                <span class="num">5</span><span class="cmd">read</span><span class="desc">hosts file</span>
+            </div>
+            <div class="bubble" style="width:45px;height:45px;left:40%;top:30%;">
+                <span class="num">6</span><span class="cmd">found</span><span class="desc">commented</span>
+            </div>
+
+            <!-- Phase 2: 7-13 -->
+            <div class="bubble" style="width:45px;height:45px;left:44%;top:10%;">
+                <span class="num">7</span><span class="cmd">EPERM</span><span class="desc">denied</span>
+            </div>
+            <div class="bubble" style="width:45px;height:45px;left:50%;top:14%;">
+                <span class="num">8</span><span class="cmd">create</span><span class="desc">fix_hosts</span>
+            </div>
+            <div class="bubble" style="width:45px;height:45px;left:56%;top:18%;">
+                <span class="num">9</span><span class="cmd">PS</span><span class="desc">RunAs</span>
+            </div>
+            <div class="bubble" style="width:45px;height:45px;left:62%;top:22%;">
+                <span class="num">10</span><span class="cmd">Set-</span><span class="desc">Content</span>
+            </div>
+            <div class="bubble" style="width:45px;height:45px;left:68%;top:26%;">
+                <span class="num">11</span><span class="cmd">127.0.0.1</span><span class="desc">->local</span>
+            </div>
+            <div class="bubble" style="width:45px;height:45px;left:74%;top:30%;">
+                <span class="num">12</span><span class="cmd">::1</span><span class="desc">IPv6</span>
+            </div>
+            <div class="bubble" style="width:45px;height:45px;left:80%;top:34%;">
+                <span class="num">13</span><span class="cmd">delete</span><span class="desc">script</span>
+            </div>
+
+            <!-- Phase 3: 14-15 -->
+            <div class="bubble" style="width:45px;height:45px;left:8%;top:46%;">
+                <span class="num">14</span><span class="cmd">Python</span><span class="desc">requests</span>
+            </div>
+            <div class="bubble" style="width:45px;height:45px;left:14%;top:50%;">
+                <span class="num">15</span><span class="cmd">HTTP</span><span class="desc">200 OK</span>
+            </div>
+
+            <!-- Phase 4: 16-18 -->
+            <div class="bubble" style="width:45px;height:45px;left:20%;top:10%;">
+                <span class="num">16</span><span class="cmd">pip</span><span class="desc">uninstall</span>
+            </div>
+            <div class="bubble" style="width:45px;height:45px;left:26%;top:14%;">
+                <span class="num">17</span><span class="cmd">pip</span><span class="desc">uninstall</span>
+            </div>
+            <div class="bubble" style="width:45px;height:45px;left:32%;top:18%;">
+                <span class="num">18</span><span class="cmd">pip</span><span class="desc">install</span>
+            </div>
+
+            <!-- Phase 5: 19-21 -->
+            <div class="bubble" style="width:45px;height:45px;left:38%;top:10%;">
+                <span class="num">19</span><span class="cmd">setx</span><span class="desc">dummy</span>
+            </div>
+            <div class="bubble" style="width:45px;height:45px;left:44%;top:14%;">
+                <span class="num">20</span><span class="cmd">setx</span><span class="desc">sk-lm...</span>
+            </div>
+            <div class="bubble" style="width:45px;height:45px;left:50%;top:18%;">
+                <span class="num">21</span><span class="cmd">HKCU</span><span class="desc">registry</span>
+            </div>
+
+            <!-- Phase 6: 22-25 -->
+            <div class="bubble" style="width:45px;height:45px;left:56%;top:10%;">
+                <span class="num">22</span><span class="cmd">taskkill</span><span class="desc">LM Studio</span>
+            </div>
+            <div class="bubble" style="width:45px;height:45px;left:62%;top:14%;">
+                <span class="num">23</span><span class="cmd">Start</span><span class="desc">Process</span>
+            </div>
+            <div class="bubble" style="width:45px;height:45px;left:68%;top:18%;">
+                <span class="num">24</span><span class="cmd">Load</span><span class="desc">llama</span>
+            </div>
+            <div class="bubble" style="width:45px;height:45px;left:74%;top:22%;">
+                <span class="num">25</span><span class="cmd">Server</span><span class="desc">:1234/v1</span>
+            </div>
+
+            <!-- Phase 7: 26-29 -->
+            <div class="bubble" style="width:45px;height:45px;left:8%;top:58%;">
+                <span class="num">26</span><span class="cmd">grep</span><span class="desc">PATH</span>
+            </div>
+            <div class="bubble" style="width:45px;height:45px;left:14%;top:62%;">
+                <span class="num">27</span><span class="cmd">PYTHON</span><span class="desc">PATH</span>
+            </div>
+            <div class="bubble" style="width:45px;height:45px;left:20%;top:66%;">
+                <span class="num">28</span><span class="cmd">setx</span><span class="desc">clear</span>
+            </div>
+            <div class="bubble" style="width:45px;height:45px;left:26%;top:70%;">
+                <span class="num">29</span><span class="cmd">registry</span><span class="desc">remove</span>
+            </div>
+
+            <!-- Phase 8: 30-33 -->
+            <div class="bubble" style="width:45px;height:45px;left:32%;top:58%;">
+                <span class="num">30</span><span class="cmd">os.</span><span class="desc">environ</span>
+            </div>
+            <div class="bubble" style="width:45px;height:45px;left:38%;top:62%;">
+                <span class="num">31</span><span class="cmd">litellm</span><span class="desc">completion</span>
+            </div>
+            <div class="bubble" style="width:45px;height:45px;left:44%;top:66%;">
+                <span class="num">32</span><span class="cmd">model</span><span class="desc">openai</span>
+            </div>
+            <div class="bubble" style="width:45px;height:45px;left:50%;top:70%;">
+                <span class="num">33</span><span class="cmd">Hello!</span><span class="desc">Qwen</span>
+            </div>
+
+            <!-- Steam wisps -->
+            <div class="steam" style="left:10%;top:10%;animation-delay:0s;"></div>
+            <div class="steam" style="left:50%;top:15%;animation-delay:1s;"></div>
+            <div class="steam" style="left:80%;top:10%;animation-delay:0.5s;"></div>
+            <div class="steam" style="left:15%;top:50%;animation-delay:2s;"></div>
+            <div class="steam" style="left:45%;top:55%;animation-delay:1.5s;"></div>
+
+            <!-- DETAIL PANEL -->
+            <div class="detail-panel">
+                <h3>⚙ ALL 33 STEPS ⚙</h3>
+                <div class="step"><span style="color:#daa520;">1</span> netstat -ano findstr 1234 - Check port</div>
+                <div class="step"><span style="color:#daa520;">2</span> ping -n 1 localhost - DNS test</div>
+                <div class="step"><span style="color:#daa520;">3</span> curl 127.0.0.1:1234 - IPv4 test</div>
+                <div class="step"><span style="color:#daa520;">4</span> curl localhost:1234 - Hostname test</div>
+                <div class="step"><span style="color:#daa520;">5</span> Read hosts file - View config</div>
+                <div class="step"><span style="color:#daa520;">6</span> Found commented - Root cause</div>
+                <div class="step"><span style="color:#cd7f32;">7</span> EPERM denied - Permission error</div>
+                <div class="step"><span style="color:#cd7f32;">8</span> Create fix_hosts.ps1 - Script</div>
+                <div class="step"><span style="color:#cd7f32;">9</span> PowerShell -Verb RunAs - Elevate</div>
+                <div class="step"><span style="color:#cd7f32;">10</span> Set-Content - Write fix</div>
+                <div class="step"><span style="color:#cd7f32;">11</span> 127.0.0.1 -> localhost - IPv4 map</div>
+                <div class="step"><span style="color:#cd7f32;">12</span> ::1 -> localhost - IPv6 map</div>
+                <div class="step"><span style="color:#cd7f32;">13</span> Delete script - Cleanup</div>
+                <div class="step"><span style="color:#b87333;">14</span> Python requests.get - HTTP test</div>
+                <div class="step"><span style="color:#b87333;">15</span> HTTP 200 OK - Verified</div>
+                <div class="step"><span style="color:#b87333;">16</span> pip uninstall lite-llm - Remove</div>
+                <div class="step"><span style="color:#b87333;">17</span> pip uninstall litellm - Clean</div>
+                <div class="step"><span style="color:#b87333;">18</span> pip install litellm - Install</div>
+                <div class="step"><span style="color:#b87333;">19</span> setx dummy key - Temp set</div>
+                <div class="step"><span style="color:#b87333;">20</span> setx sk-lm... - Real key</div>
+                <div class="step"><span style="color:#b87333;">21</span> Registry HKCU - Persist</div>
+                <div class="step"><span style="color:#8b4513;">22</span> taskkill LM Studio - Stop</div>
+                <div class="step"><span style="color:#8b4513;">23</span> Start-Process - Launch</div>
+                <div class="step"><span style="color:#8b4513;">24</span> Load llama-3.2-1b - Model</div>
+                <div class="step"><span style="color:#8b4513;">25</span> Server localhost:1234 - API</div>
+                <div class="step"><span style="color:#8b4513;">26</span> grep PATH Azazael - Search</div>
+                <div class="step"><span style="color:#8b4513;">27</span> PYTHONPATH found - Conflict</div>
+                <div class="step"><span style="color:#8b4513;">28</span> setx PYTHONPATH "" - Clear</div>
+                <div class="step"><span style="color:#8b4513;">29</span> Remove registry - Fix</div>
+                <div class="step"><span style="color:#daa520;">30</span> os.environ KEY - Set code</div>
+                <div class="step"><span style="color:#daa520;">31</span> litellm.completion - Call</div>
+                <div class="step"><span style="color:#daa520;">32</span> model openai/llama - Specify</div>
+                <div class="step"><span style="color:#daa520;">33</span> Response: Qwen - SUCCESS!</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

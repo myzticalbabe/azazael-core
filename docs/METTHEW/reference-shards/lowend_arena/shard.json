@@ -1,0 +1,94 @@
+{
+  "id": "lowend-arena@sha256:d96d43a6fed7d5976597cb6af3c8a055cca6d45e9bc3a33d1bb988bfebd58710",
+  "version": "0.1.0",
+  "genre": "arena",
+  "tier": "lowend",
+  "sim_hz": 60,
+  "files": [
+    {
+      "path": "main.py",
+      "sha256": "a7d74bea3363730b4a78ee0ef67c2068a0b8601c284e7e1c862d985222d63685",
+      "role": "code",
+      "size_bytes": 15470
+    },
+    {
+      "path": "SHARD.md",
+      "sha256": "b2ddba4547d8a2afa4f16dc15d00903af24c47846f2ca1313e10bab2de403816",
+      "role": "data",
+      "size_bytes": 3749
+    }
+  ],
+  "entrypoint": "main.py",
+  "loader": "native",
+  "golden_run": {
+    "input": "000102030405060708090a0b0c0d0e0f",
+    "ticks": 3600,
+    "state_sha256": "db5cee352d4a39cebbdcd53a27a8dabf5721c22df7e13b72211e2587af933634",
+    "token": "AZAZAEL-GOLDEN-OK",
+    "headless": true
+  },
+  "capabilities": [
+    {
+      "id": "720p-render",
+      "affects": "presentation",
+      "determinism": "exact",
+      "note": "1280x720 frame generated via Pillow; --headless changes nothing in hash"
+    },
+    {
+      "id": "integer-sim",
+      "affects": "sim",
+      "determinism": "exact",
+      "note": "positions, velocities, hit tests all integer; no float in authoritative state"
+    },
+    {
+      "id": "procedural-sprites",
+      "affects": "presentation",
+      "determinism": "exact",
+      "note": "player/projectile/obstacle sprites generated at runtime via Pillow; no external assets"
+    },
+    {
+      "id": "procedural-audio",
+      "affects": "presentation",
+      "determinism": "exact",
+      "note": "PCM tones generated at runtime via math.sin; no external audio files"
+    },
+    {
+      "id": "single-level",
+      "affects": "sim",
+      "determinism": "exact",
+      "note": "one arena with 5 static obstacles encoded in shard; no external level data"
+    },
+    {
+      "id": "deterministic-input",
+      "affects": "sim",
+      "determinism": "exact",
+      "note": "fixed hex input log decoded by branchless rule; no clock, no ambient randomness"
+    },
+    {
+      "id": "canonical-hash",
+      "affects": "sim",
+      "determinism": "exact",
+      "note": "sha256 over hand-written canonical string; dict/set order never used"
+    }
+  ],
+  "hubs": [],
+  "budget": {
+    "payload_bytes_max": 2097152,
+    "tick_budget_ms": {
+      "p50": 0.5,
+      "p99": 1.0,
+      "scene": "2-player 720p arena, py3.15t author box (to be re-based)"
+    }
+  },
+  "licence": "MIT",
+  "author_pubkey": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+  "execution_model": "resident_host",
+  "env_allowlist": [],
+  "tick_budget": {
+    "p50_ms": 0.5,
+    "p99_ms": 1.0,
+    "scene": "2-player 720p arena, py3.15t author box (to be re-based)"
+  },
+  "competitive": false,
+  "provenance": []
+}

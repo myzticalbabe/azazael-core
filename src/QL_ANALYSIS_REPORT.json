@@ -1,0 +1,141 @@
+{
+  "timestamp": "2026-05-30T04:52:23.779958",
+  "training_config": {
+    "alpha": 0.1,
+    "gamma": 0.9,
+    "epsilon": 0.1,
+    "episodes": 1000
+  },
+  "states_analyzed": 5,
+  "actions_available": 7,
+  "best_solutions": [
+    {
+      "state": "LSP_ERRORS",
+      "best_action": "DYNAMIC_LOGGER",
+      "q_value": 5.150108197201602,
+      "description": "Language Server Protocol errors in Python files"
+    },
+    {
+      "state": "OUTPUT_DISAPPEARING",
+      "best_action": "ENV_FILE",
+      "q_value": 5.148277235550957,
+      "description": "Console output not persisting"
+    },
+    {
+      "state": "PERSISTENCE_MISSING",
+      "best_action": "DIAGNOSTIC_SCRIPT",
+      "q_value": 5.076830950560234,
+      "description": "Configuration not persisting across sessions"
+    },
+    {
+      "state": "PLATFORM_CONFUSION",
+      "best_action": "VSCODE_SETTINGS",
+      "q_value": 5.05384965498429,
+      "description": "WSL vs Windows execution confusion"
+    },
+    {
+      "state": "GUI_NONFUNCTIONAL",
+      "best_action": "SHELL_ALIAS",
+      "q_value": 4.958578580561205,
+      "description": "GUI applications not working"
+    }
+  ],
+  "action_ranking": [
+    {
+      "action": "VSCODE_SETTINGS",
+      "avg_q": 4.8815337457078005,
+      "uses": 5,
+      "cost": 0.2,
+      "risk": 0.1,
+      "persistence": 0.8,
+      "portability": 0.7
+    },
+    {
+      "action": "PROJECT_VENV",
+      "avg_q": 4.8786343708706355,
+      "uses": 5,
+      "cost": 0.3,
+      "risk": 0.1,
+      "persistence": 0.9,
+      "portability": 0.9
+    },
+    {
+      "action": "DYNAMIC_LOGGER",
+      "avg_q": 4.855443207266475,
+      "uses": 5,
+      "cost": 0.4,
+      "risk": 0.2,
+      "persistence": 0.9,
+      "portability": 0.9
+    },
+    {
+      "action": "ENV_FILE",
+      "avg_q": 4.817960870686212,
+      "uses": 5,
+      "cost": 0.2,
+      "risk": 0.1,
+      "persistence": 0.8,
+      "portability": 0.9
+    },
+    {
+      "action": "CROSS_PLATFORM_WRAPPER",
+      "avg_q": 4.812908479980672,
+      "uses": 5,
+      "cost": 0.5,
+      "risk": 0.2,
+      "persistence": 0.9,
+      "portability": 1.0
+    },
+    {
+      "action": "DIAGNOSTIC_SCRIPT",
+      "avg_q": 4.747815201767845,
+      "uses": 5,
+      "cost": 0.6,
+      "risk": 0.1,
+      "persistence": 0.8,
+      "portability": 0.9
+    },
+    {
+      "action": "SHELL_ALIAS",
+      "avg_q": 4.691480385115246,
+      "uses": 5,
+      "cost": 0.2,
+      "risk": 0.1,
+      "persistence": 0.6,
+      "portability": 0.6
+    }
+  ],
+  "recommendations": [
+    {
+      "name": "Project-Local Standard",
+      "actions": [
+        "PROJECT_VENV",
+        "ENV_FILE",
+        "VSCODE_SETTINGS"
+      ],
+      "score": 24.29688164544108,
+      "rationale": "Best for portability and version control"
+    },
+    {
+      "name": "Cross-Platform Robust",
+      "actions": [
+        "PROJECT_VENV",
+        "CROSS_PLATFORM_WRAPPER",
+        "DYNAMIC_LOGGER"
+      ],
+      "score": 24.244976763529635,
+      "rationale": "Works across WSL and Windows seamlessly"
+    },
+    {
+      "name": "Developer Experience",
+      "actions": [
+        "PROJECT_VENV",
+        "SHELL_ALIAS",
+        "DYNAMIC_LOGGER",
+        "DIAGNOSTIC_SCRIPT"
+      ],
+      "score": 23.96671645627525,
+      "rationale": "Best for active development and debugging"
+    }
+  ]
+}

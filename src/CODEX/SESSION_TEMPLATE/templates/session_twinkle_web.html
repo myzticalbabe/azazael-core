@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>33 Steps - Twinkling Web</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { width: 100vw; min-height: 100vh; background: radial-gradient(ellipse at center, #0d1117 0%, #161b22 50%, #010409 100%); font-family: 'Consolas', monospace; overflow: auto; }
+        .container { width: 100%; padding: 5px; }
+        h1 { text-align: center; color: #58a6ff; font-size: 9px; margin: 2px 0; letter-spacing: 1px; }
+        
+        .web-canvas { width: 100%; min-height: 98vh; position: relative; }
+        
+        /* SVG Lines */
+        svg.connections { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+        line.seq { stroke: #238636; stroke-width: 1.5; opacity: 0.7; }
+        line.dep { stroke: #f85149; stroke-width: 1.2; stroke-dasharray: 4,2; opacity: 0.6; }
+        line.feed { stroke: #d29922; stroke-width: 1; stroke-dasharray: 2,2; opacity: 0.5; }
+        
+        /* Twinkling labels on lines */
+        .twinkle { 
+            position: absolute; 
+            font-size: 5px; 
+            color: #8b949e; 
+            z-index: 2;
+            animation: twinkle 2s infinite;
+            white-space: nowrap;
+            text-shadow: 0 0 3px #fff;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        
+        /* Phase bubbles */
+        .bubble { 
+            position: absolute; 
+            display: flex; 
+            flex-direction: column;
+            align-items: center; 
+            justify-content: center; 
+            border-radius: 50%; 
+            font-size: 5px; 
+            font-weight: bold; 
+            color: #fff; 
+            border: 1px solid #30363d; 
+            z-index: 3;
+            animation: pulse 3s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 5px currentColor; }
+            50% { box-shadow: 0 0 15px currentColor, 0 0 25px currentColor; }
+        }
+        
+        .ph1 { background: linear-gradient(135deg, #da3633, #8b1515); color: #fff; }
+        .ph2 { background: linear-gradient(135deg, #d29922, #9e6a03); }
+        .ph3 { background: linear-gradient(135deg, #58a6ff, #1158c7); }
+        .ph4 { background: linear-gradient(135deg, #3fb950, #1a7f37); }
+        .ph5 { background: linear-gradient(135deg, #a371f7, #6e40c9); }
+        .ph6 { background: linear-gradient(135deg, #db61a2, #bf3989); }
+        .ph7 { background: linear-gradient(135deg, #79c0ff, #388bfd); color: #000; }
+        .ph8 { background: linear-gradient(135deg, #7ee787, #3fb950); color: #000; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>33 STEPS - TWINKLING WEB WITH FACTS ON LINES</h1>
+        <div class="web-canvas">
+            <svg class="connections">
+                <!-- PHASE 1: Investigation lines -->
+                <line class="seq" x1="8%" y1="8%" x2="12%" y2="11%"/>
+                <line class="seq" x1="12%" y1="11%" x2="16%" y2="14%"/>
+                <line class="seq" x1="16%" y1="14%" x2="20%" y2="17%"/>
+                <line class="dep" x1="20%" y1="17%" x2="24%" y2="8%"/>
+                
+                <!-- PHASE 2: Hosts Fix -->
+                <line class="seq" x1="28%" y1="8%" x2="32%" y2="11%"/>
+                <line class="seq" x1="32%" y1="11%" x2="36%" y2="14%"/>
+                <line class="seq" x1="36%" y1="14%" x2="40%" y2="17%"/>
+                <line class="dep" x1="40%" y1="17%" x2="44%" y2="8%"/>
+                
+                <!-- PHASE 3: Connection -->
+                <line class="seq" x1="48%" y1="8%" x2="52%" y2="11%"/>
+                <line class="seq" x1="52%" y1="11%" x2="56%" y2="14%"/>
+                <line class="dep" x1="56%" y1="14%" x2="60%" y2="8%"/>
+                
+                <!-- PHASE 4: LiteLLM -->
+                <line class="seq" x1="64%" y1="8%" x2="68%" y2="11%"/>
+                <line class="seq" x1="68%" y1="11%" x2="72%" y2="14%"/>
+                <line class="dep" x1="72%" y1="14%" x2="76%" y2="8%"/>
+                
+                <!-- PHASE 5: API Key -->
+                <line class="seq" x1="80%" y1="8%" x2="84%" y2="11%"/>
+                <line class="seq" x1="84%" y1="11%" x2="88%" y2="14%"/>
+                <line class="dep" x1="88%" y1="14%" x2="92%" y2="8%"/>
+                
+                <!-- PHASE 6: LM Studio -->
+                <line class="dep" x1="92%" y1="8%" x2="4%" y2="28%"/>
+                <line class="seq" x1="4%" y1="28%" x2="8%" y2="31%"/>
+                <line class="seq" x1="8%" y1="31%" x2="12%" y2="34%"/>
+                <line class="seq" x1="12%" y1="34%" x2="16%" y2="37%"/>
+                
+                <!-- PHASE 7: Azazael -->
+                <line class="seq" x1="20%" y1="28%" x2="24%" y2="31%"/>
+                <line class="seq" x1="24%" y1="31%" x2="28%" y2="34%"/>
+                <line class="seq" x1="28%" y1="34%" x2="32%" y2="37%"/>
+                <line class="dep" x1="32%" y1="37%" x2="36%" y2="28%"/>
+                
+                <!-- PHASE 8: Final -->
+                <line class="seq" x1="40%" y1="28%" x2="44%" y2="31%"/>
+                <line class="seq" x1="44%" y1="31%" x2="48%" y2="34%"/>
+                <line class="seq" x1="48%" y1="34%" x2="52%" y2="37%"/>
+                
+                <!-- Cross connections -->
+                <line class="dep" x1="24%" y1="17%" x2="28%" y2="8%"/>
+                <line class="dep" x1="44%" y1="17%" x2="48%" y2="8%"/>
+                <line class="dep" x1="56%" y1="14%" x2="64%" y2="8%"/>
+                <line class="dep" x1="76%" y1="14%" x2="80%" y2="8%"/>
+                <line class="dep" x1="88%" y1="14%" x2="92%" y2="8%"/>
+                <line class="feed" x1="52%" y1="37%" x2="8%" y2="8%"/>
+            </svg>
+
+            <!-- TWINKLING FACTS ON LINES -->
+            <div class="twinkle" style="left:10%;top:9%;">check port 1234</div>
+            <div class="twinkle" style="left:14%;top:12%;">DNS resolve</div>
+            <div class="twinkle" style="left:18%;top:15%;">IPv4 test</div>
+            <div class="twinkle" style="left:22%;top:12%;">find issue</div>
+            
+            <div class="twinkle" style="left:30%;top:9%;">permission err</div>
+            <div class="twinkle" style="left:34%;top:12%;">create script</div>
+            <div class="twinkle" style="left:38%;top:15%;">elevate</div>
+            <div class="twinkle" style="left:42%;top:12%;">write fix</div>
+            
+            <div class="twinkle" style="left:50%;top:9%;">test HTTP</div>
+            <div class="twinkle" style="left:54%;top:12%;">verify OK</div>
+            
+            <div class="twinkle" style="left:66%;top:9%;">remove old</div>
+            <div class="twinkle" style="left:70%;top:12%;">clean pkg</div>
+            
+            <div class="twinkle" style="left:82%;top:9%;">dummy key</div>
+            <div class="twinkle" style="left:86%;top:12%;">real key</div>
+            
+            <div class="twinkle" style="left:90%;top:5%;">kill proc</div>
+            <div class="twinkle" style="left:6%;top:29%;">launch app</div>
+            <div class="twinkle" style="left:10%;top:32%;">load model</div>
+            
+            <div class="twinkle" style="left:22%;top:29%;">search PATH</div>
+            <div class="twinkle" style="left:26%;top:32%;">find conflict</div>
+            <div class="twinkle" style="left:30%;top:35%;">clear var</div>
+            
+            <div class="twinkle" style="left:42%;top:29%;">set in code</div>
+            <div class="twinkle" style="left:46%;top:32%;">API call</div>
+            <div class="twinkle" style="left:50%;top:35%;">get response</div>
+
+            <!-- BUBBLES: 33 steps as circles -->
+            <!-- PHASE 1: P1-P6 -->
+            <div class="bubble ph1" style="width:35px;height:35px;left:6%;top:5%;">1<br/>netstat</div>
+            <div class="bubble ph1" style="width:35px;height:35px;left:12%;top:10%;">2<br/>ping</div>
+            <div class="bubble ph1" style="width:35px;height:35px;left:18%;top:15%;">3<br/>curl v4</div>
+            <div class="bubble ph1" style="width:35px;height:35px;left:24%;top:10%;">4<br/>curl</div>
+            <div class="bubble ph1" style="width:35px;height:35px;left:24%;top:20%;">5<br/>read</div>
+            <div class="bubble ph1" style="width:35px;height:35px;left:18%;top:25%;">6<br/>found</div>
+
+            <!-- PHASE 2: P7-P13 -->
+            <div class="bubble ph2" style="width:35px;height:35px;left:26%;top:5%;">7<br/>EPERM</div>
+            <div class="bubble ph2" style="width:35px;height:35px;left:32%;top:10%;">8<br/>create</div>
+            <div class="bubble ph2" style="width:35px;height:35px;left:38%;top:15%;">9<br/>PS admin</div>
+            <div class="bubble ph2" style="width:35px;height:35px;left:44%;top:10%;">10<br/>write</div>
+            <div class="bubble ph2" style="width:35px;height:35px;left:38%;top:25%;">11<br/>IPv4</div>
+            <div class="bubble ph2" style="width:35px;height:35px;left:44%;top:20%;">12<br/>IPv6</div>
+            <div class="bubble ph2" style="width:35px;height:35px;left:50%;top:15%;">13<br/>delete</div>
+
+            <!-- PHASE 3: P14-P15 -->
+            <div class="bubble ph3" style="width:35px;height:35px;left:46%;top:5%;">14<br/>Python</div>
+            <div class="bubble ph3" style="width:35px;height:35px;left:52%;top:10%;">15<br/>200 OK</div>
+
+            <!-- PHASE 4: P16-P18 -->
+            <div class="bubble ph4" style="width:35px;height:35px;left:62%;top:5%;">16<br/>pip -l</div>
+            <div class="bubble ph4" style="width:35px;height:35px;left:68%;top:10%;">17<br/>pip -l</div>
+            <div class="bubble ph4" style="width:35px;height:35px;left:74%;top:15%;">18<br/>pip +l</div>
+
+            <!-- PHASE 5: P19-P21 -->
+            <div class="bubble ph5" style="width:35px;height:35px;left:78%;top:5%;">19<br/>setx</div>
+            <div class="bubble ph5" style="width:35px;height:35px;left:84%;top:10%;">20<br/>setx</div>
+            <div class="bubble ph5" style="width:35px;height:35px;left:90%;top:15%;">21<br/>HKCU</div>
+
+            <!-- PHASE 6: P22-P25 -->
+            <div class="bubble ph6" style="width:35px;height:35px;left:2%;top:25%;">22<br/>kill</div>
+            <div class="bubble ph6" style="width:35px;height:35px;left:8%;top:30%;">23<br/>start</div>
+            <div class="bubble ph6" style="width:35px;height:35px;left:14%;top:35%;">24<br/>load</div>
+            <div class="bubble ph6" style="width:35px;height:35px;left:20%;top:40%;">25<br/>server</div>
+
+            <!-- PHASE 7: P26-P29 -->
+            <div class="bubble ph7" style="width:35px;height:35px;left:18%;top:25%;">26<br/>grep</div>
+            <div class="bubble ph7" style="width:35px;height:35px;left:24%;top:30%;">27<br/>PYTHON</div>
+            <div class="bubble ph7" style="width:35px;height:35px;left:30%;top:35%;">28<br/>setx</div>
+            <div class="bubble ph7" style="width:35px;height:35px;left:36%;top:40%;">29<br/>reg</div>
+
+            <!-- PHASE 8: P30-P33 -->
+            <div class="bubble ph8" style="width:35px;height:35px;left:38%;top:25%;">30<br/>environ</div>
+            <div class="bubble ph8" style="width:35px;height:35px;left:44%;top:30%;">31<br/>call</div>
+            <div class="bubble ph8" style="width:35px;height:35px;left:50%;top:35%;">32<br/>model</div>
+            <div class="bubble ph8" style="width:35px;height:35px;left:56%;top:40%;">33<br/>Qwen!</div>
+        </div>
+    </div>
+</body>
+</html>

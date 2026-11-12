@@ -1,0 +1,126 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>aurora — full track</title>
+<style>
+  html, body { margin: 0; background: #000; overflow: hidden; }
+  canvas { display: block; }
+</style>
+<canvas id="c" width="960" height="540"></canvas>
+<script type="module">
+// Deterministic renderer: every pixel is a pure function of the frame index.
+// The index arrives from ?f=. Nothing reads Date.now() or a rAF accumulator, so
+// frame N is the same bytes on every re-run and a killed run resumes at N+1.
+import init, * as wasm from "../pkg/azazael_video_wasm.js";
+
+const W = 960, H = 540, FPS = 30, BANDS = 32;
+const q = new URLSearchParams(location.search);
+const N = Math.max(1, parseInt(q.get("n") || "600", 10));
+// START is the track frame this window begins at: t is absolute, so the aurora
+// phase continues into the clip instead of restarting, while p is local to the
+// window so the progress bar spans what is actually being rendered.
+const START = parseInt(q.get("start") || "0", 10);
+const canvas = document.getElementById("c");
+const ctx = canvas.getContext("2d");
+
+await init();
+const spec = await (await fetch("assets/spectrum.json")).json();
+const rPeak = Math.max(...spec.frames.map((f) => f.r)) || 1;
+
+// The baked bands are log power (see bake.html): 1.0 is the frame's peak band,
+// 0.0 is `decades` below it. Decode back to linear amplitude before any display
+// maths so one definition of the curve lives in one place.
+const DECADES = spec.decades || 5;
+const amp = (d) => Math.pow(10, (d - 1) * DECADES);
+
+// spectrum_bands normalises each window to ITS OWN peak, so a bass-heavy mix
+// puts nearly all of the signal in band 0. Per-band gain, taken from each band's
+// own 90th percentile across the track, is the display correction that makes 32
+// bands legible without inventing energy: a band that is quiet for the whole
+// song still gets gain 1 and stays dark.
+const bandGain = new Array(spec.bands).fill(1);
+const p90s = new Array(spec.bands).fill(0);
+for (let b = 0; b < spec.bands; b++) {
+  const col = spec.frames.map((f) => amp(f.b[b])).sort((x, y) => x - y);
+  p90s[b] = col[Math.floor(col.length * 0.9)] || 0;
+  bandGain[b] = p90s[b] > 1e-4 ? Math.min(40, 1 / p90s[b]) : 1;
+}
+// This encode low-passes at ~16 kHz: bands 22..31 measure -80 dB or lower in
+// every one of the 6546 frames (0.000 at 3 dp), so drawing all 32 would put a
+// dead third on screen. Span the field over the bands that actually carry the
+// track and label the range — the unused bands stay in the JSON either way.
+// Threshold is -80 dB (1e-4 linear), deliberately not the stored 0 bucket's
+// exact 1e-5: comparing against the value amp(0) itself produces decides the
+// count on a float tie.
+const ACTIVE = Math.max(4, p90s.filter((p) => p > 1e-4).length);
+const bandHz = (spec.rate / 2) / spec.bands;
+const shape = (v) => Math.pow(Math.min(1, v), 0.7);   // compressed, not flattened
+window.__meta = { frames: spec.frames.length, fps: spec.fps, duration: spec.duration, rPeak };
+
+const pad = (n) => String(n).padStart(2, "0");
+const clock = (s) => `${Math.floor(s / 60)}:${pad(Math.floor(s % 60))}`;
+
+function draw(f) {
+  const t = f / FPS;
+  const p = N > 1 ? Math.min(1, Math.max(0, (f - START) / (N - 1))) : 1;
+  const idx = Math.min(spec.frames.length - 1, Math.round(t * spec.fps));
+  const fr = spec.frames[idx];
+  // spectrum_bands normalises each window to its own peak, which would make a
+  // quiet verse look as loud as the chorus. Scale by the window's real RMS so
+  // the picture carries the track's dynamics, not just its spectrum shape.
+  const energy = Math.min(1, (fr.r / rPeak) * 1.25);
+  const bands = Float32Array.from(fr.b.slice(0, ACTIVE), (d, i) =>
+    Math.min(1, shape(amp(d) * bandGain[i]) * (0.30 + 0.75 * energy)));
+
+  const rgba = wasm.render_aurora(W, H, bands, t);
+  ctx.putImageData(new ImageData(new Uint8ClampedArray(rgba), W, H), 0, 0);
+
+  // Spectrum floor: one bar per active band, gated on the same energy the field uses.
+  const bw = W / ACTIVE;
+  for (let i = 0; i < ACTIVE; i++) {
+    const h = 6 + bands[i] * 74 * (0.55 + 0.45 * Math.sin(p * 6.28 + i * 0.4));
+    const a = 0.20 + bands[i] * 0.55;
+    ctx.fillStyle = `rgba(${140 + i * 3},${200 - i * 2},255,${a.toFixed(3)})`;
+    ctx.fillRect(i * bw + 2, H - 46 - h, bw - 4, h);
+  }
+
+  // Scrim behind the title block: at high energy the ribbon reaches the top
+  // edge and thin type disappeared into the glow.
+  const scrim = ctx.createLinearGradient(0, 0, 0, 130);
+  scrim.addColorStop(0, "rgba(0,0,0,0.72)");
+  scrim.addColorStop(1, "rgba(0,0,0,0)");
+  ctx.fillStyle = scrim;
+  ctx.fillRect(0, 0, W, 130);
+
+  ctx.fillStyle = "rgba(255,255,255,0.92)";
+  ctx.font = "600 30px Segoe UI, Inter, system-ui, sans-serif";
+  ctx.fillText("In The End", 40, 64);
+  ctx.fillStyle = "rgba(180,205,255,0.72)";
+  ctx.font = "400 15px Segoe UI, Inter, system-ui, sans-serif";
+  const kHz = ((ACTIVE * bandHz) / 1000).toFixed(1);
+  ctx.fillText(`Linkin Park · ${kHz} kHz of spectrum, ${ACTIVE}/${BANDS} bands · full 218 s track`, 40, 88);
+
+  ctx.font = "400 14px ui-monospace, Consolas, monospace";
+  ctx.fillStyle = "rgba(200,220,255,0.8)";
+  ctx.fillText(`${clock(t)} / ${clock(spec.duration)}   energy ${energy.toFixed(2)}`, 40, H - 20);
+
+  ctx.fillStyle = "rgba(120,170,255,0.32)";
+  ctx.fillRect(0, H - 4, W, 4);
+  ctx.fillStyle = "rgba(150,210,255,0.9)";
+  ctx.fillRect(0, H - 4, W * p, 4);
+}
+
+window.renderFrame = (f) => {
+  draw(f);
+  // A frame is only "done" when the canvas has content, so the driver checks a
+  // real reading instead of trusting the clock. Sampled across the whole frame:
+  // the top-left corner is legitimately black, and gating on it rejected good
+  // frames.
+  const d = ctx.getImageData(0, 0, W, H).data;
+  let sum = 0;
+  for (let i = 0; i < d.length; i += 4096) sum += d[i] + d[i + 1] + d[i + 2];
+  return sum > 0;
+};
+window.__ready = true;
+
+if (q.has("f")) draw(parseInt(q.get("f"), 10) || 0);
+</script>

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azazael ECOSYSTEM</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3a 50%, #0d0d20 100%);
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, rgba(0, 245, 255, 0.1), rgba(191, 0, 255, 0.1));
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border: 2px solid rgba(0, 245, 255, 0.3);
+        }
+        .header h1 {
+            font-size: 3em;
+            background: linear-gradient(90deg, #00f5ff, #bf00ff, #ff00aa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .subtitle { color: #888; margin-top: 10px; }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .stat {
+            background: rgba(255,255,255,0.05);
+            padding: 15px 25px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .stat-value { font-size: 2em; font-weight: bold; color: #00f5ff; }
+        .stat-label { color: #888; font-size: 0.85em; text-transform: uppercase; }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .card {
+            background: rgba(20, 20, 40, 0.95);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.3s;
+            border-left: 4px solid;
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 245, 255, 0.3);
+        }
+        .card:active { transform: scale(0.98); }
+        .card h3 { margin-bottom: 8px; font-size: 1.3em; }
+        .card .type { color: #888; font-size: 0.85em; margin-bottom: 10px; }
+        .card p { color: rgba(255,255,255,0.7); font-size: 0.9em; line-height: 1.5; }
+        
+        .card-hydra { border-color: #ff00aa; }
+        .card-hydra h3 { color: #ff00aa; }
+        .card-horus { border-color: #00f5ff; }
+        .card-horus h3 { color: #00f5ff; }
+        .card-tarbaby { border-color: #00ff88; }
+        .card-tarbaby h3 { color: #00ff88; }
+        .card-shorty { border-color: #ffdd00; }
+        .card-shorty h3 { color: #ffdd00; }
+        .card-poindexter { border-color: #bf00ff; }
+        .card-poindexter h3 { color: #bf00ff; }
+        .card-persephone { border-color: #ff6b35; }
+        .card-persephone h3 { color: #ff6b35; }
+        .card-twitler { border-color: #22c55e; }
+        .card-twitler h3 { color: #22c55e; }
+        .card-wormz { border-color: #ff4757; }
+        .card-wormz h3 { color: #ff4757; }
+        .card-metaworms { border-color: #a855f7; }
+        .card-metaworms h3 { color: #a855f7; }
+        .card-terence { border-color: #06b6d4; }
+        .card-terence h3 { color: #06b6d4; }
+        .card-klink { border-color: #ec4899; }
+        .card-klink h3 { color: #ec4899; }
+        
+        .tiers {
+            background: rgba(20, 20, 40, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+        }
+        .tiers h2 { color: #00ff88; margin-bottom: 25px; text-align: center; }
+        .tier {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 15px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .tier:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateX(10px);
+        }
+        .tier-num {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #fff;
+        }
+        .tier h4 { margin-bottom: 3px; }
+        .tier p { color: #888; font-size: 0.85em; }
+        
+        .footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .footer h2 { color: #00ff88; }
+        
+        /* Popup Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal.show { display: flex; }
+        .modal-content {
+            background: linear-gradient(135deg, #1a1a3a, #0a0a1a);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 90%;
+            border: 2px solid rgba(0, 245, 255, 0.3);
+            position: relative;
+            animation: popIn 0.3s ease-out;
+        }
+        @keyframes popIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #888;
+            background: none;
+            border: none;
+        }
+        .modal-close:hover { color: #fff; }
+        .modal h2 {
+            font-size: 2em;
+            margin-bottom: 15px;
+        }
+        .modal .desc { color: rgba(255,255,255,0.8); line-height: 1.7; }
+        .modal .features { margin-top: 20px; }
+        .modal .features li {
+            padding: 8px 0;
+            color: rgba(255,255,255,0.7);
+            list-style: none;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .modal .features li::before { content: "→ "; color: #00f5ff; }
+        
+        .section-title {
+            font-size: 1.8em;
+            margin: 40px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid;
+        }
+        .title-systems { border-color: #ff00aa; color: #ff00aa; }
+        .title-tiers { border-color: #00ff88; color: #00ff88; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Azazael ECOSYSTEM</h1>
+            <div class="subtitle">ALL 11 SYSTEMS OPERATIONAL</div>
+            <div class="stats">
+                <div class="stat"><div class="stat-value">11</div><div class="stat-label">Systems</div></div>
+                <div class="stat"><div class="stat-value">7</div><div class="stat-label">Tiers</div></div>
+                <div class="stat"><div class="stat-value">24</div><div class="stat-label">Animations</div></div>
+                <div class="stat"><div class="stat-value">26</div><div class="stat-label">Patterns</div></div>
+            </div>
+        </div>
+        
+        <h2 class="section-title title-systems">All 11 Systems (Click for details)</h2>
+        <div class="grid">
+            <div class="card card-hydra" onclick="showModal('HYDRA', 'Orchestration', '🚀', 'Adaptive Sequential ML Cluster with 6-stage processing pipeline. Orchestrates all ecosystem components with priority scheduling and adaptive learning.', ['6 Stages', '10 Nodes', 'Priority Scheduling', 'Adaptive Learning', 'Progress Tracking'])">
+                <h3>🚀 HYDRA</h3>
+                <div class="type">Orchestration | 6 Stages, 10 Nodes</div>
+                <p>Adaptive Sequential ML Cluster with 6-stage processing pipeline</p>
+            </div>
+            <div class="card card-horus" onclick="showModal('HORUS', 'Presentation', '👁️', 'Human-Readable Output System with real-time monitoring and 24 animation protocols.', ['Real-time Monitoring', '24 Animations', 'Predictive Analytics', 'Visual Formatting', 'Live Updates'])">
+                <h3>👁️ HORUS</h3>
+                <div class="type">Presentation</div>
+                <p>Human-Readable Output System with animations</p>
+            </div>
+            <div class="card card-tarbaby" onclick="showModal('TARBABY', 'Processing', '📦', 'Binary and data processing module with format conversion capabilities.', ['Data Transformation', 'Binary Operations', 'File Processing', 'Format Conversion'])">
+                <h3>📦 TARBABY</h3>
+                <div class="type">Processing Layer</div>
+                <p>Binary and data processing</p>
+            </div>
+            <div class="card card-shorty" onclick="showModal('SHORTY', 'Integration', '⚡', 'Batch file shortcuts manager with ~20 shortcuts for quick ecosystem operations.', ['~20 Shortcuts', 'CLI Automation', 'Quick Operations', 'Shortcut Discovery'])">
+                <h3>⚡ SHORTY</h3>
+                <div class="type">Integration | ~20 Shortcuts</div>
+                <p>Executable Shortcuts Manager</p>
+            </div>
+            <div class="card card-poindexter" onclick="showModal('POINDEXTER', 'Analysis', '📊', 'Mathematical indexer with statistical analysis and data aggregation.', ['Statistics', 'Index Generation', 'Data Aggregation', 'Math Computations'])">
+                <h3>📊 POINDEXTER</h3>
+                <div class="type">Analysis Layer</div>
+                <p>Mathematical Indexer</p>
+            </div>
+            <div class="card card-persephone" onclick="showModal('PERSEPHONE', 'Utilities', '🔄', 'Cross-platform utilities with OS abstraction and portability functions.', ['Cross-Platform', 'OS Abstraction', 'Portability', 'System Utilities'])">
+                <h3>🔄 PERSEPHONE</h3>
+                <div class="type">Utilities Layer</div>
+                <p>Cross-Platform Utilities</p>
+            </div>
+            <div class="card card-twitler" onclick="showModal('TWITLER', 'Monitoring', '🔔', 'System information and notification system with health monitoring.', ['Health Monitoring', 'Quick Status', 'WORMZ_ML', 'Admin Operations', 'Notifications'])">
+                <h3>🔔 TWITLER</h3>
+                <div class="type">Monitoring</div>
+                <p>System Info & Notifications</p>
+            </div>
+            <div class="card card-wormz" onclick="showModal('WORMZ', 'Execution', '🐛', '6 functional worms: WORMZ, SYSTEMZ, PROCESSZ, DISKZ, CLOCKZ, NETWORXZ. Clusters: BIBL, System, Network, Security, Full.', ['6 Worms', '5 Clusters', '100KB+', 'Parallel Execution'])">
+                <h3>🐛 WORMZ</h3>
+                <div class="type">Execution | 6 Worms, 5 Clusters</div>
+                <p>Tier 1-2: Worms & Clusters</p>
+            </div>
+            <div class="card card-metaworms" onclick="showModal('METAWORMS', 'Orchestration', '🎯', '11 metaworms: ERRORZ, TRIMZ, METAZ, DEPENDZ, VALIDZ, DEADZ, METRICZ, LOGZ, CHANGEZ, OPTIMIZ, HEALTHZ. Plus HYDRAMETA for ML optimization.', ['11 Agents', 'HYDRAMETA', 'ML Optimization', 'Genetic Algorithms'])">
+                <h3>🎯 METAWORMS</h3>
+                <div class="type">Orchestration | 11 Agents, ML</div>
+                <p>Tier 3-4: Metaworms & Hydratic</p>
+            </div>
+            <div class="card card-terence" onclick="showModal('TERENCE', 'Error Resolution', '🔧', 'Cross-tier error resolution protocol with 26 fix patterns and reinforcement learning.', ['26 Patterns', 'Rule-Based Fixes', 'Reinforcement Learning', 'Causal Analysis', 'Preview Mode'])">
+                <h3>🔧 TERENCE</h3>
+                <div class="type">Error Resolution | 26 Patterns</div>
+                <p>Cross-Tier Error Resolution</p>
+            </div>
+            <div class="card card-klink" onclick="showModal('KLINK', 'Integration', '🔗', 'Linkage and connection system between all ecosystem components.', ['Component Linking', 'Dependency Resolution', 'Cross-Tier Communication', 'API Connections'])">
+                <h3>🔗 KLINK</h3>
+                <div class="type">Integration</div>
+                <p>Linkage System</p>
+            </div>
+        </div>
+        
+        <h2 class="section-title title-tiers">7-Tier Architecture (Click for details)</h2>
+        <div class="tiers">
+            <div class="tier" onclick="showModal('Tier 5: DISTILLATION', 'Tier 5', '5', 'Theoretical knowledge synthesis. The apex where accumulated intelligence patterns are distilled into unified understanding.')">
+                <div class="tier-num" style="background: linear-gradient(135deg, #a855f7, #ec4899);">5</div>
+                <div><h4 style="color: #a855f7;">DISTILLATION</h4><p>Theoretical knowledge synthesis</p></div>
+            </div>
+            <div class="tier" onclick="showModal('Tier 4: HYDRATIC', 'Tier 4', '4', 'ML Optimization with HYDRAMETA. Population-based parameter tuning, genetic algorithms, trial-based learning.')">
+                <div class="tier-num" style="background: linear-gradient(135deg, #a855f7, #06b6d4);">4</div>
+                <div><h4 style="color: #a855f7;">HYDRATIC METAWORMS</h4><p>ML Optimization (HYDRAMETA)</p></div>
+            </div>
+            <div class="tier" onclick="showModal('Tier 3: METAWORMS', 'Tier 3', '3', '11 orchestration agents: ERRORZ, TRIMZ, METAZ, DEPENDZ, VALIDZ, DEADZ, METRICZ, LOGZ, CHANGEZ, OPTIMIZ, HEALTHZ.')">
+                <div class="tier-num" style="background: linear-gradient(135deg, #ff4757, #ff6b35);">3</div>
+                <div><h4 style="color: #ff4757;">METAWORMS</h4><p>11 Orchestration Agents</p></div>
+            </div>
+            <div class="tier" onclick="showModal('Tier 2: CLUSTERWORMS', 'Tier 2', '2', 'Coordinated worm collectives: BIBL, System, Network, Security, Analysis, Validation, Health, Full.')">
+                <div class="tier-num" style="background: linear-gradient(135deg, #ff4757, #22c55e);">2</div>
+                <div><h4 style="color: #ff4757;">CLUSTERWORMS</h4><p>Coordinated Collectives</p></div>
+            </div>
+            <div class="tier" onclick="showModal('Tier 1: WORMS', 'Tier 1', '1', '6 Functional Worms: WORMZ (BIBL crawler), SYSTEMZ (monitoring), PROCESSZ, DISKZ, CLOCKZ, NETWORXZ.')">
+                <div class="tier-num" style="background: linear-gradient(135deg, #ff4757, #00f5ff);">1</div>
+                <div><h4 style="color: #ff4757;">WORMS</h4><p>6 Functional Agents</p></div>
+            </div>
+            <div class="tier" onclick="showModal('Tier 0: CONCURRENCY', 'Tier 0', '0', 'Cotemporaneous execution engine. Thread pool with 8-16 workers for parallel worm and cluster execution.')">
+                <div class="tier-num" style="background: linear-gradient(135deg, #00f5ff, #00ff88);">0</div>
+                <div><h4 style="color: #00f5ff;">CONCURRENCY</h4><p>Parallel Execution</p></div>
+            </div>
+            <div class="tier" onclick="showModal('Tier -1: OS_CONGRUENCY', 'Tier -1', '-1', 'Deep Windows OS integration. Services, Registry, Event Logs, Windows Updates, Drivers, User Sessions.')">
+                <div class="tier-num" style="background: linear-gradient(135deg, #00ff88, #ffdd00);">-1</div>
+                <div><h4 style="color: #00ff88;">OS_CONGRUENCY</h4><p>Windows Integration</p></div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <h2>ALL 11 SYSTEMS OPERATIONAL</h2>
+            <p style="color: #888; margin-top: 10px;">CODEX: C:\\Users\\clint\\Desktop\\CODEX</p>
+        </div>
+    </div>
+    
+    <!-- Modal Popup -->
+    <div class="modal" id="modal" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <h2 id="modal-title" style="color: #00f5ff;"></h2>
+            <p id="modal-type" style="color: #888; margin-bottom: 15px;"></p>
+            <p id="modal-desc" class="desc"></p>
+            <ul id="modal-features" class="features"></ul>
+        </div>
+    </div>
+    
+    <script>
+        function showModal(title, type, icon, desc, features) {
+            document.getElementById('modal-title').textContent = icon + ' ' + title;
+            document.getElementById('modal-type').textContent = type;
+            document.getElementById('modal-desc').textContent = desc;
+            
+            const featuresEl = document.getElementById('modal-features');
+            featuresEl.innerHTML = '';
+            if (features) {
+                features.forEach(f => {
+                    const li = document.createElement('li');
+                    li.textContent = f;
+                    featuresEl.appendChild(li);
+                });
+            }
+            
+            document.getElementById('modal').classList.add('show');
+        }
+        
+        function closeModal(e) {
+            if (!e || e.target === document.getElementById('modal')) {
+                document.getElementById('modal').classList.remove('show');
+            }
+        }
+        
+        // Close on Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+    </script>
+</body>
+</html>

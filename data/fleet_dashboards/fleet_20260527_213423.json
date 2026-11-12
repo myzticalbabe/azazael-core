@@ -1,0 +1,14 @@
+{
+  "version": "1.0.0",
+  "generated_at": "2026-05-27T21:34:23.476525",
+  "uptime_seconds": 0.0,
+  "total_iterations": 0,
+  "total_morphs": 0,
+  "total_llm_calls": 0,
+  "current_mode": "idle",
+  "health_status": "unknown",
+  "worms_active": 0,
+  "worms_total": 0,
+  "metrics_count": 0,
+  "metrics": []
+}

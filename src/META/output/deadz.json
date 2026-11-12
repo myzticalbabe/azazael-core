@@ -1,0 +1,68 @@
+{
+  "name": "DEADZ",
+  "success": true,
+  "files_processed": 74,
+  "items_found": 74,
+  "duration_ms": 907.2275161743164,
+  "output": {
+    "unused": [
+      [
+        "C:\\Users\\clint\\Desktop\\Azazael\\HYDRA_10MIN_TEST.py",
+        "__pycache__ reference"
+      ],
+      [
+        "C:\\Users\\clint\\Desktop\\Azazael\\TARBABY.py",
+        "__pycache__ reference"
+      ],
+      [
+        "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\config.py",
+        "__pycache__ reference"
+      ],
+      [
+        "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\lm_studio_integration.py",
+        "Line 67: debug print"
+      ],
+      [
+        "C:\\Users\\clint\\Desktop\\Azazael\\ml_platforms\\__init__.py",
+        "Line 58: debug print"
+      ],
+      [
+        "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\complete_module_analysis.py",
+        "__pycache__ reference"
+      ],
+      [
+        "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\comprehensive_analysis.py",
+        "__pycache__ reference"
+      ],
+      [
+        "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\generate_docstrings.py",
+        "__pycache__ reference"
+      ],
+      [
+        "C:\\Users\\clint\\Desktop\\Azazael\\scripts\\run_tests.py",
+        "__pycache__ reference"
+      ],
+      [
+        "C:\\Users\\clint\\Desktop\\PERSEPHONE\\persephone.py",
+        "__pycache__ reference"
+      ],
+      [
+        "C:\\Users\\clint\\Desktop\\PERSEPHONE\\lib\\sync_manager.py",
+        "__pycache__ reference"
+      ],
+      [
+        "C:\\Users\\clint\\Desktop\\WORMZ\\WORMZ.py",
+        "__pycache__ reference"
+      ],
+      [
+        "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS.py",
+        "__pycache__ reference"
+      ],
+      [
+        "C:\\Users\\clint\\Desktop\\METAWORMS\\METAWORMS.py",
+        "Line 271: debug print"
+      ]
+    ]
+  },
+  "errors": []
+}

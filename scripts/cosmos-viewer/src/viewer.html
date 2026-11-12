@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cosmos Codebase Atlas — %LABEL%</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body { background: #0f0f1a; color: #e0e0e0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; display: flex; overflow: hidden; }
+  #graph { flex: 1; position: relative; display: none; }
+  #loading { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #888; background: #0f0f1a; z-index: 10; }
+  #sidebar { width: 320px; background: #16162a; border-left: 1px solid #2a2a4e; display: flex; flex-direction: column; min-height: 0; }
+  #search-wrap { padding: 12px; border-bottom: 1px solid #2a2a4e; }
+  #search { width: 100%; background: #0f0f1a; border: 1px solid #3a3a5e; color: #e0e0e0; padding: 8px 10px; border-radius: 6px; font-size: 13px; outline: none; }
+  #search:focus { border-color: #4E79A7; }
+  #search-results { max-height: 180px; overflow-y: auto; padding: 4px 12px; border-bottom: 1px solid #2a2a4e; display: none; }
+  .search-item { padding: 4px 6px; cursor: pointer; border-radius: 4px; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .search-item:hover { background: #2a2a4e; }
+  #info-panel { padding: 12px; border-bottom: 1px solid #2a2a4e; min-height: 120px; max-height: 220px; overflow-y: auto; }
+  #info-panel h3 { font-size: 12px; color: #aaa; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+  #info-content { font-size: 13px; color: #ccc; line-height: 1.6; }
+  #info-content .field { margin-bottom: 5px; }
+  #info-content .field b { color: #e0e0e0; }
+  #info-content .empty { color: #555; font-style: italic; }
+  .neighbor-link { display: block; padding: 2px 6px; margin: 2px 0; border-radius: 3px; cursor: pointer; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; border-left: 3px solid #333; }
+  .neighbor-link:hover { background: #2a2a4e; }
+  #tabs { display: flex; border-bottom: 1px solid #2a2a4e; }
+  .tab { flex: 1; padding: 8px; text-align: center; cursor: pointer; font-size: 12px; color: #888; }
+  .tab.active { color: #fff; background: #1a1a2e; border-bottom: 2px solid #4E79A7; }
+  #tree-pane, #comm-pane { flex: 1; overflow-y: auto; min-height: 0; }
+  #comm-pane { display: none; }
+  .tree-item { padding: 4px 6px; cursor: pointer; font-size: 12px; display: flex; align-items: center; white-space: nowrap; border-radius: 3px; }
+  .tree-item:hover { background: #23233f; }
+  .tw { width: 16px; color: #666; flex-shrink: 0; text-align: center; }
+  .tl { flex: 1; overflow: hidden; text-overflow: ellipsis; }
+  .tc { color: #666; font-size: 11px; margin-left: 6px; flex-shrink: 0; }
+  .tree-more { padding: 6px 10px; color: #555; font-size: 11px; font-style: italic; }
+  .comm-item { padding: 4px 8px; cursor: pointer; font-size: 12px; display: flex; align-items: center; border-radius: 3px; }
+  .comm-item:hover { background: #23233f; }
+  .comm-dot { width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; flex-shrink: 0; }
+  .comm-label { flex: 1; overflow: hidden; text-overflow: ellipsis; }
+  .comm-count { color: #666; font-size: 11px; }
+  #total-label { padding: 8px 12px; border-top: 1px solid #2a2a4e; font-size: 11px; color: #777; }
+  #hint { padding: 6px 12px 10px; font-size: 11px; color: #555; line-height: 1.5; border-top: 1px solid #14142a; }
+  #hint b { color: #888; }
+</style>
+</head>
+<body>
+<div id="loading">Loading graph data…</div>
+<div id="graph"></div>
+<div id="sidebar">
+  <div id="search-wrap">
+    <input id="search" type="text" placeholder="Search nodes (e.g. ClusterWORMZ, worm_registry)…" autocomplete="off">
+    <div id="search-results"></div>
+  </div>
+  <div id="info-panel">
+    <h3>Node Info</h3>
+    <div id="info-content"><span class="empty">Click a node to inspect it</span></div>
+  </div>
+  <div id="tabs">
+    <div class="tab active" id="tab-tree">Directories</div>
+    <div class="tab" id="tab-comm">Communities</div>
+  </div>
+  <div id="tree-pane"></div>
+  <div id="comm-pane"></div>
+  <div id="total-label">…</div>
+  <div id="hint"><b>Zoom / drag</b> to explore · <b>click a node</b> for details · <b>click a directory or community</b> to zoom into it · GPU-rendered, all %NODES% nodes live</div>
+</div>
+
+<script src="cosmos/graph.pos.js"></script>
+<script src="cosmos/graph.links.js"></script>
+<script src="cosmos/graph.comm.js"></script>
+<script src="cosmos/graph.size.js"></script>
+<script src="cosmos/graph.tree.js"></script>
+<script src="cosmos/graph.labels.0.js"></script>
+<script src="cosmos/graph.labels.1.js"></script>
+<script src="cosmos/graph.labels.2.js"></script>
+<script src="cosmos/graph.labels.3.js"></script>
+<script src="cosmos/graph.labels.4.js"></script>
+<script src="cosmos/graph.labels.5.js"></script>
+<script src="cosmos/graph.labels.6.js"></script>
+<script src="cosmos/graph.labels.7.js"></script>
+<script src="cosmos/graph.labels.8.js"></script>
+<script src="cosmos/graph.labels.9.js"></script>
+<script src="cosmos/graph.labels.10.js"></script>
+<script src="cosmos/graph.labels.js"></script>
+<script src="viewer.bundle.js"></script>
+</body>
+</html>

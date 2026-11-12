@@ -1,0 +1,38 @@
+{
+  "test_name": "TARBABY Binary Compilation Test",
+  "timestamp": "2026-02-11T01:57:29.688808",
+  "duration": "10 seconds",
+  "files_tested": 5,
+  "builds_success": 5,
+  "builds_failed": 0,
+  "artifacts": [
+    {
+      "file": "azazael_cli.py",
+      "output": "script_1.exe",
+      "status": "OK"
+    },
+    {
+      "file": "comprehensive_analysis.py",
+      "output": "script_2.exe",
+      "status": "OK"
+    },
+    {
+      "file": "run_tests.py",
+      "output": "script_3.exe",
+      "status": "OK"
+    },
+    {
+      "file": "validate_docs.py",
+      "output": "script_4.exe",
+      "status": "OK"
+    },
+    {
+      "file": "azazael_wsa.py",
+      "output": "script_5.exe",
+      "status": "OK"
+    }
+  ],
+  "status": "COMPLETE",
+  "version": "1.0.0",
+  "_schema": "1.0.0"
+}

@@ -1,0 +1,116 @@
+{
+  "timestamp": "2026-02-11T06:49:40.172174",
+  "version": "1.0.0",
+  "metrics": {
+    "interoperability_index": 0.1449,
+    "total_systems": 7,
+    "matrix_size": 7
+  },
+  "centrality_ranking": [
+    {
+      "system": "HYDRA",
+      "score": 1.0
+    },
+    {
+      "system": "HORUS",
+      "score": 0.0
+    },
+    {
+      "system": "TARBABY",
+      "score": 0.0
+    },
+    {
+      "system": "PERSEPHONE",
+      "score": 0.0
+    },
+    {
+      "system": "BIBL",
+      "score": 0.0
+    },
+    {
+      "system": "MetricsTracker",
+      "score": 0.0
+    },
+    {
+      "system": "Azazael",
+      "score": 0.0
+    }
+  ],
+  "top_couplings": [
+    {
+      "pair": "HYDRA <-> HORUS",
+      "strength": 0.1
+    },
+    {
+      "pair": "HYDRA <-> TARBABY",
+      "strength": 0.0
+    },
+    {
+      "pair": "HYDRA <-> PERSEPHONE",
+      "strength": 0.0
+    },
+    {
+      "pair": "HYDRA <-> BIBL",
+      "strength": 0.0
+    },
+    {
+      "pair": "HYDRA <-> MetricsTracker",
+      "strength": 0.0
+    },
+    {
+      "pair": "HYDRA <-> Azazael",
+      "strength": 0.0
+    },
+    {
+      "pair": "HORUS <-> TARBABY",
+      "strength": 0.0
+    },
+    {
+      "pair": "HORUS <-> PERSEPHONE",
+      "strength": 0.0
+    },
+    {
+      "pair": "HORUS <-> BIBL",
+      "strength": 0.0
+    },
+    {
+      "pair": "HORUS <-> MetricsTracker",
+      "strength": 0.0
+    }
+  ],
+  "entropy": {
+    "HYDRA": 3.0,
+    "HORUS": 2.0,
+    "TARBABY": 2.3219,
+    "PERSEPHONE": 2.3219,
+    "BIBL": 2.0,
+    "MetricsTracker": 2.0,
+    "Azazael": 2.0
+  },
+  "fan_analysis": {
+    "fan_in": {
+      "HYDRA": 0,
+      "HORUS": 0,
+      "TARBABY": 0,
+      "PERSEPHONE": 0,
+      "BIBL": 0,
+      "MetricsTracker": 0,
+      "Azazael": 0
+    },
+    "fan_out": {
+      "HYDRA": 0,
+      "HORUS": 0,
+      "TARBABY": 0,
+      "PERSEPHONE": 0,
+      "BIBL": 0,
+      "MetricsTracker": 0,
+      "Azazael": 0
+    }
+  },
+  "mathematical_properties": {
+    "interface_sparsity": 0.8551,
+    "avg_path_length": 2.5,
+    "clustering_coefficient": 0.35
+  },
+  "_schema": "1.0.0"
+}

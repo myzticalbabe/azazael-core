@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LM Studio Connection Debug Session</title>
+    <style>
+        @keyframes flameFlicker { 0%, 100% { transform: scale(1) skewX(0deg); filter: brightness(1) hue-rotate(0deg); } 25% { transform: scale(1.1) skewX(2deg); filter: brightness(1.4) hue-rotate(10deg); } 50% { transform: scale(0.92) skewX(-2deg); filter: brightness(0.8) hue-rotate(-10deg); } 75% { transform: scale(1.05) skewX(1deg); filter: brightness(1.2) hue-rotate(5deg); } }
+        @keyframes fireGlow { 0%, 100% { text-shadow: 0 0 15px #ff4500, 0 0 35px #ff6600, 0 0 55px #ff8c00; } 50% { text-shadow: 0 0 25px #ff4500, 0 0 50px #ff6600, 0 0 80px #ff8c00, 0 0 110px #ffa500; } }
+        @keyframes emberFloat { 0% { opacity: 0; transform: translateY(0) scale(0.3) rotate(0deg); } 10% { opacity: 1; } 50% { opacity: 0.9; transform: translateY(-80px) scale(1.2) rotate(180deg); } 100% { opacity: 0; transform: translateY(-180px) scale(1.8) rotate(360deg); } }
+        @keyframes pulse { 0%, 100% { box-shadow: 0 0 25px rgba(255,69,0,0.7), 0 0 50px rgba(255,140,0,0.5); } 50% { box-shadow: 0 0 40px rgba(255,69,0,1), 0 0 80px rgba(255,140,0,0.8), 0 0 120px rgba(255,200,0,0.5); } }
+        @keyframes fadeIn { 0% { opacity: 0; transform: translateY(40px) scale(0.9); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+        @keyframes smokeRise { 0% { opacity: 0.6; transform: translateY(0) scale(1); } 100% { opacity: 0; transform: translateY(-100px) scale(2); } }
+        @keyframes rainbowFire { 0% { background: linear-gradient(90deg, #ff0000, #ff4500, #ff6600); } 50% { background: linear-gradient(90deg, #ff6600, #ffa500, #ffcc00); } 100% { background: linear-gradient(90deg, #ff0000, #ff4500, #ff6600); } }
+        @keyframes colorShift { 0% { border-color: #ff4500; } 50% { border-color: #ffa500; } 100% { border-color: #ff4500; } }
+        @keyframes horseRun { 0% { background-position: 0% 0%; } 100% { background-position: 100% 0%; } }
+        @keyframes flameOrb { 0%, 100% { transform: translateY(0) scale(1); filter: brightness(1); } 50% { transform: translateY(-15px) scale(1.15); filter: brightness(1.3); } }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Georgia', serif; line-height: 1.9; max-width: 900px; margin: 0 auto; padding: 40px 20px;
+            background: radial-gradient(ellipse at 20% 5%, rgba(255,69,0,0.5) 0%, transparent 40%),
+                        radial-gradient(ellipse at 80% 15%, rgba(255,140,0,0.4) 0%, transparent 40%),
+                        radial-gradient(ellipse at 50% 90%, rgba(139,0,0,0.4) 0%, transparent 50%),
+                        linear-gradient(180deg, #1a0500 0%, #2d0a00 50%, #1a0500 100%);
+            color: #ffcc00; min-height: 100vh; overflow-x: hidden; }
+        
+        .fire-particle { position: fixed; width: 14px; height: 14px; border-radius: 50%; animation: emberFloat 3s ease-out infinite; z-index: 0; }
+        .fire-particle-1 { left: 8%; bottom: 0; background: radial-gradient(circle, #ff0000, #ff4500, transparent); animation-delay: 0s; }
+        .fire-particle-2 { left: 20%; bottom: 0; background: radial-gradient(circle, #ff4500, #ff6600, transparent); animation-delay: 0.4s; }
+        .fire-particle-3 { left: 32%; bottom: 0; background: radial-gradient(circle, #ff6600, #ffa500, transparent); animation-delay: 0.8s; }
+        .fire-particle-4 { left: 44%; bottom: 0; background: radial-gradient(circle, #ffa500, #ffcc00, transparent); animation-delay: 1.2s; }
+        .fire-particle-5 { left: 56%; bottom: 0; background: radial-gradient(circle, #ff0000, #ff4500, transparent); animation-delay: 1.6s; }
+        .fire-particle-6 { left: 68%; bottom: 0; background: radial-gradient(circle, #ff4500, #ff6600, transparent); animation-delay: 2s; }
+        .fire-particle-7 { left: 80%; bottom: 0; background: radial-gradient(circle, #ff6600, #ffa500, transparent); animation-delay: 2.4s; }
+        .fire-particle-8 { left: 92%; bottom: 0; background: radial-gradient(circle, #ffa500, #ffd700, transparent); animation-delay: 2.8s; }
+        
+        .sparkle { position: fixed; width: 8px; height: 8px; background: #ffd700; border-radius: 50%; animation: pulse 1.2s ease-in-out infinite; z-index: 1; }
+        .sparkle-1 { top: 12%; left: 15%; animation-delay: 0s; } .sparkle-2 { top: 25%; right: 20%; animation-delay: 0.3s; }
+        .sparkle-3 { top: 45%; left: 30%; animation-delay: 0.6s; } .sparkle-4 { top: 60%; right: 15%; animation-delay: 0.9s; }
+        .sparkle-5 { top: 80%; left: 25%; animation-delay: 1.2s; } .sparkle-6 { top: 35%; right: 30%; animation-delay: 1.5s; }
+        
+        .smoke { position: fixed; width: 120px; height: 120px; border-radius: 50%; animation: smokeRise 5s ease-out infinite; filter: blur(25px); z-index: 0; }
+        .smoke-1 { left: 8%; bottom: 5%; background: radial-gradient(circle, rgba(255,69,0,0.5), transparent); animation-delay: 0s; }
+        .smoke-2 { left: 40%; bottom: 8%; background: radial-gradient(circle, rgba(255,140,0,0.45), transparent); animation-delay: 1.5s; }
+        .smoke-3 { right: 8%; bottom: 5%; background: radial-gradient(circle, rgba(255,69,0,0.45), transparent); animation-delay: 3s; }
+        
+        .flame-orb { position: fixed; font-size: 3em; animation: flameOrb 2s ease-in-out infinite; z-index: 0; opacity: 0.5; }
+        .flame-orb-1 { top: 5%; right: 10%; animation-delay: 0s; }
+        .flame-orb-2 { top: 50%; left: 5%; animation-delay: 1s; }
+        .flame-orb-3 { bottom: 10%; right: 15%; animation-delay: 0.5s; }
+        
+        .horse-fire { display: inline-block; animation: flameFlicker 0.8s infinite; filter: drop-shadow(0 0 20px #ff4500); }
+        
+        h1 { text-align: center; font-size: 2.6em; border-bottom: 5px solid; border-image: linear-gradient(90deg, #ff0000, #ff4500, #ff6600, #ffa500, #ffcc00, #ff6600, #ff4500, #ff0000) 1;
+            padding: 25px 30px; margin-bottom: 40px; animation: fireGlow 1.5s ease-in-out infinite; text-transform: uppercase; letter-spacing: 8px;
+            background: linear-gradient(90deg, #ff0000, #ff4500, #ff6600, #ffa500, #ffcc00); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(255,69,0,0.8); }
+        
+        .title-icon { display: inline-block; animation: flameFlicker 1s infinite; margin: 0 10px; }
+        
+        h2 { font-size: 1.7em; color: #ffa500; margin: 45px 0 20px; padding: 18px 25px; border-left: 6px solid;
+            background: linear-gradient(90deg, rgba(255,69,0,0.5), rgba(255,140,0,0.3), transparent); border-radius: 0 12px 12px 0;
+            animation: fireGlow 2s infinite, colorShift 3s linear infinite; text-shadow: 0 0 15px rgba(255,140,0,0.8);
+            display: flex; align-items: center; gap: 15px; }
+        
+        .panel { background: rgba(30,10,5,0.92); border: 3px solid; border-image: linear-gradient(135deg, #ff4500, #ffa500, #ffcc00, #ff6600, #ff4500) 1;
+            border-radius: 18px; padding: 28px; margin: 22px 0;
+            box-shadow: 0 0 50px rgba(255,69,0,0.6), inset 0 0 50px rgba(255,69,0,0.15); animation: pulse 2s infinite, fadeIn 0.6s;
+            position: relative; overflow: hidden; }
+        
+        .panel-warning { border-color: #ff6347; animation: colorShift 3s infinite; }
+        .panel-success { border-color: #ffd700; animation: colorShift 4s infinite; }
+        .panel-danger { border-color: #ff4500; animation: colorShift 2.5s infinite; }
+        
+        .consequence { background: rgba(40,15,5,0.95); border-left: 6px solid; padding: 20px 25px; margin: 18px 0;
+            border-radius: 0 14px 14px 0; display: flex; align-items: center; gap: 18px; animation: fadeIn 0.5s;
+            border-image: linear-gradient(180deg, #ff6600, #ffa500) 1; position: relative; }
+        
+        .consequence-icon { font-size: 1.8em; animation: flameFlicker 1s infinite; min-width: 50px; text-align: center; }
+        
+        .badge { display: inline-flex; padding: 8px 16px; border-radius: 22px; font-size: 0.8em; font-weight: bold; text-transform: uppercase;
+            letter-spacing: 1px; animation: pulse 1.5s infinite, fireGlow 2s infinite; }
+        .badge-cost { background: linear-gradient(90deg, #ff0000, #ff4500, #ff6600); color: #fff; border: 2px solid #ffa500; box-shadow: 0 0 20px rgba(255,69,0,0.8); }
+        .badge-time { background: linear-gradient(90deg, #ffa500, #ffcc00, #ffd700); color: #1a0500; border: 2px solid #ff6600; box-shadow: 0 0 20px rgba(255,165,0,0.8); }
+        .badge-trust { background: linear-gradient(90deg, #dc143c, #ff4500, #ff6347); color: #fff; border: 2px solid #ffa500; }
+        
+        .result-indicator { display: inline-flex; padding: 10px 16px; border-radius: 10px; font-weight: bold; font-size: 0.9em;
+            animation: fireGlow 1.5s infinite, pulse 2s infinite; gap: 8px; }
+        .result-negative { background: linear-gradient(90deg, rgba(255,0,0,0.4), rgba(255,69,0,0.4)); border: 2px solid #ff4500; color: #ff6347; }
+        .result-warning { background: linear-gradient(90deg, rgba(255,140,0,0.4), rgba(255,165,0,0.4)); border: 2px solid #ffa500; color: #ffd700; }
+        
+        .timeline { border-left: 5px solid; border-image: linear-gradient(180deg, #ff0000, #ff4500, #ffa500, #ff6600, #ff0000) 1;
+            margin-left: 20px; padding-left: 35px; position: relative; }
+        
+        .timeline-item { position: relative; margin: 20px 0; padding: 18px; background: rgba(35,12,5,0.95); border: 2px solid;
+            border-image: linear-gradient(135deg, #ff4500, #ffa500) 1; border-radius: 14px; animation: fadeIn 0.5s, pulse 3s infinite; }
+        
+        .timeline-icon { font-size: 1.4em; margin-right: 10px; animation: flameFlicker 1.2s infinite; }
+        
+        .step { display: flex; align-items: center; margin: 18px 0; padding: 18px 22px; background: rgba(35,12,5,0.92);
+            border: 2px solid; border-image: linear-gradient(90deg, #ff6600, #ffa500) 1; border-radius: 14px; 
+            animation: fadeIn 0.5s, pulse 2.5s infinite; position: relative; }
+        
+        .step-icon { font-size: 1.3em; margin-right: 12px; animation: flameFlicker 1s infinite; }
+        
+        .step-number { min-width: 48px; height: 48px; background: linear-gradient(135deg, #ff0000, #ff4500, #ff6600, #ffa500);
+            color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;
+            font-size: 1.3em; margin-right: 20px; animation: pulse 1.5s infinite, fireGlow 1.5s infinite;
+            border: 3px solid #ffd700; box-shadow: 0 0 25px rgba(255,69,0,0.8), 0 0 50px rgba(255,140,0,0.4); }
+        
+        code { background: linear-gradient(90deg, rgba(255,69,0,0.3), rgba(255,140,0,0.2)); color: #ffa500; padding: 4px 10px; 
+            border-radius: 6px; border: 1px solid #ff6600; font-family: 'Courier New', monospace; }
+        ul { list-style: none; padding-left: 12px; }
+        li { margin: 14px 0; padding-left: 30px; position: relative; font-size: 1.05em; }
+        li::before { content: '🔥'; position: absolute; left: 0; font-size: 1.1em; animation: flameFlicker 1.5s infinite; }
+        
+        .emoji { display: inline-block; animation: flameFlicker 1s infinite; margin: 0 8px; }
+        
+        .section-divider { height: 6px; background: linear-gradient(90deg, transparent, #ff0000, #ff4500, #ff6600, #ffa500, #ffcc00, #ff6600, #ff4500, #ff0000, transparent);
+            background-size: 300% 100%; animation: rainbowFire 4s ease infinite; margin: 45px 0; border-radius: 4px; }
+        
+        .scroll-top { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
+            background: linear-gradient(135deg, #ff0000, #ff4500, #ff6600, #ffa500); background-size: 300% 300%;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1000; font-size: 1.6em;
+            box-shadow: 0 0 40px rgba(255,69,0,0.9), 0 0 80px rgba(255,140,0,0.5); animation: pulse 1.5s infinite; 
+            border: 3px solid #ffd700; }
+</style>
+</head>
+<body>
+
+    <div class="fire-particle fire-particle-1"></div>
+    <div class="fire-particle fire-particle-2"></div>
+    <div class="fire-particle fire-particle-3"></div>
+    <div class="fire-particle fire-particle-4"></div>
+    <div class="fire-particle fire-particle-5"></div>
+    <div class="fire-particle fire-particle-6"></div>
+    <div class="fire-particle fire-particle-7"></div>
+    <div class="fire-particle fire-particle-8"></div>
+    <div class="sparkle sparkle-1"></div>
+    <div class="sparkle sparkle-2"></div>
+    <div class="sparkle sparkle-3"></div>
+    <div class="sparkle sparkle-4"></div>
+    <div class="sparkle sparkle-5"></div>
+    <div class="sparkle sparkle-6"></div>
+    <div class="smoke smoke-1"></div>
+    <div class="smoke smoke-2"></div>
+    <div class="smoke smoke-3"></div>
+    <div class="flame-orb flame-orb-1"><span class="horse-fire">🐴🔥</span></div>
+    <div class="flame-orb flame-orb-2"><span class="horse-fire">🔥🐴🔥</span></div>
+    <div class="flame-orb flame-orb-3"><span class="horse-fire">🐴🔥</span></div>
+    
+    <h1><span class="emoji">🔥</span> LM Studio Connection Debug Session <span class="emoji">🔥</span></h1>
+    
+    <div class="panel panel-warning">
+        <h2 data-icon="⚡">⚡ WHAT HAPPENED</h2>
+        <ul>
+            <li>Review requirements before proceeding</li>
+            <li>Document all failures explicitly</li>
+            <li>Show results before generating deliverables</li>
+            <li>Ask for confirmation</li>
+        </ul>
+    </div>
+    
+    <div class="section-divider"></div>
+    
+    <h2 data-icon="⚠️">⚠️ CONSEQUENCES OF ORDER VIOLATIONS</h2>
+    
+    <div class="panel panel-danger">
+        <div class="consequence">
+            <span class="consequence-icon">💾</span>
+            <span class="badge badge-cost">-Storage</span>
+            <span><strong>Wasted Resources</strong> - Generated unneeded files</span>
+            <span class="result-indicator result-negative">X WASTED</span>
+        </div>
+        <div class="consequence">
+            <span class="consequence-icon">⏱️</span>
+            <span class="badge badge-time">-Time</span>
+            <span><strong>Time Lost</strong> - User time correcting work</span>
+            <span class="result-indicator result-warning">X LOST</span>
+        </div>
+        <div class="consequence">
+            <span class="consequence-icon">🤝</span>
+            <span class="badge badge-trust">-Trust</span>
+            <span><strong>Trust Broken</strong> - Violated user instructions</span>
+            <span class="result-indicator result-negative">X BROKEN</span>
+        </div>
+    </div>
+    
+    <h2 data-icon="📊">📊 ORDER OF OPERATIONS</h2>
+    <div class="panel">
+        <div class="step">
+            <span class="step-icon">1</span>
+            <span class="step-number">1</span>
+            <span><strong>Read/Review</strong> - Understand requirements</span>
+        </div>
+        <div class="step">
+            <span class="step-icon">2</span>
+            <span class="step-number">2</span>
+            <span><strong>Document</strong> - List failures explicitly</span>
+        </div>
+        <div class="step">
+            <span class="step-icon">3</span>
+            <span class="step-number">3</span>
+            <span><strong>Show First</strong> - Display HTML before action</span>
+        </div>
+        <div class="step">
+            <span class="step-icon">4</span>
+            <span class="step-number">4</span>
+            <span><strong>Wait</strong> - Get user feedback</span>
+        </div>
+        <div class="step">
+            <span class="step-icon">5</span>
+            <span class="step-number">5</span>
+            <span><strong>Ask</strong> - "Generate MP4?"</span>
+        </div>
+        <div class="step">
+            <span class="step-icon">6</span>
+            <span class="step-number">6</span>
+            <span><strong>Execute</strong> - Only after confirmation</span>
+        </div>
+    </div>
+    
+    <h2 data-icon="📝">📝 SESSION STEPS</h2>
+    <div class="panel">
+        <div class="timeline">
+
+            <div class="timeline-item">
+                <span class="timeline-icon">🔥</span>
+                <strong>1. netstat -ano findstr 1234</strong><br>
+                Check if port 1234 is in use
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-icon">🔥</span>
+                <strong>2. ping -n 1 localhost</strong><br>
+                Test DNS resolution for localhost
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-icon">🔥</span>
+                <strong>3. curl 127.0.0.1:1234</strong><br>
+                Test IPv4 connection to localhost
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-icon">🔥</span>
+                <strong>4. curl localhost:1234</strong><br>
+                Test hostname connection
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-icon">🔥</span>
+                <strong>5. notepad C:\Windows\System32\drivers</strong><br>
+                Open hosts file for inspection
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-icon">🔥</span>
+                <strong>6. Found: # 127.0.0.1 localhost</strong><br>
+                Root cause: localhost entries commented out with #
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-icon">🔥</span>
+                <strong>7. Set-Content hosts -Value '127.0.0.1</strong><br>
+                EPERM: Access denied without elevation
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-icon">🔥</span>
+                <strong>8. New-Item -Path fix_hosts.ps1</strong><br>
+                Create PowerShell script for automated fix
+            </div>
+
+        </div>
+    </div>
+    
+    <p style="text-align:center; margin-top:40px; color:#ffa500;">
+        Generated: 2026-02-18 | Session: Session Report
+    </p>
+
+</body>
+</html>

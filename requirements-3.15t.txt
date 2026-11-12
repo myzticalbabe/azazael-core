@@ -1,0 +1,45 @@
+# Azazael Unified Lockfile - Python 3.15t (Free-Threading)
+# Generated: Oct 06, 2026 - package audit (tools/package_audit_315.py +
+# latest-version wheel survey). All pins below verified to have
+# cp315t/cp315/abi3/pure wheels EXCEPT the noted cases.
+#
+# 3.15t is the production interpreter (Oct 06, 2026 directive).
+
+# === Core (verified installed on 3.15/3.15t venvs) ===
+psutil==7.2.2
+numpy==2.5.3
+scipy==1.18.1
+scikit-learn==1.9.1
+pandas==3.0.6
+PyYAML==6.0.3
+pytest==9.1.1
+hypothesis==6.168.4
+requests==2.34.2
+boruta==0.4.3
+mygrad==2.3.0
+
+# === Bumped for cp315t wheels (were pinned to pre-3.15 builds) ===
+cffi==2.1.1
+contourpy==1.4.0
+greenlet==3.5.6
+kiwisolver==1.5.1
+MarkupSafe==3.0.4
+matplotlib==3.11.2
+ml_dtypes==0.6.0
+optree==0.20.0
+pillow==12.3.0
+pydantic_core==2.49.0
+regex==2026.9.29
+rpds-py==2026.9.1
+tiktoken==0.14.0
+onnx==1.23.2
+pywin32==312
+
+# === Special cases (DO NOT pin blindly) ===
+# torch: stable has no cp315 wheels yet; use nightly CPU until stable lands:
+#   pip install --pre --upgrade torch --index-url https://download.pytorch.org/whl/nightly/cpu
+#   (Validated: 2.15.0.dev20261005+cpu GIL, 2.16.0.dev20261006+cpu FT.)
+# sdist-only at latest (need a compiler toolchain or vendor wheels):
+#   blis, cymem, h5py, murmurhash, onnxruntime, openvino, preshed, pyarrow,
+#   pygame, pywinpty, ray, spacy, srsly, thinc, wandb, llama-cpp-python
+#   -> resolve per package at 3.15.0-final re-audit (state/package_audit_315.json).

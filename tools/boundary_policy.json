@@ -1,0 +1,19 @@
+{
+  "_doc": "Tier/tag constraints over the generated census. Selectors: a tree name, `tag:stub|weak|cleave|periphery`, or `*`. `source` matches the caller; `forbid` names targets that may not be reached; `allow_source` names callers that are permitted to reach a forbidden target. Edit deliberately: every entry here should be a decision, and `boundary_policy.py --selftest` must stay green.",
+  "version": 1,
+  "constraints": [
+    {
+      "name": "nothing depends on a stub",
+      "why": "a D-stub tree is data with no defs that nothing imports; a real edge into one means it is not a stub and should be re-tiered instead of exempted",
+      "source": "*",
+      "forbid": ["tag:stub"]
+    },
+    {
+      "name": "only drivers reach the periphery",
+      "why": "the 4 @periphery edges are launchers in TOOLS calling repo-root scripts they do not own; a library or report tree reaching out of src is coupling the shards cannot shard",
+      "source": "*",
+      "forbid": ["tag:periphery"],
+      "allow_source": ["TOOLS"]
+    }
+  ]
+}

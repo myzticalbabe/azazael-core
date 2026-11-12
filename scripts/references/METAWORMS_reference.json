@@ -1,0 +1,16 @@
+{
+ "file_count": 10,
+ "manifest": {
+  "output/changez_enriched.json": "09a77fe8a08c3a231863f63810135304fd1cdd889fb12f16b13423873ccded11",
+  "output/deadz_enriched.json": "5f7569723737b30789b9ea66274e3410d94cabf4ef8200507c3d64325dde4baf",
+  "output/dependz_enriched.json": "9e66b8efda1d6f8d9e9ac39b507ec42cc55da84e1bc6ff79d24e46e0d16ab94d",
+  "output/enriched_summary.json": "47024055946e8dc0ed78a4530afdd7f58e4735998ffcab1486dac68046d3e9e1",
+  "output/logz_enriched.json": "2d5d81b7ea1bef82c9c889c7802df9504a8c60095b13aaa65853c00b901a503c",
+  "output/metaz_enriched.json": "c8f352ab8abef8a65036cc1eee8cb5e075aa115f18b4458feb9f13d2d18a629e",
+  "output/metricz_enriched.json": "1748ffc86442b15ec6edf480378deef765b711faad4c4ced500d4c5b174fe027",
+  "output/validz_enriched.json": "ade6edc2d2733072106d215545fbf80eb9fbe60b60d6f0390b6e7982132e0650",
+  "reports/metaworms_report.html": "73480a2f5c4af9d327c9cabab32c9a276d87171f8d4014e42e1d2b11fe0f39b4",
+  "run.py": "f902c5f0ea47389a1a9cce4b8290327b4deba7799cc0fa00be4d11ad6c91a2aa"
+ },
+ "project": "METAWORMS"
+}

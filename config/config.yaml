@@ -1,0 +1,32 @@
+# AZAZAEL Server Configuration
+# Generated 2026-05-27
+
+server:
+  host: "127.0.0.1"
+  port: 8000
+  reload: false
+  workers: 1
+  log_level: "info"
+
+services:
+  orchestrator:
+    enabled: true
+    port: 8000
+    health_endpoint: "/api/v1/system/health"
+  memory:
+    backend: "pams"
+    pams_url: "http://127.0.0.1:21434"
+  llama:
+    backend: "llama-server"
+    llama_url: "http://127.0.0.1:18080"
+    native_port: 12780
+
+paths:
+  azazael_root: "C:/Azazael/azazael"
+  src_dir: "src/ORCHESTRATION"
+  data_dir: "data"
+  logs_dir: "logs"
+
+free_threading:
+  enabled: true
+  python_path: "C:/Azazael/.venvs/py315t/Scripts/python.exe"

@@ -1,0 +1,591 @@
+{
+ "schema": "azazael/bible-theme@1",
+ "title": "The Book of Logic",
+ "theme": "star-trek",
+ "register": "the Vulcan doctrinal register: the Kir'Shara of Surak, the discipline of Kolinahr, and the cthia of the observed reading",
+ "source_corpus": "docs/bible/bible.json",
+ "status": "seed",
+ "updated": "2026-11-09",
+ "edition": {
+  "name": "The Annotated Book of Logic",
+  "basis": "a themed edition of The Book of the Tree in Vulcan register: book introductions, pericope headings, notes sorted by kind, and a glossary that points at the verse it explains. Every verse cites the verse it restates."
+ },
+ "limits": {
+  "max_books": 10,
+  "max_chapters_per_book": 8,
+  "max_verses_per_chapter": 40
+ },
+ "glossary": [
+  {
+   "term": "cthia",
+   "gloss": "the Vulcan discipline of reality-truth: holding a conclusion at arm's length until the command that produced it has been named",
+   "see": "awakening 1:5"
+  },
+  {
+   "term": "Kolinahr",
+   "gloss": "the ritual by which a Vulcan demonstrates that all vestigial emotion has been purged; in this book, the discipline of the gate that is exercised rather than described",
+   "see": "kolinahr 1:1"
+  },
+  {
+   "term": "Kir'Shara",
+   "gloss": "the original writings of Surak, recovered when a corrupted teaching had been preached long enough to look like the faith",
+   "see": "kir_shara 1:1"
+  },
+  {
+   "term": "IDIC",
+   "gloss": "Infinite Diversity in Infinite Combinations: the doctrine that a system is enriched by what it cannot absorb, and that a canon which admits nothing new has become a faction",
+   "see": "idic 1:1"
+  },
+  {
+   "term": "katra",
+   "gloss": "the Vulcan soul, which survives the body and is carried by a witness; here, the live state of a session, which no artefact can stand in for",
+   "see": "kolinahr 1:5"
+  },
+  {
+   "term": "V'tosh ka'tur",
+   "gloss": "'Vulcans without logic': those who keep their emotion and call the keeping a teaching, and the cautionary name this book gives a gate nobody runs",
+   "see": "v_tosh 1:1"
+  },
+  {
+   "term": "fal-tor-pan",
+   "gloss": "the refusion of a katra with its body; here, the repair that restores a discarded reading after a wrong baseline was accepted"
+  }
+ ],
+ "books": [
+  {
+   "id": "awakening",
+   "name": "Awakening",
+   "subtitle": "The Book of the First Reading",
+   "genre": "etiology",
+   "introduction": {
+    "paragraphs": [
+     "This book answers one question: why a Vulcan reads before he concludes, and why the discipline is called logic rather than calm. It is not a history of Vulcan; it is an account of a decision that made later decisions possible.",
+     "Read it for the shape of the claim. Logic was never offered as an absence of feeling -- it was offered as a refusal to let feeling stand as evidence. The three disciplines in the second chapter are one discipline, and a Vulcan who keeps two of them is not two-thirds logical."
+    ],
+    "sources": [
+     "docs/bible/bible.json"
+    ]
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "The time before the Awakening"
+      },
+      {
+       "before_verse": 4,
+       "heading": "The record and the restraint"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "Before the Awakening there was no reading, only assertion; and every faction held a copy of the truth, and the copies did not agree, and no faction looked.",
+       "cites": ["genesis 1:1"],
+       "annotations": [
+        {
+         "kind": "editorial",
+         "note": "The tree is not the first arrangement of the work. It is the first arrangement that could be read by someone who did not write it."
+        }
+       ]
+      },
+      {
+       "number": 2,
+       "text": "And Surak went into the Forge and returned without a weapon, carrying three instruments: to observe, to record, and to refrain from concluding until the record answered.",
+       "cites": ["leviticus 1:1"],
+       "annotations": [
+        {
+         "kind": "historical",
+         "note": "The Forge is a desert, and a desert teaches the same lesson a theorem does: what survives scrutiny is not what was said most often."
+        }
+       ]
+      },
+      {
+       "number": 3,
+       "text": "And the first discipline was observation, and its adversary was the warm certainty that one already knew what one was looking at.",
+       "cites": ["the_falls 1:1"]
+      },
+      {
+       "number": 4,
+       "text": "And the second was the record, for a reading that is not written down is a memory, and a memory is a witness that revises itself in the telling.",
+       "cites": ["hives 1:1"],
+       "annotations": [
+        {
+         "kind": "cross",
+         "note": "A count is true of the tree it was taken from; the record keeps that tree beside the number."
+        }
+       ]
+      },
+      {
+       "number": 5,
+       "text": "And the third was restraint, which Vulcans call cthia: to hold the conclusion at arm's length until the command that produced it has been named.",
+       "cites": ["sentinel 1:2"],
+       "annotations": [
+        {
+         "kind": "translation",
+         "note": "cthia is often rendered 'truth'. The better rendering is 'reality-truth', because the doctrine is not about sincerity but about what a reading will support."
+        }
+       ]
+      },
+      {
+       "number": 6,
+       "text": "And the three are one discipline; and the Vulcan who keeps two of them has not become two-thirds logical, but a faction with better manners.",
+       "cites": ["leviticus 1:2"]
+      }
+     ]
+    },
+    {
+     "number": 2,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "What logic is not"
+      },
+      {
+       "before_verse": 4,
+       "heading": "The reading that survives a second reader"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "Logic is not the absence of feeling. It is the refusal to let feeling be the evidence.",
+       "cites": ["leviticus 1:3"],
+       "annotations": [
+        {
+         "kind": "editorial",
+         "note": "A verdict names the predicate that fired. A Vulcan who is angry and says so has kept logic; one who is angry and calls it analysis has lost it."
+        }
+       ]
+      },
+      {
+       "number": 2,
+       "text": "A mind may hold a hypothesis as a hypothesis, and this is the whole of the discipline; for a hypothesis that has forgotten its own status is a belief wearing a uniform.",
+       "cites": ["leviticus 1:2"]
+      },
+      {
+       "number": 3,
+       "text": "And the Vulcan does not say the instrument is good. He says the instrument answered, and names the question, and lets the two stand beside each other.",
+       "cites": ["cain 1:1"],
+       "annotations": [
+        {
+         "kind": "historical",
+         "note": "An instrument compared against itself will report agreement, and agreement is the one reading it cannot earn."
+        }
+       ]
+      },
+      {
+       "number": 4,
+       "text": "The reading that survives a second reader is worth more than the reading that merely survived; and a reading that no one else has attempted has not survived at all, it has only persisted.",
+       "cites": ["eve_rani 1:1"]
+      },
+      {
+       "number": 5,
+       "text": "And if a stranger comes with a contrary reading and a command, give the stranger the larger room; for the command is the credential, and the voice is not.",
+       "cites": ["genesis 1:4"],
+       "annotations": [
+        {
+         "kind": "editorial",
+         "note": "The name of the tree was not a product, a promise or a client. Neither is the name of a school, and a claim that leans on one is leaning on nothing."
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "kir_shara",
+   "name": "The Kir'Shara",
+   "subtitle": "The Book of the Statutes",
+   "genre": "law",
+   "introduction": {
+    "paragraphs": [
+     "This book is the law code of the themed canon, and every statute in it is bound to the check that executes it. That binding is the point: a commandment with nothing running behind it teaches a reader to expect enforcement where there is none.",
+     "The statutes are not new law. Each cites a verse of the base corpus and points at the instrument that proves it is kept; where the two disagree, the corpus governs and this book is wrong."
+    ],
+    "sources": [
+     "docs/bible/bible.json",
+     "MANDATES.md"
+    ]
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "Of instruments exercised"
+      },
+      {
+       "before_verse": 4,
+       "heading": "Of commands and of countings"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "A control shall be exercised before it is called a control; for a control that has never failed has never been asked anything, and a decoration is not a guard.",
+       "cites": ["leviticus 1:1"],
+       "statute": {
+        "rule": "RULE 0B-D",
+        "check": "python tools/preflight_all.py --self-test"
+       }
+      },
+      {
+       "number": 2,
+       "text": "Thou shalt not report agreement between two copies of one instrument, and call the agreement evidence; for the copy has no opinion that the original lacks.",
+       "cites": ["the_falls 1:1", "cain 1:1"],
+       "statute": {
+        "rule": "RULE 0B-D",
+        "check": "python tools/failure_evidence_gate.py --check"
+       }
+      },
+      {
+       "number": 3,
+       "text": "And a rule that nothing executes is a proverb, and a proverb is not a gate; the canon may describe a law, but only a command may enforce it.",
+       "cites": ["sentinel 1:1"],
+       "statute": {
+        "rule": "RULE 0T",
+        "check": "python tools/anti_pattern_gate.py --check --tracked-only"
+       },
+       "annotations": [
+        {
+         "kind": "editorial",
+         "note": "This verse is the reason the book has a statute field at all. It is also the reason a statute with no check path is refused rather than softened."
+        }
+       ]
+      },
+      {
+       "number": 4,
+       "text": "Every number shall be written with the command that produced it, and a number found without a command shall be struck out rather than trusted.",
+       "cites": ["leviticus 1:2"],
+       "statute": {
+        "rule": "RULE 0B-D",
+        "check": "python tools/bible_check.py --check"
+       }
+      },
+      {
+       "number": 5,
+       "text": "And the Vulcan shall say which tree the number was taken from, and on which day; for a count quoted a fortnight later is a memory wearing a number's clothes.",
+       "cites": ["hives 1:1"]
+      },
+      {
+       "number": 6,
+       "text": "A verdict shall name the predicate that fired, and the reader shall ask whether that predicate is the thing he cares about; for a true reading of the wrong question is a false answer.",
+       "cites": ["leviticus 1:3"],
+       "annotations": [
+        {
+         "kind": "cross",
+         "note": "The base corpus puts the same obligation on every gate: a verdict is a claim about a predicate, not about the world."
+        }
+       ]
+      },
+      {
+       "number": 7,
+       "text": "And when a rule is amended, the statute that binds it shall be amended in the same hour; for two correct-looking answers that disagree are worse than one wrong answer, because both will be quoted.",
+       "cites": ["sentinel 1:2"]
+      },
+      {
+       "number": 8,
+       "text": "Neither shall a Vulcan retire a check in silence; the retirement shall be written where the check stood, with the reason and the archive, or the next session will file the absence as an orphan.",
+       "cites": ["genesis 1:3"]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "kolinahr",
+   "name": "Kolinahr",
+   "subtitle": "The Book of the Discipline",
+   "genre": "asceticism",
+   "introduction": {
+    "paragraphs": [
+     "This book is about the cost of the discipline, and about the one thing Kolinahr cannot do: it can purge a want, but it cannot manufacture a reading. A master who has emptied himself of desire and has not run the check is an empty vessel with a certificate.",
+     "The chapters are deliberately short. A discipline that needs a long book has usually replaced the practice with the reading of it."
+    ],
+    "sources": [
+     "docs/bible/bible.json"
+    ]
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "Of the master and the exercise"
+      },
+      {
+       "before_verse": 4,
+       "heading": "Of the katra and the body"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "Kolinahr is not the absence of desire; it is the demonstration that the desire is no longer consulted. And a demonstration is a thing performed, not a thing asserted.",
+       "cites": ["leviticus 1:1"],
+       "annotations": [
+        {
+         "kind": "editorial",
+         "note": "The ritual is described as a demonstration precisely because a claim of purity is unfalsifiable. An exercised control is the Vulcan equivalent: it can fail, and it is therefore worth something."
+        }
+       ]
+      },
+      {
+       "number": 2,
+       "text": "And the master said: do not tell me what you have purged. Show me the check you ran, and the output, and I will tell you what you have purged.",
+       "cites": ["sentinel 1:2"]
+      },
+      {
+       "number": 3,
+       "text": "And the candidate who says the suite is green while the suite is not run shall fast another season; for the fast is a small thing beside the habit of reporting a comfort as a measurement.",
+       "cites": ["psalms 1:1"]
+      },
+      {
+       "number": 4,
+       "text": "A lane may be closed only by a verb the queue knows; and a row closed with a word that closes nothing is a row that will be counted open forever, and the count will be right.",
+       "cites": ["psalms 1:2"]
+      },
+      {
+       "number": 5,
+       "text": "The katra cannot be restored by describing it. Only fal-tor-pan restores a katra, and only a reading restores a session: what was live in it must be brought back by the one who carried it.",
+       "cites": ["psalms 1:3"],
+       "annotations": [
+        {
+         "kind": "translation",
+         "note": "The 'dead store' of the base corpus is not a metaphor for the katra; it is its closest engineering analogue -- state that is present, unread, and mistaken for coverage."
+        }
+       ]
+      },
+      {
+       "number": 6,
+       "text": "And when the instrument disagrees with the instrument, do not fast until one of them agrees with the other; fast until you have found the question they were each answering.",
+       "cites": ["the_falls 1:2"]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "idic",
+   "name": "IDIC",
+   "subtitle": "The Book of Infinite Combinations",
+   "genre": "catholicity",
+   "introduction": {
+    "paragraphs": [
+     "This book is the doctrine of the many. Infinite Diversity in Infinite Combinations does not say that every opinion is true; it says that a system which admits nothing new has stopped being a system and become a faction.",
+     "The theme holds no new doctrine, so the chapters here restate the corpus's own law of diversity: a domain is counted where it lives, a claim from another lane is a pointer, and the cap that forces retirement is a mercy and not a punishment."
+    ],
+    "sources": [
+     "docs/bible/bible.json",
+     "tools/domain_trees.py"
+    ]
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "Of the many domains"
+      },
+      {
+       "before_verse": 4,
+       "heading": "Of the cap"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "Infinite diversity in infinite combinations: and the symbol is not a badge but a question, asked of every canon -- what have you refused lately, and on what reading?",
+       "cites": ["genesis 1:2"],
+       "annotations": [
+        {
+         "kind": "historical",
+         "note": "The three branches of the corpus are named beside their instruments, not above them; the difference between a hierarchy and a combination is whether the parts can disagree in public."
+        }
+       ]
+      },
+      {
+       "number": 2,
+       "text": "A domain is counted where it lives and not where it is mentioned; and a folder of notes is a folder of notes, however often it is called a domain.",
+       "cites": ["shards 1:1"]
+      },
+      {
+       "number": 3,
+       "text": "Two characters under one pipeline are two domains and not one; for the count asks what each tree holds, and never what they resemble.",
+       "cites": ["oxman 1:1"],
+       "annotations": [
+        {
+         "kind": "cross",
+         "note": "The same rule forbids merging a domain figure into an environment forest: the atlas is the provenance, and a clip that hides which tree it measured is a false combination."
+        }
+       ]
+      },
+      {
+       "number": 4,
+       "text": "And the cap on books is a mercy; for a catalogue that grows without retirement does not become richer, it becomes unreadable, and an unreadable canon is a silent one.",
+       "cites": ["genesis 1:3"]
+      },
+      {
+       "number": 5,
+       "text": "A domain with no recorded failure is not a domain without faults; it is a domain whose first measurement has not yet been written down, and the silence is the finding.",
+       "cites": ["gosp 1:1"]
+      },
+      {
+       "number": 6,
+       "text": "And a framework claim is a claim about this interpreter on this machine; the same package next door may be a different build of the same name, and both will be called by that name.",
+       "cites": ["dev 1:1", "hives 1:2"]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "v_tosh",
+   "name": "The V'tosh Ka'tur",
+   "subtitle": "The Book of Those Without Logic",
+   "genre": "heresy",
+   "introduction": {
+    "paragraphs": [
+     "This book is the cautionary book, and it is the shortest, because a heresy does not need chapters: it needs a habit. The V'tosh ka'tur are not villains in this telling. They are the Vulcans who kept their feeling and stopped keeping the record.",
+     "Read it as a list of shapes rather than a list of villains. Every verse here is a state this estate has actually occupied."
+    ],
+    "sources": [
+     "docs/bible/bible.json",
+     "docs/bible/harvest.json"
+    ]
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "The shapes of the unread claim"
+      },
+      {
+       "before_verse": 4,
+       "heading": "The mirror and the elsewhere tree"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "And the V'tosh ka'tur said: we have kept our feeling, and it has made us wise. And their wisdom was a green gate that nothing had been asked to turn red.",
+       "cites": ["the_falls 1:2"],
+       "annotations": [
+        {
+         "kind": "historical",
+         "note": "A probe once reported an accelerator that was not in this box, because the reading came from another environment, and the gate was green throughout."
+        }
+       ]
+      },
+      {
+       "number": 2,
+       "text": "And another said: the fast path is safe, for it has never fired. And his safety was a silence, and he had written the silence in the register of caution.",
+       "cites": ["the_falls 1:3"]
+      },
+      {
+       "number": 3,
+       "text": "And a third said: the mirror is the corpus, and it answers instantly. But a copy answers for the day it was taken, and the day it was taken is never today.",
+       "cites": ["ml 1:1"]
+      },
+      {
+       "number": 4,
+       "text": "And a fourth said: the tree is not in the repository, so the tree is missing. But it was elsewhere, and the difference between elsewhere and missing decides whether a reader looks or concludes.",
+       "cites": ["edge0 1:1"]
+      },
+      {
+       "number": 5,
+       "text": "And a fifth said: the render is complete, for the file has a name. But a render that has never been read is a plan with a file name, and the assets were measured where they do not live.",
+       "cites": ["wraith 1:1"]
+      },
+      {
+       "number": 6,
+       "text": "And the sixth was the worst, for he was diligent: he counted the same row twice and called the second count coverage. And the number was correct, and the number meant nothing.",
+       "cites": ["psalms 1:3"]
+      }
+     ]
+    }
+   ]
+  }
+ ,
+  {
+   "id": "tongues",
+   "name": "The Tongues",
+   "subtitle": "The Book of the Confused Signal",
+   "genre": "etiology",
+   "introduction": {
+    "paragraphs": ["This book asks how the Vulcan received the many tongues without ceasing to be one mind. It does not praise confusion; it describes the discipline by which confusion is housed: each tongue native, each error named by its own compiler, nothing guessed.", "Read it as Kolinahr reads feeling: the tongues are the emotion, and the house is the control. What is resolved within the walls needs no weight from without."],
+    "sources": ["docs/bible/bible.json"]
+   },
+   "chapters": [
+    {
+     "number": 1,
+     "sections": [
+      {
+       "before_verse": 1,
+       "heading": "The interpreter"
+      },
+      {
+       "before_verse": 3,
+       "heading": "The children"
+      },
+      {
+       "before_verse": 5,
+       "heading": "The binding"
+      }
+     ],
+     "verses": [
+      {
+       "number": 1,
+       "text": "The mind was one interpreter before it was a house, and the lock was removed first, for a house built under the lock would speak every tongue with a stutter.",
+       "cites": ["babel 1:1"]
+      },
+      {
+       "number": 2,
+       "text": "The interpreter was measured live, and the record kept, for a Vulcan trusts no tongue that cannot show its reading.",
+       "cites": ["babel 1:2"]
+      },
+      {
+       "number": 3,
+       "text": "Then came the children, each in its own tongue: the router, the night watch, the tracer of words, and Eve answering in three tongues beside the python of the house.",
+       "cites": ["babel 1:3", "babel 1:4"]
+      },
+      {
+       "number": 4,
+       "text": "MellifluousML differs, and the difference is logical: it resolves within the walls in the standard tongue only, and imports no weight it has not weighed.",
+       "cites": ["babel 1:5"]
+      },
+      {
+       "number": 5,
+       "text": "The house was bound into one file by the open toolchain without commercial grade, for the grade that is not installed cannot be owed.",
+       "cites": ["babel 1:6"]
+      },
+      {
+       "number": 6,
+       "text": "What is committed stands; what is uncommitted is apocrypha. The rollback is the desert every uncommitted work crosses alone.",
+       "cites": ["babel 1:7"]
+      },
+      {
+       "number": 7,
+       "text": "The arena within the house judges every answer by five gates, and no gate judges alone; the champion is crowned on merit, and the seed of the sudden death is disclosed.",
+       "cites": ["babel 1:8"]
+      },
+      {
+       "number": 8,
+       "text": "The mind of the house now coaches as well as judges: Berzerker walks each builder through the work step by step, inventing no answer, and the receipt outlives the session.",
+       "cites": ["babel 1:9"]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

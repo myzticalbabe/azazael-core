@@ -1,0 +1,72 @@
+{
+  "BOM_HUNTER": [],
+  "SYNTAX_GUARD": [],
+  "IMPORT_WATCHER": [
+    {
+      "file": "C:\\Users\\clint\\Desktop\\Azazael_UNIFIED\\ORCHESTRATION\\ECOSYSTEM_OPTIMIZER.py",
+      "type": "IMPORT_ERROR"
+    },
+    {
+      "file": "C:\\Users\\clint\\Desktop\\Azazael_UNIFIED\\CODEX\\VIDEOS\\create_reference_video.py",
+      "type": "IMPORT_ERROR"
+    },
+    {
+      "file": "C:\\Users\\clint\\Desktop\\Azazael_UNIFIED\\CODEX\\VIDEOS\\create_scrolling_video.py",
+      "type": "IMPORT_ERROR"
+    },
+    {
+      "file": "C:\\Users\\clint\\Desktop\\Azazael_UNIFIED\\CODEX\\VIDEOS\\make_video.py",
+      "type": "IMPORT_ERROR"
+    },
+    {
+      "file": "C:\\Users\\clint\\Desktop\\Azazael_UNIFIED\\CODEX\\VIDEOS\\make_video_docs.py",
+      "type": "IMPORT_ERROR"
+    },
+    {
+      "file": "C:\\Users\\clint\\Desktop\\Azazael_UNIFIED\\CODEX\\VIDEOS\\make_video_quad.py",
+      "type": "IMPORT_ERROR"
+    },
+    {
+      "file": "C:\\Users\\clint\\Desktop\\Azazael_UNIFIED\\CODEX\\VIDEOS\\make_video_v2.py",
+      "type": "IMPORT_ERROR"
+    },
+    {
+      "file": "C:\\Users\\clint\\Desktop\\Azazael_UNIFIED\\CODEX\\VIDEOS\\make_video_v3.py",
+      "type": "IMPORT_ERROR"
+    },
+    {
+      "file": "C:\\Users\\clint\\Desktop\\Azazael_UNIFIED\\CODEX\\VIDEOS\\make_video_vibrant.py",
+      "type": "IMPORT_ERROR"
+    },
+    {
+      "file": "C:\\Users\\clint\\Desktop\\Azazael_UNIFIED\\CODEX\\VIDEOS\\make_video_zipper.py",
+      "type": "IMPORT_ERROR"
+    }
+  ],
+  "STRING_ESCAPE_HUNTER": [
+    {
+      "file": "C:\\Users\\clint\\Desktop\\Azazael_UNIFIED\\ORCHESTRATION\\scripts\\complete_module_analysis.py",
+      "line": 3,
+      "type": "BAD_ESCAPE",
+      "code": "Comprehensive Analysis of ALL Python Modules on C:\\ Drive"
+    },
+    {
+      "file": "C:\\Users\\clint\\Desktop\\Azazael_UNIFIED\\ORCHESTRATION\\scripts\\complete_module_analysis.py",
+      "line": 99,
+      "type": "BAD_ESCAPE",
+      "code": "        print(\"\\nScanning C:\\\\ drive for Python modules...\")"
+    },
+    {
+      "file": "C:\\Users\\clint\\Desktop\\Azazael_UNIFIED\\ORCHESTRATION\\scripts\\comprehensive_analysis.py",
+      "line": 43,
+      "type": "BAD_ESCAPE",
+      "code": "- Find all Python modules on C:\\ drive"
+    },
+    {
+      "file": "C:\\Users\\clint\\Desktop\\Azazael_UNIFIED\\ORCHESTRATION\\scripts\\comprehensive_analysis.py",
+      "line": 131,
+      "type": "BAD_ESCAPE",
+      "code": "        print(\"Scanning C:\\\\ drive for Python modules...\")"
+    }
+  ]
+}
