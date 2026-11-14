@@ -1,80 +1,70 @@
-# azazael-core — portable extraction
+# azazael-core
 
-Installable, interpreter-agnostic repackaging of the Azazael tree: `src/`,
-`tests/`, `scripts/`, `tools/`, the files tests actually import (`docs/scripts`,
-`docs/bible`, `docs/platforms`, `docs/METTHEW`, `Project_LUCY`,
-`azazael_operator_task.py`, root `conftest.py`), and the persistent-memory
-(PAMS) subsystem as `src/persistent_ai_memory`.
+azazael-core — installable, interpreter-agnostic repackaging of the AZAZAEL tree.
 
-## Provenance (measured 2026-11-11)
+[![CI](https://github.com/myzticalbabe/azazael-core/actions/workflows/ci.yml/badge.svg)](https://github.com/myzticalbabe/azazael-core/actions/workflows/ci.yml)
+[![Pages Deploy](https://github.com/myzticalbabe/azazael-core/actions/workflows/pages-deploy.yml/badge.svg)](https://github.com/myzticalbabe/azazael-core/actions/workflows/pages-deploy.yml)
+[![License: SOUL FORGE](https://img.shields.io/badge/License-SOUL_FORGE-violet.svg)](LICENSE)
+[![GitHub release](https://img.shields.io/github/v/release/myzticalbabe/azazael-core)](https://github.com/myzticalbabe/azazael-core/releases)
+[![GitHub stars](https://img.shields.io/github/stars/myzticalbabe/azazael-core?style=social)](https://github.com/myzticalbabe/azazael-core/stargazers)
 
-| input | identity |
-|---|---|
-| source tree | `C:/Azazael/azazael`, branch `azazael-intel-ultra-9-evo`, HEAD `254548f9` (2026-11-11), 3029 commits |
-| memory subsystem | `C:/Azazael/pams-source`, HEAD `3361af4` (2026-10-29) **plus uncommitted worktree edits** (`ai_memory_core.py`, `mcp_server.py`) — shipped as found |
-| operator instrument | `C:/Azazael/azazael_operator_task.py` (lives next to the source tree, not inside it) |
-| reference wheel | `dist/azazael-1.0.0-py3-none-any.whl` (built 2026-11-09 in the source tree) |
-| dependency builds | `C:/Azazael/.build/wheelhouse-316t/` — locally built `cp316t` wheels (numpy, scipy, torch-nightly deps, …). **Not vendored**: Windows-only binaries have no place in a portable repo. Consume via `--find-links` on 3.16t hosts. |
+---
 
-Deliberately excluded: `node_modules/`, `*.exe`, `*.log`, `__pycache__`,
-`graphify-out/`, `docs/_shard01_frames/` (194M), `*.mp4`, `state/`,
-`memory_data/`, `logs/`, `*.egg-info`, and the mangled-path artifacts
-(`C:\…`, `D:`). Nothing under `tests/` references any of it (verified by
-collection parity, below).
+## Overview
 
-## The six portability fixes (all in this repo)
+PyPI-ready packaging of src, tests, scripts, tools.
 
-| # | was | now | proof |
-|---|---|---|---|
-| 1 | three `requires-python` values (`>=3.16` pyproject, `>=3.15` uv.lock, `>=3.14` Ubuntu install) | one: `pyproject.toml` says `>=3.13` | `pip install -e .` on stock 3.14.7 GIL |
-| 2 | one declared dep (`psutil`); suite needs dozens | `[project.optional-dependencies] test` (pytest, xdist, timeout, hypothesis, dill, pydantic) + `memory` (aiohttp, watchdog) | fresh venv + `pip install -e ".[test]"` succeeds on 3.14/3.15t/3.16t |
-| 3 | no `requirements-3.16t.txt` (only interpreter without a lockfile) | `requirements-3.16t.txt` — 84 pins frozen from the production venv | file present, generated 2026-11-11 |
-| 4 | `CORE/python_env.py` hardcoded `C:/Azazael/…` with no override | `AZAZAEL_PRIMARY_PYTHON` / `AZAZAEL_GIL_PYTHON` / `AZAZAEL_FALLBACK_PYTHON` win when set; literals kept as fallback | override + default + missing-override cases all printed live |
-| 5 | `AZAZAEL_ROOT` honored by `get_project_root()` but undocumented | documented here; resolves to the checkout, never a stale home path | `get_project_root()` → `C:\azazael-core` on a machine that never had one |
-| 6 | free-threading treated as a requirement | requirement is stock 3.13+; GIL state is a runtime property | full reference file green on a GIL build (below) |
+## Installation
 
-## Install
-
-```
-python -m venv .venv
-.venv\Scripts\python -m pip install -e ".[test]"        # everywhere
-.venv\Scripts\python -m pip install -e ".[test,memory]" # + PAMS subsystem
+```bash
+pip install -e .
 ```
 
-On free-threaded 3.15t/3.16t, add `--find-links <host wheelhouse>` for the
-`heavy` ML surface (torch nightly, scipy, sklearn), which has no portable pin
-by design. One more command turns collection fully green on stock Python:
-`pip install numpy` (pure PyPI wheel on 3.13/3.14).
+## Usage
 
-## Measured test evidence (2026-11-11, fresh venvs, new metadata only)
+pip install azazael-core
 
-| venv | install `.[test]` | imports | `test_hyper_edge.py` | full collect |
-|---|---|---|---|---|
-| stock 3.14.7 GIL | ok | `CORE`, `persistent_ai_memory` ok | **51 passed** | 7017 collected, 57 errors (all `numpy`); **7469 collected, 0 errors after `pip install numpy`** |
-| 3.15.0rc3 free-threaded | ok | ok, `gil False` | **51 passed** | 7017 collected, 57 errors (all `numpy`) |
-| 3.16.0a1 free-threaded | ok | ok, `gil False` | **51 passed** | 7017 collected, 57 errors (all `numpy`) |
+## Architecture
 
-- Collection parity with the source tree on the same clean venv: old
-  `6918/59` vs new `6918/59` before the `pydantic` extra, `7017/57` after —
-  strict superset, zero regressions attributable to the extraction.
-- Runtime spot-check (4 files, stock 3.14): **143 passed, 2 skipped,
-  3 failed** — the 3 failures reproduce identically on the source tree
-  (`test_grantforge_engines.py`, pre-existing, unrelated to packaging).
-- Full-suite single run exceeds a 590 s budget (consistent with the source
-  tree's own documented behavior; its runner is per-file). Not re-run blindly.
-- Wheel rebuild from this repo on stock 3.14:
-  `dist/azazael_core-1.0.0-py3-none-any.whl` (4.2 MB). Not committed.
+See [Domain Atlas](https://myzticalbabe.github.io) for interactive visualization.
 
-## License — unresolved
+## License
 
-No license file or grant was found in the source tree, and none is added
-here. **A public repo without a license grants no reuse rights by default.**
-Do not treat this as open source until the owner declares terms.
+This project is licensed under the **SOUL FORGE License v1.0** — see [LICENSE](LICENSE) for details.
 
-## What this repo is not
+> *"Code is crystallized intention. Tend the fire."*
 
-The author-machine infrastructure does not travel: `_board.py`, the
-pmb `:8765`/`:8766` proxy, the PAMS supervisor MCP children, the VBS logon
-starter, the 1042 archived package-skill descriptions, and the
-`C:/Users/clint` home-repo context. `tools/` gates still name the old paths;
-run them on the source tree, not here.
+## Related Repositories
+
+| Repo | Description |
+|------|-------------|
+| [azazael](https://github.com/myzticalbabe/azazael) | Monorepo: worm registry, cluster system, agent harness |
+| [EveUnleashed](https://github.com/myzticalbabe/EveUnleashed) | Gamora, Lucy, Jaeger, Berzerker AIO native on 3.16t |
+| [eliza](https://github.com/myzticalbabe/eliza) | Companion runtime: shards, adopted trees |
+| [codex-video-engine](https://github.com/myzticalbabe/codex-video-engine) | CODEX Studio desktop app + video engine |
+| [ecosystem-orchestrator](https://github.com/myzticalbabe/ecosystem-orchestrator) | ML platform install/orchestration |
+| [scribe](https://github.com/myzticalbabe/scribe) | Documentation generation |
+| [persephone-sync](https://github.com/myzticalbabe/persephone-sync) | Cross-platform env sync |
+| [hydra-mlcluster](https://github.com/myzticalbabe/hydra-mlcluster) | Adaptive ML cluster processing |
+| [flaming-sword](https://github.com/myzticalbabe/flaming-sword) | Defensive instrument: sentinel, compliance, formal verification |
+| [shardex](https://github.com/myzticalbabe/shardex) | Shard execution engine |
+| [krampus](https://github.com/myzticalbabe/krampus) | Composition: MellifluousML, Madi, Gamora, Eve, Lilith |
+| [azazael-core](https://github.com/myzticalbabe/azazael-core) | Installable, interpreter-agnostic repackaging |
+| [grantforge](https://github.com/myzticalbabe/grantforge) | AI-native grant tooling |
+| [madi](https://github.com/myzticalbabe/madi) | Browsing instrument: fetch, challenge taxonomy, scorer |
+| [jaeger](https://github.com/myzticalbabe/jaeger) | Durable spans, JSONL ledger, stdlib only |
+| [cradle](https://github.com/myzticalbabe/cradle) | Composition over FLAMING SWORD, REAPER, GRIMOIRE |
+| [esquire-admissibility](https://github.com/myzticalbabe/esquire-admissibility) | AI-evidence admissibility gates |
+| [nurse-ratchet](https://github.com/myzticalbabe/nurse-ratchet) | Behavioural package: person state modelled |
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+## Links
+
+- **Monorepo**: https://github.com/myzticalbabe/azazael
+- **Landing Hub**: https://myzticalbabe.github.io
+- **Domain Atlas**: https://myzticalbabe.github.io/index.html
+- **Issues**: https://github.com/myzticalbabe/azazael-core/issues
+- **Discussions**: https://github.com/myzticalbabe/azazael-core/discussions
