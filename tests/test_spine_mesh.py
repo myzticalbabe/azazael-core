@@ -576,15 +576,29 @@ def test_gossip_exchange_roundtrip(tmp_path, monkeypatch):
         r1 = sr.gossip_exchange()
         assert r1["exchanged"] is True and r1["peers"] == []
         # simulate a peer's drop (fresh mtime)
+        #
+        # The peer's env id MUST differ from ours: gossip_exchange skips the
+        # drop file whose name equals the local env (`f.name == mine.name`),
+        # which is correct -- a host must not merge its own drop. The peer was
+        # hardcoded to "bare", and env_id() returns exactly "bare" on a plain
+        # Linux host, so on the Ubuntu runner the fake peer was skipped and this
+        # asserted a merge that never had a chance to happen. Measured on CI
+        # 2026-11-16: "NEW FAILURE: tests/test_spine_mesh.py::
+        # test_gossip_exchange_roundtrip" (1 failed / 223 passed) while the same
+        # file passed on Windows (env id "windows").
+        local_env = sr._local_env_name()
+        peer_env = next(e for e in ("bare", "wsl2-ubuntu", "kali", "peer-env")
+                        if e != local_env)
         peer_payload = _gossip_payload(
-            spine_map={"bare:PeerW": {"category": "immune",
-                                       "updated_at": "2026-09-13T11:00:00"}},
+            gossip_from=peer_env,
+            spine_map={f"{peer_env}:PeerW": {"category": "immune",
+                                               "updated_at": "2026-09-13T11:00:00"}},
             q_weights={"immune:PeerW": 0.7},
         )
-        (tmp_path / "bare.json").write_text(json.dumps(peer_payload), encoding="utf-8")
+        (tmp_path / f"{peer_env}.json").write_text(json.dumps(peer_payload), encoding="utf-8")
         r2 = sr.gossip_exchange()
-        assert r2["exchanged"] is True and "bare" in r2["peers"]
-        assert "bare:PeerW" in sr.get_spine_map()
+        assert r2["exchanged"] is True and peer_env in r2["peers"]
+        assert f"{peer_env}:PeerW" in sr.get_spine_map()
         assert sr.get_q_weight("immune", "PeerW") == 0.7
     finally:
         sr.spine_reset()
