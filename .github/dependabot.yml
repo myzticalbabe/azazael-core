@@ -1,0 +1,45 @@
+# Dependency updates for a repository that had none.
+#
+# Why this file exists: without it, nothing in this tree ever learns that a
+# pinned dependency has a security advisory or a breaking release. Every
+# upgrade then arrives as a surprise inside an unrelated change, which is how
+# a dependency bump ends up blamed on the feature it shipped with.
+#
+# Deliberate choices:
+#   * weekly, not daily -- this is a solo-maintained repo; a daily stream of
+#     PRs against a branch that requires review is a stream of unmerged PRs.
+#   * minor+patch are grouped -- one PR per week instead of one per package,
+#     so reviewing updates stays a real review instead of rubber-stamping.
+#     Major bumps stay individual on purpose: those are the ones that need
+#     their own reading of the changelog.
+#   * comments are not touched -- Dependabot never edits them, so the reason
+#     for each block survives the next update.
+version: 2
+
+updates:
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+    groups:
+      python-minor-and-patch:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+
+  # The workflows are pinned to major tags (`actions/checkout@v4`). Pinning is
+  # what makes a run reproducible; it is also what makes it go stale silently.
+  # This block is the only thing that will notice.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "ci"
