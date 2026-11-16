@@ -5,6 +5,10 @@ Each engine must satisfy these interface contracts.
 
 from __future__ import annotations
 import pytest
+
+# grantforge lives in its own repository; these contract tests only apply where
+# that package is importable, so skip cleanly instead of failing collection.
+pytest.importorskip("grantforge.engine")
 from grantforge.engine import Engine, EngineInput, EngineOutput, EngineRegistry
 from grantforge.discovery import DiscoveryEngine, DiscoveryInput, DiscoveryOutput
 from grantforge.eligibility import EligibilityEngine, EligibilityInput, EligibilityOutput

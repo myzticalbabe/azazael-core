@@ -33,7 +33,7 @@ from CORE.compliance.heuristic_recorder import HeuristicErrorRecorder
 #   expected: list of HEUR pattern IDs that SHOULD detect this damage
 #   empty expected = known gap (pattern cannot detect this by design)
 
-ALGORITHMS: list[Dict] = [
+ALGORITHMS: list[dict] = [
     # ==================== Indentation Destruction (6) ====================
     {
         "id": 1,
@@ -204,9 +204,9 @@ ALGORITHMS: list[Dict] = [
 
 def run_algorithm_test(
     recorder: HeuristicErrorRecorder,
-    algo: Dict,
+    algo: dict,
     algo_num: int,
-) -> tuple[str, List[str], List[str], bool]:
+) -> tuple[str, list[str], list[str], bool]:
     """Run one algorithm's corrupted code through _scan_for_patterns().
 
     Returns:
