@@ -40,6 +40,13 @@ from pathlib import Path
 
 import pytest
 
+# The shim modules rebuild pywin32 on ctypes and call ctypes.WinDLL at IMPORT
+# time, so on any non-Windows host they raise AttributeError while this module
+# is still being imported -- before a `pytestmark` skip could ever be consulted.
+# The skip has to happen at module scope, ahead of putting the shim on sys.path.
+if sys.platform != "win32":
+    pytest.skip("the Win32 API is Windows-only", allow_module_level=True)
+
 _ROOT = Path(__file__).resolve().parents[1]
 SHIM = _ROOT / "src" / "win32_shim"
 
@@ -50,9 +57,6 @@ import pywintypes  # noqa: E402
 import win32api  # noqa: E402
 import win32con  # noqa: E402
 import win32job  # noqa: E402
-
-pytestmark = pytest.mark.skipif(sys.platform != "win32",
-                                reason="the Win32 API is Windows-only")
 
 
 def test_shim_provides_the_module_names_the_sdk_imports():
