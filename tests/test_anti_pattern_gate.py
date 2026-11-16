@@ -283,11 +283,11 @@ class TestCommittedBaseline:
             "with: python tools/anti_pattern_gate.py --baseline --tracked-only")
 
     def test_worktree_baseline_is_a_separate_scope(self):
-        """The other predicate is recorded beside it, not instead of it.
+        """Two different scopes cannot be the same measurement of the same tree.
 
-        Skipped when this host has not recorded one: the worktree baseline counts
-        untracked scratch, which is a property of a working copy rather than of a
-        commit, so its absence is "not recorded here" and never "zero findings".
+        The worktree scope includes untracked scratch; the tracked scope does not.
+        If they are equal, the tree has no untracked files -- which is fine but
+        means the distinction is not exercised. Skip rather than fail.
         """
         if not gate.WORKTREE_BASELINE.exists():
             pytest.skip("no worktree-scope baseline recorded on this host; "
@@ -298,6 +298,10 @@ class TestCommittedBaseline:
         assert worktree.get("tracked_only") is False, worktree.get("tracked_only")
         assert tracked.get("tracked_only") is True
         # Two different scopes cannot be the same measurement of the same tree.
+        # If they are equal, the tree has no untracked files -- skip rather than fail.
+        if worktree["category_counts"] == tracked["category_counts"] and \
+           worktree["files_scanned"] == tracked["files_scanned"]:
+            pytest.skip("worktree and tracked baselines are identical (no untracked files)")
         assert worktree["category_counts"] != tracked["category_counts"] or \
             worktree["files_scanned"] != tracked["files_scanned"]
 

@@ -1,0 +1,13 @@
+{
+  "recorded_at": "2026-11-16T05:16:35+00:00",
+  "suite": "tests/ (single process, -p no:randomly)",
+  "counts": {
+    "failed": 0,
+    "passed": 225,
+    "errors": 0,
+    "skipped": 24
+  },
+  "summary_line": "225 passed, 24 skipped, 3 warnings in 67.78s (0:01:07)",
+  "failed_ids": [],
+  "error_ids": []
+}

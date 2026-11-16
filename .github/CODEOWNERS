@@ -1,0 +1,14 @@
+# Review routing.
+#
+# One owner is correct here rather than a placeholder team: it makes "who is
+# expected to look at this" explicit instead of implied, and it is the file
+# GitHub reads when "Require review from Code Owners" is enabled later.
+#
+# Every path is listed through `*` on purpose. A narrower list would leave the
+# unlisted paths owned by nobody, which reads as "no review needed" -- the
+# opposite of what this file is for.
+#
+# Format: <pattern> <owner>...   (@user, @org/team, or an email)
+# Docs:   https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+*       @myzticalbabe

@@ -1,0 +1,7 @@
+hypothesis
+# Imported unconditionally by tests/test_optimizers_convergence.py,
+# tests/test_sb3_agent.py, tests/test_eve_cache.py and tests/test_eve_engine.py.
+# The [test] extra stays light on purpose (no heavy ML stack), so numpy is
+# declared here -- a runner installing only the extra died on collection with
+# ModuleNotFoundError: No module named 'numpy' before any assertion ran.
+numpy
