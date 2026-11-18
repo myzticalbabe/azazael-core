@@ -59,7 +59,7 @@
     </div>
     <div class="row">
       <button id="playA">play with sound</button>
-      <label>aurora gain <input id="gain" type="range" min="0" max="2" step="0.05" value="1"></label>
+      <label>aurora gain <input id="gain" type="range" aria-label="aurora gain" min="0" max="2" step="0.05" value="1"></label>
       <output id="outA">idle</output>
     </div>
     <p class="note">The <code>&lt;video&gt;</code> element does the H.264 and AAC work. Rust receives 1024 PCM samples,
@@ -91,15 +91,15 @@
     <div class="row">
       <button id="playC">play</button>
       <label>effect
-        <select id="mode">
+        <select id="mode" aria-label="effect">
           <option value="0">beat tint</option>
           <option value="1">edge glow</option>
           <option value="2">chroma + scanlines</option>
         </select>
       </label>
-      <label>strength <input id="strength" type="range" min="0" max="3" step="0.05" value="1"></label>
+      <label>strength <input id="strength" type="range" aria-label="strength" min="0" max="3" step="0.05" value="1"></label>
       <label>frame path
-        <select id="pathC">
+        <select id="pathC" aria-label="frame path">
           <option value="auto">auto (WebCodecs if present)</option>
           <option value="webcodecs">WebCodecs VideoFrame → I420</option>
           <option value="canvas">canvas getImageData → RGBA</option>
