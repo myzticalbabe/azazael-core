@@ -376,7 +376,7 @@
                 iframe.onerror = () => {
                     if (currentStyle === s.id) {
                         document.getElementById('loading').classList.remove('active');
-                        iframe.srcdoc = '<html><body style="background:#0a0a12;color:#606080;display:flex;align-items:center;justify-content:center;font-family:sans-serif;"><p>Failed to load template. Generate it first.</p></body></html>';
+                        iframe.srcdoc = '<html lang="en"><body style="background:#0a0a12;color:#606080;display:flex;align-items:center;justify-content:center;font-family:sans-serif;"><p>Failed to load template. Generate it first.</p></body></html>';
                     }
                 };
             });
