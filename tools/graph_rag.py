@@ -195,11 +195,11 @@ def search_graph(graph, query, top_k=10, bidirectional=True):
     results = []
 
 
-try:
-    from CORE.failure_ledger import note_failure
-except ImportError:                               # never break the host
-    def note_failure(where, exc=None):
-        pass  # ledger missing; the swallow is still named at the call site
+    try:
+        from CORE.failure_ledger import note_failure
+    except ImportError:  # never break the host
+        def note_failure(where, exc=None):
+            pass  # ledger missing; the swallow is still named at the call site
 
     while queue and len(results) < top_k * 3:
         sid, depth = queue.popleft()

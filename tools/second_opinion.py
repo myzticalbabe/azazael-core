@@ -198,11 +198,11 @@ def review(text: str, args) -> Dict[str, Any]:
         return row
 
 
-try:
-    from CORE.failure_ledger import note_failure
-except ImportError:                               # never break the host
-    def note_failure(where, exc=None):
-        pass  # ledger missing; the swallow is still named at the call site
+    try:
+        from CORE.failure_ledger import note_failure
+    except ImportError:  # never break the host
+        def note_failure(where, exc=None):
+            pass  # ledger missing; the swallow is still named at the call site
 
     if not isinstance(resp, dict) or resp.get("error"):
         row.update({"status": "error",
