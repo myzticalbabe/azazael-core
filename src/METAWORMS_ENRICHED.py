@@ -898,7 +898,7 @@ class METAWORMS:
 
         html = f"""
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>METAWORMS Report</title>
     <style>
