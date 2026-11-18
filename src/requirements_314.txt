@@ -35,7 +35,7 @@ rich==14.3.2
 safetensors==0.7.0
 scikit-learn==1.8.0
 scipy==1.17.0
-setuptools==82.0.0
+setuptools==84.2.1
 shellingham==1.5.4
 six==1.17.0
 sympy==1.14.0
