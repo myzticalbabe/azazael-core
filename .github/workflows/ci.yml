@@ -36,7 +36,7 @@ jobs:
       # ">=3.13"`. Pinning below the floor makes `pip install -e .` fail before
       # a single test runs, and pinning a free-threaded build the hosted runner
       # cannot install is worse -- it fails at setup. 3.13 is the floor.
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.13'
           cache: 'pip'
@@ -115,7 +115,7 @@ jobs:
     continue-on-error: true
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.13'
           cache: 'pip'
