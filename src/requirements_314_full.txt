@@ -56,7 +56,7 @@ h5py==3.15.1
 hf-xet==1.2.0
 httpcore==1.0.9
 httpx==0.28.1
-huey==2.6.0
+huey==3.5.4
 huggingface_hub==1.4.1
 idna==3.11
 importlib_metadata==8.7.1
@@ -160,13 +160,13 @@ scikit-learn==1.8.0
 scipy==1.17.0
 seaborn==0.13.2
 Send2Trash==2.1.0
-setuptools==82.0.0
+setuptools==84.2.1
 shellingham==1.5.4
 six==1.17.0
 skops==0.13.0
-smart_open==7.5.0
+smart_open==9.0.3
 smmap==5.0.2
-soupsieve==2.8.3
+soupsieve==4.1
 spacy==3.8.11
 spacy-legacy==3.0.12
 spacy-loggers==1.0.5
