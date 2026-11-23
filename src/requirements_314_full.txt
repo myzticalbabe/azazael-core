@@ -59,7 +59,7 @@ httpx==0.28.1
 huey==3.5.4
 huggingface_hub==1.4.1
 idna==3.20
-importlib_metadata==8.7.1
+importlib_metadata==10.2.0
 ipykernel==7.4.0
 ipython==9.18.1
 ipython_pygments_lexers==1.1.1
