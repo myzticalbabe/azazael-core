@@ -121,7 +121,7 @@ packaging==25.0
 pandas==2.3.3
 pandocfilters==1.5.1
 parso==0.8.7
-pillow==12.1.1
+pillow==13.0.0
 platformdirs==4.14.5
 preshed==3.0.15
 prettytable==3.18.0

@@ -141,7 +141,7 @@ pandocfilters==1.5.1
 parso==0.8.7
 pg8000==1.31.6
 pgvector==0.5.1
-pillow==12.1.1
+pillow==13.0.0
 platformdirs==4.14.5
 preshed==3.0.15
 prettytable==3.18.0
