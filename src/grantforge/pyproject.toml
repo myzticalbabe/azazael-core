@@ -4,12 +4,12 @@ version = "2.0.0"
 description = "AI-native grant tooling: discover → assess → draft → review → collaborate → export → submit"
 readme = "README.md"
 authors = [{name = "Azazael"}]
-license = {text = "CDDL-1.1"}
+license = {text = "LicenseRef-SoulForge-1.0"}
 requires-python = ">=3.13"  # Python 3.14t free-threaded
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: Apache Software License",
+    "License :: LicenseRef-SoulForge-1.0 (SOUL LICENCE ONLY)",
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
