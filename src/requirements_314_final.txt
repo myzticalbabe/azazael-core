@@ -122,7 +122,7 @@ opentelemetry-proto==1.45.2
 opentelemetry-sdk==1.45.2
 opentelemetry-semantic-conventions==0.66b2
 optree==0.20.0
-optuna==4.7.0
+optuna==5.1.0
 packaging==25.0
 pandas==2.3.3
 pandocfilters==1.5.1
