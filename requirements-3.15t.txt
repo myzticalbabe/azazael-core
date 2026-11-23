@@ -7,13 +7,13 @@
 
 # === Core (verified installed on 3.15/3.15t venvs) ===
 psutil==7.2.2
-numpy==2.5.4
+numpy==2.5.5
 scipy==1.18.1
 scikit-learn==1.9.1
 pandas==3.0.6
 PyYAML==6.0.3
 pytest==9.2.0
-hypothesis==6.170.15
+hypothesis==6.170.16
 requests==2.34.2
 boruta==0.4.3
 mygrad==2.5.0
@@ -25,11 +25,11 @@ greenlet==3.5.6
 kiwisolver==1.5.1
 MarkupSafe==3.0.4
 matplotlib==3.11.2
-ml_dtypes==0.6.0
+ml_dtypes==0.7.0
 optree==0.20.0
 pillow==12.3.0
-pydantic_core==2.50.4
-regex==2026.11.9
+pydantic_core==2.50.5
+regex==2026.11.19
 rpds-py==2026.9.1
 tiktoken==0.14.0
 onnx==1.23.2

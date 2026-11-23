@@ -29,7 +29,7 @@
 # See NEURAL_MESH_GAP_AUDIT_2026-09-14.md section 6.6.
 
 # --- scientific core (dual) ------------------------------------------------
-numpy==2.5.4
+numpy==2.5.5
 scipy==1.18.1
 pandas==3.0.5
 scikit-learn==1.9.1
@@ -57,7 +57,7 @@ ormsgpack==1.13.1
 orjson==3.13.0
 
 # --- validation / templating / parsing ------------------------------------
-pydantic-core==2.50.4
+pydantic-core==2.50.5
 MarkupSafe==3.0.4
 rpds-py==2026.6.3
 lxml==6.1.3
@@ -67,7 +67,7 @@ PyYAML==6.0.3
 cryptography==46.0.7
 psutil==7.2.2
 wrapt==2.5.2
-regex==2026.11.9
+regex==2026.11.19
 websockets==16.0
 
 # --- imaging / plotting (matplotlib's whole extension chain) --------------

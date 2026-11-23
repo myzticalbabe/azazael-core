@@ -31,8 +31,8 @@ chromadb==1.5.9
 ray==2.60.0
 
 # LLM stack (the stale 0.0.27 cannot be upgraded without orjson)
-langchain==1.5.0
-langchain-core==1.8.0
+langchain==1.5.2
+langchain-core==1.8.4
 langchain-community==0.4.2
 
 # NLP
@@ -43,10 +43,10 @@ tf2onnx==1.17.0
 
 # fine-tuning stack, grouped with the sidecar because it expects a GIL stack
 # (transformers + tensorflow/keras) and shares the prebuilt environment
-accelerate==1.15.0
+accelerate==1.16.0
 datasets==5.2.0
-peft==0.21.3
-trl==1.18.0
+peft==0.22.0
+trl==1.18.2
 sentencepiece==0.2.3
 einops==0.8.2
 safetensors==0.9.0rc1
