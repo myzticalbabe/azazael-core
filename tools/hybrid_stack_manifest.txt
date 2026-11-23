@@ -71,7 +71,7 @@ regex==2026.11.9
 websockets==16.0
 
 # --- imaging / plotting (matplotlib's whole extension chain) --------------
-pillow==12.3.0
+pillow==13.0.0
 kiwisolver==1.5.1
 contourpy==1.4.0
 fonttools==4.68.0

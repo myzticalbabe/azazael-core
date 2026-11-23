@@ -27,7 +27,7 @@ MarkupSafe==3.0.4
 matplotlib==3.11.2
 ml_dtypes==0.6.0
 optree==0.20.0
-pillow==12.3.0
+pillow==13.0.0
 pydantic_core==2.50.4
 regex==2026.11.9
 rpds-py==2026.9.1
